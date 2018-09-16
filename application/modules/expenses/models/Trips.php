@@ -26,7 +26,7 @@
  */
 class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 {
-	
+
 	protected $_name = 'expense_trips';
 	protected $_primary = 'id';
 
@@ -59,9 +59,9 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
             if(count($searchValues) >0)
             {
                 foreach($searchValues as $key => $val)
-                {    
-                    if($key == 'from_date' ||  $key == 'to_date')                    
-                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";					
+                {
+                    if($key == 'from_date' ||  $key == 'to_date')
+                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";
                     else
                         $searchQuery .= " ".$key." like '%".$val."%' AND ";
                     $searchArray[$key] = $val;
@@ -70,22 +70,22 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
             }
         }
 		$objName = 'trips';
-		
+
 		$tableFields = array(
-					'action'=>'Action',
-					'trip_name' => 'Trip',
-					'from_date' => 'From date',
-					'to_date' => 'To date',
-					'description' => 'Description',
+					'action'=>'Acción',
+					'trip_name' => 'Viaje',
+					'from_date' => 'Fecha Inicio',
+					'to_date' => 'Fecha Fin',
+					'description' => 'Descripción',
 		);
 
 		$tablecontent = $this->getTripsData($sort, $by, $pageNo, $perPage,$searchQuery);
-	
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -95,15 +95,15 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
-			'menuName' => 'Trips',
+			'menuName' => 'Viajes',
 				 'search_filters' => array(
-                            
+
                             'from_date'=>array('type'=>'datepicker'),
 							  'to_date'=>array('type'=>'datepicker'),
-                            
+
                         ),
 			);
-			
+
 			return $dataTmp;
 	}
 
@@ -138,8 +138,8 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		->limitPage($pageNo, $perPage);
 		//echo "<pre>";print_r($tripsData);exit;
 		return $tripsData; */
-		
-		
+
+
 		$tripsData = $this->select()
 		->setIntegrityCheck(false)
 		 ->from(array('t'=>'expense_trips'),array('t.*','from_date'=>'DATE_FORMAT(from_date,"'.DATEFORMAT_MYSQL.'")','to_date'=>'DATE_FORMAT(to_date,"'.DATEFORMAT_MYSQL.'")'))
@@ -156,8 +156,8 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 	 * @param string $where
 	 */
 	public function saveOrUpdateTripsData($data, $where){
-		
-		
+
+
 		if($where != ''){
 			$this->update($data, $where);
 			return 'update';
@@ -167,28 +167,28 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	/**
 	 * This method is used to fetch client details based on id.
-	 * 
+	 *
 	 * @param number $id
 	 */
 	public function getTripDetailsById($id)
 	{
 		$select = $this->select()
 						->setIntegrityCheck(false)
-						->from(array('c'=>$this->_name),array('c.*'))						
+						->from(array('c'=>$this->_name),array('c.*'))
 						->where('c.isactive = 1 AND c.id='.$id.' ');
-						
+
 		return $this->fetchAll($select)->toArray();
-		 
-		 
+
+
 	}
 	public function getSingleTripDetailsById($id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$where = "et.isactive = 1";
-		
+
 		$select =
 		$this->select()
 		->setIntegrityCheck(false)
@@ -197,8 +197,8 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		->joinInner(array('mc'=>'main_currency'), "mc.id = ex.expense_currency_id " ,array('currencycode'=>'mc.currencycode'))
 		->joinInner(array('ec'=>'expense_categories'), "ec.id = ex.category_id",array('expense_category_name'=>'ec.expense_category_name'))
 		->joinLeft(array('tp'=>'tm_projects'), "tp.id = ex.project_id",array('project_name'=>'tp.project_name'))
-		->where('ex.isactive = 1 AND et.id='.$id.' ') 
-		->order("ex.id DESC"); 
+		->where('ex.isactive = 1 AND et.id='.$id.' ')
+		->order("ex.id DESC");
 		return $this->fetchAll($select)->toArray();
 	}
 
@@ -206,7 +206,7 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$where = "et.isactive = 1";
-		
+
 		echo $select =
 		$this->select()
 		->setIntegrityCheck(false)
@@ -215,11 +215,11 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		return $this->fetchAll($select)->toArray();
 	}
 
-	
+
 	/**
-	 * This method returns all active clients to show in projects screen 
+	 * This method returns all active clients to show in projects screen
 	 *
-	 * @return array 
+	 * @return array
 	 */
 	public function getActiveClientsData()
 	{
@@ -230,10 +230,10 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		->order('c.client_name');
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	/**
 	 * This method is used to check weather the client is associated in any project or not.
-	 * 
+	 *
 	 * @param unknown_type $clientId
 	 */
 	public function checkExpensesAndTrips($tripId){
@@ -241,15 +241,15 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		$query = "select count(*) as count from expenses where trip_id = ".$tripId." AND isactive = 1";
 		$result = $db->query($query)->fetch();
 		return $result['count'];
-		
-	} 
-	
-	
+
+	}
+
+
 	/*Get trips list*/
-	
+
     public function getTripsList()
 	{
-		
+
 		$auth = Zend_Auth::getInstance();
         if($auth->hasIdentity())
         {
@@ -264,7 +264,7 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 	}
 
 
-	public function getTrips($limit,$offset,$trip_id=0) 
+	public function getTrips($limit,$offset,$trip_id=0)
 	{
 		$auth = Zend_Auth::getInstance();
         if($auth->hasIdentity())
@@ -276,7 +276,7 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		if($trip_id>0)
 			$trip_cond = ' and id!='.$trip_id;
 		$where = 'tr.isactive=1 and tr.status!="A"  and tr.status!="S" '.$trip_cond.' AND tr.createdby = '.$loginUserId;
-		
+
 		 $tripsData = $this->select()
 		->setIntegrityCheck(false)
 		->from(array('tr' => 'expense_trips'),array('tr.id','tr.trip_name','tr.status'))
@@ -296,22 +296,22 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		$count_query = "select count(id) cnt from expense_trips e where e.isactive = 1 and e.status!='A'  and e.status!='S' and e.createdby = ".$loginUserId;
 		$count_result = $db->query($count_query);
 		$count_row = $count_result->fetch();
-		return $count_row['cnt'];  
+		return $count_row['cnt'];
 	}
-	
+
 	public function getReportingManagerAction($loginUserId)
 	{
-	
+
 		$db = Zend_Db_Table::getDefaultAdapter();
-		
+
 		//$loginUserId=3;
 		$select =  $this->select()
 						->setIntegrityCheck(false)
-						->from(array('c'=>'main_employees_summary'),array('c.reporting_manager_name'))						
+						->from(array('c'=>'main_employees_summary'),array('c.reporting_manager_name'))
 						->where('c.user_id='.$loginUserId);
 		return $this->fetchAll($select)->toArray();
-		
-		
+
+
 	}
 	public function getTripExpenses($trip_id)
 	{
@@ -321,17 +321,16 @@ class Expenses_Model_Trips extends Zend_Db_Table_Abstract
 		->where('e.isactive = 1 and e.trip_id = '.$trip_id);
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getApplicationCurrency()
 	{
 	    $select =  $this->select()
-                            ->setIntegrityCheck(false)	
+                            ->setIntegrityCheck(false)
                             ->from(array('s'=>'main_sitepreference'),array('s.*'))
-                            ->joinLeft(array('c'=>'main_currency'), 'c.id=s.currencyid AND c.isactive=1',array('currencycode'=>'c.currencycode'))						   
+                            ->joinLeft(array('c'=>'main_currency'), 'c.id=s.currencyid AND c.isactive=1',array('currencycode'=>'c.currencycode'))
                             ->where('s.isactive = 1');
-    	  
-		return $this->fetchAll($select)->toArray();   
-	
+
+		return $this->fetchAll($select)->toArray();
+
 	}
 }
-

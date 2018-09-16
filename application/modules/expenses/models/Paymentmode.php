@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,10 +23,10 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 {
     protected $_name = 'expense_payment_methods';
     protected $_primary = 'id';
-	
-	
-	
-	
+
+
+
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
 	{
 		$searchQuery = '';
@@ -39,9 +39,9 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
             if(count($searchValues) >0)
             {
                 foreach($searchValues as $key => $val)
-                {    
-                    if($key == 'created_date')                    
-                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";					
+                {
+                    if($key == 'created_date')
+                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";
                     else
                         $searchQuery .= " ".$key." like '%".$val."%' AND ";
                     $searchArray[$key] = $val;
@@ -49,14 +49,14 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
                 $searchQuery = rtrim($searchQuery," AND");
             }
         }
-			
+
 		$objName = 'paymentmode';
-		
+
 		$tableFields = array(
-					'action'=>'Action',
-					'payment_method_name' => 'Payment Mode',
-					'userfullname' => 'Created By',
-					'created_date' => 'Created Date',
+					'action'=>'Acción',
+					'payment_method_name' => 'Modo de Pago',
+					'userfullname' => 'Creado por',
+					'created_date' => 'Fecha de Creación',
 		);
 	//echo "<pre/>"; print_r($tableFields);exit;
 		$tablecontent = $this->getPaymentModeData($sort, $by, $pageNo, $perPage,$searchQuery);
@@ -64,7 +64,7 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -74,11 +74,11 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
-			'menuName' => 'Payment Mode',
+			'menuName' => 'Modo de Pago',
 			 'search_filters' => array(
-                            
+
                             'created_date'=>array('type'=>'datepicker'),
-                            
+
                         ),
 			);
 			return $dataTmp;
@@ -110,14 +110,14 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 	    'u.userfullname'))
 		->where($where)
 		->order("$by $sort")
-		->limitPage($pageNo, $perPage); 
-		return $payment_modes; 
-		 
+		->limitPage($pageNo, $perPage);
+		return $payment_modes;
+
 
 	}
-	
+
 		/*This action is used in advances */
-	
+
     	public function getPaymentList()
 	{
 		$select = $this->select()
@@ -127,10 +127,10 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 		->order('p.payment_method_name');
 		return $this->fetchAll($select)->toArray();
 	}
-	
-	
-	
-	
+
+
+
+
 				/**
 	 * This method will save or update the payment details based on the  id.
 	 *
@@ -138,12 +138,12 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 	 * @param string $where
 	 */
 	public function saveOrUpdatePaymentmodeData($data, $where){
-		
+
 
 		if($where != ''){
 			$this->update($data, $where);
 			return 'update';
-			
+
 		} else {
 			$this->insert($data);
 			$id=$this->getAdapter()->lastInsertId($this->_name);
@@ -154,17 +154,17 @@ class Expenses_Model_Paymentmode extends Zend_Db_Table_Abstract
 	{
 		$row = $this->fetchRow("id = '".$id."' and isactive = 1");
 		if (!$row) {
-			
+
                     return array();
 		}
                 else
 		return $row->toArray();
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public function isPaymentExistForexpense($payment_id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();

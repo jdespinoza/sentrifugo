@@ -53,61 +53,61 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		$searchArray = array();
 		$data = array();
 
-		
+
 		  if($searchData != '' && $searchData!='undefined')
         {
             $searchValues = json_decode($searchData);
             if(count($searchValues) >0)
             {
                 foreach($searchValues as $key => $val)
-                {    
-                    if($key == 'expense_date')   
+                {
+                    if($key == 'expense_date')
 					{
 						$searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";
-					} 					
+					}
                     elseif($key == 'is_reimbursable'){
-						
+
 						if($val=='yes')
 							$val=1;
 						else
 							$val=0;
-						$searchQuery .= " ".$key." like '%".$val."%' AND "; 
+						$searchQuery .= " ".$key." like '%".$val."%' AND ";
 					}
 					else
 					{
-						$searchQuery .= " ".$key." like '%".$val."%' AND "; 
+						$searchQuery .= " ".$key." like '%".$val."%' AND ";
 						$searchArray[$key] = $val;
 					}
-					 
-					
+
+
                 }
                 $searchQuery = rtrim($searchQuery," AND");
             }
         }
-			
+
 		$objName = 'expenses';
-		
+
 		$tableFields = array(
 					'action'=>'Action',
-					'expense_name' => 'Expense Name',
-					'project_name'=>'Project',
-					'client_name'=>'Client',
-					'expense_category_name'=>'Category',
-					'expense_date' => 'Expense date',
-					'expense_amount' => 'Amount',
-					'is_reimbursable' => 'Reimbursable',
-					'status' => 'Status',
+					'expense_name' => 'Nombre del Gasto',
+					'project_name'=>'Projecto',
+					'client_name'=>'Cliente',
+					'expense_category_name'=>'Categoría',
+					'expense_date' => 'Fecha del Gasto',
+					'expense_amount' => 'Cantidad',
+					'is_reimbursable' => 'Reembolsable',
+					'status' => 'Estado',
 		);
 
 		$tablecontent = $this->getExpensesData($sort, $by, $pageNo, $perPage,$searchQuery);
-		
+
 		//echo "<pre>";print_r($tablecontent);exit;
 
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -117,14 +117,14 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
-			'menuName' => 'Expenses',
+			'menuName' => 'Gastos',
 			  'search_filters' => array(
-                          
+
                             'expense_date'=>array('type'=>'datepicker'),
-                            
+
                         ),
 			);
-			
+
 			return $dataTmp;
 	}
 
@@ -150,7 +150,7 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		if($searchQuery)
 		$where .= " AND ".$searchQuery;
 		$db = Zend_Db_Table::getDefaultAdapter();
-		
+
 
 		 $expensesData = $this->select()
 		->setIntegrityCheck(false)
@@ -160,14 +160,14 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		->joinInner(array('ec'=>'expense_categories'), "ec.id = e.category_id",array('expense_category_name'=>'ec.expense_category_name'))
 		->where($where)
 		->order("$by $sort")
-		->limitPage($pageNo, $perPage); 
-		return $expensesData; 
-		 
+		->limitPage($pageNo, $perPage);
+		return $expensesData;
 
-		/* 
+
+		/*
 		$expensesData = $this->select()
 		->setIntegrityCheck(false)
-		->from(array('c'=>'expenses'),array('c.expense_name','c.expense_date','c.expense_amount','c.status'))						
+		->from(array('c'=>'expenses'),array('c.expense_name','c.expense_date','c.expense_amount','c.status'))
 						->where('c.isactive = 1 AND c.employee_id='.$emp_id);
 						//SELECT CONCAT(UPPER(SUBSTR(col, 0, 1)), SUBSTR(col, 1))
 		->where($where)
@@ -184,7 +184,7 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 	 * @param string $where
 	 */
 	public function saveOrUpdateExpensesData($data, $where){
-		
+
 		if($where != ''){
 			$this->update($data, $where);
 			return 'update';
@@ -194,19 +194,19 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	/**
 	 * This method is used to fetch client details based on id.
-	 * 
+	 *
 	 * @param number $id
 	 */
 	public function getExpenseDetailsById($id)
 	{
 
-			
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$where = "ex.isactive = 1";
-		
+
 		 $select =
 	 $this->select()
 		->setIntegrityCheck(false)
@@ -219,15 +219,15 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		->joinLeft(array('er'=>'expense_receipts'), "er.expense_id = ex.id and er.isactive = 1",array('receipt_name'=>'er.receipt_name','receipt_filename'=>'er.receipt_filename','receipt_file_type'=>'er.receipt_file_type'))
 		->joinLeft(array('et'=>'expense_trips'), "et.id = ex.trip_id",array('trip_name'=>'et.trip_name','from_date'=>'et.from_date','to_date'=>'et.to_date'))
 		->joinLeft(array('advs'=>'expense_advacne_summary'), "advs.employee_id = ex.createdby",array('total'=>'advs.total'))
-		->where('ex.isactive = 1 AND ex.id='.$id.' ') 
+		->where('ex.isactive = 1 AND ex.id='.$id.' ')
 		->order("ex.id DESC");
-		//->limit($limit,$offset); 
+		//->limit($limit,$offset);
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	/**
 	 * This method is used to check weather the client is associated in any project or not.
-	 * 
+	 *
 	 * @param unknown_type $clientId
 	 */
 	public function checkExpensesAndTrips($expenseId){
@@ -235,8 +235,8 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		$query = "select count(*) as count from expenses where (status='submitted' or status='approved' or trip_id != '' or is_from_advance=1)  AND id = ".$expenseId." AND isactive = 1";
 		$result = $db->query($query)->fetch();
 		return $result['count'];
-		
-	} 
+
+	}
 	public function getExpenses($expense_id=0,$limit,$offset)
 	{
 		$auth = Zend_Auth::getInstance();
@@ -249,7 +249,7 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		{
 			$where .= ' and ex.id!='.$expense_id;
 		}
-			
+
 		$expenseData = $this->select()
 		->setIntegrityCheck(false)
 		->from(array('ex' => 'expenses'))
@@ -258,7 +258,7 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		->where($where)
 		->limit($limit,$offset)
 		;
-		
+
 		return $this->fetchAll($expenseData)->toArray();
 	}
 	public function getExpensesCount($expense_id=0)
@@ -276,11 +276,11 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		$count_query = "select count(id) cnt from expenses e where e.isactive = 1 and e.status!='approved'  and e.status!='submitted'".$where." and e.createdby = ".$loginUserId;
 		$count_result = $db->query($count_query);
 		$count_row = $count_result->fetch();
-		return $count_row['cnt'];  
+		return $count_row['cnt'];
 	}
-	
-	
-	/* public function saveOrUpdateHistory($data, $where){		
+
+
+	/* public function saveOrUpdateHistory($data, $where){
 
 		if($where != ''){
 			$this->update($data, $where);
@@ -292,12 +292,12 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		}
 	} */
 
-	
+
 	public function getCurrencyList()
 	{
 	  $geographygroupData = $this->select()
-                                    ->setIntegrityCheck(false)	
-                                    
+                                    ->setIntegrityCheck(false)
+
                                     ->from(array('c'=>'main_currency'),array('c.id','currency'=>'c.currencyname','currencycode'=>'c.currencycode'))
                                      ->where('c.isactive = 1')
 						   ->order('c.currencyname');
@@ -307,11 +307,11 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 	public function getProjectClient($projectId)
 	{
 		 $projectsData = $this->select()
-                                    ->setIntegrityCheck(false)	
+                                    ->setIntegrityCheck(false)
                                     ->from(array('p'=>'tm_projects'))
                                      ->where('p.is_active = 1 and p.id = '.$projectId);
       return $this->fetchAll($projectsData)->toArray();
 	}
-	
-	
+
+
 }

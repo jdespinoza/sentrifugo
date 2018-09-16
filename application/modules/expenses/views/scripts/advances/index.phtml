@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -18,27 +18,27 @@
  *
  *  Sentrifugo Support <support@sentrifugo.com>
  ********************************************************************************/
- 
+
 ?>
 
 
  <?php if (count($this->messages)) {?>
 	<div id="test">
-    <?php 
+    <?php
 			foreach ($this->messages as $message)
 			{
-				$flag = array();				
+				$flag = array();
 				$flag = array_keys($message);
 				echo "<div id='messageData' class='ml-alert-1-$flag[0]' style='margin-bottom: 0px;'><div style='display:block;'><span class='style-1-icon $flag[0]'></span>";
 				echo $message[$flag[0]];
 				echo "</div></div>";
-			} 
-	?>	
-   </div> 
-	
+			}
+	?>
+   </div>
+
 <?php } ?>
 
-<?php 
+<?php
 if($this->ermsg !='')
 {
 ?>
@@ -46,7 +46,7 @@ if($this->ermsg !='')
 				<div class="style-1-icon info"></div>
 				No data found.
 	</div>
-<?php 
+<?php
 }
 else
 {
@@ -58,12 +58,12 @@ if($this->emptyFlag != 0)
 <div id="error_message" style="display:none;"></div>
 
 <form name="<?php echo $this->form->getName(); ?>" id="<?php echo $this->form->getId(); ?>" action="<?php echo $this->form->getAction();?>" method="<?php echo $this->form->getMethod(); ?>">
-		<?php echo $this->form->id; 
-			echo $this->form->emptyFlag; 
+		<?php echo $this->form->id;
+			echo $this->form->emptyFlag;
 		?>
-		
+
         <div class="total-form-controller">
-		
+
 		    <div class="new-form-ui">
 			  <label class="required">Employee </label>
 			<div class="division"><?php echo $this->form->to_id; ?>
@@ -72,8 +72,8 @@ if($this->emptyFlag != 0)
 			<?php }?>
 			</div>
 			</div>
-			
-			
+
+
 			  <div class="new-form-ui">
 			  <label >Project</label>
 			<div class="division"><?php echo $this->form->project_id; ?></div>
@@ -83,15 +83,15 @@ if($this->emptyFlag != 0)
 					   <span class="errors" id="errors-<?php echo $this->form->project_id->getId(); ?>" style="display:none;"></span>
 				  <?php }?>
 			</div>
-	
+
 			<div class="new-form-ui clearb">
-			  <label class="required">Amount </label> 
+			  <label class="required">Amount </label>
 
 			<div class="division"><?php echo $this->form->currency_id; ?></div>
 			<?php if(isset($this->msgarray['currency_id'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->currency_id->getId(); ?>"><?php echo $this->msgarray['currency_id'];?></span>
 			<?php }?>
-			
+
 			 <div class="new-form-ui">
 			  <label ></label>
 			<div class="division"><?php echo $this->form->amount; ?></div>
@@ -100,8 +100,8 @@ if($this->emptyFlag != 0)
 			<?php }?>
 			</div>
 			</div>
-			
-		
+
+
 				<div class="new-form-ui clearb">
 			    <label class="required" >Payment Mode</label>
 				<div class="division"><?php echo $this->form->payment_mode_id; ?>
@@ -110,7 +110,7 @@ if($this->emptyFlag != 0)
 				<?php }?>
 				</div>
 			</div>
-			
+
 			 <div class="new-form-ui">
 			  <label >Payment Ref # </label>
 			<div class="division"><?php echo $this->form->payment_ref_number; ?></div>
@@ -118,12 +118,12 @@ if($this->emptyFlag != 0)
 			   <span class="errors" id="errors-<?php echo $this->form->payment_ref_number->getId(); ?>"><?php echo $this->msgarray['payment_ref_number'];?></span>
 			<?php }?>
 			</div>
-			
+
 			<div class="new-form-ui clearb textareaheight">
 			  <label>Description</label>
 			<div class="division"><?php echo $this->form->description; ?></div>
 			</div>
-			
+
 		<div class="new-form-ui-submit">
 		<?php echo $this->form->submit; ?>
 		<button onclick="window.location.href='<?php echo BASE_URL; ?>expenses/advances';" type="button" id="Cancel" name="Cancel">Cancel</button>
@@ -131,9 +131,9 @@ if($this->emptyFlag != 0)
 		</div>
 </form>
 
-	
 
-<?php } ?>	
+
+<?php } ?>
 
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -145,7 +145,3 @@ $(document).ready(function(){
 <?php } ?>
 });
 </script>
-		
-		
-
- 

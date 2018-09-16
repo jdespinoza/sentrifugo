@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -36,7 +36,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->where('cc.is_active = 1 and cc.user_action != 4')
 		->order("cc.id DESC")
 		->limitPage($pageNo, $perPage);
-			
+
 		return $this->fetchAll($select)->toArray();
 	}
 
@@ -51,7 +51,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->where('cc.is_active = 1 and cc.user_action != 4')
 		->order("$by $order")
 		->limitPage($page, $perPage);
-			
+
 		return $this->fetchAll($select)->toArray();
 	}
 
@@ -72,24 +72,24 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		$menuArray = array();
 	    if(count($menuIdArray) > 0){
 		    $resultstring = implode(',', $menuIdArray);
-			
+
 			if($resultstring)
 			{
 				try
 				{
 					$qry = "select ob.id, ob.menuName,ob.url from main_menu ob
-	                                        where ob.id IN (".$resultstring.") and ob.isactive = 1";		
+	                                        where ob.id IN (".$resultstring.") and ob.isactive = 1";
 					$db = Zend_Db_Table::getDefaultAdapter();
 					$sqlRes = $db->query($qry);
 					$menuRes = $sqlRes->fetchAll();
-	
+
 					if(!empty($menuRes))
 					{
 						foreach($menuRes as $menu)
 						{
 							$menuArray[$menu['id']]['name']= $menu['menuName'];
 							$menuArray[$menu['id']]['url']= $menu['url'];
-	
+
 						}
 					}
 				}
@@ -104,11 +104,11 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 
 	public function getuserNamesByIds($userArray)
 	{
-	
-		$userResultArray = array();			
+
+		$userResultArray = array();
 		if(count($userArray) > 0){
 		    $resultstring = implode(',', $userArray);
-			
+
 			if($resultstring)
 			{
 				try
@@ -117,7 +117,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 					$db = Zend_Db_Table::getDefaultAdapter();
 					$sqlRes = $db->query($qry);
 					$userRes = $sqlRes->fetchAll();
-	
+
 					if(!empty($userRes))
 					{
 						foreach($userRes as $user)
@@ -145,7 +145,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->from(array('cc'=>'main_userloginlog'),array('cc.*'))
 		->order("cc.logindatetime DESC")
 		->limitPage($page, $perPage);
-			
+
 		return $this->fetchAll($select)->toArray();
 	}
 
@@ -158,13 +158,13 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->where($where)
 		->order("cc.logindatetime DESC")
 		->limitPage($page, $perPage);
-			
+
 		return $this->fetchAll($select)->toArray();
 	}
 
 	public function getUserLogManagerSort($page=0,$perPage = 1,$sortfield,$order)
 	{
-		
+
 		$by = 'cc.'.$sortfield;
 
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -174,7 +174,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->order("$by $order")
 		->limitPage($page, $perPage);
 
-		
+
 
 		return $this->fetchAll($select)->toArray();
 	}
@@ -185,11 +185,11 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$sqlRes = $db->query($qry);
 		$count = $sqlRes->fetchAll();
-			
+
 		return $count[0]['count'];
 	}
 
-	
+
 	public function getgroupIdByString($searchString){
 		$groupArray = array();
 		$groupArray[0] = 0;
@@ -198,7 +198,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 			try
 			{
 				$qry = "select ob.id from main_groups ob
-                                        where ob.group_name LIKE '%".$searchString."%' and ob.isactive = 1";		
+                                        where ob.group_name LIKE '%".$searchString."%' and ob.isactive = 1";
 
 				$db = Zend_Db_Table::getDefaultAdapter();
 				$sqlRes = $db->query($qry);
@@ -228,7 +228,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 			try
 			{
 				$qry = "select ob.id from main_roles ob
-                                        where ob.rolename LIKE '%".$searchString."%' and ob.isactive = 1";		
+                                        where ob.rolename LIKE '%".$searchString."%' and ob.isactive = 1";
 
 				$db = Zend_Db_Table::getDefaultAdapter();
 				$sqlRes = $db->query($qry);
@@ -289,16 +289,15 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		$objName = 'logmanager';
 
 		$tableFields = array('action'=>'Action',
-		                     'menuName' => 'Menu Name',
+		                     'menuName' => 'Nombre del Menú',
 		                     'id' => 'ID',
-                             'userfullname' => 'Last Modified By',
+                             'userfullname' => 'Última Modificación por',
 		                     'profileimg'=>'Profile',
-							 'employeeId' => 'Employee ID',                            
+							 'employeeId' => 'Empleado ID',
 		                     'menuUrl' => 'Url',
-                             'user_action'=>'Action',
-		                     'key_flag' =>'Last Modified Record',		
-                             'last_modifieddate' => 'Last Modified Date',
-
+                             'user_action'=>'Acción',
+		                     'key_flag' =>'Último Registro Modificado',
+                             'last_modifieddate' => 'Última Fecha de Modificación',
 		);
 
 		$tablecontent = $this->getActivitylogData($sort, $by, $pageNo, $perPage,$searchQuery);
@@ -308,7 +307,7 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 
 		foreach($menu_data as $gkey => $gdata)
 		{
-		 
+
 			$menu_arr[$gdata['menuname']] = $gdata['menuname'];
 		}
 		$user_data = $user_model->getUserListForActivitylog();
@@ -322,10 +321,10 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
                 'sort' => $sort,
                 'by' => $by,
                 'pageNo' => $pageNo,
-                'perPage' => $perPage,				
+                'perPage' => $perPage,
                 'tablecontent' => $tablecontent,
                 'objectname' => $objName,
-		        'menuName'=>'Activity log',
+		        'menuName'=>'Registro de actividades',
                 'extra' => array(),
                 'tableheader' => $tableFields,
                 'jsGridFnName' => 'getAjaxgridData',
@@ -345,10 +344,10 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		            'user_action' =>array(
 			                        'type'=>'select',
 			                        'filter_data' => array(''=>'All')+$useractionArray,
-		            ),	
+		            ),
 		),
 		);
-		
+
 		return $dataTmp;
 	}
 
@@ -370,14 +369,14 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 
 		if($searchQuery)
 		$where .= " AND ".$searchQuery;
-		
+
 		if($by == 'user_action' && $sort == 'ASC')
 		{
 			$str = "case user_action
 				when 1 then 1
 				when 5 then 2
 				when 3 then 3
-				when 2 then 4 
+				when 2 then 4
 				else 99 end";
 		}
 		else if($by == 'user_action' && $sort == 'DESC') {
@@ -385,10 +384,10 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 				when 2 then 1
 				when 3 then 2
 				when 5 then 3
-				when 1 then 4 
+				when 1 then 4
 				else 99 end";
-		}	
-		
+		}
+
 		if($by == 'user_action')
 		{
 			$activitylogData = $this->select()
@@ -396,9 +395,9 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 			->from(array('r'=>$this->_name),array('r.*',))
 			->joinInner(array('m'=>'main_menu'), "m.id = r.menuId and m.isactive = 1",array('menuName'=>'m.menuName','menuUrl'=>'m.url'))
 			->joinInner(array('u'=>'main_users'), "u.id = r.last_modifiedby and u.isactive = 1",array('userfullname'=>'u.userfullname','employeeId'=>'u.employeeId','profileimg'=>'u.profileimg'))
-			->where($where)			
+			->where($where)
 			->order(new Zend_Db_Expr($str))
-			->limitPage($pageNo, $perPage);		
+			->limitPage($pageNo, $perPage);
 		}else{
 			$activitylogData = $this->select()
 		->setIntegrityCheck(false)
@@ -409,9 +408,9 @@ class Default_Model_Activitylog extends Zend_Db_Table_Abstract
 		->order("$by $sort")
 		->limitPage($pageNo, $perPage);
 		}
-		
-		
-		
+
+
+
 		return $activitylogData;
 	}
 

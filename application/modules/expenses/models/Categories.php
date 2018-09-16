@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,10 +23,10 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 {
     protected $_name = 'expense_categories';
     protected $_primary = 'id';
-	
-	
-	
-	
+
+
+
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
 	{
 		$searchQuery = '';
@@ -39,9 +39,9 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
             if(count($searchValues) >0)
             {
                 foreach($searchValues as $key => $val)
-                {    
-                    if($key == 'created_date')                    
-                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";					
+                {
+                    if($key == 'created_date')
+                        $searchQuery .= " date(".$key.") = '".  sapp_Global::change_date($val,'database')."' AND ";
                     else
                         $searchQuery .= " ".$key." like '%".$val."%' AND ";
                     $searchArray[$key] = $val;
@@ -49,22 +49,22 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
                 $searchQuery = rtrim($searchQuery," AND");
             }
         }
-			
+
 		$objName = 'expensecategories';
-		
+
 		$tableFields = array(
-					'action'=>'Action',
-					'expense_category_name' => 'Expense Category Name',
-					'userfullname' => 'Created By',
-					'created_date' => 'Created Date',
+					'action'=>'Acción',
+					'expense_category_name' => 'Categoría del Gasto',
+					'userfullname' => 'Creado por',
+					'created_date' => 'Fecha de Creación',
 		);
-	
+
 		$tablecontent = $this->getCategoriesData($sort, $by, $pageNo, $perPage,$searchQuery);
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -74,13 +74,13 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
-			'menuName' => 'Category',
+			'menuName' => 'Categoría',
 			  'search_filters' => array(
-                   
+
                             'created_date'=>array('type'=>'datepicker'),
-                            
+
                         ),
-			
+
 			);
 			return $dataTmp;
 	}
@@ -93,21 +93,21 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 	 * @param number $pageNo
 	 * @param number $perPage
 	 * @param string $searchQuery
-	 * 
+	 *
 	 * @return array $category_modes
 	 */
 	public function getCategoriesData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
-		
-	
+
+
 		$where = "c.isactive = 1";
 
 		if($searchQuery)
 		$where .= " AND ".$searchQuery;
 		$db = Zend_Db_Table::getDefaultAdapter();
-		
-		
-		
+
+
+
 		 $Category_modes = $this->select()
 		->setIntegrityCheck(false)
 		->from(array('c' => 'expense_categories'),array('c.*','created_date'=>'DATE_FORMAT(created_date,"'.DATEFORMAT_MYSQL.'")','expense_category_name'=>'c.expense_category_name'))
@@ -120,9 +120,9 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 		return $Category_modes;
 
 	}
-	
-	
-	
+
+
+
 				/**
 	 * This method will save or update the category details based on the  id.
 	 *
@@ -130,12 +130,12 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 	 * @param string $where
 	 */
 	public function saveOrUpdateCategoryData($data, $where){
-		
+
 
 		if($where != ''){
 			$this->update($data, $where);
 			return 'update';
-			
+
 		} else {
 			$this->insert($data);
 			$id=$this->getAdapter()->lastInsertId($this->_name);
@@ -146,17 +146,17 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 	{
 		$row = $this->fetchRow("id = '".$id."' and isactive = 1");
 		if (!$row) {
-			
+
                     return array();
 		}
                 else
 		return $row->toArray();
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public function isCategoryExistForexpense($category_id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -164,7 +164,7 @@ class Expenses_Model_Categories extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetch();
 		return $result['count'];
 	}
-	
+
 	public function getExpensesCategoriesList()
 	{
 		$select = $this->select()

@@ -19,7 +19,7 @@ CREATE TABLE `main_accountclasstype` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_accountclasstype` */
 
@@ -57,7 +57,7 @@ CREATE TABLE `main_assignmententryreasoncode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_assignmententryreasoncode` */
 
@@ -75,7 +75,7 @@ CREATE TABLE `main_attendancestatuscode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_attendancestatuscode` */
 
@@ -93,7 +93,7 @@ CREATE TABLE `main_bankaccounttype` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_bankaccounttype` */
 
@@ -354,7 +354,7 @@ CREATE TABLE `main_cities` (
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `state_city` (`state`,`city_org_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `main_cities` */
 
@@ -372,7 +372,7 @@ CREATE TABLE `main_competencylevel` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_competencylevel` */
 
@@ -392,7 +392,7 @@ CREATE TABLE `main_countries` (
   `isactive` tinyint(1) unsigned DEFAULT '1',
   `country_id_org` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_countries` */
 
@@ -426,7 +426,7 @@ CREATE TABLE `main_currency` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_currency` */
 
@@ -471,7 +471,7 @@ CREATE TABLE `main_dateformat` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_dateformat` */
 
@@ -520,7 +520,7 @@ CREATE TABLE `main_educationlevelcode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_educationlevelcode` */
 
@@ -538,7 +538,7 @@ CREATE TABLE `main_eeoccategory` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_eeoccategory` */
 
@@ -906,7 +906,7 @@ CREATE TABLE `main_employeeleavetypes` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_employeeleavetypes` */
 
@@ -1025,7 +1025,7 @@ CREATE TABLE `main_employmentstatus` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_employmentstatus` */
 
@@ -1242,7 +1242,7 @@ CREATE TABLE `main_ethniccode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_ethniccode` */
 
@@ -1261,7 +1261,7 @@ CREATE TABLE `main_gender` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_gender` */
 
@@ -1283,7 +1283,7 @@ CREATE TABLE `main_geographygroup` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_geographygroup` */
 
@@ -1363,7 +1363,7 @@ CREATE TABLE `main_holidaygroups` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_holidaygroups` */
 
@@ -1520,7 +1520,7 @@ CREATE TABLE `main_jobtitles` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_jobtitles` */
 
@@ -1538,7 +1538,7 @@ CREATE TABLE `main_language` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_language` */
 
@@ -1678,7 +1678,7 @@ CREATE TABLE `main_licensetype` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_licensetype` */
 
@@ -1753,7 +1753,7 @@ CREATE TABLE `main_maritalstatus` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_maritalstatus` */
 
@@ -1781,7 +1781,7 @@ CREATE TABLE `main_menu` (
   `functionName` varchar(255) DEFAULT NULL,
   `defaultOrderBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_menu` */
 
@@ -1801,7 +1801,7 @@ CREATE TABLE `main_militaryservice` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_militaryservice` */
 
@@ -1820,7 +1820,7 @@ CREATE TABLE `main_monthslist` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_monthslist` */
 
@@ -1840,7 +1840,7 @@ CREATE TABLE `main_nationality` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_nationality` */
 
@@ -1858,7 +1858,7 @@ CREATE TABLE `main_nationalitycontextcode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_nationalitycontextcode` */
 
@@ -1876,7 +1876,7 @@ CREATE TABLE `main_numberformats` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_numberformats` */
 
@@ -1929,7 +1929,7 @@ CREATE TABLE `main_patches_version` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1' COMMENT '1=latest versions,0=old versions',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_patches_version` */
 
@@ -1950,7 +1950,7 @@ CREATE TABLE `main_payfrequency` (
  `modifieddate` datetime NOT NULL,               
  `isactive` tinyint(1) DEFAULT '1',              
  PRIMARY KEY (`id`)                              
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_payfrequency` */
 
@@ -1987,7 +1987,7 @@ CREATE TABLE `main_prefix` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_prefix` */
 
@@ -2012,7 +2012,7 @@ CREATE TABLE `main_privileges` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=429 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=429 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_privileges` */
 
@@ -2033,7 +2033,7 @@ CREATE TABLE `main_racecode` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_racecode` */
 
@@ -2051,7 +2051,7 @@ CREATE TABLE `main_remunerationbasis` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_remunerationbasis` */
 
@@ -2073,7 +2073,7 @@ CREATE TABLE `main_request_history` (
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   `comments` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
 
 /*Data for the table `main_request_history` */
 
@@ -2202,7 +2202,7 @@ CREATE TABLE `main_roles` (
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   PRIMARY KEY (`id`),
   KEY `NewIndex1` (`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_roles` */
 
@@ -2310,7 +2310,7 @@ CREATE TABLE `main_sd_requests` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_sd_requests` */
 
@@ -2361,7 +2361,7 @@ CREATE TABLE `main_sd_requests_summary` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_sd_requests_summary` */
 
@@ -2423,7 +2423,7 @@ CREATE TABLE `main_states` (
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `NewIndex1` (`countryid`,`state_id_org`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_states` */
 
@@ -2444,7 +2444,7 @@ CREATE TABLE `main_timeformat` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_timeformat` */
 
@@ -2467,7 +2467,7 @@ CREATE TABLE `main_timezone` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_timezone` */
 
@@ -2532,7 +2532,7 @@ CREATE TABLE `main_users` (
   KEY `IDX_4632B9B67F771501` (`emprole`),
   KEY `IDX_4632B9B6647385F4` (`rccandidatename`),
   KEY `IDX_4632B9B662E3F462` (`candidatereferredby`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_users` */
 
@@ -2552,7 +2552,7 @@ CREATE TABLE `main_veteranstatus` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_veteranstatus` */
 
@@ -2572,7 +2572,7 @@ CREATE TABLE `main_weekdays` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_weekdays` */
 
@@ -2593,7 +2593,7 @@ CREATE TABLE `main_workeligibilitydoctypes` (
   `modifieddate` datetime NOT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_workeligibilitydoctypes` */
 
@@ -2737,7 +2737,7 @@ DROP TABLE IF EXISTS `tbl_timezones`;
 
 CREATE TABLE `tbl_timezones` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `timezone` varchar(200) CHARACTER SET latin1 NOT NULL,
+  `timezone` varchar(200) CHARACTER SET utf8 NOT NULL,
   `timezone_abbr` varchar(10) DEFAULT NULL,
   `offset_value` varchar(100) NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
@@ -2784,7 +2784,7 @@ insert  into `tbl_weeks`(`id`,`week_id`,`week_name`,`createdby`,`modifiedby`,`cr
 `modifieddate` datetime DEFAULT NULL,
 `isactive` tinyint(1) DEFAULT NULL,
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 /*Data for the table `main_wizard` */

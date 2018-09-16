@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,7 @@
  ********************************************************************************/
 ?>
 
-<?php 	
+<?php
 if($this->ermsg !='')
 {
 ?>
@@ -28,7 +28,7 @@ if($this->ermsg !='')
 				<div class="style-1-icon info"></div>
 				No data found.
 	</div>
-<?php 
+<?php
 }
 else
 {
@@ -42,15 +42,15 @@ echo $this->form->id; ?>
 			<div class="new-form-ui clearb">
 			  <label>Unit Price</label>
 			<div class="division"><?php echo $this->form->unit_price; ?></div>
-			</div>		
+			</div>
 		<div class="new-form-ui-submit">
 			<input type="submit" onclick="changeeditscreen('<?php echo $this->controllername;?>',<?php echo $this->id;?>);" value="Edit" />
 			<button onclick="window.location.href='<?php echo BASE_URL; ?>timemanagement/expensecategory';" type="button" >Cancel</button>
 		</div>
-</div>       
-<?php	}	?> 
+</div>
+<?php	}	?>
 <script type="text/javascript" language="javascript">
 $(document).ready(function(){
 	$('.breadcrumbs').append("<span class='arrows'>&rsaquo;</span><a href='<?php echo BASE_URL; ?>timemanagement/expenses'>Expenses</a><span class='arrows'>&rsaquo;</span><span>View</span>");
 });
-</script>  
+</script>

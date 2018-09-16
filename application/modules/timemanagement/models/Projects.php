@@ -33,21 +33,21 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 	protected $_primary = 'id';
 
 /* This is used in Advances for getting projects based on employee*/
-	
+
 		public function getProjectByEmpId($to_id){
 		$sql="SELECT p.project_name FROM tm_project_employees pe
 		INNER JOIN tm_projects p ON p.id = pe.project_id
-					WHERE emp_id=$to_id"; 			
-	
+					WHERE emp_id=$to_id";
+
 		$project_data  = $this->_db->fetchAll($sql,array("param1"=>$to_id,"param2"=>1));
 		return $project_data;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/**
 	 * T
 	 *
@@ -59,7 +59,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 	 *
 	 * @return array $projectsData
 	 */
-	 
+
 	public function getProjectsData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = " p.is_active = 1 ";
@@ -134,7 +134,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 
 		$objName = 'projects';
 
-		$tableFields = array('action'=>'Action','project_name' => 'Project','project_status'=>'Status','parent_project'=>'Base Project','client_name' => 'Client','currencyname'=>'Currency','project_type'=>'Project Type');
+		$tableFields = array('action'=>'Acción','project_name' => 'Projecto','project_status'=>'Estado','parent_project'=>'Proyecto Base','client_name' => 'Cliente','currencyname'=>'Moneda','project_type'=>'Tipo de Proyecto');
 
 		$tablecontent = $this->getProjectsData($sort, $by, $pageNo, $perPage,$searchQuery);
 
@@ -172,10 +172,10 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
-		    'menuName' => 'Projects',
+		    'menuName' => 'Projectos',
 			'extra' => array(),
 			'tableheader' => $tableFields,
 			'jsGridFnName' => 'getAjaxgridData',
@@ -292,9 +292,9 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			{
 				if($key == 'client') $key = 'client_id';
 				if($key == 'currency') $key = 'currency_id';
-				if($key == 'start_date'){ 
+				if($key == 'start_date'){
 					$searchQuery .= " ".$key." like '%".  sapp_Global::change_date($val,'database')."%' AND ";
-				}else if($key == 'end_date'){ 
+				}else if($key == 'end_date'){
 					$searchQuery .= " ".$key." like '%".  sapp_Global::change_date($val,'database')."%' AND ";
 				}else{
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
@@ -347,7 +347,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 		    'menuName' => 'Projects',
@@ -405,11 +405,11 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		// echo $projectsData; //exit;
 		return $projectsData;
 	}
-	
+
 	public function getEmployeeProjects($emp_id)
 	{
 		$where = " p.is_active = 1 ";
-		
+
 		$where .= " AND p.project_status!='draft' and tpe.is_active = 1 AND tpe.emp_id = ".$emp_id;
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$projectsData = $this->select()
@@ -417,7 +417,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		->from(array('tpe' => 'tm_project_employees'),array('project_emp_id'=>'tpe.id'))
 		->joinLeft(array('p' => $this->_name),'tpe.project_id=p.id',array('id'=>'p.id','project_name'=>'p.project_name'))
 		->where($where);
-		
+
 		 //echo $projectsData; exit;
 		//return $projectsData;
 		return $this->fetchAll($projectsData)->toArray();
@@ -474,9 +474,9 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			}
 		}
 		$k=0;
-		$weeks=array();       
+		$weeks=array();
 		 for($i=1;$i<=6;$i++)
-		 {            
+		 {
 			 for($j=1;$j<=7;$j++)
 			 {
 				 if($master[$k]!=0)
@@ -485,26 +485,26 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 					 if($master[$k]==$day)
 						 $pre_week=$i;
 				 }
-				$k++;     
-			 }           
+				$k++;
+			 }
 		  }
-		   
+
 		  $weeknew=array();
 		  for($i=1;$i<$pre_week;$i++)
 		  {
 			  $weeknew[$i]=$weeks[$i];
 		  }
-		 
+
 		  if($pre_week!=1)
-			return  $weeknew;             
-		  else 
-		  {  
+			return  $weeknew;
+		  else
+		  {
 			  $ndate=new DateTime($date);
 			  $ndate->sub(new DateInterval('P1M'));
 			  $new_selmn=$ndate->format('Y-m');
 			  $lsday_new=cal_days_in_month(CAL_GREGORIAN, $ndate->format('m'), $ndate->format('Y'));
 			  return $this->getprevmonthweeks($new_selmn, $lsday_new);
-		  } 
+		  }
 	}
 	//previous weeks submit status.
 	public function prev_weeksubmit_status($prevweeks,$emp_id,$emp_details)
@@ -515,7 +515,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		if(sizeof($prevweeks) >0)
 		{
 			//To get dates of timesheet filled by user of the given duration
-			
+
 			$notificationModel = new Timemanagement_Model_Notifications();
 			$weekend_date = date('Y-m-d', strtotime('last saturday'));
 
@@ -530,7 +530,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				$hidendweek_date=max($prevweeks[$i]);
 				$hidemp=$emp_id;
 				$emp_dept_id = $emp_details['department_id'];
-				
+
 				$doj_date = strtotime($emp_details['date_of_joining']);
 				$created_date = strtotime($emp_details['createddate']);
 				if($created_date < $doj_date)
@@ -542,13 +542,13 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 					$join_date = new DateTime($emp_details['createddate']);
 					$join_date = $join_date->format('Y-m-d');
 				}
-			
-		
+
+
 				/* $join_date = new DateTime($emp_details['date_of_joining']);
 				$join_date = $join_date->format('Y-m-d'); */
-				
-				
-				
+
+
+
 				$resultData = array();
 				$savedTimeSheets = array();
 				$resultData = $notificationModel->getTimesheetStatus($emp_id,$hidendweek_date);
@@ -642,10 +642,10 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				//To get day in the week
 				$weekDatesArray = sapp_Global::createDateRangeArray($hidstartweek_date,$hidendweek_date);
 				//End
-				
+
 
 				//To get Holidays for the given duration
-				
+
 				$holidays = array();
 				$holidayDateslistArr = array();
 				$loginUserGroupId = $emp_details['holiday_group'];
@@ -666,7 +666,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				//End
 
 				//To get Leaves applied by user for the given duration
-				
+
 				$employeeLeaves = array();
 				$usersModel = new Timemanagement_Model_Users();
 				$employeeLeaves = $usersModel->getEmpLeaves($hidemp,$hidstartweek_date,$hidendweek_date);
@@ -684,17 +684,17 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 					{
 						$employee_leave_days[] = $days;
 					}
-				}	
+				}
 				//End
 				$empWeekends = array();
 				//To get default not working days(saturday and sunday)
 				$empWeekends = $usersModel->getWeekend($hidstartweek_date,$hidendweek_date,$emp_dept_id);
 				//End
-				
+
 				//combine all holidays , leaves, weekends
 				$hol_leav_weknd = array();
 				$hol_leav_weknd = array_merge($holidays,$employee_leave_days,$empWeekends);
-				
+
 				$no_entry_weekennds = array();
 				if(count($timesheet_date_arry)>0)
 				{
@@ -745,7 +745,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 	   $month_name='';
 	   $prev_str='';
 	   $final_display_array = array();
-	  
+
 		if(sizeof($prevweeks) >0)
 		{
 			//To get dates of timesheet filled by user of the given duration
@@ -756,7 +756,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			$weekend_date = date('Y-m-d', strtotime('last saturday'));
 			for($i=1;$i<=count($prevweeks);$i++)
 			{
-				 
+
 				$savedTimeSheetArray = array();
 				$savedTimeSheetblckedArray = array();
 				$weekno=$i;
@@ -807,7 +807,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 						}
 					}
 				}
-				
+
 			}
 			if(count($timesheet_date_array) > 0 && (count($timesheet_date_array) == count($enteredDateStatusArr)))
 			{
@@ -864,7 +864,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				$weekDatesArray = sapp_Global::createDateRangeArray($hidstartweek_date,$hidendweek_date);
 				//End
 				//To get Holidays for the given duration
-				
+
 				$holidays = array();
 				$holidayDateslistArr = array();
 				$loginUserGroupId = $emp_details['holiday_group'];
@@ -887,7 +887,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				{
 					foreach($holidays as $holidayDate){
 						//if(!in_array($holidayDate,$timesheet_date_array) && !in_array($holidayDate,$saved_timesheet_date_array) && ($holidayDate>=$hidstartweek_date && $holidayDate<=$hidendweek_date))
-						if(!(isset($savedTimeSheetArray[$holidayDate]) && $savedTimeSheetArray[$holidayDate]!='No Entry') && !(isset($savedTimeSheetblckedArray[$holidayDate]) && $savedTimeSheetblckedArray[$holidayDate]!='No Entry') && ($holidayDate>=$hidstartweek_date && $holidayDate<=$hidendweek_date))	
+						if(!(isset($savedTimeSheetArray[$holidayDate]) && $savedTimeSheetArray[$holidayDate]!='No Entry') && !(isset($savedTimeSheetblckedArray[$holidayDate]) && $savedTimeSheetblckedArray[$holidayDate]!='No Entry') && ($holidayDate>=$hidstartweek_date && $holidayDate<=$hidendweek_date))
 						{
 							$holidaysStatusArray[$holidayDate] = 'Holiday';
 						}
@@ -896,7 +896,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 				//End
 
 				//To get Leaves applied by user for the given duration
-				
+
 				$employeeLeaves = array();
 				$usersModel = new Timemanagement_Model_Users();
 				$employeeLeaves = $usersModel->getEmpLeaves($hidemp,$hidstartweek_date,$hidendweek_date);
@@ -916,12 +916,12 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 						$employee_leave_days[] = $days;
 						$employee_leave_ts_array[$days]='Leave';
 					}
-				}	
+				}
 				//End
 
 				//To get default not working days(saturday and sunday)
 				$empWeekends = $usersModel->getWeekend($hidstartweek_date,$hidendweek_date,$emp_dept_id);
-				//End	
+				//End
 				$weekend_array = array();
 				foreach($empWeekends as $weekend)
 				{
@@ -930,11 +930,11 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 						$weekend_array[$weekend] = 'Weekend';
 					}
 				}
-				
+
 				//combine all holidays , leaves, weekends
 				$hol_leav_weknd = array();
 				$hol_leav_weknd = array_merge($holidays,$employee_leave_days,$empWeekends);
-				
+
 				//remove holidays,weekend,leaves from between days
 				$working_days = array_diff($weekDatesArray, $hol_leav_weknd);
 				$emptyDataDatesArray = array();
@@ -946,8 +946,8 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 					$holiday_ts_array[$holidayts] = 'No Entry';
 				}
 				$final_array = array_merge($savedTimeSheetArray,$holiday_ts_array,$savedTimeSheetblckedArray,$holidaysStatusArray,$employee_leave_ts_array,$weekend_array);
-		
-				
+
+
 				$final_holadys_removed_array = array();
 				foreach($final_array as $finalkey => $finalstatus)
 				{
@@ -961,7 +961,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		}
 		return $final_display_array;
 	}
-	
+
 	/**
 	 * This method returns all projects under client
 	 *
@@ -975,10 +975,10 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		->where('p.is_active = 1 and p.client_id = '.$clientID)
 		->order('p.project_name');
 		return $this->fetchAll($select)->toArray();
-	}	
-	
+	}
+
 	public function getEmpProjects($to_id){
-		
+
 		 $select = $this->select()
 		->setIntegrityCheck(false)
 		->from(array('pe'=>'tm_project_employees'))
@@ -986,7 +986,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 		->where('pe.emp_id = '.$to_id)
 		;
 		return $this->fetchAll($select)->toArray();
-		
+
 	}
-	
+
 }

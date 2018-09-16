@@ -62,16 +62,16 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 			}
 			$searchQuery = rtrim($searchQuery," AND");
 		}
-			
+
 		$objName = 'clients';
 
 		//email,phone_no,poc,address,country_id,state_id,created_by
 		$tableFields = array(
-					'action'=>'Action',
-					'client_name' => 'Client',
-					'email' => 'Email',
-					'phone_no' => 'Phone Number',
-					'poc' => 'Point of Contact',
+					'action'=>'Acción',
+					'client_name' => 'Cliente',
+					'email' => 'Correo',
+					'phone_no' => 'Teléfono',
+					'poc' => 'Punto de Contacto',
 		);
 
 		$tablecontent = $this->getClientsData($sort, $by, $pageNo, $perPage,$searchQuery);
@@ -80,7 +80,7 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -90,7 +90,7 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
-			'menuName' => 'Clients'
+			'menuName' => 'Clientes'
 			);
 			return $dataTmp;
 	}
@@ -139,10 +139,10 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	/**
 	 * This method is used to fetch client details based on id.
-	 * 
+	 *
 	 * @param number $id
 	 */
 	public function getClientDetailsById($id)
@@ -153,14 +153,14 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 						->joinLeft(array('cn'=>'tbl_countries'),"c.country_id = cn.id",array())
 						->joinLeft(array('s'=>'tbl_states'),"s.id = c.state_id",array())
 						->where('c.is_active = 1 AND c.id='.$id.' ');
-						
+
 		return $this->fetchAll($select)->toArray();
 	}
 
 	/**
-	 * This method returns all active clients to show in projects screen 
+	 * This method returns all active clients to show in projects screen
 	 *
-	 * @return array 
+	 * @return array
 	 */
 	public function getActiveClientsData()
 	{
@@ -171,10 +171,10 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 		->order('c.client_name');
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	/**
 	 * This method is used to check weather the client is associated in any project or not.
-	 * 
+	 *
 	 * @param unknown_type $clientId
 	 */
 	public function checkProjectClients($clientId){
@@ -182,6 +182,6 @@ class Timemanagement_Model_Clients extends Zend_Db_Table_Abstract
 		$query = "select count(*) as count from tm_projects where client_id = ".$clientId." AND is_active = 1";
 		$result = $db->query($query)->fetch();
 		return $result['count'];
-		
-	} 
+
+	}
 }

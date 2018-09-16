@@ -36,7 +36,7 @@ CREATE TABLE `main_patches_version` (
                         `modifieddate` datetime DEFAULT NULL,                                          
                         `isactive` tinyint(1) DEFAULT '1' COMMENT '1=latest versions,0=old versions',  
                         PRIMARY KEY (`id`)                                                             
-                      ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+                      ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 					  
 INSERT INTO main_patches_version (version, createddate, modifieddate, isactive) VALUES ("1.1", now(), now(),1);					  
                       
@@ -68,7 +68,7 @@ CREATE TABLE `main_request_history` (
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   `comments` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
 
 CREATE TABLE `main_sd_configurations` (                                                      
                           `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,                                          

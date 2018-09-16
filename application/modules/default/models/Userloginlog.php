@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -52,7 +52,7 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 			{
 				foreach($searchValues as $key => $val)
 				{
-					
+
 					if($key == 'userfullname' || $key == 'employeeId' || $key == 'emailaddress' || $key == 'empipaddress')
 					{
 						$searchQuery .= " r.".$key." like '%".$val."%' AND ";
@@ -73,14 +73,14 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$objName = 'userloginlog';
 
 		$tableFields = array('action'=>'Action',
-                             'userfullname' => 'User',
+                             'userfullname' => 'Usuario',
 		                     'profileimg'=>'Profile',
-							 'employeeId'=>'Employee ID',
-							 'group_name' => 'Group',
-                             'rolename' => 'Role',
-                             'emailaddress'=>'Email',		
-                             'logindatetime' => 'Login Time',
-		                     'empipaddress' => 'Ip Address',
+							 'employeeId'=>'Empleado ID',
+							 'group_name' => 'Grupo',
+                             'rolename' => 'Rol',
+                             'emailaddress'=>'Correo',
+                             'logindatetime' => 'Hora de inicio',
+		                     'empipaddress' => 'Dirección IP',
 		);
 
 		$tablecontent = $this->getUserLoginLogData($sort, $by, $pageNo, $perPage,$searchQuery);
@@ -104,10 +104,10 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
                 'sort' => $sort,
                 'by' => $by,
                 'pageNo' => $pageNo,
-                'perPage' => $perPage,				
+                'perPage' => $perPage,
                 'tablecontent' => $tablecontent,
                 'objectname' => $objName,
-		        'menuName'=>'User log',
+		        'menuName'=>'Registro de usuario',
                 'extra' => array(),
                 'tableheader' => $tableFields,
                 'jsGridFnName' => 'getAjaxgridData',
@@ -124,11 +124,11 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 			                        'filter_data' => array(''=>'All')+$role_arr,
 
 		),
-		             'logindatetime' =>array('type'=>'datepicker')	
-			
+		             'logindatetime' =>array('type'=>'datepicker')
+
 		),
 		);
-		
+
 		return $dataTmp;
 	}
 
@@ -159,7 +159,7 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		->where($where)
 		->order("$by $sort")
 		->limitPage($pageNo, $perPage);
-		
+
 		return $userLoginLogData;
 	}
 
@@ -199,9 +199,9 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 			->limitPage($pageNo, $perPage);
 		}
 
-		
+
 		$userLogRecords = $this->fetchAll($select)->toArray();
-		
+
 
 		return $userLogRecords;
 	}
@@ -224,7 +224,7 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$sqlRes = $db->query($qry);
 		$count = $sqlRes->fetchAll();
-			
+
 		return $count[0]['count'];
 	}
 
@@ -289,11 +289,11 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$query = "select u.profileimg,u.userfullname emp_name,
                   case
                    when u.userfullname like '".$search_str."%' then 4
-                   when u.userfullname like '__".$search_str."%' then 2 
-                   when u.userfullname like '_".$search_str."%' then 3 
-                   when u.userfullname like '%".$search_str."%' then 1 
-                  else 0 end emp 
-                  from main_users u where (u.userfullname like '%".$search_str."%') 
+                   when u.userfullname like '__".$search_str."%' then 2
+                   when u.userfullname like '_".$search_str."%' then 3
+                   when u.userfullname like '%".$search_str."%' then 1
+                  else 0 end emp
+                  from main_users u where (u.userfullname like '%".$search_str."%')
                   order by emp desc
                   limit 0,10";
 		$result = $db->query($query);
@@ -315,11 +315,11 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$query = "select u.employeeId emp_id,
                   case
                    when u.employeeId like '".$search_str."%' then 4
-                   when u.employeeId like '__".$search_str."%' then 2 
-                   when u.employeeId like '_".$search_str."%' then 3 
-                   when u.employeeId like '%".$search_str."%' then 1 
-                  else 0 end emp 
-                  from main_users u where (u.employeeId like '%".$search_str."%') 
+                   when u.employeeId like '__".$search_str."%' then 2
+                   when u.employeeId like '_".$search_str."%' then 3
+                   when u.employeeId like '%".$search_str."%' then 1
+                  else 0 end emp
+                  from main_users u where (u.employeeId like '%".$search_str."%')
                   order by emp desc
                   limit 0,10";
 		$result = $db->query($query);
@@ -341,11 +341,11 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$query = "select u.empipaddress emp_id,
                   case
                    when u.empipaddress like '".$search_str."%' then 4
-                   when u.empipaddress like '__".$search_str."%' then 2 
-                   when u.empipaddress like '_".$search_str."%' then 3 
-                   when u.empipaddress like '%".$search_str."%' then 1 
-                  else 0 end emp 
-                  from main_users u where (u.empipaddress like '%".$search_str."%') 
+                   when u.empipaddress like '__".$search_str."%' then 2
+                   when u.empipaddress like '_".$search_str."%' then 3
+                   when u.empipaddress like '%".$search_str."%' then 1
+                  else 0 end emp
+                  from main_users u where (u.empipaddress like '%".$search_str."%')
                   order by emp desc
                   limit 0,10";
 		$result = $db->query($query);
@@ -367,11 +367,11 @@ class Default_Model_Userloginlog extends Zend_Db_Table_Abstract
 		$query = "select distinct u.emailaddress emp_email,
                   case
                    when u.emailaddress like '".$search_str."%' then 4
-                   when u.emailaddress like '__".$search_str."%' then 2 
-                   when u.emailaddress like '_".$search_str."%' then 3 
-                   when u.emailaddress like '%".$search_str."%' then 1 
-                  else 0 end emp 
-                  from main_users u where (u.emailaddress like '%".$search_str."%') 
+                   when u.emailaddress like '__".$search_str."%' then 2
+                   when u.emailaddress like '_".$search_str."%' then 3
+                   when u.emailaddress like '%".$search_str."%' then 1
+                  else 0 end emp
+                  from main_users u where (u.emailaddress like '%".$search_str."%')
                   order by emp desc
                   limit 0,10";
 		$result = $db->query($query);

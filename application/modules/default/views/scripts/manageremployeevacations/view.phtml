@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,66 +27,66 @@ if($this->rowexist !=''){?>
 						No data found.
 	</div>
 
-<?php 
+<?php
 }else
 {
 $baseUrl = $this->serverUrl().$this->baseUrl();
 echo $this->form->id; ?>
 
         <div class="total-form-controller view-form-detail">
-		 
+
 			<div class="new-form-ui">
 			  <label>Employee Name</label>
 			<div class="division"><?php echo $this->form->employeename; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label>Leave Type</label>
 			<div class="division"><?php echo $this->form->leavetypeid; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label>Leave</label>
 			<div class="division"><?php echo $this->form->leaveday; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui textareaheight">
 			  <label>Reason</label>
 			<div class="division"><?php echo $this->form->reason; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label>From Date</label>
 			<div class="division"><?php echo $this->form->from_date; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui" id="todate_employee">
 			  <label>To Date</label>
 			<div class="division"><?php echo $this->form->to_date; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label>Number of Days</label>
 			<div class="division"><?php echo $this->form->appliedleavesdaycount; ?></div>
 			</div>
-			
-			
+
+
 			<div class="new-form-ui">
 			  <label>Applied On</label>
 			<div class="division"><?php echo $this->form->createddate; ?></div>
 			</div>
-			
+
 		<!-- 	<div class="new-form-ui">
 			  <label>Status</label>
 			<div class="division"><?php //echo $this->form->leavestatus; ?></div>
 			</div>  -->
-			
+
 			<div class="new-form-ui-submit">
 			<input type="submit" onclick="changeeditscreen('<?php echo $this->controllername;?>',<?php echo $this->id;?>);" value="Edit" />
 			<button onclick="window.location.href='<?php echo BASE_URL; ?>manageremployeevacations';" type="button" >Cancel</button>
 		    </div>
         </div>
-<?php } ?>		
+<?php } ?>
 
 <script type='text/javascript'>
 $(document).ready(function(){

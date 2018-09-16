@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `assets_categories`;
 
 CREATE TABLE `assets_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
   `parent` int(11) DEFAULT NULL,
   `is_active` tinyint(4) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -357,7 +357,7 @@ CREATE TABLE `main_accountclasstype` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_accountclasstype` */
 
@@ -403,7 +403,7 @@ CREATE TABLE `main_announcements` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_announcements` */
 
@@ -421,7 +421,7 @@ CREATE TABLE `main_assignmententryreasoncode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_assignmententryreasoncode` */
 
@@ -439,7 +439,7 @@ CREATE TABLE `main_attendancestatuscode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_attendancestatuscode` */
 
@@ -457,7 +457,7 @@ CREATE TABLE `main_bankaccounttype` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_bankaccounttype` */
 
@@ -718,7 +718,7 @@ CREATE TABLE `main_cities` (
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `state_city` (`state`,`city_org_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `main_cities` */
 
@@ -736,7 +736,7 @@ CREATE TABLE `main_competencylevel` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_competencylevel` */
 
@@ -756,7 +756,7 @@ CREATE TABLE `main_countries` (
   `isactive` tinyint(1) unsigned DEFAULT '1',
   `country_id_org` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_countries` */
 
@@ -790,7 +790,7 @@ CREATE TABLE `main_currency` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_currency` */
 
@@ -837,7 +837,7 @@ CREATE TABLE `main_dateformat` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_dateformat` */
 
@@ -884,7 +884,7 @@ CREATE TABLE `main_disciplinary_history` (
   `createdby` bigint(20) unsigned DEFAULT NULL,
   `createddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_disciplinary_history` */
 
@@ -916,7 +916,7 @@ CREATE TABLE `main_disciplinary_incident` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_disciplinary_incident` */
 
@@ -934,7 +934,7 @@ CREATE TABLE `main_disciplinary_violation_types` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_disciplinary_violation_types` */
 
@@ -952,7 +952,7 @@ CREATE TABLE `main_educationlevelcode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_educationlevelcode` */
 
@@ -970,7 +970,7 @@ CREATE TABLE `main_eeoccategory` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_eeoccategory` */
 
@@ -1317,7 +1317,7 @@ CREATE TABLE `main_employeedocuments` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_employeedocuments` */
 
@@ -1361,7 +1361,7 @@ CREATE TABLE `main_employeeleavetypes` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_employeeleavetypes` */
 
@@ -1480,7 +1480,7 @@ CREATE TABLE `main_employmentstatus` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_employmentstatus` */
 
@@ -1696,7 +1696,7 @@ CREATE TABLE `main_ethniccode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_ethniccode` */
 
@@ -1706,129 +1706,129 @@ insert  into `main_ethniccode`(`id`,`ethniccode`,`ethnicname`,`description`,`cre
 
 DROP TABLE IF EXISTS `main_exit_history`;
 
-CREATE TABLE `main_exit_history` (                                                          
+CREATE TABLE `main_exit_history` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
- `exit_request_id` int(11) NOT NULL,                                                       
- `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,                          
- `createdby` int(11) NOT NULL,                                                             
- `modifiedby` int(11) DEFAULT NULL,                                                        
- `createddate` datetime NOT NULL,                                                          
- `modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
- `isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',                          
- PRIMARY KEY (`id`)                                                                        
+ `exit_request_id` int(11) NOT NULL,
+ `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `createdby` int(11) NOT NULL,
+ `modifiedby` int(11) DEFAULT NULL,
+ `createddate` datetime NOT NULL,
+ `modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',
+ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `main_exit_process` */
 
 DROP TABLE IF EXISTS `main_exit_process`;
 
-CREATE TABLE `main_exit_process` (                                                                   
-`id` int(11) NOT NULL AUTO_INCREMENT,                                                              
-`employee_id` int(11) NOT NULL,                                                                    
-`exit_type_id` int(11) NOT NULL,                                                                   
-`exit_settings_id` int(11) NOT NULL,                                                               
-`employee_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                            
-`overall_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT 'Pending',  
-`overall_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                             
-`l1_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,            
-`l1_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                                  
-`l2_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,            
-`l2_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                                  
-`hr_manager_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,    
-`hr_manager_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                          
-`sys_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,     
-`sys_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                           
-`gen_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,     
-`gen_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                           
-`fin_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,     
-`fin_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,                           
-`relieving_date` date NOT NULL,                                                                    
-`feedback_completed` tinyint(1) DEFAULT '0' COMMENT '0=Not completed,1=Completed',                 
-`createdby` int(11) NOT NULL,                                                                      
-`modifiedby` int(11) DEFAULT NULL,                                                                 
-`createddate` datetime NOT NULL,                                                                   
-`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,           
-PRIMARY KEY (`id`)                                                                                 
+CREATE TABLE `main_exit_process` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`employee_id` int(11) NOT NULL,
+`exit_type_id` int(11) NOT NULL,
+`exit_settings_id` int(11) NOT NULL,
+`employee_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`overall_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT 'Pending',
+`overall_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`l1_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`l1_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`l2_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`l2_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`hr_manager_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`hr_manager_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`sys_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`sys_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`gen_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`gen_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`fin_admin_status` enum('Pending','Approved','Rejected') COLLATE utf8_unicode_ci DEFAULT NULL,
+`fin_admin_comments` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+`relieving_date` date NOT NULL,
+`feedback_completed` tinyint(1) DEFAULT '0' COMMENT '0=Not completed,1=Completed',
+`createdby` int(11) NOT NULL,
+`modifiedby` int(11) DEFAULT NULL,
+`createddate` datetime NOT NULL,
+`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `main_exit_questions` */
 
 DROP TABLE IF EXISTS `main_exit_questions`;
 
-CREATE TABLE `main_exit_questions` (                                                        
-`id` int(11) NOT NULL AUTO_INCREMENT,                                                     
-`exit_type_id` int(11) NOT NULL,                                                          
-`question` varchar(500) COLLATE utf8_unicode_ci NOT NULL,                                 
-`description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,                          
-`createdby` int(11) NOT NULL,                                                             
-`modifiedby` int(11) DEFAULT NULL,                                                        
-`createddate` datetime NOT NULL,                                                          
-`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
-`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',                          
-`isused` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-No,1-Yes',                            
-PRIMARY KEY (`id`)                                                                        
+CREATE TABLE `main_exit_questions` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`exit_type_id` int(11) NOT NULL,
+`question` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+`description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+`createdby` int(11) NOT NULL,
+`modifiedby` int(11) DEFAULT NULL,
+`createddate` datetime NOT NULL,
+`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',
+`isused` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-No,1-Yes',
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `main_exit_questions_response` */
 
 DROP TABLE IF EXISTS `main_exit_questions_response`;
 
-CREATE TABLE `main_exit_questions_response` (                                                                    
-`id` int(11) NOT NULL AUTO_INCREMENT,                                  
-`user_id` int(11) NOT NULL,                                                        
-`exit_initiation_id` int(11) NOT NULL,                                 
-`hr_qs` text COLLATE utf8_unicode_ci,                                  
-`employee_response` text COLLATE utf8_unicode_ci COMMENT '{hr_qs_id_1:emp_comments,hr_qs_id_2:emp_comments}',  
-`createdby` int(11) NOT NULL,                                                  
-`modifiedby` int(11) DEFAULT NULL,                                                                             
-`createddate` datetime NOT NULL,                                                                               
-`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,                       
-`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',                                               
-PRIMARY KEY (`id`)                                                                                             
+CREATE TABLE `main_exit_questions_response` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`user_id` int(11) NOT NULL,
+`exit_initiation_id` int(11) NOT NULL,
+`hr_qs` text COLLATE utf8_unicode_ci,
+`employee_response` text COLLATE utf8_unicode_ci COMMENT '{hr_qs_id_1:emp_comments,hr_qs_id_2:emp_comments}',
+`createdby` int(11) NOT NULL,
+`modifiedby` int(11) DEFAULT NULL,
+`createddate` datetime NOT NULL,
+`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `main_exit_settings` */
 
 DROP TABLE IF EXISTS `main_exit_settings`;
 
-CREATE TABLE `main_exit_settings` (                                                         
-`id` int(11) NOT NULL AUTO_INCREMENT,                                                     
-`businessunit_id` int(11) NOT NULL,                                                       
-`department_id` int(11) NOT NULL,                                                         
-`l2_manager` int(11) DEFAULT NULL,                                                        
-`hr_manager` int(11) DEFAULT NULL,                                                        
-`sys_admin` int(11) DEFAULT NULL,                                                         
-`general_admin` int(11) DEFAULT NULL,                                                     
-`finance_manager` int(11) DEFAULT NULL,                                                   
-`notice_period` int(11) DEFAULT NULL,                                                     
-`createdby` int(11) NOT NULL,                                                             
-`modifiedby` int(11) DEFAULT NULL,                                                        
-`createddate` datetime NOT NULL,                                                          
-`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
-`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',                          
-PRIMARY KEY (`id`)                                                                        
+CREATE TABLE `main_exit_settings` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`businessunit_id` int(11) NOT NULL,
+`department_id` int(11) NOT NULL,
+`l2_manager` int(11) DEFAULT NULL,
+`hr_manager` int(11) DEFAULT NULL,
+`sys_admin` int(11) DEFAULT NULL,
+`general_admin` int(11) DEFAULT NULL,
+`finance_manager` int(11) DEFAULT NULL,
+`notice_period` int(11) DEFAULT NULL,
+`createdby` int(11) NOT NULL,
+`modifiedby` int(11) DEFAULT NULL,
+`createddate` datetime NOT NULL,
+`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `main_exit_types` */
 
 DROP TABLE IF EXISTS `main_exit_types`;
 
-CREATE TABLE `main_exit_types` (                                                            
-`id` int(11) NOT NULL AUTO_INCREMENT,                                                     
-`exit_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,                                 
-`description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,                          
-`createdby` int(11) NOT NULL,                                                             
-`modifiedby` int(11) DEFAULT NULL,                                                        
-`createddate` datetime NOT NULL,                                                          
-`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
-`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',                          
-`isused` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-No,1-Yes',                            
-PRIMARY KEY (`id`)                                                                        
+CREATE TABLE `main_exit_types` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`exit_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+`description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+`createdby` int(11) NOT NULL,
+`modifiedby` int(11) DEFAULT NULL,
+`createddate` datetime NOT NULL,
+`modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`isactive` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-No,1-Yes',
+`isused` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-No,1-Yes',
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `main_exit_types` */
 
-insert into `main_exit_types` 
+insert into `main_exit_types`
 (exit_type, description, createdby, modifiedby, createddate, modifieddate, isactive, isused)
 values
 ('Resign', 'Resign', '1', '1', now(), now(), 1, 0),
@@ -1850,7 +1850,7 @@ CREATE TABLE `main_gender` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_gender` */
 
@@ -1874,7 +1874,7 @@ CREATE TABLE `main_geographygroup` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_geographygroup` */
 
@@ -1954,7 +1954,7 @@ CREATE TABLE `main_holidaygroups` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_holidaygroups` */
 
@@ -1974,7 +1974,7 @@ CREATE TABLE `main_hr_wizard` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_hr_wizard` */
 
@@ -2134,7 +2134,7 @@ CREATE TABLE `main_jobtitles` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_jobtitles` */
 
@@ -2152,7 +2152,7 @@ CREATE TABLE `main_language` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_language` */
 
@@ -2269,7 +2269,7 @@ CREATE TABLE `main_leaverequest_summary` (
   `leavestatus` enum('Pending for approval','Approved','Rejected','Cancel') DEFAULT 'Pending for approval',
   `rep_mang_id` int(11) unsigned DEFAULT NULL,
   `rep_manager_name` varchar(255) DEFAULT NULL,
-  `hr_id` int(11) DEFAULT NULL,                                                                              
+  `hr_id` int(11) DEFAULT NULL,
   `hr_name` varchar(255) DEFAULT NULL,
   `no_of_days` float unsigned DEFAULT NULL,
   `appliedleavescount` float(4,1) unsigned DEFAULT NULL,
@@ -2298,7 +2298,7 @@ CREATE TABLE `main_licensetype` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_licensetype` */
 
@@ -2373,7 +2373,7 @@ CREATE TABLE `main_maritalstatus` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_maritalstatus` */
 
@@ -2404,7 +2404,7 @@ CREATE TABLE `main_menu` (
   `functionName` varchar(255) DEFAULT NULL,
   `defaultOrderBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_menu` */
 
@@ -2424,7 +2424,7 @@ CREATE TABLE `main_militaryservice` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_militaryservice` */
 
@@ -2443,7 +2443,7 @@ CREATE TABLE `main_monthslist` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_monthslist` */
 
@@ -2463,7 +2463,7 @@ CREATE TABLE `main_nationality` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_nationality` */
 
@@ -2483,7 +2483,7 @@ CREATE TABLE `main_nationalitycontextcode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_nationalitycontextcode` */
 
@@ -2501,7 +2501,7 @@ CREATE TABLE `main_numberformats` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_numberformats` */
 
@@ -2566,7 +2566,7 @@ CREATE TABLE `main_pa_appraisalhistory` (
   KEY `NewIndex3` (`desc_emp_id`),
   KEY `NewIndex4` (`createdby`),
   KEY `NewIndex5` (`modifiedby`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='gives history of each employee''s appraisal';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='gives history of each employee''s appraisal';
 
 /*Data for the table `main_pa_appraisalhistory` */
 
@@ -2587,7 +2587,7 @@ CREATE TABLE `main_pa_category` (
   PRIMARY KEY (`id`),
   KEY `NewIndex1` (`createdby`),
   KEY `NewIndex2` (`modifiedby`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add questions category(Questionaire)';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add questions category(Questionaire)';
 
 /*Data for the table `main_pa_category` */
 
@@ -2634,7 +2634,7 @@ CREATE TABLE `main_pa_employee_ratings` (
   KEY `NewIndex1` (`pa_initialization_id`),
   KEY `NewIndex2` (`employee_id`),
   CONSTRAINT `FK_main_pa_employee_ratings` FOREIGN KEY (`pa_initialization_id`) REFERENCES `main_pa_initialization` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Employee appraisal response is stored in this table';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Employee appraisal response is stored in this table';
 
 /*Data for the table `main_pa_employee_ratings` */
 
@@ -2662,7 +2662,7 @@ CREATE TABLE `main_pa_ff_employee_ratings` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_pa_ff_employee_ratings` */
 
@@ -2684,7 +2684,7 @@ CREATE TABLE `main_pa_ff_history` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='gives step by step history of feedforward';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='gives step by step history of feedforward';
 
 /*Data for the table `main_pa_ff_history` */
 
@@ -2719,7 +2719,7 @@ CREATE TABLE `main_pa_ff_initialization` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='initialize feedforward by management';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='initialize feedforward by management';
 
 /*Data for the table `main_pa_ff_initialization` */
 
@@ -2741,7 +2741,7 @@ CREATE TABLE `main_pa_groups` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='divide all employees into groups for easy identification for';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='divide all employees into groups for easy identification for';
 
 /*Data for the table `main_pa_groups` */
 
@@ -2764,7 +2764,7 @@ CREATE TABLE `main_pa_groups_employees` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_pa_groups_employees` */
 
@@ -2787,7 +2787,7 @@ CREATE TABLE `main_pa_groups_employees_temp` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_pa_groups_employees_temp` */
 
@@ -2810,7 +2810,7 @@ CREATE TABLE `main_pa_implementation` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='stores configuration of appraisal process';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='stores configuration of appraisal process';
 
 /*Data for the table `main_pa_implementation` */
 
@@ -2853,7 +2853,7 @@ CREATE TABLE `main_pa_initialization` (
   `createddate` datetime DEFAULT NULL COMMENT 'created date',
   `modifieddate` datetime DEFAULT NULL COMMENT 'modified date',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='initialize appriasal process';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='initialize appriasal process';
 
 /*Data for the table `main_pa_initialization` */
 
@@ -2879,7 +2879,7 @@ CREATE TABLE `main_pa_manager_initialization` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Manager initialized data is stored in this table';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Manager initialized data is stored in this table';
 
 /*Data for the table `main_pa_manager_initialization` */
 
@@ -2904,7 +2904,7 @@ CREATE TABLE `main_pa_questions` (
   `modifieddate` datetime DEFAULT NULL,
   `isused` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='stores questions for appraisal and feedforward';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='stores questions for appraisal and feedforward';
 
 /*Data for the table `main_pa_questions` */
 
@@ -2941,7 +2941,7 @@ CREATE TABLE `main_pa_questions_privileges` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Stores the privileges of questions for each employee in json';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Stores the privileges of questions for each employee in json';
 
 /*Data for the table `main_pa_questions_privileges` */
 
@@ -2973,7 +2973,7 @@ CREATE TABLE `main_pa_questions_privileges_temp` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Stores the questions, privileges and groups when initialized';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Stores the questions, privileges and groups when initialized';
 
 /*Data for the table `main_pa_questions_privileges_temp` */
 
@@ -2998,7 +2998,7 @@ CREATE TABLE `main_pa_ratings` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add ratings text in json format.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add ratings text in json format.';
 
 /*Data for the table `main_pa_ratings` */
 
@@ -3021,7 +3021,7 @@ CREATE TABLE `main_pa_skills` (
   `isactive` tinyint(1) DEFAULT '1',
   `isused` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add skills.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='This table is used to add skills.';
 
 /*Data for the table `main_pa_skills` */
 
@@ -3036,7 +3036,7 @@ CREATE TABLE `main_patches_version` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1' COMMENT '1=latest versions,0=old versions',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_patches_version` */
 
@@ -3057,7 +3057,7 @@ CREATE TABLE `main_payfrequency` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_payfrequency` */
 
@@ -3137,7 +3137,7 @@ CREATE TABLE `main_prefix` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_prefix` */
 
@@ -3164,7 +3164,7 @@ CREATE TABLE `main_privileges` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1184 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1184 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_privileges` */
 
@@ -3283,7 +3283,7 @@ CREATE TABLE `main_racecode` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_racecode` */
 
@@ -3303,7 +3303,7 @@ CREATE TABLE `main_remunerationbasis` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_remunerationbasis` */
 
@@ -3325,7 +3325,7 @@ CREATE TABLE `main_request_history` (
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   `comments` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='for request history';
 
 /*Data for the table `main_request_history` */
 
@@ -3458,7 +3458,7 @@ CREATE TABLE `main_roles` (
   `isactive` tinyint(1) unsigned DEFAULT '1' COMMENT '1=active,0=inactive',
   PRIMARY KEY (`id`),
   KEY `NewIndex1` (`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_roles` */
 
@@ -3568,7 +3568,7 @@ CREATE TABLE `main_sd_requests` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_sd_requests` */
 
@@ -3620,7 +3620,7 @@ CREATE TABLE `main_sd_requests_summary` (
   `createddate` datetime DEFAULT NULL,
   `modifieddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_sd_requests_summary` */
 
@@ -3682,7 +3682,7 @@ CREATE TABLE `main_states` (
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `NewIndex1` (`countryid`,`state_id_org`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_states` */
 
@@ -3703,7 +3703,7 @@ CREATE TABLE `main_timeformat` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_timeformat` */
 
@@ -3726,7 +3726,7 @@ CREATE TABLE `main_timezone` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_timezone` */
 
@@ -3791,7 +3791,7 @@ CREATE TABLE `main_users` (
   KEY `IDX_4632B9B67F771501` (`emprole`),
   KEY `IDX_4632B9B6647385F4` (`rccandidatename`),
   KEY `IDX_4632B9B662E3F462` (`candidatereferredby`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_users` */
 
@@ -3811,7 +3811,7 @@ CREATE TABLE `main_veteranstatus` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_veteranstatus` */
 
@@ -3831,7 +3831,7 @@ CREATE TABLE `main_weekdays` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_weekdays` */
 
@@ -3858,7 +3858,7 @@ CREATE TABLE `main_wizard` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_wizard` */
 
@@ -3879,7 +3879,7 @@ CREATE TABLE `main_workeligibilitydoctypes` (
   `modifieddate` datetime DEFAULT NULL,
   `isactive` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `main_workeligibilitydoctypes` */
 
@@ -4023,7 +4023,7 @@ DROP TABLE IF EXISTS `tbl_timezones`;
 
 CREATE TABLE `tbl_timezones` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `timezone` varchar(200) CHARACTER SET latin1 NOT NULL,
+  `timezone` varchar(200) CHARACTER SET utf8 NOT NULL,
   `timezone_abbr` varchar(10) DEFAULT NULL,
   `offset_value` varchar(100) NOT NULL,
   `isactive` tinyint(1) DEFAULT '1',
@@ -4479,23 +4479,23 @@ CREATE TABLE `main_leaverequest_history` (
 
 DROP TABLE IF EXISTS `main_vendors`;
 
-CREATE TABLE `main_vendors` (			
-		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,			
-		`name` varchar(255) DEFAULT NULL,			
-		`contact_person` varchar(255) DEFAULT NULL,			
-		`address` varchar(200) DEFAULT NULL,			
-		`country` bigint(20) DEFAULT NULL,			
-		`state` bigint(20) DEFAULT NULL,			
-		`city` bigint(20) DEFAULT NULL,			
-		`pincode` varchar(15) DEFAULT NULL,			
-		`primary_phone` varchar(15) DEFAULT NULL,			
-		`secondary_phone` varchar(15) DEFAULT NULL,			
-		`createdby` int(10) unsigned DEFAULT NULL,			
-		`modifiedby` int(10) unsigned DEFAULT NULL,			
-		`createddate` datetime DEFAULT NULL,			
-		`modifieddate` datetime DEFAULT NULL,			
-		`isactive` tinyint(1) DEFAULT '1',			
-		PRIMARY KEY (`id`)			
+CREATE TABLE `main_vendors` (
+		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		`name` varchar(255) DEFAULT NULL,
+		`contact_person` varchar(255) DEFAULT NULL,
+		`address` varchar(200) DEFAULT NULL,
+		`country` bigint(20) DEFAULT NULL,
+		`state` bigint(20) DEFAULT NULL,
+		`city` bigint(20) DEFAULT NULL,
+		`pincode` varchar(15) DEFAULT NULL,
+		`primary_phone` varchar(15) DEFAULT NULL,
+		`secondary_phone` varchar(15) DEFAULT NULL,
+		`createdby` int(10) unsigned DEFAULT NULL,
+		`modifiedby` int(10) unsigned DEFAULT NULL,
+		`createddate` datetime DEFAULT NULL,
+		`modifieddate` datetime DEFAULT NULL,
+		`isactive` tinyint(1) DEFAULT '1',
+		PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

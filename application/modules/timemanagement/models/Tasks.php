@@ -90,10 +90,10 @@ class Timemanagement_Model_Tasks extends Zend_Db_Table_Abstract
 			}
 			$searchQuery = rtrim($searchQuery," AND");
 		}
-			
+
 		$objName = 'defaulttasks';
 
-		$tableFields = array('action'=>'Action','task' => 'Default task');
+		$tableFields = array('action'=>'Acción','task' => 'Tarea predeterminada');
 
 		$tablecontent = $this->getDefaultTaskData($sort, $by, $pageNo, $perPage,$searchQuery);
 
@@ -101,10 +101,10 @@ class Timemanagement_Model_Tasks extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
-		    'menuName' => 'Default Tasks',
+		    'menuName' => 'Tarea predeterminada',
 			'extra' => array(),
 			'tableheader' => $tableFields,
 			'jsGridFnName' => 'getAjaxgridData',
@@ -149,15 +149,15 @@ class Timemanagement_Model_Tasks extends Zend_Db_Table_Abstract
 						->setIntegrityCheck(false)
 						->from(array('t'=>$this->_name),array('t.*'))
 						->where('t.is_active = 1 AND t.task="'.$taskname.'" ');
-						
+
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getTaskById($id)
     {
         $data=$this->fetchRow("id=".$id)->toArray();
         return $data['task'];
-    }	
+    }
 
 
 }

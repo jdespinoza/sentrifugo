@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,7 @@
  ********************************************************************************/
 ?>
 
-<?php 	
+<?php
 if($this->ermsg !='')
 {
 ?>
@@ -28,10 +28,10 @@ if($this->ermsg !='')
 				<div class="style-1-icon info"></div>
 				No data found.
 	</div>
-<?php 
+<?php
 }
 else
-{	
+{
 	sapp_Global::generateClientValidations($this->form);?>
 <div id="error_message" style="display:none;"></div>
 
@@ -45,7 +45,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->client_id->getId(); ?>"><?php echo $this->msgarray['client_id'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Project </label>
 			<div class="division"><?php echo $this->form->project_id; ?></div>
@@ -53,7 +53,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->project_id->getId(); ?>"><?php echo $this->msgarray['project_id'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Expense Category </label>
 			<div class="division"><?php echo $this->form->expense_cat_id; ?></div>
@@ -61,7 +61,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->expense_cat_id->getId(); ?>"><?php echo $this->msgarray['expense_cat_id'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Date</label>
 			<div class="division"><?php echo $this->form->expense_date; ?></div>
@@ -69,7 +69,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->expense_date->getId(); ?>"><?php echo $this->msgarray['expense_date'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Amount</label>
 			<div class="division"><?php echo $this->form->expense_amount; ?></div>
@@ -77,7 +77,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->expense_amount->getId(); ?>"><?php echo $this->msgarray['expense_amount'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Note</label>
 			<div class="division"><?php echo $this->form->note; ?></div>
@@ -85,7 +85,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->note->getId(); ?>"><?php echo $this->msgarray['note'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <div class="new-form-ui clearb">
 			  <label class="required">Billable</label>
 			<div class="division"><?php echo $this->form->is_billable; ?></div>
@@ -93,7 +93,7 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->is_billable->getId(); ?>"><?php echo $this->msgarray['is_billable'];?></span>
 			<?php }?>
 			</div>
-			
+
 		    <!--  <div class="new-form-ui clearb">
 			  <label class="required">Attach Receipt</label>
 			<div class="division"><?php /*echo $this->form->expense_id; ?></div>
@@ -101,10 +101,10 @@ else
 			   <span class="errors" id="errors-<?php echo $this->form->expense_id->getId(); ?>"><?php echo $this->msgarray['expense_id'];?></span>
 			<?php } */?>
 			</div> -->
-			
+
 	<div class="new-form-ui clearb">
 		<label>Attach Receipt<img title="<?php echo 'Upload only .gif, .jpg, .jpeg, .png images';?>" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png" /></label>
-			
+
 		 <div class="division">
          	<div class="org-img">
 				<?php if($this->expense_id!=''){?>
@@ -124,8 +124,8 @@ else
          	<img src="<?php echo $this->baseUrl("public/media/images/loaderwhite_21X21.gif");?>" style="width:21px; height: 21px; float: none; "/>
          </div>
        </div>
-	</div>				
-					
+	</div>
+
 			<div class="new-form-ui-submit">
 			<?php echo $this->form->submit; ?>
 			<button onclick="window.location.href='<?php echo BASE_URL; ?>timemanagement/expenses';" type="button" >Cancel</button>
@@ -156,26 +156,26 @@ var btnUpload = $('#expense_image');
 new AjaxUpload(btnUpload, {
 
 	action :  base_url+'/timemanagement/expenses/uploadpreview',
-	name   : 'expenses_upload',  //we can rename it 
+	name   : 'expenses_upload',  //we can rename it
 	dataType: 'json',
 	onSubmit: function(file,ext){
 	if($("#upload_error").is(":visible"))
 	 $("#upload_error").hide();
 	  $("#loaderimgprofile").show();
-									 
+
 	},
-	onComplete: function(file, response){				
+	onComplete: function(file, response){
 		var result = JSON.parse(response);
 		if(result.result == 'success')
-		{						
+		{
 			$('#errors-expense_image_value').html('');
-			$('#imgerr').val(result.result);						
-			$("#imgerrmsg").val(result.msg);	
+			$('#imgerr').val(result.result);
+			$("#imgerrmsg").val(result.msg);
 			$("#errors-expense_image_value").css('display','block');
 			$("#expense_image_value").val(result.img);
 			//$('.org-img').html('<img src="'+domain_data+'/public/uploads/preview/'+result.img+'" /><div id="org_image" class="caption uploadbut-org" style="top: -35px; display: none;">Upload Logo</div>');
 			$('.org-img').html(result.img);
-			$("#orgloaderimg").hide();						
+			$("#orgloaderimg").hide();
 		}
 		else
 		{
@@ -190,7 +190,7 @@ new AjaxUpload(btnUpload, {
 			$('.uploaderror').fadeOut('slow');
 			},3000);
 		}
-	}	
+	}
 },'json');
-});		
-		</script>  
+});
+		</script>
