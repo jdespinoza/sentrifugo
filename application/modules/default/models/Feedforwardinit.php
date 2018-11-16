@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,16 +23,16 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_pa_ff_initialization';
     protected $_primary = 'id';
-	
+
 	public function getFeedforwardInitData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "fi.isactive = 1 ";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$ffInitData = $this->select()
-                            ->setIntegrityCheck(false)	
+                            ->setIntegrityCheck(false)
                             ->from(array('fi'=>'main_pa_ff_initialization'),array('fi.id','statusval'=>'fi.status','ff_due_date'=>'DATE_FORMAT(ff_due_date,"'.DATEFORMAT_MYSQL.'")',
                                 new Zend_Db_Expr("concat(ff_from_year,'-',ff_to_year) as fin_year"),'fi.ff_mode',
                                 new Zend_Db_Expr("if(fi.status =1,'Open','Closed') as status"),
@@ -42,25 +42,25 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
                             ->joinLeft(array('b' => 'main_businessunits'),"b.id = fi.businessunit_id and b.isactive=1",array('unitname'))
                             ->joinLeft(array('d' => 'main_departments'),"d.id = fi.department_id and d.isactive=1",array('deptname'))
                             ->where($where)
-                            ->order("$by $sort") 
+                            ->order("$by $sort")
                             ->limitPage($pageNo, $perPage);
-    					   
-		return $ffInitData;       		
+
+		return $ffInitData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
 				foreach($searchValues as $key => $val)
 				{
 					$sval = $val;
-					$val = mysql_real_escape_string($val);				
+					$val = mysql_real_escape_string($val);
 					if($key == 'fin_year')
                     	$searchQuery .= " concat(from_year,'-',to_year) like '%".$val."%' AND ";
                 	else if($key == 'app_period')
@@ -75,24 +75,24 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
 						if($val == 3)
 							$searchQuery .= " enable_to = 1 AND ";
 					}
-                	else                                    
+                	else
 	                    $searchQuery .= $key." like '%".$val."%' AND ";
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
+
 		$objName = 'feedforwardinit';
-		
-		$tableFields = array('action'=>'Action','unitname' => 'Business Unit','deptname' => 'Department','fin_year' => 'Financial Year',
-                    'ff_mode'=>'Mode','app_period' => 'Period','ff_due_date' => 'Due Date','status' => 'Appraisal Status','ff_process_status' => 'Process Status');
-		
-		$tablecontent = $this->getFeedforwardInitData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','unitname' => 'Unidad de Negocios','deptname' => 'Departamento','fin_year' => 'Año Financiero',
+                    'ff_mode'=>'Modo','app_period' => 'Periodo','ff_due_date' => 'Vencimiento','status' => 'Estado de Tasación','ff_process_status' => 'Estado del Proceso');
+
+		$tablecontent = $this->getFeedforwardInitData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -121,17 +121,17 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
                         ),
 		);
 		return $dataTmp;
-		
+
 	}
-	
+
 	public function getAppDataForFF($notIn,$businessUnitId='',$departmentId='')
 	{
 		$where = '';
 		if($notIn == 'yes')
 			$where .= ' AND ai.id not in (select appraisal_id from main_pa_ff_initialization where isactive = 1) ';
-     		
+
 		$select = $this->select()
-						->setIntegrityCheck(false)	
+						->setIntegrityCheck(false)
 						->from(array('ai'=>'main_pa_initialization'),array('ai.id',
                                 //new Zend_Db_Expr("CONCAT(b.unitcode,' - ',IF(d.deptcode is null,'',CONCAT(d.deptcode,' - ')),ai.from_year,'-',ai.to_year,' - ',ai.appraisal_mode) as app_mode")
                                 new Zend_Db_Expr("CONCAT(ai.from_year,'-',ai.to_year,' ',ai.appraisal_mode,
@@ -143,7 +143,7 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
 					    ->where('ai.isactive = 1 AND ai.status = 2 and ai.enable_step = 2 '.$where);
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function SaveorUpdateFeedforwardInitData($data, $where)
 	{
 	    if($where != ''){
@@ -155,7 +155,7 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	public function getQuestionsFeedforward($qs_csv='')
 	{
      	$where = " isactive = 1 AND module_flag = 2 ";
@@ -163,21 +163,21 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
 
 		if($qs_csv)
 			$where .= ' AND id in ('.$qs_csv.') ';
-		
+
         $query = "select * from main_pa_questions where".$where;
         $result = $db->query($query)->fetchAll();
        	return $result;
 	}
-	
+
 	public function getFFInitData($id)
 	{
             $select = $this->select()
                             ->setIntegrityCheck(false)
                             ->from(array('fi'=>'main_pa_ff_initialization'),array('fi.*'))
                             ->where('fi.isactive = 1 AND fi.id='.$id.' ');
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getFFInitViewData($id)
 	{
             $select = $this->select()
@@ -187,27 +187,27 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
                             ->joinLeft(array('b' => 'main_businessunits'),"b.id = fi.businessunit_id and b.isactive=1",array('unitname'))
                         	->joinLeft(array('d' => 'main_departments'),"d.id = fi.department_id and d.isactive=1",array('deptname'))
                             ->where('fi.isactive = 1 AND fi.id='.$id.' ');
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getEmpsFromAppEmpRat($appInitId)
 	{
             $select = $this->select()
                             ->setIntegrityCheck(false)
                             ->from(array('ae'=>'main_pa_employee_ratings'),array('ae.employee_id','ae.line_manager_1'))
                             ->where('ae.isactive = 1 AND ae.pa_initialization_id='.$appInitId.' ');
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getEmpsFromSummary($notInAppEmp)
 	{
             $select = $this->select()
                             ->setIntegrityCheck(false)
                             ->from(array('es'=>'main_employees_summary'),array('es.user_id','es.reporting_manager'))
                             ->where('es.isactive = 1 AND es.user_id not in ('.$notInAppEmp.') ');
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getFFbyBUDept($id='',$open='')
 	{
 		$where = '';
@@ -228,9 +228,9 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
                             ->joinLeft(array('b' => 'main_businessunits'),"b.id = fi.businessunit_id and b.isactive=1",array('unitname'))
                         	->joinLeft(array('d' => 'main_departments'),"d.id = fi.department_id and d.isactive=1",array('deptname'))
                             ->where('fi.isactive = 1 '.$where);
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getManagerRatingsByFFId($id,$mgrId='')
 	{
 		$where = '';
@@ -239,17 +239,17 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
             $select = $this->select()
                             ->setIntegrityCheck(false)
                             ->from(array('fe'=>'main_pa_ff_employee_ratings'),array(new Zend_Db_Expr('avg(fe.consolidated_rating) as con_rating'),'fe.manager_id'))
-                            ->joinInner(array('es'=>'main_employees_summary'), 'es.user_id = fe.manager_id AND es.isactive = 1', 
-                            	array('es.userfullname', 'es.employeeId', 'es.jobtitle_name', 'es.reporting_manager_name', 'es.department_name', 'es.businessunit_name', 'es.profileimg'))  
-							->joinInner(array('ei'=>'main_pa_ff_initialization'), 'ei.id = fe.ff_initialization_id AND ei.isactive = 1', 
+                            ->joinInner(array('es'=>'main_employees_summary'), 'es.user_id = fe.manager_id AND es.isactive = 1',
+                            	array('es.userfullname', 'es.employeeId', 'es.jobtitle_name', 'es.reporting_manager_name', 'es.department_name', 'es.businessunit_name', 'es.profileimg'))
+							->joinInner(array('ei'=>'main_pa_ff_initialization'), 'ei.id = fe.ff_initialization_id AND ei.isactive = 1',
                             	array('ei.id'))
-							->joinInner(array('pr'=>'main_pa_ratings'), ' pr.pa_initialization_id = ei.pa_configured_id AND pr.isactive = 1', 
+							->joinInner(array('pr'=>'main_pa_ratings'), ' pr.pa_initialization_id = ei.pa_configured_id AND pr.isactive = 1',
                             	array('pr.rating_type'))
                             ->where('fe.isactive = 1 AND fe.ff_status = 2 AND fe.ff_initialization_id = '.$id.$where)
                             ->group('fe.manager_id');
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getDetailEmpsDataByMgrId($ffId, $mgrId, $empId='')
 	{
 		$where = '';
@@ -258,12 +258,12 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
             $select = $this->select()
                             ->setIntegrityCheck(false)
                             ->from(array('fe'=>'main_pa_ff_employee_ratings'),array('fe.question_ids','fe.employee_response','fe.additional_comments'))
-                            ->joinInner(array('es'=>'main_employees_summary'), 'es.user_id = fe.employee_id AND es.isactive = 1', 
+                            ->joinInner(array('es'=>'main_employees_summary'), 'es.user_id = fe.employee_id AND es.isactive = 1',
                             	array('es.user_id','es.userfullname', 'es.employeeId', 'es.jobtitle_name', 'es.reporting_manager_name', 'es.department_name', 'es.businessunit_name', 'es.profileimg'))
                             ->where('fe.isactive = 1 AND fe.ff_status = 2 AND fe.ff_initialization_id = '.$ffId.' AND fe.manager_id = '.$mgrId.$where);
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getCountOfEmps($ffId)
 	{
             $select = $this->select()
@@ -271,9 +271,9 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
                             ->from(array('fe'=>'main_pa_ff_employee_ratings'),array(new Zend_Db_Expr('ifnull(sum(fe.ff_status=2),0) as completed'),
                             		new Zend_Db_Expr('count(*) as total')))
                             ->where('fe.isactive = 1 AND fe.ff_initialization_id = '.$ffId);
-            return $this->fetchAll($select)->toArray();		
+            return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getEmpIdforFF($bunit,$dept)
 	{
         $result = array();
@@ -283,7 +283,7 @@ class Default_Model_Feedforwardinit extends Zend_Db_Table_Abstract
     	$str_dept = " department_id = $dept and ";
         $query = "select user_id as employeeId from main_employees_summary where businessunit_id = $bunit and $str_dept isactive=1 order by user_id;";
         $result = $db->query($query)->fetchAll();
-        return $result;	
+        return $result;
 	}
 	public function getAppemployeeIDs($appraisalid)
     {

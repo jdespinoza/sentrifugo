@@ -309,7 +309,7 @@ class Services_IndexController extends Zend_Rest_Controller
                         $message = "success";
                         $positionsmodel = new Default_Model_Positions();
                         $positionlistArr = $positionsmodel->getPositionList($jobtitle_id);
-                        $positions_str = sapp_Global::selectOptionBuilder("", "Select Position");
+                        $positions_str = sapp_Global::selectOptionBuilder("", "Seleccionar posición");
                         //echo "<pre>";print_r($positionlistArr);echo "</pre>";
                         if(!empty($positionlistArr))
                         {
@@ -322,7 +322,7 @@ class Services_IndexController extends Zend_Rest_Controller
                         else
                         {
                             $status = 0;
-                            $message = "Positions are not configured yet.";
+                            $message = "Las posiciones aún no están configuradas.";
                         }
                     }
                 }
@@ -568,7 +568,7 @@ class Services_IndexController extends Zend_Rest_Controller
          */
 	public function getiroundslist($params_arr)
         {
-            $result = array();$status = 0;$message = "No data found.";
+            $result = array();$status = 0;$message = "Datos no encontrados.";
             $add_flag = 'No';$page_cnt = 1;
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && 
                 isset($params_arr['group_id']) && $params_arr['group_id'] != '' &&
@@ -613,7 +613,7 @@ class Services_IndexController extends Zend_Rest_Controller
          */
         public function getemplist($params_arr)
         {
-            $result = array();$status = 0;$message = "No data found.";
+            $result = array();$status = 0;$message = "Datos no encontrados.";
             $add_flag = 'No';$page_cnt = 1;
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
@@ -657,7 +657,7 @@ class Services_IndexController extends Zend_Rest_Controller
          */
         public function bunitslist($params_arr)
         {
-            $result = array();$status = 0;$message = "No data found.";$page_cnt = 1;
+            $result = array();$status = 0;$message = "Datos no encontrados.";$page_cnt = 1;
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
                 $role_id = $params_arr['role_id'];
@@ -715,7 +715,7 @@ class Services_IndexController extends Zend_Rest_Controller
          */
         public function getmenu($params_arr)
         {
-            $result = array();$status = 0;$message = "No data found.";
+            $result = array();$status = 0;$message = "Datos no encontrados.";
                                     
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
@@ -741,7 +741,7 @@ class Services_IndexController extends Zend_Rest_Controller
          */
 	public function getempdetails($params_arr)
         {
-            $status = 0;$message = "No data found.";$result = array();
+            $status = 0;$message = "Datos no encontrados.";$result = array();
             if(isset($params_arr['userid']) && $params_arr['userid'] != '')
             {
                 $userid = trim($params_arr['userid']);
@@ -792,7 +792,7 @@ class Services_IndexController extends Zend_Rest_Controller
 			}
 			 else
 			{
-			     $result = array('status'=>'0','message'=>'No data found.','result' => '');
+			     $result = array('status'=>'0','message'=>'Datos no encontrados.','result' => '');
 			}	
 		   
 		    return $result;
@@ -831,7 +831,7 @@ class Services_IndexController extends Zend_Rest_Controller
 				 $data = array('status'=>'0','message'=>'Organization is not added yet.','result' => '');	
             } else
 			{
-			     $data = array('status'=>'0','message'=>'No data found.','result' => '');
+			     $data = array('status'=>'0','message'=>'Datos no encontrados.','result' => '');
 			}	
 		   //echo"<pre>";print_r($getorgData[0]);exit;
 		    return $data;
@@ -847,7 +847,7 @@ class Services_IndexController extends Zend_Rest_Controller
 	 */
 	public function getempscreeninglist($params_arr)
 	{
-		$result = array();$status = 0;$message = "No data found.";
+		$result = array();$status = 0;$message = "Datos no encontrados.";
 		$add_flag = 'No';$page_cnt = 1;
 		if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] == $this->usergroup && isset($params_arr['userid']))
 		{
@@ -891,7 +891,7 @@ class Services_IndexController extends Zend_Rest_Controller
 
 	public function myteam($params_arr)
         {
-            $result = array();$status = 0;$message = "No data found.";
+            $result = array();$status = 0;$message = "Datos no encontrados.";
             $add_flag = 'No';$page_cnt = 1;
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
@@ -934,7 +934,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
             $add_flag = 'No';
 			$edit_flag = 'No';
 			$page_cnt = 1;
@@ -1003,7 +1003,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$messagearray = array();
 			
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
@@ -1054,7 +1054,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$messagearray = array();
 			$leavetypeid = '';
 			$leaverequestdata = array();
@@ -1094,7 +1094,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
             $add_flag = 'No';
 			$edit_flag = 'No';
 			$page_cnt = 1;
@@ -1159,7 +1159,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$edit_flag = 'No';
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
@@ -1208,7 +1208,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$cancel_flag = 'No';
 			$status_flag = 2;
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
@@ -1272,7 +1272,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$actionstatus = ''; 
 			$total_data = array();
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
@@ -1325,7 +1325,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$total_data = array();
             if(isset($params_arr['role_id']) && $params_arr['role_id'] != '' && isset($params_arr['group_id']) && $params_arr['group_id'] != '')
             {
@@ -1370,7 +1370,7 @@ class Services_IndexController extends Zend_Rest_Controller
         {
             $result = array();
 			$status = 0;
-			$message = "No data found.";
+			$message = "Datos no encontrados.";
 			$messagearray = array();
 			$leavetypeid = '';
 			$daysdata = array();
@@ -1441,7 +1441,7 @@ class Services_IndexController extends Zend_Rest_Controller
 	{
 		$result = array();$specimenDataArr = Array();
 		$status = 0;
-		$message = "No data found.";
+		$message = "Datos no encontrados.";
 		$edit_flag = 'No';
 		$page_no = 1;
 		$per_page = PERPAGE;
@@ -1508,7 +1508,7 @@ class Services_IndexController extends Zend_Rest_Controller
 	{
 		$result = array();$commentsData = Array();
 		$status = 0;
-		$message = "No data found.";
+		$message = "Datos no encontrados.";
 		$edit_flag = 'No';
 		$page_no = 1;
 		$per_page = PERPAGE;

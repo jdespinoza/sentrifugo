@@ -21,7 +21,7 @@
 ?>
 
 <form id="idstep3" name="frmstep3" method="post" action="index.php?s=<?php echo sapp_Global::_encrypt(3);?>" class="frm_install">
-    <h3 class="page_title">Application Settings</h3>
+    <h3 class="page_title">Configuración de la Aplicación</h3>
 <?php
     $msgarray = array();
     $app_name = defined('APPLICATION_NAME')?APPLICATION_NAME:'';
@@ -35,32 +35,32 @@
 
         if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", trim($email)))
         {
-            $msgarray['email'] = "Please enter valid email.";
+            $msgarray['email'] = "Por favor introduzca un correo electrónico válido.";
             $i++;
         }
         if( ! preg_match("/^([a-zA-Z0-9.\-&]+ ?)+$/", $app_name))
         {
-            $msgarray['app_name'] = "Please enter valid application name.";
+            $msgarray['app_name'] = "Por favor ingrese un nombre válido para la aplicación.";
             $i++;
         }
         if(strlen($app_name) <3)
         {
-            $msgarray['app_name'] = "Application Name must be atleast 3 characters.";
+            $msgarray['app_name'] = "El nombre de la aplicación debe tener al menos 3 caracteres.";
             $i++;
         }
         if(strlen($app_name) > 50)
         {
-            $msgarray['app_name'] = "Application Name cannot be grater than 50 characters.";
+            $msgarray['app_name'] = "El nombre de la aplicación no puede tener más de 50 caracteres.";
             $i++;
         }
         if($app_name == '')
         {
-            $msgarray['app_name'] = "Application Name cannot be empty.";
+            $msgarray['app_name'] = "El nombre de la aplicación no puede estar vacío.";
             $i++;
         }
         if($email == '')
         {
-            $msgarray['email'] = "Email cannot be empty.";
+            $msgarray['email'] = "El correo electrónico no puede estar vacío.";
             $i++;
         }
         if($i == 0)
@@ -74,28 +74,28 @@
 <?php
             }
             else
-                $msgarray['frm_error'] = "Some error,please try again.";
+                $msgarray['frm_error'] = "Ocurrió algún error, por favor intente de nuevo.";
         }
     }
 ?>
 <div class="content_part">
     <span  class="error_info"><?php echo isset($msgarray['frm_error'])?$msgarray['frm_error']:"";?></span>
     <div class="new-form-ui ">
-        <label class="required">Application Name<img src="images/help.png" title="Name of your application." class="tooltip"></label>
+        <label class="required">Nombre de la Aplicación<img src="images/help.png" title="Name of your application." class="tooltip"></label>
         <div>
             <input type="text" maxlength="50" value="<?php echo $app_name;?>" id="app_name" name="app_name" />
             <span  class="error_info"><?php echo isset($msgarray['app_name'])?$msgarray['app_name']:'';?></span>
         </div>
     </div>
     <div class="new-form-ui ">
-        <label class="required">Email<img src="images/help.png" title="Super admin email for authenticate Mail Server." class="tooltip"></label>
+        <label class="required">Correo<img src="images/help.png" title="Super admin email for authenticate Mail Server." class="tooltip"></label>
         <div>
             <input type="text" maxlength="100" value="<?php echo $email;?>" id="email" name="email" />
             <span><?php echo isset($msgarray['email'])?$msgarray['email']:'';?></span>
         </div>
     </div>
 
-        <input type="submit" value="Confirm" id="submitbutton" name="submit" class="save_button">
+        <input type="submit" value="Confirmar" id="submitbutton" name="submit" class="save_button">
         </div>
 
         <button name="previous" id="previous" class="previous_button" type="button" onclick="window.location='index.php?s=<?php echo sapp_Global::_encrypt(2);?>';">Anterior</button>

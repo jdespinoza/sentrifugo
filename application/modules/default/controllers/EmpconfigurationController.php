@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -26,39 +26,39 @@ class Default_EmpconfigurationController extends Zend_Controller_Action
 	private $empConfigureArray;
 	public function preDispatch()
 	{
-			
+
 
 	}
 
 	public function init()
 	{
 		$this->_options= $this->getInvokeArg('bootstrap')->getOptions();
-		$this->empConfigureArray = array(		
-								   'employeedocs' => 'Employee Documents',
-									'emp_leaves' => 'Employee Leaves',
-									'emp_leaves' => 'Employee Leaves',
-								   'emp_holidays' => 'Employee Holidays',
-								   'emp_salary' => 'Salary Details',
-								   'emppersonaldetails'=>'Personal Details',
-								   'empcommunicationdetails'=>'Contact Details',
-								   'emp_skills' => 'Employee Skills',
-								   'emp_jobhistory' => 'Employee Job History',
-								   'experience_details' => 'Experience Details',
-								   'education_details' => 'Education  Details',
-								   'trainingandcertification_details' => 'Training & Certification  Details',
-								   'medical_claims' => 'Medical Claims',
-								   'disabilitydetails' => 'Disability Details',
-								   'dependency_details' => 'Dependency Details',
-								   'visadetails' => 'Visa and Immigration Details',
-								   'creditcarddetails' => 'Corporate Card Details',
-								   'workeligibilitydetails' => 'Work Eligibility Details',
-								   'emp_additional' => 'Additional Details',
+		$this->empConfigureArray = array(
+								   'employeedocs' => 'Documentos del Empleado',
+									'emp_leaves' => 'Licencias de Empleados',
+									'emp_leaves' => 'Licencia de Empleado',
+								   'emp_holidays' => 'Vacaciones del Empleado',
+								   'emp_salary' => 'Detalles del Salario',
+								   'emppersonaldetails'=>'Detalles Personales',
+								   'empcommunicationdetails'=>'Detalles de Contacto',
+								   'emp_skills' => 'Habilidades del Empleado',
+								   'emp_jobhistory' => 'Historial de Trabajo del Empleado',
+								   'experience_details' => 'Experiencia',
+								   'education_details' => 'Detalles de la Educación',
+								   'trainingandcertification_details' => 'Detalles del Entrenamientos y Certificación',
+								   'medical_claims' => 'Reclamaciones Médicas',
+								   'disabilitydetails' => 'Detalles de la Discapacidad',
+								   'dependency_details' => 'Detalles de Dependencia',
+								   'visadetails' => 'Detalles de Inmigración & Visa',
+								   'creditcarddetails' => 'Detalles de la tarjeta corporativa',
+								   'workeligibilitydetails' => 'Detalles de elegibilidad de trabajo',
+								   'emp_additional' => 'Detalles Adicionales',
 								   //'emp_performanceappraisal' => 'Performance Appraisal',
-								   'emp_payslips' => 'Pay Slips',
-								   'emp_benifits' => 'Benefits',
-								   'emp_renumeration' => 'Remuneration Details',
-								   'emp_security' => 'Security Credentials',
-								   'assetdetails' => 'Asset Details'
+								   'emp_payslips' => 'Recibos de Pago',
+								   'emp_benifits' => 'Beneficios',
+								   'emp_renumeration' => 'Detalles de Remuneración',
+								   'emp_security' => 'Credenciales de Seguridad',
+								   'assetdetails' => 'Detalles del Activo'
 								   );
 
 	}

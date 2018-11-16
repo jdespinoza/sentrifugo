@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@
 class Default_Model_Addemployeeleaves extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_employeeleaves';
-    protected $_primary = 'id';		
+    protected $_primary = 'id';
 
 	/*
 	   I. This query fetches employees data based on roles.
@@ -30,27 +30,27 @@ class Default_Model_Addemployeeleaves extends Zend_Db_Table_Abstract
     public function getEmployeesData($sort,$by,$pageNo,$perPage,$searchQuery,$managerid='',$loginUserId)
     {
         //the below code is used to get data of employees from summary table.
-        $employeesData="";                             
-        $where = "  e.isactive = 1 AND e.user_id != ".$loginUserId." 
+        $employeesData="";
+        $where = "  e.isactive = 1 AND e.user_id != ".$loginUserId."
         			and r.group_id NOT IN (".MANAGEMENT_GROUP.",".USERS_GROUP.")
-        			AND el.alloted_year = year(now()) ";  
-       
+        			AND el.alloted_year = year(now()) ";
+
         if($searchQuery != '')
             $where .= " AND ".$searchQuery;
 
         $employeesData = $this->select()
-                                ->setIntegrityCheck(false)	                                
+                                ->setIntegrityCheck(false)
                                 ->from(array('e' => 'main_employees_summary'),array('id'=>'e.user_id','e.firstname','e.lastname','e.employeeId'))
-                                ->joinLeft(array('r'=>'main_roles'), 'e.emprole=r.id',array())  
-                                ->joinLeft(array('el'=>'main_employeeleaves'), 'el.user_id=e.user_id',array('el.emp_leave_limit','el.used_leaves','el.alloted_year','el.createddate','el.isleavetrasnferset','remainingleaves'=>new Zend_Db_Expr('el.emp_leave_limit - el.used_leaves')))                                        
+                                ->joinLeft(array('r'=>'main_roles'), 'e.emprole=r.id',array())
+                                ->joinLeft(array('el'=>'main_employeeleaves'), 'el.user_id=e.user_id',array('el.emp_leave_limit','el.used_leaves','el.alloted_year','el.createddate','el.isleavetrasnferset','remainingleaves'=>new Zend_Db_Expr('el.emp_leave_limit - el.used_leaves')))
                                 ->where($where)
-                                ->order("$by $sort") 
+                                ->order("$by $sort")
                                 ->limitPage($pageNo, $perPage);
-        return $employeesData;       		
+        return $employeesData;
     }
-	
+
     public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$exParam1='',$exParam2='',$exParam3='',$exParam4='')
-    {		
+    {
         $searchQuery = '';
         $tablecontent = '';
         $emptyroles=0;
@@ -59,43 +59,43 @@ class Default_Model_Addemployeeleaves extends Zend_Db_Table_Abstract
         $data = array();
         $id='';
         $dataTmp = array();
-		
+
         if($searchData != '' && $searchData!='undefined')
         {
             $searchValues = json_decode($searchData);
-			
+
             foreach($searchValues as $key => $val)
-            {				
-                $searchQuery .= $key." like '%".$val."%' AND ";				
+            {
+                $searchQuery .= $key." like '%".$val."%' AND ";
                 $searchArray[$key] = $val;
             }
-            $searchQuery = rtrim($searchQuery," AND");					
+            $searchQuery = rtrim($searchQuery," AND");
         }
         $objName = 'addemployeeleaves';
-				        
-			
-        $tableFields = array('action'=>'Action','firstname'=>'First Name','lastname'=>'Last Name',
-                             'employeeId' =>'Employee ID','emp_leave_limit'=>'Allotted Leave Limit',
-                             'used_leaves'=>'Used Leaves','remainingleaves'=>'Leave Balance','alloted_year'=>'Allotted Year');
-		   
-        $tablecontent = $this->getEmployeesData($sort,$by,$pageNo,$perPage,$searchQuery,'',$exParam1);  
-			
+
+
+        $tableFields = array('action'=>'Acción','firstname'=>'Nombre','lastname'=>'Apellidos',
+                             'employeeId' =>'Id Empleado','emp_leave_limit'=>'Límite de Licencia Asignada',
+                             'used_leaves'=>'Licencias Usadas','remainingleaves'=>'Balance de Licencia','alloted_year'=>'Año Asignado');
+
+        $tablecontent = $this->getEmployeesData($sort,$by,$pageNo,$perPage,$searchQuery,'',$exParam1);
+
         if($tablecontent == "emptyroles")
         {
             $emptyroles=1;
         }
-		
+
         $dataTmp = array(
                         'userid'=>$id,
                         'sort' => $sort,
                         'by' => $by,
                         'pageNo' => $pageNo,
-                        'perPage' => $perPage,				
+                        'perPage' => $perPage,
                         'tablecontent' => $tablecontent,
                         'objectname' => $objName,
                         'extra' => array(),
                         'tableheader' => $tableFields,
-                        'jsGridFnName' => 'getAjaxgridData',                        
+                        'jsGridFnName' => 'getAjaxgridData',
                         'jsFillFnName' => '',
                         'searchArray' => $searchArray,
                         'menuName' => 'Employees',
@@ -103,11 +103,11 @@ class Default_Model_Addemployeeleaves extends Zend_Db_Table_Abstract
                         'add'=>'add',
                         'call'=>$call,
                         'emptyroles'=>$emptyroles
-                    );	
-				
+                    );
+
         return $dataTmp;
     }
-    
+
 	public function getMultipleEmployees($dept_id)
 	{
 		$auth = Zend_Auth::getInstance();
@@ -125,11 +125,11 @@ class Default_Model_Addemployeeleaves extends Zend_Db_Table_Abstract
 							->group('e.user_id')
                             ->order('e.userfullname');
 
-                return $this->fetchAll($select)->toArray();	
+                return $this->fetchAll($select)->toArray();
             }
-            else 
+            else
                 return array();
 	}
-	
+
 }
 ?>

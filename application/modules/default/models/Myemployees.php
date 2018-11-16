@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,16 +23,16 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 {
 	protected $_name = 'main_employees';
     protected $_primary = 'id';
-	
+
 	public function getEmployeesData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = " e.isactive = 1 ";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$employeesData = $this->select()
-    					   ->setIntegrityCheck(false)	 
+    					   ->setIntegrityCheck(false)
 						   ->from(array('e' => 'main_employees'),array('id'=>'e.user_id'))
 						   ->joinInner(array('u'=>'main_users'),'e.reporting_manager=u.id',array('reportingmanager'=>'u.userfullname'))
 						   ->joinInner(array('mu'=>'main_users'),'e.user_id=mu.id',array('empId'=>'mu.employeeId','empname'=>'mu.userfullname','empemail'=>'mu.emailaddress'))
@@ -41,12 +41,12 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 						   ->joinLeft(array('j'=>'main_jobtitles'),'e.jobtitle_id=j.id',array('jobtitle'=>'j.jobtitlename'))
 						   ->joinLeft(array('p'=>'main_positions'),'e.position_id=p.id',array('position'=>'p.positionname'))
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $employeesData;       		
+
+		return $employeesData;
 	}
-	
+
 	public function getsingleEmployeeData($id)
 	{
 		$row = $this->fetchRow("user_id = '".$id."'");
@@ -55,7 +55,7 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function SaveorUpdateEmployeeData($data, $where)
 	{
 	    if($where != ''){
@@ -66,7 +66,7 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_employees');
 			return $id;
 		}
-		
+
 	}
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$exParam1='',$exParam2='',$exParam3='',$exParam4='')
 	{
@@ -81,47 +81,47 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 			$filterArray = array(''=>'All',1 => 'Active',0 => 'Inactive',2 => 'Resigned',3 => 'Left',4 => 'Suspended');
 		else
 			$filterArray = array(''=>'All',1 => 'Active');
-		
+
         $searchQuery = '';$tablecontent = '';
         $searchArray = array();$data = array();$id='';
         $dataTmp = array();
 		if($searchData != '' && $searchData!='undefined')
 		{
 			$searchValues = json_decode($searchData);
-			
+
 			foreach($searchValues as $key => $val)
 			{
-				
+
 				if($key == "userfullname")
 					$searchQuery .= " e.".$key." like '%".$val."%' AND ";
 				else if($key == "rm")
 					$searchQuery .= " e.userfullname like '%".$val."%' AND ";
 				else if($key == "jobtitle_name")
-					$searchQuery .= " e.jobtitle_name like '%".$val."%' AND ";					
-				else if($key == 'extn')					
+					$searchQuery .= " e.jobtitle_name like '%".$val."%' AND ";
+				else if($key == 'extn')
 					$searchQuery .= " concat(e.office_number,' (ext ',e.extension_number,')') like '%".$val."%' AND ";
 				else if($key == 'astatus')
               		$searchQuery .= " e.isactive like '%".$val."%' AND ";
-				else 
+				else
 					$searchQuery .= " e.".$key." like '%".$val."%' AND ";
-				
+
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 		$objName = 'myemployees';$emptyroles=0;
-		
+
 		$tableFields = array('action'=>'Action','firstname'=>'First Name','lastname'=>'Last Name','emailaddress'=>'Email','employeeId' =>'Employee ID','astatus' =>'User Status','extn'=>' Work Phone','jobtitle_name'=>'Job Title','contactnumber'=>'Contact Number');
-		
+
 		$employeeModel = new Default_Model_Employee();
-		$tablecontent = $employeeModel->getEmployeesData($sort,$by,$pageNo,$perPage,$searchQuery,$exParam1,$exParam1);  
-		
+		$tablecontent = $employeeModel->getEmployeesData($sort,$by,$pageNo,$perPage,$searchQuery,$exParam1,$exParam1);
+
 		if($tablecontent == "emptyroles")
 		{
 			$emptyroles=1;
 		}
 		else
-		{	
+		{
 			$emptyroles=0;
 		}
 			$dataTmp = array('dashboardcall'=>$dashboardcall,
@@ -129,7 +129,7 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 					'sort' => $sort,
 					'by' => $by,
 					'pageNo' => $pageNo,
-					'perPage' => $perPage,				
+					'perPage' => $perPage,
 					'tablecontent' => $tablecontent,
 					'objectname' => $objName,
 					'extra' => array(),
@@ -146,12 +146,12 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
                                                 'astatus' => array('type'=>'select',
                                                 'filter_data'=>$filterArray),
                                                 ),
-				);			
+				);
 		return $dataTmp;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Get login user ID
 	 * @return Integer - Login user ID
 	 */
@@ -159,9 +159,9 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
 			return $auth->getStorage()->read()->id;
-		}		
+		}
 	}
-	
+
 	public function getTeamIds($mgr_id)
 	{
 		$data = array();
@@ -173,6 +173,6 @@ class Default_Model_Myemployees extends Zend_Db_Table_Abstract
         }
        return $data;
 	}
-	
+
 }
 ?>

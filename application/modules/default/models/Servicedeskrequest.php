@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,30 +23,30 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_sd_reqtypes';
     protected $_primary = 'id';
-	
+
 	public function getServiceDeskRequestData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "sdr.isactive = 1 and d.isactive=1";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$servicedeskRequestData = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
                            ->from(array('sdr'=>'main_sd_reqtypes'),array('sdr.*'))
                            ->joinInner(array('d'=>'main_sd_depts'), 'sdr.service_desk_id=d.id', array('service_desk_name' => 'd.service_desk_name'))
                            ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		return $servicedeskRequestData;       		
+		return $servicedeskRequestData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -59,20 +59,20 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 						}
                            $searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
+
 		$objName = 'servicedeskrequest';
-		
-		$tableFields = array('action'=>'Action','service_desk_name'=>'Category','service_request_name' => 'Request Type','description' => 'Description');
-		
-		$tablecontent = $this->getServiceDeskRequestData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','service_desk_name'=>'Categoría','service_request_name' => 'Tipo de Solicitud','description' => 'Descripción');
+
+		$tablecontent = $this->getServiceDeskRequestData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -86,7 +86,7 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 		);
 		return $dataTmp;
 	}
-	
+
 	public function getServiceDeskRequestbyID($id)
 	{
 	    $select = $this->select()
@@ -94,9 +94,9 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 						->from(array('sdr'=>'main_sd_reqtypes'),array('sdr.*'))
 					    ->where('sdr.isactive = 1 AND sdr.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function SaveorUpdateServiceDeskRequestData($data, $where)
 	{
 	    if($where != ''){
@@ -107,10 +107,10 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_sd_reqtypes');
 			return $id;
 		}
-		
-	
+
+
 	}
-	
+
 	public function checkduplicaterequestname($servicedeskid,$requestname)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -118,7 +118,7 @@ class Default_Model_Servicedeskrequest extends Zend_Db_Table_Abstract
 		$res = $db->query($qry)->fetchAll();
 		return $res;
 	}
-        
+
         /**
          * This function uses to get count of request types based on category id.
          * @param integer $category_id  = id of service desk category

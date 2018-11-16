@@ -80,7 +80,7 @@ class Default_Form_Requisition extends Zend_Form
         $position_id = new Zend_Form_Element_Select("position_id");
         $position_id->setAttrib("class", "formDataElement");
         $position_id->setAttrib('title', 'Position.');  
-        $position_id->addMultiOptions(array(''=>'Select Position'));
+        $position_id->addMultiOptions(array(''=>'Seleccionar posición'));
         
         $req_no_positions = new Zend_Form_Element_Text('req_no_positions');
         $req_no_positions->setAttrib('maxLength', 4);

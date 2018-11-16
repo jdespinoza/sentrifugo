@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -38,21 +38,21 @@ $mandatory_array = $this->mandatory_array;
 	    <div class="config-choose config-up" onclick="displayreqtabs();" id="selectfields"></div>
 		<span>Requisitions</span>
         <div id='idcols_arr' class="columnsdiv" style='display:none;' ><i>Columns :</i>
-	<?php 
+	<?php
 	   $selectedColumn = implode(',',array_keys($cols_param_arr));
 	    foreach($columns_array as $column_key => $column_name)
 	    {
 	        $checked = in_array($column_key,array_keys($cols_param_arr))?"checked = 'checked'":"";
 	?>
 	    	<p><input type="checkbox" class="cls_clmchk" id="cls_<?php echo $column_key ;?>" name="cols_arr[<?php echo $column_key ;?>]" value="<?php echo $column_name ;?>" <?php echo $checked;?> /><b><?php echo $column_name;?></b></p>
-	<?php         
+	<?php
 	    }
 	?>
-	
+
 				<div class="new-form-ui-submit mrgetop10">
-					<input type="button" id ="btncols" value ="Apply" />
-				 	<button onclick="displayreqtabs()" type="button" id="Cancel" name="Cancel">Cancel</button>
-				</div>	
+					<input type="button" id ="btncols" value ="Aplicar" />
+				 	<button onclick="displayreqtabs()" type="button" id="Cancel" name="Cancel">Cancelar</button>
+				</div>
 		</div>
 		<input type="hidden" value="<?php echo $selectedColumn;?>" id="selectedColumns"/>
 	</div>
@@ -60,8 +60,8 @@ $mandatory_array = $this->mandatory_array;
 	    <table id="idtable_content" class='grid' align='center'  width='100%' cellspacing='0' cellpadding='4' border='0'>
 	        <thead>
 	        <tr>
-           
-<?php 
+
+<?php
         $i = 1;
         foreach($cols_param_arr as $column_key => $column_name)
         {
@@ -69,61 +69,61 @@ $mandatory_array = $this->mandatory_array;
             {
                 if($sort_type == "ASC")
                     $csort_type = "DESC";
-                else 
+                else
                     $csort_type = "ASC";
             }
-            else 
+            else
             {
                 $csort_type = "ASC";
-            }        
+            }
 ?>
             	<th class="<?php echo ($i == 1)?"cellDivHeader":"" ;?> sort " ><a class="sort_columns" id ="<?php echo "idcol_".$column_key ;?>" href="javascript:void(0);" data-column="<?php echo $column_key ;?>" data-sort_type = "<?php echo $csort_type;?>"><?php echo $column_name ;?></a></th>
-<?php             
+<?php
             $i++;
         }
 ?>
 	        </tr>
 	        </thead>
-<?php 
+<?php
     if(count($requisition_arr) > 0)
     {
 ?>
         	<tbody>
-<?php         
+<?php
         $i = 0;
         foreach($requisition_arr as $emp_data)
         {
             if($i%2 == 0)
                 $classColor = 'row1';
             else
-                $classColor = 'row2';	
+                $classColor = 'row2';
 ?>
         		<tr class="<?php echo $classColor;?>">
-<?php 
+<?php
         foreach($cols_param_arr as $column_key => $column_name)
         {
 ?>
             		<td>
             			<span title="<?php $requisition_view_helper->displayData($emp_data, $column_key);?>"><?php $requisition_view_helper->displayData($emp_data, $column_key);?></span>
             		</td>
-<?php             
+<?php
         }
 ?>
         		</tr>
-<?php    
+<?php
             $i++;
         }
 ?>
-        
-<?php         
+
+<?php
     }
-    else 
+    else
     {
 ?>
-	        <tr>	            
-                    <td class="no-data-td" colspan="11"><p class="no-data">No data found.</p></td>
+	        <tr>
+                    <td class="no-data-td" colspan="11"><p class="no-data">Datos no encontrados.</p></td>
 	        </tr>
-<?php        
+<?php
     }
 ?>
         </tbody>
@@ -132,13 +132,13 @@ $mandatory_array = $this->mandatory_array;
 
     <div class="table-btm">
 		<div class="pagination_block">
-				<?php 
+				<?php
 					if(count($requisition_arr) > 0)
 					{
 					?>
 					<div class="records_block">
 					<div class="page_txt">
-						<span>Records per page</span>
+						<span>Registros por página</span>
 						<div class="records_number-drop-down">
 							<select id="sel_per_page">
 								<option value="20" <?php echo ($per_page == 20)?"selected":"" ;?>>20</option>
@@ -150,7 +150,7 @@ $mandatory_array = $this->mandatory_array;
 						</div>
 					</div>
 					</div>
-					<?php 
+					<?php
 					}
 					if($page_cnt > 1)
 					{
@@ -158,7 +158,7 @@ $mandatory_array = $this->mandatory_array;
 					<div class="pagination_view">
 						<?php sapp_Global::pagination_html(); ?>
 					</div>
-					<?php 
+					<?php
 					}
 					?>
 		</div>
@@ -171,37 +171,37 @@ $(document).ready(function(){
 		start: 'left',
 		position: 'bottom',
 	}).css({ background: '#ccc', paddingBottom: '10px' });
-        
- <?php 
+
+ <?php
 if($sort_type == 'DESC')
 {
 ?>
     $('#idcol_<?php echo $sort_name;?>').append('<span class="s-ico"><span class="ui-icon-asc  ui-icon ui-icon-triangle-1-s"></span></span>');
-<?php         
+<?php
 }
-else 
+else
 {
 ?>
     $('#idcol_<?php echo $sort_name;?>').append('<span class="s-ico"><span class="ui-icon-desc ui-icon ui-icon-triangle-1-n"></span></span>');
-<?php         
+<?php
 }
-?>       
+?>
 $('#btncols').click(function(){
     	$('#idsubmitbutton').trigger('click');
-    }); 
-<?php 
+    });
+<?php
     if(count($requisition_arr) > 0)
     {
   ?>$('#export_excel,#pdf').show();
-<?php          
+<?php
     }
-    else 
+    else
     {
 ?>$('#export_excel,#pdf').hide();
-<?php        
+<?php
     }
-?>     
-<?php 
+?>
+<?php
 if($page_cnt > 1)
 {
 ?>
@@ -214,7 +214,7 @@ if($page_cnt > 1)
                requisitionsstatusreport_ajax();
         }
     });
-<?php 
+<?php
 }
 ?>
 
@@ -223,13 +223,13 @@ if($page_cnt > 1)
         $('#per_page').val(val);
         requisitionsstatusreport_ajax();
     });
-    
+
     $('.sort_columns').click(function(){
         var sort_name = $(this).attr('data-column');
         var sort_type = $(this).attr('data-sort_type');
         $('#sort_name').val(sort_name);
         $('#sort_type').val(sort_type);
-        requisitionsstatusreport_ajax();    
+        requisitionsstatusreport_ajax();
 	});
 });
 </script>

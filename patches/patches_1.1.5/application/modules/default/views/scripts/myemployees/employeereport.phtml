@@ -49,7 +49,7 @@ $default_sort_type = "DESC";
 </div>
 <div id="all_param_div">
 <div class="left-config-ctrl">
-<div class="heading-name-1">Generate Custom Report</div>
+<div class="heading-name-1">Generar informe personalizado</div>
 <div class="total-form-controller-left">  
     <div id="filters_div">
     <form name="<?php echo $this->form->getName(); ?>" id="<?php echo $this->form->getId(); ?>" action="javascript: void(0)" method="<?php echo $this->form->getMethod(); ?>" accept-charset=utf-8>
@@ -149,16 +149,16 @@ $(document).ready(function(){
             }
             if(value == 'jobtitle_id'){
             	jobtitle_id = '';jobtitle_idtext = '';
-                $('#s2id_jobtitle_id').find('a.select2-choice').find('span').html('Select Job Title');
+                $('#s2id_jobtitle_id').find('a.select2-choice').find('span').html('Seleccione el título del trabajo');
                 position_id = '';
                 position_idtext = '';
                 $("#position_id_clear").hide();
-                $("#position_id").html('<option label="Select Position" value="">Select Position</option>');
-                $('#s2id_position_id').find('a.select2-choice').find('span').html('Select Position');
+                $("#position_id").html('<option label="Seleccionar posición" value="">Seleccionar posición</option>');
+                $('#s2id_position_id').find('a.select2-choice').find('span').html('Seleccionar posición');
             }
             if(value == 'position_id'){
             	position_id = '';position_idtext = '';
-                $('#s2id_position_id').find('a.select2-choice').find('span').html('Select Position');
+                $('#s2id_position_id').find('a.select2-choice').find('span').html('Seleccionar posición');
             }
             if(value == 'emp_status_id'){
             	emp_status_id = '';emp_status_idtext = '';

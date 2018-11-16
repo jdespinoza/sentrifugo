@@ -1031,20 +1031,20 @@ function getpositions_req(dept_id,bunit_id,position_id,job_id)
         $.post(base_url+"/default/requisition/getpositions",{bunitid:bunit_val,dept_id:dept_val,job_id:job_val},function(data){
             $('#'+position_id).find('option').remove();
             $('#'+position_id).html(data.options);
-            $('#s2id_'+position_id).find('a.select2-choice').find('span').html('Select Position');
+            $('#s2id_'+position_id).find('a.select2-choice').find('span').html('Seleccionar posición');
             var opt_len = $('#'+position_id).find('option').length;
             if(opt_len == 1)
             {
                 $("#errors-"+position_id).remove();
-			  $('#'+position_id).after("<span class='errors' id='errors-"+position_id+"'>Positions are not configured yet.</span>");
+			  $('#'+position_id).after("<span class='errors' id='errors-"+position_id+"'>Las posiciones aún no están configuradas.</span>");
             }
         },'json');
     }
     else 
     {
         $('#'+position_id).find('option').remove();
-        $('#s2id_'+position_id).find('a.select2-choice').find('span').html('Select Position');
-        $('#'+position_id).html("<option value=''>Select Position</option>");
+        $('#s2id_'+position_id).find('a.select2-choice').find('span').html('Seleccionar posición');
+        $('#'+position_id).html("<option value=''>Seleccionar posición</option>");
     }
 }
 function bunit_emailcontacts(bunit_id)
@@ -3176,14 +3176,14 @@ function displayPositions(ele,eleId,con)
 						    $("#errors-"+eleId).show();					
 						    $("#errors-"+eleId).html("Positions are not configured for this job title.");
 							$("#"+eleId).find('option').remove();
-	                        $("#"+eleId).prepend("<option value='' label='select position'>Select Position</option>");
-							$('#s2id_'+eleId).find('span').html('Select Position');		 
+	                        $("#"+eleId).prepend("<option value='' label='select position'>Seleccionar posición</option>");
+							$('#s2id_'+eleId).find('span').html('Seleccionar posición');		 
 						 }
 				         if(response != '' && response != 'null' && $.trim(response) != 'nopositions')
 						  {
 						    if($("#errors-"+eleId).is(':visible'))
 		                     $("#errors-"+eleId).hide();
-							$('#s2id_'+eleId).find('span').html('Select Position');
+							$('#s2id_'+eleId).find('span').html('Seleccionar posición');
                             $("#loader").remove();
 							$("#"+eleId).html(response);
 						  }
@@ -3194,8 +3194,8 @@ function displayPositions(ele,eleId,con)
         else
         {
             $('#'+eleId).find('option').remove();       
-            $('#'+eleId).html("<option value='' label='select position'>Select Position</option>");
-            $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select Position');
+            $('#'+eleId).html("<option value='' label='select position'>Seleccionar posición</option>");
+            $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Seleccionar posición');
         }
 	
 
@@ -4997,8 +4997,8 @@ function getdetailsoforghead(ele)
 					$("#loader").remove();	
 					var result = response['result'];
 					var positionsArr = response['positionsdata'];
-					var defOption = "<option value=''>Select Position</option>";		
-					$('#s2id_position_id .select2-choice span').html('Select Position');
+					var defOption = "<option value=''>Seleccionar posición</option>";		
+					$('#s2id_position_id .select2-choice span').html('Seleccionar posición');
 					$("#position_id").find('option').remove();
 					$("#position_id").parent().find('.select2-container').find('.select2-search-choice').remove();
 					$("#position_id").html(defOption+positionsArr);

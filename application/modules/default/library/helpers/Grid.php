@@ -169,7 +169,7 @@ class Zend_View_Helper_Grid extends Zend_View_Helper_Abstract {
 
 		}
 		if($ii == 0){
-			$output.= "<tr><td colspan='$colinr' align='center'><p class='no-data'>No data found</p></td></tr>";
+			$output.= "<tr><td colspan='$colinr' align='center'><p class='no-data'>Datos no encontrados</p></td></tr>";
 		}
 		$output .= "</tbody>";
 		$output .="</table></div>";

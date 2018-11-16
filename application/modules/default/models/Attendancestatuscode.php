@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,38 +23,38 @@ class Default_Model_Attendancestatuscode extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_attendancestatuscode';
     protected $_primary = 'id';
-	
+
 	public function getAttendanceStatusData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$attendanceStatusData = $this->select()
-    					   ->setIntegrityCheck(false)	    					
+    					   ->setIntegrityCheck(false)
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $attendanceStatusData;       		
+
+		return $attendanceStatusData;
 	}
 	public function getsingleAttendanceStatusData($id)
 	{
-		
-		
+
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$attendanceData = $db->query("SELECT * FROM main_attendancestatuscode WHERE id = ".$id." AND isactive=1");
 		$res = $attendanceData->fetchAll();
-		if (isset($res) && !empty($res)) 
-		{	
+		if (isset($res) && !empty($res))
+		{
 			return $res;
 		}
 		else
 			return 'norows';
 	}
-	
+
 	public function SaveorUpdateAttendanceStatusData($data, $where)
 	{
 	    if($where != ''){
@@ -67,7 +67,7 @@ class Default_Model_Attendancestatuscode extends Zend_Db_Table_Abstract
 		}
 	}
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$exParam1='',$exParam2='',$exParam3='',$exParam4='')
-	{		
+	{
         $searchQuery = '';$tablecontent = '';  $searchArray = array();$data = array();$id='';
         $dataTmp = array();
 		if($searchData != '' && $searchData!='undefined')
@@ -78,22 +78,22 @@ class Default_Model_Attendancestatuscode extends Zend_Db_Table_Abstract
 				$searchQuery .= " ".$key." like '%".$val."%' AND ";
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 
 		/** search from grid - END **/
 		$objName = 'attendancestatuscode';
-		
-		$tableFields = array('action'=>'Action','attendancestatuscode' => 'Attendance Status','description' => 'Description');
-		
-			
+
+		$tableFields = array('action'=>'Acción','attendancestatuscode' => 'Estado de Asistencia','description' => 'Descripción');
+
+
 		$tablecontent = $this->getAttendanceStatusData($sort, $by, $pageNo, $perPage,$searchQuery);
-		
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -102,8 +102,8 @@ class Default_Model_Attendancestatuscode extends Zend_Db_Table_Abstract
 			'jsFillFnName' => '',
 			'searchArray' => $searchArray,
 			'call'=>$call,'dashboardcall'=>$dashboardcall,
-		);		
-			
+		);
+
 		return $dataTmp;
 	}
 }

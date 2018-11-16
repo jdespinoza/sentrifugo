@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -34,15 +34,15 @@ if($auth->hasIdentity()){
         <?php
 if (count($this->messages)) {?>
             <div id="dispmsgemp" class="settingssuccess">
-                <?php 
+                <?php
 			foreach ($this->messages as $message)
 			{
-				$flag = array();				
+				$flag = array();
 				$flag = array_keys($message);
 				echo "<div id='messageData' class='ml-alert-1-$flag[0]'><div style='display:block;'><span class='style-1-icon $flag[0]'></span>";
 				echo $message[$flag[0]];
 				echo "</div></div>";
-			} 
+			}
 		?> </div>
             <?php }	?>
                 <?php if(!empty($this->popConfigPermission))
@@ -53,10 +53,10 @@ if (count($this->messages)) {?>
                         <div class="profile-tabs-right-2">
                             <div class="flt_right">
                                 <div class="actions_div">
-                                    <?php 
-					  	
+                                    <?php
+
 		if(sapp_Global::_checkprivileges(EMPLOYEE,$loginuserGroup,$loginuserRole,'add') == 'Yes'){?> <a href="<?php echo BASE_URL.'employee/add';?>" class="sprite addrecord">Add</a>
-                                        <?php 	} ?> <span class="uploadbut_exel uploadbutsel flt_left marginfiv" id="upload_custom_div">Import Employees</span> <a target="_blank" href="<?php echo DOMAIN; ?>public/downloads/import_employees.xlsx" class="importformatlink flt_left">Import format</a> <a target="_blank" href="<?php echo DOMAIN; ?>public/downloads/importguide.pdf" class="importformatlink flt_left">Help</a>
+  <?php 	} ?> <span class="uploadbut_exel uploadbutsel flt_left marginfiv" id="upload_custom_div">Importar Empleados</span> <a target="_blank" href="<?php echo DOMAIN; ?>public/downloads/import_employees.xlsx" class="importformatlink flt_left">Importar formato</a> <a target="_blank" href="<?php echo DOMAIN; ?>public/downloads/importguide.pdf" class="importformatlink flt_left">Help</a>
                                             <div id="loaderimgprofile" style="display:none;"><img src="<?php echo DOMAIN; ?>public/media/images/loaderwhite_21X21.gif" style="width:21px; height: 21px; float: none; " /></div>
                                 </div>
                             </div>
@@ -66,16 +66,16 @@ if (count($this->messages)) {?>
                     <div id="upload_error" style="display:none;clear:both;"></div>
                     <!-- End excel Upload -->
                     <?php } ?>
-					<?php 
+					<?php
 						if(!empty($this->dataArray[0])){ ?>
                         <div class="search_emp">
                             <div class="new-form-ui">
                                 <div class="division">
                                     <select name="search_val" id="search_val" onchange="getRolesList()">
-                                        <option value="">Select Search Category</option>
-                                        <option value="emp_name">Employee Name</option>
-                                        <option value="emp_id">Employee Id</option>
-                                        <option value="emp_role">Employee Role</option>
+                                        <option value="">Seleccione Categoría</option>
+                                        <option value="emp_name">Nombre Empleado</option>
+                                        <option value="emp_id">Id Empleado</option>
+                                        <option value="emp_role">Rol de Empleado</option>
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ if (count($this->messages)) {?>
                                 <div class="division">
                                     <select name="role_val" id="role_id">
                                         <option value="">Select Role</option>
-                                        <?php 
+                                        <?php
 					 foreach($this->roles_arr as $key => $roles_emp)
 					{ ?>
                                             <option value="<?php echo $roles_emp['id'] ?>">
@@ -108,11 +108,11 @@ if (count($this->messages)) {?>
                         <div id="employees_search" class="full-width">
                             <?php if($this->totalcount>0) {?>
                                 <div class="list-container" id="more_employees">
-                                    <?php 
+                                    <?php
 										foreach($this->dataArray as $data)
 										{
 										foreach($data as $emp)
-										{ 
+										{
 
 
 										?>
@@ -124,8 +124,8 @@ if (count($this->messages)) {?>
                                                 <div class="li-actions"> <a class='dropdown-button dottedbtn' href='#' data-activates='actdbtn-<?php echo $emp['id'];?>'><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                     <!-- Dropdown Structure -->
                                                     <ul id='actdbtn-<?php echo $emp['id'];?>' class='dropdown-content'>
-                                                        <?php 
-					  	
+                                                        <?php
+
 						if(sapp_Global::_checkprivileges(EMPLOYEE,$loginuserGroup,$loginuserRole,'view') == 'Yes'){?>
                                                             <li><a href="<?php echo BASE_URL.'employee/view/id/'.$emp['id'];
 							?>"><i class="fa fa-eye"></i> View</a></li>
@@ -151,7 +151,7 @@ if (count($this->messages)) {?>
 } } }
 else
 {
-	echo "<p class='no-data'>No Data Found</p>";
+	echo "<p class='no-data'>Datos no encontrados</p>";
 }
 ?>
                                 </div>
@@ -161,9 +161,9 @@ else
                         <input type="hidden" name="offset" id="offset" value="<?php echo $this->offset;?>" />
                         <input type="hidden" name="count_remaining" id="count_remaining" value="<?php echo $this->remainingcount;?>" />
                         <input type="hidden" name="emp" id="emp" value="employees" />
-                        <?php 
+                        <?php
 
-if($this->totalcount > $this->empcount) 
+if($this->totalcount > $this->empcount)
 {?>
                             <div id="viewmorediv" onclick="viewmore();"> View More..(
                                 <?php echo $this->remainingcount .'';?> remaining) </div>
@@ -177,7 +177,7 @@ if($this->totalcount > $this->empcount)
                                         <?php } ?>
                                     })
                                 </script>
-                                <?php 
+                                <?php
 if($this->call != "ajaxcall")
 {
     if(!empty($this->popConfigPermission))
@@ -187,7 +187,7 @@ if($this->call != "ajaxcall")
                                         var btnUpload = $('#upload_custom_div');
                                         new AjaxUpload(btnUpload, {
                                             action: base_url + '/employee/uploadexcel'
-                                            , name: 'emp_excel', //we can rename it 
+                                            , name: 'emp_excel', //we can rename it
                                             dataType: 'json'
                                             , onSubmit: function (file, ext) {
                                                 if ($("#upload_error").is(":visible")) $("#upload_error").hide();
@@ -220,7 +220,7 @@ if($this->call != "ajaxcall")
                                             }
                                         }, 'json');
                                     </script>
-                                    <?php 
+                                    <?php
 }
 }
 ?>
@@ -229,16 +229,16 @@ if($this->call != "ajaxcall")
                                                 width: 42%;
                                                 float: left;
                                             }
-                                            
+
                                             .profile-tabs-right-2 {
                                                 width: 58%;
                                             }
-                                            
+
                                             .search_emp .new-form-ui {
                                                 height: inherit;
                                                 margin-bottom: 12px;
                                             }
-                                            
+
                                             @media (min-width: 1280px) {
                                                 .search_emp {
                                                     width: 59%;
@@ -248,4 +248,3 @@ if($this->call != "ajaxcall")
                                                 }
                                             }
                                         </style>
-										

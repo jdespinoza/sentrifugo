@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,19 +23,19 @@ class Default_Model_Rejectedrequisitions extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_requisition';
     protected $_primary = 'id';
-        	
+
     public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$statusid,$a1,$a2,$a3)
     {
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-	$requi_model = new Default_Model_Requisition();	
+	$requi_model = new Default_Model_Requisition();
         $auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity())
         {
-            $loginUserId = $auth->getStorage()->read()->id;			
+            $loginUserId = $auth->getStorage()->read()->id;
             $loginuserGroup = $auth->getStorage()->read()->group_id;
-        } 
+        }
         if($searchData != '' && $searchData!='undefined')
         {
             $searchValues = json_decode($searchData);
@@ -51,30 +51,30 @@ class Default_Model_Rejectedrequisitions extends Zend_Db_Table_Abstract
                         $searchQuery .= " ".$key." like '%".$val."%' AND ";
                     $searchArray[$key] = $val;
                 }
-                $searchQuery = rtrim($searchQuery," AND");					
+                $searchQuery = rtrim($searchQuery," AND");
             }
         }
         $objName = 'rejectedrequisitions';
 
-        $tableFields = array('action'=>'Action',
-                             'requisition_code' => 'Requisition Code',                             
-                            'jobtitle_name' => 'Job Title',  
-                             'createdby_name'	=> 'Raised By',
+        $tableFields = array('action'=>'Acción',
+                             'requisition_code' => 'Código de Solicitud',
+                            'jobtitle_name' => 'Título de Trabajo',
+                             'createdby_name'	=> 'Creado por',
                            // 'reporting_manager_name' => 'Reporting Manager',
-                             'req_no_positions' => 'No. of Positions',
-                            'filled_positions' => 'Filled Positions',			 
+                             'req_no_positions' => 'No. de Posiciones',
+                            'filled_positions' => 'Posiciones Llenas',			 
                           //  'r.createdon'=> 'Raised On',
                          //  'onboard_date' => 'Due Date',
-							
+
                             );
 
-        $tablecontent = $requi_model->getRequisitionData($sort, $by, $pageNo, $perPage,$searchQuery,$loginUserId,$loginuserGroup,3);     
+        $tablecontent = $requi_model->getRequisitionData($sort, $by, $pageNo, $perPage,$searchQuery,$loginUserId,$loginuserGroup,3);
 
         $dataTmp = array(
                 'sort' => $sort,
                 'by' => $by,
                 'pageNo' => $pageNo,
-                'perPage' => $perPage,				
+                'perPage' => $perPage,
                 'tablecontent' => $tablecontent,
                 'objectname' => $objName,
                 'extra' => array(),
@@ -88,9 +88,9 @@ class Default_Model_Rejectedrequisitions extends Zend_Db_Table_Abstract
 				'dashboardcall'=>$dashboardcall,
                 'search_filters' => array(
                     'r.createdon' =>array('type'=>'datepicker'),
-                    'onboard_date'=>array('type'=>'datepicker'),                    
+                    'onboard_date'=>array('type'=>'datepicker'),
                 ),
         );
         return $dataTmp;
-    }            
+    }
 }//end of class

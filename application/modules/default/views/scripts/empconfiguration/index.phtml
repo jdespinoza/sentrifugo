@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,16 +20,16 @@
  ********************************************************************************/
 ?>
 
-<?php 
-	
+<?php
+
 	if(!empty($this->messages)){?>
 	<div class="ml-alert-1-success" id="messageData">
 	<div style="display:block;"><span class="style-1-icon success"></span>
 	 <?php if($this->messages[0] == 'success')
 	        echo "Employee tabs configured successfully.";
 		   else
-             echo "Employee tabs cannot be configured.";		   
-	    ?>		 
+             echo "Employee tabs cannot be configured.";
+	    ?>
 	</div>
 	</div>
 	<?php }?>
@@ -44,16 +44,16 @@
 <div class="company-info-block">
       <div class="new_actions">
       	  <a class="edit_action_new" href='<?php echo BASE_URL;?>empconfiguration/edit/'><i class="fa fa-pencil"></i>Edit</a>
-	      <p class="fltleft"><span class="sprite yes-icon-info">Configured</span><span class="sprite no-icon-info">Not Configured</span></p>
+	      <p class="fltleft"><span class="sprite yes-icon-info">Configurado</span><span class="sprite no-icon-info">No Configurado</span></p>
       </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0" >
 <tr>
 <td class="td-1" align="left" valign="top">
 
-<?php if($this->dataArray){ 
+<?php if($this->dataArray){
 	    $i = 1;
 	    $extradiv = '';
-		
+
 		foreach($this->dataArray as $tab => $check){
 			$addclass = '';
 			if($i == 3 || $i == 4){
@@ -63,14 +63,14 @@
 				}
 			}
 		?>
-	
+
 		<div class="emp-info <?php echo $addclass;?>">
-			<label><?php echo $tab;?> <b></b> </label>	
-			<?php if($check == 'YES'){?>				
+			<label><?php echo $tab;?> <b></b> </label>
+			<?php if($check == 'YES'){?>
 			<span><i class="sprite yes-icon"></i></span>
 			<?php }else{?>
 			<span><i class="sprite no-icon"></i></span>
-			<?php }?>					
+			<?php }?>
 		</div>
 	<?php  $i= $i+1;
 		}
@@ -80,10 +80,10 @@
 				$addclass = 'alter-div';
            	}
 			   $extradiv = "<div class='emp-info ".$addclass."'><label>&nbsp;</label><span>&nbsp;</span></div>";
-		   } 
+		   }
 	      echo $extradiv;
 }?>
-   
+
 </td>
 
 </tr>
@@ -101,4 +101,3 @@ $(document).ready(function(){
 
 });
 </script>
-

@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 	{
 		$this->db = Zend_Db_Table::getDefaultAdapter();
 		$auth = Zend_Auth::getInstance();
-		
+
 		if($auth->hasIdentity())
 		{
 			$this->loggedInUser = $auth->getStorage()->read()->id;
@@ -36,7 +36,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			$this->loggedInUserGroup = $auth->getStorage()->read()->group_id;
 		}
 	}
-	
+
 	public function getExitProcDetails($userId='',$process_id)
 	{
 		$cond='';
@@ -44,7 +44,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 		if($process_id!='')
 		{
 			$cond = ' AND ep.id = '.$process_id;
-			$join = ' AND econfig.id = ep.exit_settings_id'; 
+			$join = ' AND econfig.id = ep.exit_settings_id';
 		}
 		if(!empty($userId))
 		{
@@ -78,7 +78,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			$res = $this->select()
 				->setIntegrityCheck(false)
 				->from(array('emp' => 'main_users'),'emp.*')
-				->where('emp.id ='.$userId.' AND emp.isactive = 1');				
+				->where('emp.id ='.$userId.' AND emp.isactive = 1');
 
 			return $this->fetchAll($res)->toArray();
 		}
@@ -87,7 +87,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			$res = $this->select()
 				->setIntegrityCheck(false)
 				->from(array('emp' => 'main_employees_summary'),'emp.*')
-				->where('emp.user_id ='.$userId.' AND emp.isactive = 1');				
+				->where('emp.user_id ='.$userId.' AND emp.isactive = 1');
 
 			return $this->fetchAll($res)->toArray();
 		}
@@ -97,11 +97,11 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			$res = $this->select()
 				->setIntegrityCheck(false)
 				->from(array('emp' => 'main_employees_summary'),'emp.*')
-				->where('emp.isactive = 1 '.$where);				
+				->where('emp.isactive = 1 '.$where);
 
 			return $this->fetchAll($res)->toArray();
 		}
-		
+
 	}
 
 	public function save($data, $where = '')
@@ -115,14 +115,14 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 	}
 
 	public function getSettings($businessunit_id,$department_id)
-	{	
+	{
 		$res = $this->select()
 				->setIntegrityCheck(false)
 				->from(array('epConfig' => 'main_exit_settings'),'epConfig.*')
 				->where('epConfig.isactive = 1 AND epConfig.businessunit_id = '.$businessunit_id.' AND epConfig.department_id = '.$department_id);
 
 		return $this->fetchAll($res)->toArray();
-	}	
+	}
 
 	public function exitProcHistory($historyData)
 	{
@@ -144,7 +144,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 					->join(array('e' => 'main_users'),'e.id = eph.createdby',array('e.userfullname','e.profileimg'))
 					->where('eph.exit_request_id = '.$exitProcId);
 
-			return $this->fetchAll($qry)->toArray();			
+			return $this->fetchAll($qry)->toArray();
 		}
 	}
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
@@ -162,7 +162,7 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 					{
 						if($key=='initiateddate')
 							$searchQuery .= " date(e.".'createddate'.") = '".  sapp_Global::change_date($val,'database')."' AND ";
-						elseif($key=='exit_type')	
+						elseif($key=='exit_type')
 							$searchQuery .= " econfig.".$key." like '%".$val."%' AND ";
 						elseif($key=='overall_status')
 							$searchQuery .= " e.".$key." like '%".$val."%' AND ";
@@ -171,22 +171,22 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 					}
 					$this->searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
 		$objName = 'exitproc';
 
-		$tableFields = array('action'=>'Action','businessunit_name'=>'Business Unit','department_name'=>'Department','exit_type'=>'Exit Type','overall_status'=>'Overall Status','initiateddate' => 'Initiated Date');
+		$tableFields = array('action'=>'Acción','businessunit_name'=>'Unidad de Negocios','department_name'=>'Departamento','exit_type'=>'Tipo de Salida','overall_status'=>'Estado General','initiateddate' => 'Fecha de Inicio');
 
-		$tablecontent = $this->getExitProcs('grid',$sort, $by, $pageNo, $perPage,$searchQuery,$a);     
-		
-		
+		$tablecontent = $this->getExitProcs('grid',$sort, $by, $pageNo, $perPage,$searchQuery,$a);
 
-		
+
+
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -198,13 +198,13 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
 			'search_filters' => array(
-					'initiateddate' =>array('type'=>'datepicker')					
+					'initiateddate' =>array('type'=>'datepicker')
 				)
 		);
 		return $dataTmp;
 	}
 	public function getExitProcs($con,$sort='', $by='', $pageNo='', $perPage='',$searchQuery='',$conText = '')
-	{	
+	{
 		try
 		{
 			$configWhere = "";
@@ -215,10 +215,10 @@ class Exit_Model_Exitproc extends Zend_Db_Table_Abstract
 			}
 			$columns = 'e.*';
 			$where = " e.employee_id = ".$this->loggedInUser;
-			
+
 			if($searchQuery)
 				$where .= " AND ".$searchQuery;
-		
+
 			$res = $this->select()
 				->setIntegrityCheck(false)
 				->from(array('e' => $this->_name),array('e.id','date(e.createddate) as initiateddate',$columns))

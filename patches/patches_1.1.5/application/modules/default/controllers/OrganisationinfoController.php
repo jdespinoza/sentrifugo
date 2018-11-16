@@ -779,8 +779,8 @@ public function editAction()
 			}
 			else
 			{			    
-				$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-				$msgarray['position_id'] = 'Positions are not configured yet.';
+				$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+				$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 			}
 			
 			$form->position_id->addMultiOption('','Select a Position');

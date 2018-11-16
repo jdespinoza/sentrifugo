@@ -106,7 +106,7 @@ class Default_PositionsController extends Zend_Controller_Action
 		}
 		else
 		{
-			$msgarray['jobtitleid'] = 'Job titles are not configured yet.';
+			$msgarray['jobtitleid'] = 'Los títulos de trabajo no están configurados todavía.';
 			$emptyFlag++;
 		}
 		$this->view->form = $positionsform;
@@ -219,7 +219,7 @@ class Default_PositionsController extends Zend_Controller_Action
 				}
 				else
 				{
-					$msgarray['jobtitleid'] = 'Job titles are not configured yet.';
+					$msgarray['jobtitleid'] = 'Los títulos de trabajo no están configurados todavía.';
 					$emptyFlag++;
 				}
 				if(!empty($data) && $data != 'norows')
@@ -278,7 +278,7 @@ class Default_PositionsController extends Zend_Controller_Action
 			}
 			else
 			{
-				$msgarray['jobtitleid'] = 'Job titles are not configured yet.';
+				$msgarray['jobtitleid'] = 'Los títulos de trabajo no están configurados todavía.';
 					
 				$emptyFlag++;
 			}

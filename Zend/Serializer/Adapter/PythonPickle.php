@@ -614,7 +614,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
 
         if (!count($this->_stack)) {
             require_once 'Zend/Serializer/Exception.php';
-            throw new Zend_Serializer_Exception('No data found');
+            throw new Zend_Serializer_Exception('Datos no encontrados');
         }
 
         $ret = array_pop($this->_stack);

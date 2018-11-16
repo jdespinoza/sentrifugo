@@ -4827,7 +4827,7 @@ class Default_MydetailsController extends Zend_Controller_Action
 				$positionsmodel = new Default_Model_Positions();
 				$positionlistArr = $positionsmodel->getPositionList($jobtitle_id);
 				$employeeform->position_id->clearMultiOptions(); 
-				$employeeform->position_id->addMultiOption('','Select Position');
+				$employeeform->position_id->addMultiOption('','Seleccionar posición');
 				foreach($positionlistArr as $positionlistRes)
 				{
 					$employeeform->position_id->addMultiOption($positionlistRes['id'],utf8_encode($positionlistRes['positionname']));

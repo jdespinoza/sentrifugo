@@ -392,7 +392,7 @@ class Zend_View_Helper_Servicegrid extends Zend_View_Helper_Abstract
         }
         if($ii == 0)
         {
-            $output.= "<tr><td colspan='$colinr' class='no-data-td'><p class='no-data'>No data found</p></td></tr>";
+            $output.= "<tr><td colspan='$colinr' class='no-data-td'><p class='no-data'>Datos no encontrados</p></td></tr>";
         }
         $output .= "</tbody>";
         $output .="</table>

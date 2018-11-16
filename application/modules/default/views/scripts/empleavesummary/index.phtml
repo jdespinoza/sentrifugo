@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@
 						Unauthorized access
 	</div>
 
-<?php 
+<?php
 }
 else
 {
@@ -36,8 +36,8 @@ if (count($this->messages)) {?>
 		<?php foreach ($this->messages as $message){?>
 		 <?php echo $this->escape($message); ?>
 		<?php } ?>
-	</div>	
-	
+	</div>
+
 <?php } ?>
 
 <span id="error_message"></span>
@@ -49,19 +49,19 @@ if($this->call != 'ajaxcall'){
 <div class="division">
   	<select id="statusid" name="statusid" class="select2-offscreen" tabindex="-1" onchange = "displayStatusdata('<?php echo $this->controllername; ?>')">
     <option label="Approved" value="<?php echo sapp_Global::_encrypt(2);?>">Approved</option>
-    <option label="Cancelled" value="<?php echo sapp_Global::_encrypt(4);?>">Cancelled</option>	
+    <option label="Cancelled" value="<?php echo sapp_Global::_encrypt(4);?>">Cancelled</option>
 	 <option label="Pending for approval" value="<?php echo sapp_Global::_encrypt(1);?>">Pending for approval</option>
 	<option label="Rejected" value="<?php echo sapp_Global::_encrypt(3);?>">Rejected</option>
-    
+
     </select>
 </div>
 </div>
-<?php 
+<?php
 }
 
 if($this->call == 'ajaxcall'){
-	$div = ''; $endDiv = ''; 
-} else { 
+	$div = ''; $endDiv = '';
+} else {
 	$div = '<div id="grid_'.$this->dataArray[0]['objectname'].'" class="all-grid-control">'; $endDiv = '</div>';
 }
 	echo $div.'<div id="msg" style="display:none;font-style: oblique; font-weight: bold; color: green;""></div>'.$this->grid($this->dataArray[0]).$endDiv;

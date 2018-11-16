@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,19 +23,19 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_requisition';
     protected $_primary = 'id';
-        	
+
     public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$statusid,$a1,$a2,$a3)
     {
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-	$requi_model = new Default_Model_Requisition();	
+	$requi_model = new Default_Model_Requisition();
         $auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity())
         {
-            $loginUserId = $auth->getStorage()->read()->id;			
+            $loginUserId = $auth->getStorage()->read()->id;
             $loginuserGroup = $auth->getStorage()->read()->group_id;
-        } 
+        }
         if($searchData != '' && $searchData!='undefined')
         {
             $searchValues = json_decode($searchData);
@@ -51,11 +51,11 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
                         $searchQuery .= " ".$key." like '%".$val."%' AND ";
                     $searchArray[$key] = $val;
                 }
-                $searchQuery = rtrim($searchQuery," AND");					
+                $searchQuery = rtrim($searchQuery," AND");
             }
         }
         $sarray = array('Approved' => 2,'Closed' => 4,'On hold' => 5,'Complete' => 6,'In process' => 7);
-        
+
         if($statusid !='' && is_numeric($statusid))
         {
             if($statusid == 1)
@@ -63,16 +63,16 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
             if($statusid == 2)
                 $queryflag = 'Approved';
             else if($statusid == 4)
-                $queryflag = 'Closed'; 
+                $queryflag = 'Closed';
             else if($statusid == 5)
-                $queryflag = 'On hold'; 
+                $queryflag = 'On hold';
             else if($statusid == 6)
-                $queryflag = 'Complete'; 
+                $queryflag = 'Complete';
             else if($statusid == 7)
-                $queryflag = 'In process'; 
+                $queryflag = 'In process';
             $statusidstring = sapp_Global::_encrypt($statusid);
         }
-        else 
+        else
         {
             $statusid = 2;
             $queryflag = 'Approved';
@@ -80,13 +80,13 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
         }
         $objName = 'approvedrequisitions';
 
-        $tableFields = array('action'=>'Action',
-                             'requisition_code' => 'Requisition Code',                            							 
-                            'jobtitle_name' => 'Job Title',  
-                             'createdby_name'	=> 'Raised By',
+        $tableFields = array('action'=>'Acción',
+                             'requisition_code' => 'Código de Solicitud',
+                            'jobtitle_name' => 'Título de Trabajo',
+                             'createdby_name'	=> 'Creado por',
                            // 'reporting_manager_name' => 'Reporting Manager',
-                             'req_no_positions' => 'No. of Positions',
-                             'filled_positions' => 'Filled Positions',			 
+                             'req_no_positions' => 'No. de Posiciones',
+                             'filled_positions' => 'Posiciones Llenas',
                            // 'r.createdon'=> 'Raised On',
                           //  'onboard_date' => 'Due Date',
                             );
@@ -111,14 +111,14 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
                 $statusid = $sarray[$queryflag];
             }
         }
-        
-        $tablecontent = $requi_model->getRequisitionData($sort, $by, $pageNo, $perPage,$searchQuery,$loginUserId,$loginuserGroup,2,$queryflag);     
+
+        $tablecontent = $requi_model->getRequisitionData($sort, $by, $pageNo, $perPage,$searchQuery,$loginUserId,$loginuserGroup,2,$queryflag);
 
         $dataTmp = array(
                 'sort' => $sort,
                 'by' => $by,
                 'pageNo' => $pageNo,
-                'perPage' => $perPage,				
+                'perPage' => $perPage,
                 'tablecontent' => $tablecontent,
                 'objectname' => $objName,
                 'extra' => array(),
@@ -136,8 +136,8 @@ class Default_Model_Approvedrequisitions extends Zend_Db_Table_Abstract
         );
         if(($statusid == 4 || $statusid == 6) && ($loginuserGroup == HR_GROUP || $loginuserGroup == ''))
         {
-            $dataTmp = $dataTmp + array('defined_actions'=>array('view'));            
+            $dataTmp = $dataTmp + array('defined_actions'=>array('view'));
         }
         return $dataTmp;
-    }            
+    }
 }//end of class

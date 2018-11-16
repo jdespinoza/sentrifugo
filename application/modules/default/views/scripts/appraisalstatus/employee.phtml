@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,18 +28,18 @@ if($this->ermsg !='')
 
 <?php if($this->flag == 1) {?>
 	<?php if(!empty($this->checkActiveApp)) { ?>
-	
-	 <?php echo sapp_PerformanceHelper::appraisal_status_dropdown($this->app_status_array,2);?>	
+
+	 <?php echo sapp_PerformanceHelper::appraisal_status_dropdown($this->app_status_array,2);?>
 	 <input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $this->checkActiveApp['id'];?>" >
 	 <input type="hidden" id="completedmgrids" name="completedmgrids" value="<?php echo $this->checkActiveApp['manager_ids'];?>" >
-	<?php } ?> 
+	<?php } ?>
 <?php } else {?>
 
 			<div class="new-form-ui">
-				<label >Business Unit</label>
+				<label >Unidad de Negocios</label>
 				<div class="division">
 					<select id="bunit_id" name="bunit_id" onchange="checkempimp('1',this.value)">
-					<option  value="">Select Business Unit</option>
+					<option  value="">Seleccionar Unidad de Negocios</option>
 					<?php if(!empty($this->bunitdataarr)) { ?>
 					<?php 	foreach($this->bunitdataarr as $value) {
 					?>
@@ -47,25 +47,25 @@ if($this->ermsg !='')
 					<?php }}?>
 					</select>
 					<span class="errors" id="errors-bunit_id"></span>
-				</div>	
+				</div>
 			</div>
-			
+
 			<div class="new-form-ui" id="deptdiv">
-            <label >Department <img class="tooltip" title="Select business unit to populate departments" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+            <label >Departamento<img class="tooltip" title="Seleccionar unidad de negocio para poblar departamentos." src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
             <div class="division">
 					<select id="dept_id" name="dept_id" onchange="checkempimp('2',this.value)">
-					<option  value="">Select Department</option>
+					<option  value="">Seleccionar Departamento</option>
 					</select>
 					<span class="errors" id="errors-dept_id"></span>
 			</div>
         	</div>
-        	
+
         	<?php echo sapp_PerformanceHelper::appraisal_status_dropdown($this->app_status_array,1);?>
-        	
-        	
+
+
         	<input type="hidden" id="perf_app_flag" name = "perf_app_flag" value="">
 <?php } ?>
-	
+
 <input type="hidden" id="app_status_val" value="">
 
 <div id="employeeresponsediv" style="display:none;" class="employeeresponsediv">
@@ -84,7 +84,7 @@ function displappstatus(flag,value)
 	{
 		$("#appraisalstatusclear").show();
 		if(flag==1)
-		{		
+		{
 			if(bunitid == '')
 			{
 				$("#errors-bunit_id").html("Please select business unit");
@@ -107,20 +107,20 @@ function displappstatus(flag,value)
 					{
 						$('#app_status_val').val(value);
 						displayemployeetatus(2);
-					}	
+					}
 				}
 				else
 				{
 					$('#app_status_val').val(value);
 					displayemployeetatus(2);
-				}			
+				}
 			}
 		}
 		else
 		{
 			$('#app_status_val').val(value);
 			displayemployeetatus(1);
-		}		
+		}
 	}else
 	{
 		$('#app_status_val').val('');
@@ -129,7 +129,7 @@ function displappstatus(flag,value)
 			displayemployeetatus(2);
 		else
 			displayemployeetatus(1);
-	}			
+	}
 }
 function displayemployeetatus(flag)
 {
@@ -145,26 +145,26 @@ function displayemployeetatus(flag)
 		DATA = 'bunitid='+bunitid+'&deptid='+deptid+'&flag='+flag+'&perf_app_flag='+perf_app_flag+'&app_status='+app_status_val;
 		        	$.ajax({
 			         	url: base_url+"/appraisalstatus/employeestatus/format/html",
-			         	type : 'POST',	
+			         	type : 'POST',
 						data : DATA,
 						dataType: 'html',
 						beforeSend: function () {
 							$.blockUI({ width:'50px',message: $("#spinner").html() });
 						},
 						success : function(response){
-							$.unblockUI();	
+							$.unblockUI();
 							$("#employeeresponsediv").show();
 						    $("#employeeresponsediv").html(response);
-							
+
 						}
 		        	});
-		
+
 }
 
 function checkempimp(flag,id)
 {
 	if(flag == 1)
-	{	
+	{
 		$("#employeeresponsediv").html('');
 		$("#appraisalstatusclear").hide();
 		$('#s2id_dept_id').find('span').html('Select Department');
@@ -176,14 +176,14 @@ function checkempimp(flag,id)
 			$("#errors-dept_id").html("");
 			$.ajax({
 	         	url: base_url+"/appraisalstatus/checkappraisalimplementation/format/json",
-	         	type : 'POST',	
+	         	type : 'POST',
 				data : 'buid=' + id + '&enable_step=2',
 				dataType: 'json',
 				beforeSend: function () {
 					$.blockUI({ width:'50px',message: $("#spinner").html() });
 				},
 				success : function(response){
-					$.unblockUI();	
+					$.unblockUI();
 					if($.trim(response['flag']) == 'notinitialized')
 					{
 						$("#errors-bunit_id").html("Performance appraisal is not initialized.");
@@ -191,37 +191,37 @@ function checkempimp(flag,id)
 					if($.trim(response['flag']) == 'deptwise')
 					{
 						$("#perf_app_flag").val(0);
-						
+
 					}
 					if($.trim(response['flag']) == 'buwise')
 					{
 						$("#perf_app_flag").val(1);
 						displayemployeetatus(2);
 					}
-					
+
 					if($.trim(response['msg']) == 'true')
 					{
-						
+
 						$("#dept_id").html(response['result']);
 					}else
 					{
 						$("#errors-dept_id").removeClass('errors').addClass('add-coloum');
 						$("#errors-dept_id").html("No departments found as Appraisal settings is configured business unit wise.");
 					}
-					
-					
+
+
 				}
 	    	});
-			
-		}	
+
+		}
 	}else
 	{
 		$("#employeeresponsediv").html('');
 		if(id)
 		{
 			displayemployeetatus(2);
-		}	
-	}	
+		}
+	}
 }
 
 function clearappstatus(flag)
@@ -237,7 +237,7 @@ $(document).ready(function() {
 	<?php }?>
 
 	$('.employeeresponsediv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-	
+
 
 });
 

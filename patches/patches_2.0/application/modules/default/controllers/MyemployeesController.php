@@ -1420,7 +1420,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 		}
 
 		$jobtitleData = $jobtitlesModel->getJobTitleList();
-		$employeeform->jobtitle_id->addMultiOption('','Select Job Title');
+		$employeeform->jobtitle_id->addMultiOption('','Seleccione el título del trabajo');
 		if(!empty($jobtitleData))
 		{
 			foreach ($jobtitleData as $jobtitleres)
@@ -1430,8 +1430,8 @@ class Default_MyemployeesController extends Zend_Controller_Action
 		}
 		else
 		{
-			$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-			$msgarray['position_id'] = 'Positions are not configured yet.';
+			$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+			$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 			$emptyFlag++;
 		}
 			
@@ -1722,7 +1722,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 				$positionsmodel = new Default_Model_Positions();
 				$positionlistArr = $positionsmodel->getPositionList($jobtitle_id);
 				$employeeform->position_id->clearMultiOptions();
-				$employeeform->position_id->addMultiOption('','Select Position');
+				$employeeform->position_id->addMultiOption('','Seleccionar posición');
 				foreach($positionlistArr as $positionlistRes)
 				{
 					$employeeform->position_id->addMultiOption($positionlistRes['id'],utf8_encode($positionlistRes['positionname']));
@@ -1825,7 +1825,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 					$jobtitleData = $jobtitlesModel->getJobTitleList();
 					if(sizeof($jobtitleData) > 0)
 					{
-						$employeeform->jobtitle_id->addMultiOption('','Select Job Title');
+						$employeeform->jobtitle_id->addMultiOption('','Seleccione el título del trabajo');
 						foreach ($jobtitleData as $jobtitleres){
 							$employeeform->jobtitle_id->addMultiOption($jobtitleres['id'],$jobtitleres['jobtitlename']);
 						}
@@ -1834,7 +1834,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 					$positionlistArr = $positionsmodel->getPositionList($data['jobtitle_id']);
 					if(sizeof($positionlistArr) > 0)
 					{
-						$employeeform->position_id->addMultiOption('','Select Position');
+						$employeeform->position_id->addMultiOption('','Seleccionar posición');
 						foreach ($positionlistArr as $positionlistres)
 						{
 							$employeeform->position_id->addMultiOption($positionlistres['id'],$positionlistres['positionname']);
@@ -3550,14 +3550,14 @@ class Default_MyemployeesController extends Zend_Controller_Action
 	            $employmentStatusData = $employmentstatusModel->getempstatuslist();
 	            if(count($job_data)==0)
 	            {
-	                $norec_arr['jobtitle_id'] = "Job titles are not configured yet.";
-	                $norec_arr['position_id'] = "Positions are not configured yet.";
+	                $norec_arr['jobtitle_id'] = "Los títulos de trabajo no están configurados todavía.";
+	                $norec_arr['position_id'] = "Las posiciones aún no están configuradas.";
 	            }
 	            if(count($employmentStatusData)==0)
 	            {
 	                $norec_arr['emp_status_id'] = "Employment status is not configured yet.";
 	            }
-	            $form->jobtitle_id->addMultiOptions(array(''=>'Select Job Title')+$job_data);
+	            $form->jobtitle_id->addMultiOptions(array(''=>'Seleccione el título del trabajo')+$job_data);
 	            if(count($employmentStatusData) > 0)
 	            {
 	                    $form->emp_status_id->addMultiOption('','Select Employment Status');

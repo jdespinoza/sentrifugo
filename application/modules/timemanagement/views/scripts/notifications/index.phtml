@@ -98,7 +98,7 @@ if($this->allCount>0)
 				</tr>
 				<?php $noOfRow++;} ?>
 				<?php } else { ?>
-				<tr id="nodata"><td class="no-data-td" colspan="2"><p class="no-data">No data found.</p></td></tr>
+				<tr id="nodata"><td class="no-data-td" colspan="2"><p class="no-data">Datos no encontrados.</p></td></tr>
 				<?php } ?>
 				</table>
 
@@ -112,7 +112,7 @@ if($this->allCount>0)
 		 <?php if(count($this->yet_to_submit_dates) >0){?>
 			<div class="records_block">
 				<div class="page_txt">
-					<span>Records per page</span>
+					<span>Registros por página</span>
 					<div class="records_number-drop-down">						
 						<select id="sel_per_page" class="table_inputs not_appli clearall fltleft">
 						<option value="10" <?php echo ($this->perPage == 10)?"selected":"" ;?>>10</option>

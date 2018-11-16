@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,22 +23,22 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_language';
     protected $_primary = 'id';
-	
+
 	public function getLanguageData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$languageData = $this->select()
-    					   ->setIntegrityCheck(false)	    					
+    					   ->setIntegrityCheck(false)
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $languageData;       		
+
+		return $languageData;
 	}
 	public function getsingleLanguageData($id)
 	{
@@ -48,7 +48,7 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function getLanguageDataByID($id)
 	{
 	    $select = $this->select()
@@ -56,9 +56,9 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 						->from(array('l'=>'main_language'),array('l.*'))
 					    ->where('l.isactive = 1 AND l.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function gettotalLanguageData()
 	{
 	    $select = $this->select()
@@ -67,9 +67,9 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 					    ->where('l.isactive = 1')
 						->order('l.languagename');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function SaveorUpdateLanguageData($data, $where)
 	{
 	    if($where != ''){
@@ -80,11 +80,11 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_language');
 			return $id;
 		}
-		
-	
+
+
 	}
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$exParam1='',$exParam2='',$exParam3='',$exParam4='')
-	{		
+	{
         $searchQuery = '';$tablecontent = '';  $searchArray = array();$data = array();$id='';
         $dataTmp = array();
 		if($searchData != '' && $searchData!='undefined')
@@ -95,23 +95,23 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 				$searchQuery .= " ".$key." like '%".$val."%' AND ";
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 
 		/** search from grid - END **/
 		$objName = 'language';
-		
-		$tableFields = array('action'=>'Action','languagename' => 'Language','description' => 'Description');
-		
-			
-		$tablecontent = $this->getLanguageData($sort, $by, $pageNo, $perPage,$searchQuery); 
-		
-		   
+
+		$tableFields = array('action'=>'Acción','languagename' => 'Idioma','description' => 'Descripción');
+
+
+		$tablecontent = $this->getLanguageData($sort, $by, $pageNo, $perPage,$searchQuery);
+
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -120,8 +120,8 @@ class Default_Model_Language extends Zend_Db_Table_Abstract
 			'jsFillFnName' => '',
 			'searchArray' => $searchArray,
 			'call'=>$call,'dashboardcall'=>$dashboardcall
-		);		
-			
+		);
+
 		return $dataTmp;
 	}
 }

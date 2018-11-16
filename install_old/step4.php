@@ -42,7 +42,7 @@ if(count($_POST) > 0)
 	           $msgarray =  set_validation_messages($tls,$smtpserver,$username,$password,$port,$auth);
 			}
 			else if( ! preg_match("/^([0-9])+$/", $port))
-                $msgarray['port'] = 'Please enter valid port number.';
+                $msgarray['port'] = 'Por favor ingrese el número de puerto válido.';
             else
             {
 				$msgarray = main_function($tls,$smtpserver,$username,$password,$port,$auth);
@@ -78,7 +78,7 @@ function main_function($tls,$smtpserver,$username,$password,$port,$auth)
             }
             else
             {
-                $msgarray['error'] = 'Some error occured' ;
+                $msgarray['error'] = 'Ocurrió algún error.' ;
             }
         }
         else
@@ -88,7 +88,7 @@ function main_function($tls,$smtpserver,$username,$password,$port,$auth)
     }
     catch(PDOException $ex)
     {
-        $msgarray['error'] = 'Some error occured. '.$ex->getMessage() ;
+        $msgarray['error'] = 'Ocurrió algún error. '.$ex->getMessage() ;
     }
 
     return $msgarray;
@@ -100,16 +100,16 @@ function set_validation_messages($tls,$smtpserver,$username,$password,$port,$aut
 	{
 		if($username == '')
 		{
-			$msgarray['username'] = 'User name cannot be empty';
+			$msgarray['username'] = 'El nombre de usuario no puede estar vacío.';
 		}
 		if($auth == 'true' && $password == '')
 		{
-			$msgarray['password'] = 'Password cannot be empty';
+			$msgarray['password'] = 'La contraseña no puede estar vacío.';
 		}
 	}
     if($smtpserver == '')
     {
-        $msgarray['smtpserver'] = 'SMTP Server cannot be empty';
+        $msgarray['smtpserver'] = 'El servidor SMTP no puede estar vacío.';
     }
     /*if($tls == '')
     {
@@ -117,11 +117,11 @@ function set_validation_messages($tls,$smtpserver,$username,$password,$port,$aut
     }*/
     if($port == '')
     {
-        $msgarray['port'] = 'Port cannot be empty';
+        $msgarray['port'] = 'El puerto no puede estar vacío.';
     }
 	if($auth == '')
     {
-        $msgarray['port'] = 'Authentication cannot be empty';
+        $msgarray['port'] = 'La autenticación no puede estar vacía.';
     }
     return $msgarray;
 }
@@ -155,13 +155,13 @@ function mail_send($tls,$smtpserver,$username,$password,$port,$auth)
             <div style="padding:20px 20px 50px 20px;">
                     <div style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:30px; margin:0 0 20px 0;">
                        <div>
-							<div>Dear Super Admin,</div><br/>
-							<div>This is a test email to check the new mail settings provided for '.APPLICATION_NAME.'.</div>
+							<div>Estimado super administrador,</div><br/>
+							<div>Este es un correo electrónico de prueba para verificar la nueva configuración de correo proporcionada para '.APPLICATION_NAME.'.</div>
 					  </div>
                     </div>
 
                     <div style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:30px;">
-                        Regards,<br />
+                        Saludos,<br />
                         <b>Sentrifugo</b>
                     </div>
             </div>
@@ -184,12 +184,12 @@ function mail_send($tls,$smtpserver,$username,$password,$port,$auth)
 	$yahoo_smtp = strpos($username, 'yahoo');
 	if($yahoo_smtp !== false) {
 		//Fix for Yahoo SMTP configuration.
-		$mail->setFrom($username,'Do not Reply');
+		$mail->setFrom($username,'No responder');
 	}else {
-		$mail->setFrom(SUPERADMIN_EMAIL,'Do not Reply');
+		$mail->setFrom(SUPERADMIN_EMAIL,'No responder');
 	}
 
-    $mail->Subject = "Test Mail Checking";
+    $mail->Subject = "Comprobación de correo electrónico";
     $mail->msgHTML($htmlcontentdata);
     $mail->addAddress(SUPERADMIN_EMAIL,'Super Admin');
 
@@ -226,14 +226,14 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 }//end of writeMailSettingsconstants function.
 ?>
 <form method="post" action="index.php?s=<?php echo sapp_Global::_encrypt(4);?>" id="step4" name="step4" class="frm_install">
-	<h3 class="page_title">Mail Server Settings</h3>
+	<h3 class="page_title">Configuración del servidor de correo</h3>
     <div class="content_part">
 
 
            <span class="error_info"><?php echo isset($msgarray['error'])?$msgarray['error']:'';?></span>
 
 		   <div class="new-form-ui ">
-			  <label class="required">Authentication Type<img src="images/help.png" title="authentication to access mail account (ex: true/false)" class="tooltip"></label>
+			  <label class="required">Tipo de Autenticación<img src="images/help.png" title="Autenticación para acceder a la cuenta de correo (Ejem: true/false)" class="tooltip"></label>
 			 				<div>
 							<?php
 								if(isset($_POST['auth'])) $auth = $_POST['auth'];
@@ -253,7 +253,7 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 		?>
 		<div id="mailAuthDiv" style="display:<?php echo $display; ?>">
            <div class="new-form-ui ">
-			  <label class="required">User name<img src="images/help.png" title="Mail Server username provided during Mail Server account setup." class="tooltip"></label>
+			  <label class="required">Nombre de Usuario<img src="images/help.png" title="Nombre de usuario del servidor de correo proporcionado durante la configuración de la cuenta del correo." class="tooltip"></label>
 				<div>
 			<input type="text" maxlength="100" value="<?php if(!$_POST){ echo defined('MAIL_USERNAME')?MAIL_USERNAME:'';} else {echo $_POST['username']; }?>" id="username" name="username">
 			<span><?php echo isset($msgarray['username'])?$msgarray['username']:'';?></span>
@@ -261,7 +261,7 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 			</div>
 
 			<div class="new-form-ui ">
-			  <label class="required">Password<img src="images/help.png" title="Mail Server password provided during Mail Server account setup." class="tooltip"></label>
+			  <label class="required">Contraseña<img src="images/help.png" title="La contraseña del servidor de correo proporcionada durante la configuración de la cuenta del correo." class="tooltip"></label>
 				<div>
 					<input type="password" maxlength="100" value="<?php if(!$_POST){ echo defined('MAIL_PASSWORD')?MAIL_PASSWORD:'';} else {echo $_POST['password']; }?>" id="password" name="password">
 					<span><?php echo isset($msgarray['password'])?$msgarray['password']:'';?></span>
@@ -269,7 +269,7 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 			</div>
 		</div>
 			<div class="new-form-ui ">
-			  <label class="required">SMTP Server<img src="images/help.png" title="IP address of your hosting account as your Mail Server hostname (ex: mail.google.com)" class="tooltip"></label>
+			  <label class="required">Servidor SMTP<img src="images/help.png" title="Dirección IP de su cuenta de host como nombre del servidor de correo (Ejem: mail.google.com)" class="tooltip"></label>
 				<div>
 					<input type="text" maxlength="100" value="<?php if(!$_POST){ echo defined('MAIL_SMTP')?MAIL_SMTP:'';} else {echo $_POST['smtpserver']; }?>" id="smtpserver" name="smtpserver">
 					<span><?php echo isset($msgarray['smtpserver'])?$msgarray['smtpserver']:'';?></span>
@@ -277,7 +277,7 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 			</div>
 
 		    <div class="new-form-ui ">
-			  <label>Secure Transport Layer<img src="images/help.png" title="Provides communication security over internet (ex: tls)" class="tooltip"></label>
+			  <label>Secure Transport Layer<img src="images/help.png" title="Proporciona seguridad de comunicación a través de internet (Ejem: tls)" class="tooltip"></label>
 				<div>
 					<input type="text" maxlength="40" value="<?php if(!$_POST){ echo defined('MAIL_TLS')? MAIL_TLS:''; } else {echo $_POST['tls']; }?>" id="tls" name="tls">
 					<span><?php echo isset($msgarray['tls'])?$msgarray['tls']:'';?></span>
@@ -287,14 +287,14 @@ function writeMailSettingsconstants($tls,$port,$username,$password,$smtpserver,$
 
 
 			<div class="new-form-ui ">
-			  <label class="required">Port<img src="images/help.png" title="Port number to access SMTP server (Ex: 22, 25)" class="tooltip"></label>
+			  <label class="required">Puerto<img src="images/help.png" title="Número de puerto para acceder al servidor SMTP (Ejem: 22, 25)" class="tooltip"></label>
 				<div>
 					<input type="text" maxlength="50" value="<?php if(!$_POST){ echo defined('MAIL_PORT')?MAIL_PORT:'';} else {echo $_POST['port']; }?>" id="port" name="port">
 					<span><?php echo isset($msgarray['port'])?$msgarray['port']:'';?></span>
 				</div>
 			</div>
 
-			<input type="submit" value="Confirm" id="submitbutton" name="submit" class="save_button"> </div >
+			<input type="submit" value="Confirmar" id="submitbutton" name="submit" class="save_button"> </div >
 		   <button name="previous" id="previous" type="button" class="previous_button" onclick="window.location='index.php?s=<?php echo sapp_Global::_encrypt(3);?>';">Anterior</button>
 		   <?php if(defined('MAIL_SMTP') && defined('MAIL_USERNAME') && defined('MAIL_PASSWORD') && defined('MAIL_PORT') && defined('MAIL_TLS')){ ?>
 		   	<button name="next" id="next" type="button" onclick="window.location='index.php?s=<?php echo sapp_Global::_encrypt(5);?>';">Continuar</button>

@@ -59,7 +59,7 @@ if ($this->pageCount):
 <div class="pagination_block">
 	<div class="records_block">
 		<div class="page_txt">
-        <span>Records per page</span>
+        <span>Registros por página</span>
 		<div class="records_number-drop-down">			
 			<select class="records_input_<?php echo $this->objname;?> table_inputs not_appli clearall fltleft" id="perpage_<?php echo $this->objname;?>" name="perpage_<?php echo $this->objname;?>" onchange="javascript:<?php echo $this->jsGridFnName;?>('<?php echo $this->objname;?>','<?php echo $this->dashboardcall; ?>')">
 				<option value="10" <?php echo ($this->perPage == 10)?"selected":"" ;?>>10</option>

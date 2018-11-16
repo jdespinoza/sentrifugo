@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -19,18 +19,18 @@
  *  Sentrifugo Support <support@sentrifugo.com>
  ********************************************************************************/
 ?>
-<?php 
+<?php
 
 if($this->ermsg != '')
 {
 ?>
 <div class="ml-alert-1-info m1-info-set-2">
     <div class="style-1-icon info"></div>
-       No data found.
+       Datos no encontrados.
 </div>
-<?php 
+<?php
 }
-else 
+else
 {
 $data = $this->data;
 $id = $this->id;
@@ -38,27 +38,27 @@ $previ_data = $this->previ_data;
 $exittype_name = $this->exittype_name;
 
 ?>
-<?php 
+<?php
 if($this->ermsg == '')  { ?>
 
-    
+
 		<?php
 		if($previ_data == 'Yes')
 		{
 		?>
 		<div class="new-form-ui-submit "  style="margin-top: 0px; float: right; width: auto; margin-left: 0px; ">
-		   
-				<?php if($data['isused'] == 0) {             	
+
+				<?php if($data['isused'] == 0) {
 						$msgtitle = $this->controllername.'_delete';
-						sapp_Helper::editdeleteForView(EXIT_QUESTIONS,$this->controllername,$this->id,$msgtitle); 
-					} ?>		
-			
+						sapp_Helper::editdeleteForView(EXIT_QUESTIONS,$this->controllername,$this->id,$msgtitle);
+					} ?>
+
 		</div>
-		<?php 
+		<?php
 		}
 		?>
-	
-   <?php 
+
+   <?php
 sapp_Helper::viewHeader();
 sapp_Helper::viewBody('alt','Exit type',(!empty( $exittype_name))? $exittype_name:"...",'Question',(!empty($this->data['question']))?$this->data['question']:"...");
 sapp_Helper::viewBody('nor','Description',(!empty($this->data['description']))?$this->data['description']:"...",'','');

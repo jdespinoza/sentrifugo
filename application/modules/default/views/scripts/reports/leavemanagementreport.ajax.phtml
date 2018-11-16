@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,33 +25,33 @@
 			<span>Leave Management Options</span>
 		    <div id="leavemmanagementtabdiv" class="columnsdiv" style="display:none;">
 			<i>Columns :</i>
-			<?php 
+			<?php
 				$checked = '';
 				if(!empty($this->leavesheaderarr))
 				{
-					foreach($this->leavesheaderarr as $key => $val) 
+					foreach($this->leavesheaderarr as $key => $val)
 					{
 						if(!empty($this->selectColumnLabels))
 						{
 							if(array_key_exists($key,$this->selectColumnLabels))
 								$checked = 'checked';
-							else 
+							else
 								$checked = '';
-						}		
+						}
 					?>
-					
+
 						<p><input type="checkbox" <?php echo $checked;?> id="leavemanagementcheckbox_<?php echo $key;?>"name="leavemanagementtabcheckbox" value="<?php echo $key;?>"><b><?php echo $val;?></b></p>
 				  <?php
 					}
 				}?>
-				
+
 				<div class="new-form-ui-submit mrgetop10">
-				 <input type="button" value="Apply" onclick="setleavemanagementtab()">
-				 <button name="Cancel" id="Cancel" type="button" onclick="cancelleavemanagementtab()">Cancel</button>
+				 <input type="button" value="Aplicar" onclick="setleavemanagementtab()">
+				 <button name="Cancel" id="Cancel" type="button" onclick="cancelleavemanagementtab()">Cancelar</button>
 				</div>
             </div>
 		</div>
-    <?php 
+    <?php
 	      if(!empty($this->selectColumnLabels))
 		  {
 			  foreach($this->selectColumnLabels as $header => $label)
@@ -60,10 +60,10 @@
 			  }
 			  $selectcolumns = implode(",",$selectcolumnsArr);
 		  }
-	?>	
+	?>
     <input type="hidden" value="<?php echo $selectcolumns;?>" id="selectedleavecheckbox"/>
 
-  
+
 
 
 	<div class="details_data_display_block newtablegrid" id="reportgrid">
@@ -74,50 +74,50 @@
 				      <th id = "startmonth" >
 					    <a onclick="sortmanagementcolumn('l.cal_startmonthname','startmonth')" href="javascript:void(0);">Start Month</a>
 					  </th>
-					<?php }?>  
-					<?php if(array_key_exists('weekend_startday',$this->selectColumnLabels) !== false){?>  
+					<?php }?>
+					<?php if(array_key_exists('weekend_startday',$this->selectColumnLabels) !== false){?>
 		              <th id = "weekendstartday">
 					    <a onclick="sortmanagementcolumn('l.weekend_startdayname','weekendstartday')" href="javascript:void(0);">Week-end 1</a>
-					  </th>        
+					  </th>
 					<?php }?>
-                    <?php if(array_key_exists('weekend_endday',$this->selectColumnLabels) !== false){?>					
+                    <?php if(array_key_exists('weekend_endday',$this->selectColumnLabels) !== false){?>
 		               <th id = "weekendday">
 					     <a onclick="sortmanagementcolumn('l.weekend_enddayname','weekendday')" href="javascript:void(0);">Week-end 2</a>
 					   </th>
 					<?php }?>
-                    <?php if(array_key_exists('department_name',$this->selectColumnLabels) !== false){?>					
+                    <?php if(array_key_exists('department_name',$this->selectColumnLabels) !== false){?>
 					   <th id = "departmentname">
 					     <a onclick="sortmanagementcolumn('l.department_id','departmentname')" href="javascript:void(0);">Department</a>
 					   </th>
 					<?php }?>
-                    <?php if(array_key_exists('hours_day',$this->selectColumnLabels) !== false){?>  					
+                    <?php if(array_key_exists('hours_day',$this->selectColumnLabels) !== false){?>
 					   <th id = "hours">
 					     <a onclick="sortmanagementcolumn('l.hours_day','hours')" href="javascript:void(0);"> Hours</a>
 					   </th>
-					<?php }?>  
-                    <?php if(array_key_exists('is_halfday',$this->selectColumnLabels) !== false){?>					
+					<?php }?>
+                    <?php if(array_key_exists('is_halfday',$this->selectColumnLabels) !== false){?>
 		               <th id = "halfday" >
 					     <a onclick="sortmanagementcolumn('l.is_halfday','halfday')" href="javascript:void(0);"> Half Day</a>
-					   </th>    
+					   </th>
 					<?php }?>
-                    <?php if(array_key_exists('is_leavetransfer',$this->selectColumnLabels) !== false){?>					
+                    <?php if(array_key_exists('is_leavetransfer',$this->selectColumnLabels) !== false){?>
 		               <th id = "leavetransfer">
 					      <a onclick="sortmanagementcolumn('l.is_leavetransfer','leavetransfer')" href="javascript:void(0);"> Leave transferable</a>
-					   </th> 
-					<?php }?>   
+					   </th>
+					<?php }?>
 					<?php if(array_key_exists('is_skipholidays',$this->selectColumnLabels) !== false){?>
 		               <th id = "skipholidays">
 					   	  <a onclick="sortmanagementcolumn('l.is_skipholidays','skipholidays')" href="javascript:void(0);"> Skip Holidays</a>
 					   </th>
-					<?php }?>  
-                      
-		                    
+					<?php }?>
+
+
 		        </tr>
 		    </thead>
 		    <tbody>
-		    <?php if(!empty($this->leavemgmtArr)){ 
-		    	foreach($this->leavemgmtArr as $key => $status){ 
-		        	
+		    <?php if(!empty($this->leavemgmtArr)){
+		    	foreach($this->leavemgmtArr as $key => $status){
+
 		        	if($key%2 == 0){
 		        		$classColor = 'row1';
 		        	}else{
@@ -128,9 +128,9 @@
 				    <?php if(array_key_exists('cal_startmonthname',$this->selectColumnLabels) !== false){?>
 		               <td>
 					        <span title="<?php echo $status['cal_startmonthname']; ?>"><?php echo $status['cal_startmonthname']; ?></span>
-					   </td> 
-                    <?php }?>					   
-                    <?php if(array_key_exists('weekend_startday',$this->selectColumnLabels) !== false){?> 					   
+					   </td>
+                    <?php }?>
+                    <?php if(array_key_exists('weekend_startday',$this->selectColumnLabels) !== false){?>
 		              <td>
 					  <span title="<?php echo $status['weekend_startdayname']; ?>"><?php echo $status['weekend_startdayname']; ?></span>
 					  </td>
@@ -160,40 +160,40 @@
 					  <?php echo $status['halfday']; ?>
 					  </span>
 					  </td>
-                    <?php }?>					
+                    <?php }?>
 					<?php if(array_key_exists('is_leavetransfer',$this->selectColumnLabels) !== false){?>
 		              <td>
 					  <span title="<?php echo $status['leavetransfer']; ?>">
 					  <?php echo $status['leavetransfer']; ?>
 					  </span>
 					  </td>
-                    <?php }?> 					
+                    <?php }?>
 					<?php if(array_key_exists('is_skipholidays',$this->selectColumnLabels) !== false){?>
 		              <td>
 					  <span title="<?php echo $status['skipholidays']; ?>">
 					  <?php echo $status['skipholidays']; ?>
 					  </span>
-					  </td>	
+					  </td>
 					<?php }?>
-										
+
 		        </tr>
 		        <?php }
-		        
+
 		    }else{ ?>
 			   <tr>
-			      <td class="no-data-td" colspan="11"><p class="no-data">No data found</p></td>
+			      <td class="no-data-td" colspan="11"><p class="no-data">Datos no encontrados</p></td>
 			   </tr>
-			<?php }?>   
+			<?php }?>
 		    </tbody>
 		</table>
 	</div>
-	 
+
 	<div class="table-btm">
 				<div class="pagination_block">
 					<div class="records_block">
 					<?php if(!empty($this->leavemgmtArr)){ ?>
 						<div class="page_txt">
-							<span>Records per page</span>
+							<span>Registros por página</span>
 							<div class="records_number-drop-down">
 								    <select id="perpagetext" onchange="displayleavemanagementreportajax('perpage');">
 										<option value="20" <?php echo ($this->perpage == 20)?"selected":"" ;?>>20</option>
@@ -204,21 +204,21 @@
 									</select>
 							</div>
 						</div>
-					<?php }?>	
+					<?php }?>
 					</div>
-                                    <?php 
+                                    <?php
                             if($this->lastpage > 1)
                             {
 ?>
         		    <div class="pagination_view">
 		 				<?php sapp_Global::pagination_html(); ?>
 					</div>
-                                    <?php 
+                                    <?php
                             }
-?> 
+?>
 				</div>
 			</div>
-			
+
 <?php //}else{ echo 'norecord'; }?>
 
 <script type='text/javascript'>
@@ -231,7 +231,7 @@ $(document).ready(function(){
 	$("#pdf").show();
 	$("#excel").show();
 <?php }?>
-<?php 
+<?php
 if($this->lastpage > 1)
 {
 ?>
@@ -244,33 +244,31 @@ $('.pagination').jqPagination({
            displayleavemanagementreportajax('pagination');
     }
 });
-<?php 
+<?php
 }
-?>  
+?>
 
 $('#perpagetext').val('<?php echo $this->perpage;?>');
-	var column = $('#columnid').val();		
+	var column = $('#columnid').val();
 	var cby = $('#columnby').val();
-	
+
 	if(column !='')
 	{
 		if(cby == 'Desc')
 		{
 			$('#'+column).append('<span class="s-ico"><span class="ui-icon-asc  ui-icon ui-icon-triangle-1-s"></span></span>');
-		}			
+		}
 		else
 		{
 			$('#'+column).append('<span class="s-ico"><span class="ui-icon-desc ui-icon ui-icon-triangle-1-n"></span></span>');
 		}
 	}
-	
-	
+
+
 	$('#reportgrid').slimScrollHorizontal({
 		alwaysVisible: false,
 		start: 'left',
 		position: 'bottom',
-	}).css({ background: '#ccc', paddingBottom: '10px' }); 
+	}).css({ background: '#ccc', paddingBottom: '10px' });
 });
 </script>
-
-	

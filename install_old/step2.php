@@ -923,7 +923,7 @@ if(count($_POST) > 0)
                         $mysqlPDO = new PDO('mysql:host='.$hostname.';dbname='.$dbname.'',$username, $password);
 							if (!$mysqlPDO)
 							{
-				                            $msgarray['error'] = 'Could not connect to specified database' ;
+				                            $msgarray['error'] = 'No se pudo conectar a la base de datos especificada.' ;
 							}
 							else
 							{
@@ -948,7 +948,7 @@ if(count($_POST) > 0)
 									}
 										if(!$result)
 										{
-											$msgarray['error'] = 'Could not write tables to specified database' ;
+											$msgarray['error'] = 'No se pudieron escribir tablas en la base de datos especificada.' ;
 										}else
 										{
 											if($check == 36)
@@ -964,12 +964,12 @@ if(count($_POST) > 0)
 
 												}else
 												{
-													$msgarray['error'] = 'Some error occured. '.$constantresult ;
+													$msgarray['error'] = 'Se produjo un error. '.$constantresult ;
 												}
 											}
 											else
 											{
-												$msgarray['error'] = 'Some error occured while installing triggers.' ;
+												$msgarray['error'] = 'Se produjo un error al instalar los disparadores.' ;
 											}
 										}
 
@@ -977,22 +977,22 @@ if(count($_POST) > 0)
                     }
                     catch (PDOException $e)
                     {
-                        $msgarray['error'] = "Some error occured. ".$e->getMessage();
+                        $msgarray['error'] = "Se produjo un error. ".$e->getMessage();
                     }
 		}
                 else
 		{
                     if($hostname == '')
                     {
-                        $msgarray['host'] = 'Host cannot be empty';
+                        $msgarray['host'] = 'Host no puede esta vacío.';
                     }
                     if($username == '')
                     {
-                        $msgarray['username'] = 'User Name cannot be empty';
+                        $msgarray['username'] = 'Nombre de Usuario no puede esta vacío.';
                     }
                     if($dbname == '')
                     {
-                        $msgarray['dbname'] = 'Database Name cannot be empty';
+                        $msgarray['dbname'] = 'Nombre de BD no puede esta vacío.';
                     }
 		}
 	}
@@ -1033,12 +1033,12 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 ?>
 
 <form method="post" action="index.php?s=<?php echo sapp_Global::_encrypt(2);?>" id="step2" name="step2" class="frm_install">
-    <h3 class="page_title">Database Settings</h3>
+    <h3 class="page_title">Configuración de BD</h3>
     <div class="content_part">
 
            <span  class="error_info"><?php echo isset($msgarray['error'])?$msgarray['error']:'';?></span>
 		    <div class="new-form-ui ">
-			  <label class="required">Host<img src="images/help.png" title="IP address of your hosting account as your MySQL hostname." class="tooltip"></label>
+			  <label class="required">Host<img src="images/help.png" title="La dirección IP de su cuenta de alojamiento como su nombre de host MySQL." class="tooltip"></label>
 				<div >
 					<input type="text" maxlength="40" value="<?php if(!$_POST){ echo defined('SENTRIFUGO_HOST')?SENTRIFUGO_HOST:''; } else {echo $_POST['host']; }?>" id="host" name="host">
 					<span><?php echo isset($msgarray['host'])?$msgarray['host']:'';?></span>
@@ -1046,7 +1046,7 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 			</div>
 
 			<div class="new-form-ui ">
-			  <label class="required">User Name<img src="images/help.png" title="Database Server username provided during MySQL account setup." class="tooltip"></label>
+			  <label class="required">Nombre de Usuario<img src="images/help.png" title="Nombre de usuario del servidor de base de datos proporcionado durante la configuración de la cuenta de MySQL." class="tooltip"></label>
 				<div>
 					<input type="text" maxlength="50" value="<?php if(!$_POST){ echo defined('SENTRIFUGO_USERNAME')?SENTRIFUGO_USERNAME:''; } else {echo $_POST['username']; }?>" id="username" name="username">
 					<span><?php echo isset($msgarray['username'])?$msgarray['username']:'';?></span>
@@ -1054,7 +1054,7 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 			</div>
 
 			<div class="new-form-ui ">
-			  <label >Password<img src="images/help.png" title="Database Server password provided during MySQL account setup." class="tooltip"></label>
+			  <label >Contraseña<img src="images/help.png" title="Contraseña del servidor de base de datos proporcionada durante la configuración de la cuenta de MySQL." class="tooltip"></label>
 				<div>
 					<input type="password" maxlength="50" value="<?php if(!$_POST){ echo defined('SENTRIFUGO_PASSWORD')?SENTRIFUGO_PASSWORD:''; } else {echo $_POST['password']; }?>" id="password" name="password">
 					<span><?php echo isset($msgarray['password'])?$msgarray['password']:'';?></span>
@@ -1062,7 +1062,7 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 			</div>
 
 			<div class="new-form-ui ">
-			  <label class="required">Database Name<img src="images/help.png" title="Create a database and provide the name of the database here." class="tooltip"></label>
+			  <label class="required">Nombre de BD<img src="images/help.png" title="Crea una base de datos y proporciona el nombre de la base de datos aquí." class="tooltip"></label>
 				<div>
 					<input type="text" maxlength="50" value="<?php if(!$_POST){ echo defined('SENTRIFUGO_DBNAME')?SENTRIFUGO_DBNAME:'';} else {echo $_POST['dbname']; }?>" id="dbname" name="dbname">
 					<span><?php echo isset($msgarray['dbname'])?$msgarray['dbname']:'';?></span>
@@ -1071,7 +1071,7 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 
 
 
-			<input type="button" value="Confirm" id="submitbutton" name="submitbutton" class="save_button"></div>
+			<input type="button" value="Confirmar" id="submitbutton" name="submitbutton" class="save_button"></div>
 		   <button name="previous" id="previous" class="previous_button" type="button" onclick="window.location='index.php?s=<?php echo sapp_Global::_encrypt(1);?>';">Anterior</button>
 		   	<?php if(defined('SENTRIFUGO_HOST') && defined('SENTRIFUGO_USERNAME') && defined('SENTRIFUGO_PASSWORD') && defined('SENTRIFUGO_DBNAME')){ ?>
 		   	<button name="next"  id="next" type="button" onclick="window.location='index.php?s=<?php echo sapp_Global::_encrypt(3);?>';">Continuar</button>
@@ -1085,7 +1085,7 @@ function writeDBconstants($hostname,$username,$password,$dbname)
 		$(document).ready(function(){
 
 			$("#submitbutton").click(function(){
-				jConfirm("If the application is already installed, all the data will be lost by clicking on Confirm. Do you want to continue?", "Confirmation", function(r)
+				jConfirm("Si la aplicación ya está instalada, todos los datos se perderán al hacer clic en Confirmar. ¿Quieres continuar?", "Confirmación", function(r)
 				{
 					if(r === false)
 					{

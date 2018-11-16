@@ -33,21 +33,21 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 	protected $_primary = 'id';
 
 /* This is used in Advances for getting projects based on employee*/
-	
+
 		public function getProjectByEmpId($to_id){
 		$sql="SELECT p.project_name FROM tm_project_employees pe
 		INNER JOIN tm_projects p ON p.id = pe.project_id
-					WHERE emp_id=$to_id"; 			
-	
+					WHERE emp_id=$to_id";
+
 		$project_data  = $this->_db->fetchAll($sql,array("param1"=>$to_id,"param2"=>1));
 		return $project_data;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/**
 	 * T
 	 *
@@ -59,12 +59,12 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 	 *
 	 * @return array $projectsData
 	 */
-	 
+
 	public function getProjectsData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
-	
+
 			$where = " p.is_active = 1";
-		
+
 		if(Zend_Registry::get( 'tm_role' ) == 'Manager'){
 			$auth = Zend_Auth::getInstance();
 			if($auth->hasIdentity()){
@@ -89,7 +89,7 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 		$projectsData->where($where)
 		->order("$by $sort")
 		->limitPage($pageNo, $perPage);
-		
+
 		return $projectsData;
 	}
 
@@ -109,7 +109,7 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 	 */
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall)
 	{
-		
+
 		$searchQuery = '';
 		$searchArray = array();
 		$data = array();
@@ -137,7 +137,7 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 //echo $searchQuery;exit;
 		$objName = 'projects';
 
-		$tableFields = array('action'=>'Action','project_name' => 'Project','project_status'=>'Status','parent_project'=>'Base Project','client_name' => 'Client','currencyname'=>'Currency','project_type'=>'Project Type');
+		$tableFields = array('action'=>'Acción','project_name' => 'Proyecto','project_status'=>'Estado','parent_project'=>'Proyecto Base','client_name' => 'Cliente','currencyname'=>'Moneda','project_type'=>'Tipo de Proyecto');
 
 		$tablecontent = $this->getProjectsData($sort, $by, $pageNo, $perPage,$searchQuery);
 
@@ -175,7 +175,7 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 		    'menuName' => 'Projects',
@@ -239,7 +239,7 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 			$this->update($data, $where);
 			return 'update';
 		} else {
-		
+
 			$this->insert($data);
 			$id=$this->getAdapter()->lastInsertId($this->_name);
 			return $id;
@@ -270,9 +270,9 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 		->order('p.project_name');
 		return $this->fetchAll($select)->toArray();
 	}
-	
 
-	
+
+
 	/**
 	 * This method returns all projects under client
 	 *
@@ -286,9 +286,9 @@ class Default_Model_Projects extends Zend_Db_Table_Abstract
 		->where('p.is_active = 1 and p.client_id = '.$clientID)
 		->order('p.project_name');
 		return $this->fetchAll($select)->toArray();
-		
-		
-	
+
+
+
 	}
 
 public function getclientname($unitid)
@@ -312,9 +312,9 @@ public function getclientname($unitid)
 			{
 				if($key == 'client') $key = 'client_id';
 				if($key == 'currency') $key = 'currency_id';
-				if($key == 'start_date'){ 
+				if($key == 'start_date'){
 					$searchQuery .= " ".$key." like '%".  sapp_Global::change_date($val,'database')."%' AND ";
-				}else if($key == 'end_date'){ 
+				}else if($key == 'end_date'){
 					$searchQuery .= " ".$key." like '%".  sapp_Global::change_date($val,'database')."%' AND ";
 				}else{
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
@@ -367,7 +367,7 @@ public function getclientname($unitid)
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 		    'menuName' => 'Projects',
@@ -425,7 +425,7 @@ public function getclientname($unitid)
 		// echo $projectsData; //exit;
 		return $projectsData;
 	}
-	
-	
-	
+
+
+
 }

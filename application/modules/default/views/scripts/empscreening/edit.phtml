@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -22,32 +22,32 @@
 
 <script type="text/javascript" src="<?php echo MEDIA_PATH;?>js/emp-screeing.js" /></script>
 
-<?php if($this->ermsg == '') { 
+<?php if($this->ermsg == '') {
  if(isset($_SESSION['emp_status']))
  {
 	$back_str = '/con/'.$_SESSION['emp_status'];
 	unset($_SESSION['emp_status']);
  }
- else 
+ else
  {
 	$back_str = '';
 	unset($_SESSION['emp_status']);
- } 
+ }
 
 ?>
-	
+
 	<?php sapp_Global::generateClientValidations($this->form);?>
 	<?php if(isset($this->messages['msgtype']) && isset($this->messages['message']))
 	{ ?>
 		<div id="dispscreeningtype" class="settingssuccess">
-			<?php 
+			<?php
 					$flag = $this->messages['msgtype'];
 					echo "<div id='messageData' class='ml-alert-1-$flag'><div style='display:block;'><span class='style-1-icon $flag'></span>";
 					echo $this->messages['message'];
 					echo "</div></div>";
 			?>
-		</div>	
-		
+		</div>
+
 	<?php } ?>
 
 	<div id="error_message" style="display:none;"></div>
@@ -64,8 +64,8 @@
 				  <span class="errors" id='statuserrormsg'></span>
 				  <input type="hidden" value="<?php echo $this->inprocessStatus;?>" id="inpstatus" />
 			</div>
-		</div>	
-		
+		</div>
+
 		<div class="new-form-ui-submit empedit-submit-setup">
 			<div id="btnsdiv" style="display:none;">
 			<?php if(isset($this->personalData[0]['backgroundchk_status']) && $this->personalData[0]['backgroundchk_status'] != 'Completed')
@@ -76,7 +76,7 @@
 			<button onclick="window.location.href='<?php echo BASE_URL; ?>empscreening<?php echo $back_str;?>';" type="button" id="Cancel" name="Cancel">Cancel</button>
 		</div>
 		</div>
-		<?php if(!empty($this->personalData)) 
+		<?php if(!empty($this->personalData))
 		{ ?>
 	  <div id="personaldatadiv">
 		<?php if($this->hrEmail == 'false' && $this->mngmntEmail == 'false'){?>
@@ -86,13 +86,13 @@
 		<?php }else if($this->mngmntEmail == 'false') { ?>
 			<div class="ml-alert-1-info m1-info-set"><div class="style-1-icon info"></div>Email will not work as the Management email is not configured.</div>
 		<?php } ?>
-	  <div class="all-bg-ctrl">    		
-		<div class="emp-screen-view">     
+	  <div class="all-bg-ctrl">
+		<div class="emp-screen-view">
 			<div class="display-img-div" id='displayimg' style="display:none;">
 					<div class="employee-pic chg-img">
-						<img id="userImage" src="<?php echo DOMAIN; ?>public/media/images/employee-deafult-pic.jpg" />				
+						<img id="userImage" src="<?php echo DOMAIN; ?>public/media/images/employee-deafult-pic.jpg" />
 					</div>
-					<div id="loaderimg" style="display:none; clear:both; margin:0 auto; text-align: center; width:100%;"><img src="<?php echo $this->baseUrl("public/media/images/loaderwhite_21X21.gif");?>" style="width:21px; height: 21px; float: none; "/></div>			
+					<div id="loaderimg" style="display:none; clear:both; margin:0 auto; text-align: center; width:100%;"><img src="<?php echo $this->baseUrl("public/media/images/loaderwhite_21X21.gif");?>" style="width:21px; height: 21px; float: none; "/></div>
 				</div>
 
 			<div id="personalDetailsDiv">
@@ -114,7 +114,7 @@
 					if(!empty($this->addressData))
 					{
 						if(isset($this->addressData[0]['location']) && $this->addressData[0]['location'] != '')echo '<p><b>Address <i>:</i></b><span><u>'.htmlspecialchars($this->addressData[0]['location']).',</u>';
-						if(isset($this->addressData[0]['ccity']) && $this->addressData[0]['ccity'] != '') echo '<u>'.$this->addressData[0]['ccity'].',</u>';				
+						if(isset($this->addressData[0]['ccity']) && $this->addressData[0]['ccity'] != '') echo '<u>'.$this->addressData[0]['ccity'].',</u>';
 						if(isset($this->addressData[0]['cstate']) && $this->addressData[0]['cstate'] != '') echo '<u>'.$this->addressData[0]['cstate'].',</u>';
 						if(isset($this->addressData[0]['ccountry']) && $this->addressData[0]['ccountry'] != '') echo '<u>'.$this->addressData[0]['ccountry'].'</u>';
 						if(isset($this->addressData[0]['pincode']) && $this->addressData[0]['pincode'] != '') echo '<u> - '.$this->addressData[0]['pincode'].'</u></span></p>';
@@ -128,8 +128,8 @@
 					}
 				 ?>
 			</div>
-		   </div> 
-		<?php 
+		   </div>
+		<?php
 		} ?>
 
 		<?php if(!empty($this->personalData) && !empty($this->companyData)) { ?>
@@ -147,13 +147,13 @@
 							</tr>
 						</thead>
 					<tbody>
-						<?php if(!empty($this->companyData)) 
-								{ 
+						<?php if(!empty($this->companyData))
+								{
 									echo "<script type='text/javascript'>$('#compDetailsDiv').css('display','block');</script>";
 									for($i=0; $i < sizeof($this->companyData) ; $i++)
 									{
 										$divid = $i+1;
-										echo '<tr class="row1" id="company'.$divid.'">';    
+										echo '<tr class="row1" id="company'.$divid.'">';
 										echo '<td>'.$this->companyData[$i]['companyname'].'</td>';
 										echo '<td>'.$this->companyData[$i]['companywebsite'].'</td>';
 										echo '<td>'.$this->companyData[$i]['designation'].'</td>';
@@ -165,18 +165,18 @@
 					</tbody>
 				  </table>
 			   </div>
-		   </div> 
+		   </div>
 		 <?php } ?>
-					
-	</div>	
-	</div>	
-			
+
+	</div>
+	</div>
+
 	</form>
-	<?php 
-	if(sizeof($this->dataArray[0]['tablecontent'])>0) { 
+	<?php
+	if(sizeof($this->dataArray[0]['tablecontent'])>0) {
 	if($this->call == 'ajaxcall'){
-		$div = ''; $endDiv = ''; 
-	} else { 
+		$div = ''; $endDiv = '';
+	} else {
 		$div = '<div id="grid_'.$this->dataArray[0]['objectname'].'" class="all-grid-control">'; $endDiv = '</div>';
 	}
 		echo $div.'<div id="msg" style="display:none;font-style: oblique; font-weight: bold; color: green;""></div>'.$this->grid($this->dataArray[0]).$endDiv;
@@ -205,7 +205,7 @@
 	</div>
 	</div>
 <?php } else { ?>
-<div class="ml-alert-1-info m1-info-set"><div class="style-1-icon info"></div>No data found.</div>
+<div class="ml-alert-1-info m1-info-set"><div class="style-1-icon info"></div>Datos no encontrados.</div>
 <?php }?>
 <script type='text/javascript'>
 $(document).ready(function() {
@@ -218,62 +218,62 @@ $( "#bgcheck_status" ).change(function () {
 			$('.select2-choice > span').addClass('greendataClass');
 		}
 	});
-	
+
 })
 .change();
 
 
 
-	$('#idbtn').click(function() {	
+	$('#idbtn').click(function() {
 			var status = $('#inpstatus').val();
-			var selectedStatus = $('#bgcheck_status').val();			
-            if(status == 'yes' && selectedStatus == 'Complete')	
-			{	
+			var selectedStatus = $('#bgcheck_status').val();
+            if(status == 'yes' && selectedStatus == 'Complete')
+			{
 			//You are trying to close the background check for the person. Please confirm
                 jConfirm("You are trying to close the background check process. Please confirm.", "Confirmation", function(r) {
-					if(r==true){							
+					if(r==true){
 						$('#submitbutton').trigger('click');
 						return true;
 					}else {
 						return false;
 					}
-				 });		 
+				 });
 			}
-			else {	
+			else {
 				$('#submitbutton').trigger('click');
 				return true;
-			}			
+			}
 	});
 
 
 /* Making window responsive*/
  	var complete_width = $('.emp-screen-view').width();
 	$('#displayimg').css("width", "150");
-	$('#personalDetailsDiv').css("width", (complete_width-(152)));	
-		
+	$('#personalDetailsDiv').css("width", (complete_width-(152)));
+
 	 function checkWidth() {
-        var complete_width = $('.emp-screen-view').width();		
+        var complete_width = $('.emp-screen-view').width();
 		$('#displayimg').css("width", "150");
-		$('#personalDetailsDiv').css("width", (complete_width-(152)));		
+		$('#personalDetailsDiv').css("width", (complete_width-(152)));
     }
 	$(window).resize(function() {
 		checkWidth();
-	}); 
+	});
 /* END */
  $('#process_table').slimScrollHorizontal({
 	  alwaysVisible: false,
 	  start: 'left',
 	  position: 'bottom',
-	 
-	}).css({ background: '#ccc', paddingBottom: '10px' }); 
+
+	}).css({ background: '#ccc', paddingBottom: '10px' });
 <?php if($this->inprocess == 'yes') { ?>
-	$("body").append('<div id="blockingdiv" class="ui-widget-overlay ui-front"></div>');	
+	$("body").append('<div id="blockingdiv" class="ui-widget-overlay ui-front"></div>');
 	$('#inprocessContainer').css('display','block');
 	$('#statusinprocess').attr('src', '<?php echo BASE_URL; ?>empscreening/forcedfullupdate/specimenId/'+<?php echo $this->specimenId; ?>+'/empFlag/'+<?php echo $this->empFlag;?>);
 	$(".closeAttachPopup").remove();
 	window.parent.$('#inprocessContainer').dialog({
 						close: function() {
-						 $('#blockingdiv').remove(); 
+						 $('#blockingdiv').remove();
 						},
 						title: 'Background Check Status'
 					});
@@ -285,18 +285,18 @@ $( "#bgcheck_status" ).change(function () {
 var spanText = $( "#bgcheck_status" ).val();
 if(spanText == 'Complete')
 {
-	setTimeout("$('.select2-choice > span').addClass('greendataClass');",100);	
+	setTimeout("$('.select2-choice > span').addClass('greendataClass');",100);
 }
 });//end of ready function
 
 $('#bgcheck_status').on('change', function() {
   var oldval = '';
-  var newval = $(this).val();  
+  var newval = $(this).val();
   <?php if(isset($this->personalData[0]['backgroundchk_status'])) { ?>
 	oldval = '<?php echo $this->personalData[0]['backgroundchk_status'];?>';
   <?php } ?>
   if( oldval != '' && oldval != newval && newval != '0')
-  {	
+  {
 	$('#btnsdiv').css('display','block');
   }
   else

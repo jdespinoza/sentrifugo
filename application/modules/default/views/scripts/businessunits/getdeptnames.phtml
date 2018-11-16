@@ -95,7 +95,7 @@
 			else
 			{	?>
 				<tr class="row1">
-					<td class="no-data-td" colspan="8"><p class="no-data">No data found</p></td>
+					<td class="no-data-td" colspan="8"><p class="no-data">Datos no encontrados</p></td>
 				</tr>
 			<?php 
 			} ?>
@@ -107,7 +107,7 @@
 		<div class="records_block">
 			<?php if(count($this->deptArr) > 0) { ?>
 			<div class="page_txt">
-				<span>Records per page</span>
+				<span>Registros por página</span>
 				<div class="records_number-drop-down">					
 					<select id="deptperPagetext" name="deptperPagetext" onchange="getdepts('deptperpage');">
 							<option value="20" <?php echo ($this->perpage == 20)?"selected":"" ;?>>20</option>

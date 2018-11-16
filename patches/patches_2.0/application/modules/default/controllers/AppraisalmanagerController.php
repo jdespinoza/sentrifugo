@@ -543,7 +543,7 @@ class Default_AppraisalmanagerController extends Zend_Controller_Action
 					}
 					else
 					{
-						$this->view->ermsg = 'No data found.';
+						$this->view->ermsg = 'Datos no encontrados.';
 					}					
                 }
                 
@@ -562,12 +562,12 @@ class Default_AppraisalmanagerController extends Zend_Controller_Action
             }
             else
             {
-                $this->view->ermsg = 'No data found.';
+                $this->view->ermsg = 'Datos no encontrados.';
             }
         } 
         catch (Exception $ex) 
         {
-            $this->view->ermsg = 'No data found.';
+            $this->view->ermsg = 'Datos no encontrados.';
         }
     }
     

@@ -134,7 +134,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 
 		$objName = 'projects';
 
-		$tableFields = array('action'=>'Acción','project_name' => 'Projecto','project_status'=>'Estado','parent_project'=>'Proyecto Base','client_name' => 'Cliente','currencyname'=>'Moneda','project_type'=>'Tipo de Proyecto');
+		$tableFields = array('action'=>'Acción','project_name' => 'Proyecto','project_status'=>'Estado','parent_project'=>'Proyecto Base','client_name' => 'Cliente','currencyname'=>'Moneda','project_type'=>'Tipo de Proyecto');
 
 		$tablecontent = $this->getProjectsData($sort, $by, $pageNo, $perPage,$searchQuery);
 
@@ -175,7 +175,7 @@ class Timemanagement_Model_Projects extends Zend_Db_Table_Abstract
 			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
-		    'menuName' => 'Projectos',
+		    'menuName' => 'Proyectos',
 			'extra' => array(),
 			'tableheader' => $tableFields,
 			'jsGridFnName' => 'getAjaxgridData',

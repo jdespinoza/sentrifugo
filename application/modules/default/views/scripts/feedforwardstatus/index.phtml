@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,8 @@
 	            <label>Feedforward</label>
 	            <div class="division">
 	            	<select id="ff_id" name="ff_id" onchange="getFFStatusEmps(this.value)">
-						<option  value="">Select Feedforward</option>
-						<?php if(!empty($this->ffdataarr)) { 
+						<option  value="">Seleccionar Feedforward</option>
+						<?php if(!empty($this->ffdataarr)) {
 									foreach($this->ffdataarr as $value) {?>
 							<option  value="<?php echo $value['id']?>"><?php echo $value['mode']?></option>
 						<?php }}?>
@@ -32,27 +32,27 @@
 					<span class="errors" id="errors-ff_id"></span>
 				</div>
         	</div>
-        	
+
         	<div class="new-form-ui" >
-	            <label>Feedforward Status</label>
+	            <label>Estado de Feedforward</label>
 	            <button type="button" id="ffstatusclear" name="ffstatusclear" class="inputclear" style="display:none;"  onclick="clearffstatus(1)">Clear</button>
 	            <div class="division">
 	            	<select id="ff_status_id" name="ff_status_id" onchange="getfeedforwardStatus(this.value)">
-						<option  value="">Select Feedforward Status</option>
+						<option  value="">Seleccionar Estado de Feedforward</option>
 							<option  value='1'>Pending employee ratings</option>
 							<option  value='2'>Completed</option>
 					</select>
 					<span class="errors" id="errors-ff_id"></span>
 				</div>
         	</div>
-        	
+
 			<div id="feedforward_emp_status" class="feedforward_emp_status">
 			</div>
 
 <script type="text/javascript">
 function clearffstatus(flag)
 {
-	
+
 	var feedforwardval = $('#ff_id').val();
 	$("#ffstatusclear").hide();
 	$('#ff_status_id').val('');
@@ -67,7 +67,7 @@ function getfeedforwardStatus(value)
 	var val = $("#ff_id option:selected").text();
 	if(value)
 	{
-		
+
 		if(feedforwardval == '')
 		{
 			$("#errors-ff_id").html("Please select feedforward");
@@ -76,10 +76,10 @@ function getfeedforwardStatus(value)
 		}else
 		{
 			$("#ffstatusclear").show();
-			
+
 			$.ajax({
 	         	url: base_url+"/feedforwardstatus/getfeedforwardstatus/format/html",
-	         	type : 'POST',	
+	         	type : 'POST',
 				data : 'id='+feedforwardval+'&ffstatus='+value,
 				dataType: 'html',
 				beforeSend: function () {
@@ -87,18 +87,18 @@ function getfeedforwardStatus(value)
 				},
 				success : function(response){
 					$.unblockUI();
-					$("#feedforward_emp_status").html(response);	
+					$("#feedforward_emp_status").html(response);
 					$("#appraisalinfo").html(val);
 				}
-	    	});	
-			
-		}	
+	    	});
+
+		}
 	}else
 	{
 		$("#ffstatusclear").hide();
 		getFFStatusEmps(feedforwardval);
-	}	
-	
+	}
+
 }
 function getFFStatusEmps(id){
 
@@ -110,10 +110,10 @@ function getFFStatusEmps(id){
 	if(id)
 	{
 		var val = $("#ff_id option:selected").text();
-		
+
 		$.ajax({
          	url: base_url+"/feedforwardstatus/getffstatusemps/format/html",
-         	type : 'POST',	
+         	type : 'POST',
 			data : 'id='+id,
 			dataType: 'html',
 			beforeSend: function () {
@@ -121,10 +121,10 @@ function getFFStatusEmps(id){
 			},
 			success : function(response){
 				$.unblockUI();
-				$("#feedforward_emp_status").html(response);	
+				$("#feedforward_emp_status").html(response);
 				$("#appraisalinfo").html(val);
 			}
-    	});			
+    	});
 	}else
 	{
 		$("#feedforward_emp_status").html("");

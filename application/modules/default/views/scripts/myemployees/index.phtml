@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,9 +20,9 @@
  ********************************************************************************/
 ?>
 
-<script src="<?php echo EXPENSES_MEDIA_PATH;?>js/materialize.js"></script> 
-<link rel="stylesheet" href="<?php echo MEDIA_PATH?>css/screen.css">   
-<?php 
+<script src="<?php echo EXPENSES_MEDIA_PATH;?>js/materialize.js"></script>
+<link rel="stylesheet" href="<?php echo MEDIA_PATH?>css/screen.css">
+<?php
 $auth = Zend_Auth::getInstance();
 if($auth->hasIdentity())
 {
@@ -36,16 +36,16 @@ if($loginuserGroup==MANAGER_GROUP || $loginuserGroup==MANAGEMENT_GROUP || $login
 			if($this->call != 'ajaxcall'){
 ?>
 				<div class="flt_right"  style="clear: both;">
-					<div class="actions_div">						
-						<a class="importformatlink flt_left" href="<?php echo BASE_URL; ?>myemployees/employeereport">My Team Report</a>
-                        <?php 
-					  	
+					<div class="actions_div">
+						<a class="importformatlink flt_left" href="<?php echo BASE_URL; ?>myemployees/employeereport">Informe de mi equipo</a>
+                        <?php
+
 					if(sapp_Global::_checkprivileges(MYEMPLOYEES,$loginuserGroup,$loginuserRole,'add') == 'Yes'){?>
 					 <a  href="<?php echo BASE_URL.'myemployees/add';?>" class="sprite addrecord">Add</a>
 				<?php 	} ?>
-					</div>	
+					</div>
 				</div>
-<?php 
+<?php
             }
 			}
 ?>
@@ -54,17 +54,17 @@ if($loginuserGroup==MANAGER_GROUP || $loginuserGroup==MANAGEMENT_GROUP || $login
 		<?php foreach ($this->messages as $message){?>
 		 <?php echo $this->escape($message); ?>
 		<?php } ?>
-	</div>	
-	
+	</div>
+
 <?php } ?>
 <span id="error_message"></span>
 
-<?php 
+<?php
 if(!empty($this->dataArray[0])){ ?>
 <div class="new-form-ui" >
 	<div class="division">
 		<select name="search_val" id="search_val" onchange="getRolesList()">
-		<option value="">Select Search Category</option>
+		<option value="">Seleccione la Categoría</option>
 		<option value="emp_name">Employee Name</option>
 		<option value="emp_id">Employee Id</option>
 		<option value="emp_role">Employee Role</option>
@@ -77,44 +77,44 @@ if(!empty($this->dataArray[0])){ ?>
 		<input type="text" placeholder="Search Value" name="search_str"  id="search_str">
 	</div>
 </div>
-	
+
 
 <div class="new-form-ui"  id="role_div" style="display:none" >
-	<div class="division">				
+	<div class="division">
 		<select name="role_val"  id="role_id">
 		<option value="">Select Role</option>
-		
-					<?php 
+
+					<?php
 					 foreach($this->roles_arr as $key => $roles_emp)
 					{ ?>
-					
+
 					 <option value="<?php echo $roles_emp['id'] ?>"><?php echo $roles_emp['rolename'] ?></option>
-						
+
 				<?PHP } ?>
 		</select>
 
 	</div>
 </div>
-<?php 
+<?php
 if(!empty($this->dataArray[0])){ ?>
 <div class="new-form-ui" style="width: initial;">
 	<div class="division">
 		<button onclick="employeessearch();" type="button" class="actbtn_btn" style="margin: 0;">Search</button>
 		<button onclick="clearSearchData();" type="button" class="actbtn_btn reset" style="margin-top: 0;">Clear</button>
 	</div>
-</div>	
-	
-<?php } ?> 
+</div>
+
+<?php } ?>
 <div id="employees_search" class="full-width">
 
 <?php if($this->totalcount>0) { ?>
 
     <div class="list-container" id="more_employees">
-    <?php 
+    <?php
 	foreach($this->dataArray as $data)
 	{
 	foreach($data as $emp)
-	{ 
+	{
 
 
 ?>
@@ -125,8 +125,8 @@ if(!empty($this->dataArray[0])){ ?>
                 <div class="li-actions"> <a class='dropdown-button dottedbtn' href='#' data-activates='actdbtn-<?php echo $emp['id'];?>'><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <!-- Dropdown Structure -->
                     <ul id='actdbtn-<?php echo $emp['id'];?>' class='dropdown-content'>
-					  <?php 
-					  	
+					  <?php
+
 						if(sapp_Global::_checkprivileges(MYEMPLOYEES,$loginuserGroup,$loginuserRole,'view') == 'Yes'){?>
                         <li><a href="<?php echo BASE_URL.'myemployees/view/id/'.$emp['id'];
 							?>"><i class="fa fa-eye"></i> View</a></li>
@@ -135,7 +135,7 @@ if(!empty($this->dataArray[0])){ ?>
 						<li><a href="<?php echo BASE_URL.'myemployees/edit/id/'.$emp['id'];
 							?>"><i class="fa fa-edit"></i> Edit</a></li>
 					<?php } ?>
-                 
+
                     </ul>
                 </div>
             </div>
@@ -149,12 +149,12 @@ if(!empty($this->dataArray[0])){ ?>
             </div>
 			</a>
         </div>
-	
+
 	<?php
 } } }
 else
 {
-	echo "<p class='no-data'>No Data Found</p>";
+	echo "<p class='no-data'>Datos no encontrados</p>";
 }
 ?>
 </div>
@@ -170,9 +170,9 @@ else
 
 
 
-<?php 
+<?php
 
-if($this->totalcount > $this->empcount) 
+if($this->totalcount > $this->empcount)
 {?>
 
 <div id="viewmorediv" onclick="viewmore();">
@@ -192,4 +192,3 @@ $(document).ready(function(){
 })
 
 </script>
-

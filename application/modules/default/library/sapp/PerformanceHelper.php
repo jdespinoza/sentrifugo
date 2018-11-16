@@ -1,9 +1,9 @@
 <?php
 
-/* * ******************************************************************************* 
+/* * *******************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,15 +25,15 @@
  *
  * @author mainak paul
  */
-class sapp_PerformanceHelper 
+class sapp_PerformanceHelper
 {
-   
+
     public static function display_success_message($namespace,$type)
     {
 ?>
     <script type="text/javascript">
         $(document).ready(function(){
-<?php 
+<?php
         $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
         if ($flashMessenger->setNamespace($namespace)->hasMessages())
         {
@@ -41,17 +41,17 @@ class sapp_PerformanceHelper
                 if($type == 'success')
                 {
                 ?>
-                    successmessage('<?php echo trim($msg); ?>');                    
-            <?php 
+                    successmessage('<?php echo trim($msg); ?>');
+            <?php
                 }
                 else
                 {
 ?>
         error_message('<?php echo trim($msg);?>');
-<?php        
+<?php
                 }
         } ?>
-        <?php } ?>  
+        <?php } ?>
         });
     </script>
 <?php
@@ -66,27 +66,27 @@ class sapp_PerformanceHelper
         }
         return $output;
     }
-    
-    
+
+
     public static function questions_privileges($questionarray,$appraisalid,$checkArr,$initializationdata)
     {
 ?>
         <ul class="tabs_all_button">
             <li class="active divider" id="alldiv" onclick="showhideqsdiv(1)" >All</li>
             <li id="selecteddiv" onclick="showhideqsdiv(2)">Selected</li>
-        </ul> 
-     
+        </ul>
+
      <?php if(isset($initializationdata['poppermission']) && $initializationdata['poppermission']=='yes') { ?>
 	     <div class="addnewqs" onclick="addnewqspopup(1,'<?php echo $appraisalid; ?>');">
 	     		 + Add New Question
 	     </div>
-	     
-     <?php 
+
+     <?php
      			sapp_PerformanceHelper::question_div(1);
      		}
      ?>
      <div id="hiddenquestiondiv" style="display:none;" class="qstnscrldiv">
-						<div class="total-form-controller_" id="childqsdiv">		
+						<div class="total-form-controller_" id="childqsdiv">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; margin-top: 0px;" id="questiontable" class="requisition-table employee_appraisal-table">
 								<tr>
 								   <th class="question_field">Questions</th>
@@ -100,10 +100,10 @@ class sapp_PerformanceHelper
 							</table>
 						</div>
 	</div>
-     
+
      <div id="questiondiv" class="qstnscrldiv">
-    	
-			<div class="total-form-controller_" id="parentqsdiv">		
+
+			<div class="total-form-controller_" id="parentqsdiv">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear:both;margin-top: 0px;" class="requisition-table employee_appraisal-table">
 				 <tr>
 				   <th class="check_field"><input type="checkbox" class ="selectallcls" name="selectall" value="selectall" id="selectall">Check All</th>
@@ -124,7 +124,7 @@ class sapp_PerformanceHelper
 		 			$empcmntcheck = '';
 		 			if(!empty($checkArr))
 		 			{
-		 				
+
 			 			if(array_key_exists($question['id'], $checkArr))
 			 			{
 			 			   $check = 'checked';
@@ -134,22 +134,22 @@ class sapp_PerformanceHelper
 			 			   		if($checkid['MC'] == 1)
 			 			   			 $mgrcheck = 'checked';
 			 			   		if($checkid['MR'] == 1)
-			 			   			 $mgrrate = 'checked';		 
+			 			   			 $mgrrate = 'checked';
 			 			   		if($checkid['ER'] == 1)
 			 			   			 $empratcheck = 'checked';
 			 			   		if($checkid['EC'] == 1)
-			 			   			 $empcmntcheck = 'checked';		 		 
+			 			   			 $empcmntcheck = 'checked';
 			 			   }
-			 			   
-			 			} 
+
+			 			}
 		 			}else
 		 			{
- 							 $check = 'checked';	
+ 							 $check = 'checked';
 	 			   			 $mgrcheck = 'checked';
-	 			   			 $mgrrate = 'checked';		 
+	 			   			 $mgrrate = 'checked';
 	 			   			 $empratcheck = 'checked';
 	 			   			 $empcmntcheck = 'checked';
-		 			}  
+		 			}
 		 ?>
 				 <tr id="questiontr_<?php echo $question['id'];?>">
 				   <td class="check_field"><input type="checkbox" class ="checkallcls" ques_id ="<?php echo $question['id'];?>" id="check_<?php echo $question['id'];?>" name="check[]" value="<?php echo $question['id'];?>" <?php echo $check;?> onclick="checkchildtd(this)"></td>
@@ -161,16 +161,16 @@ class sapp_PerformanceHelper
 				   </td>
 				   <td class="field_width">
                     <div class="comments_div_fiel"><input type="checkbox" class ="mgrcmntcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrcmnt_<?php echo $question['id'];?>" name="mgrcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $mgrcheck;?> onclick="checkparenttd(this)">Manager Comments</div>
-				   	    <div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" >Manager Ratings</div>	
+				   	    <div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" >Manager Ratings</div>
 				   	   <div class="comments_div_fiel"> <input type="checkbox" class ="empcmntcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="empcmnt_<?php echo $question['id'];?>" name="empcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $empcmntcheck;?> onclick="checkparenttd(this)">Employee Comments</div>
 				   	   <div class="comments_div_fiel"> <input type="checkbox" class ="empratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="empratings_<?php echo $question['id'];?>" name="empratings[<?php echo $question['id'];?>]" value="1"  <?php echo $empratcheck;?> onclick="checkparenttd(this)">Employee Ratings</div>
 				  </td>
 				  	<?php sapp_PerformanceHelper::check_selected_Qs($check,$mgrcheck,$mgrrate,$empratcheck,$empcmntcheck,$question['id']); ?>
 				 </tr>
 		<?php
-		 		} 
-		?>		 
-				 
+		 		}
+		?>
+
 				</table>
 				<input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $appraisalid;?>">
 				<input type="hidden" id="initializeflag" name="initializeflag" value="">
@@ -178,10 +178,10 @@ class sapp_PerformanceHelper
 				<input type="hidden" id="questioncount" name="questioncount" value="<?php echo sizeof($questionarray);?>">
 			</div>
 			</div>
-		
-				
+
+
 			<?php if($initializationdata['group_settings'] != 2){?>
-			<div class="new-form-ui-submit" id="qssubmitdiv">	
+			<div class="new-form-ui-submit" id="qssubmitdiv">
 					<?php if($initializationdata['initialize_status'] == 1){?>
 						<button name="submitbutton" id="submitbuttons" type="button" onclick="saveInitilize(3)">Update Initialization</button>
 					<?php } else {?>
@@ -189,24 +189,24 @@ class sapp_PerformanceHelper
 					<button name="submitbutton" id="submitbuttons" type="button" onclick="saveInitilize(2)">Save & Initialize Later</button>
 					<button name="submitbutton" id="submitbuttons" type="button" onclick="changesettings('0','<?php echo $appraisalid?>')">Discard</button>
 					<?php } ?>
-					
-			</div>	
-			<?php }?> 
-		
-       
-		
+
+			</div>
+			<?php }?>
+
+
+
 		<script type="text/javascript">
 				$(document).ready(function()
 				{
 					$('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
 					$('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-					
-					$('#selectall').click(function(event) {  
+
+					$('#selectall').click(function(event) {
 						$('.checkallcls').prop('checked',$(this).prop('checked'));
-						if(this.checked) { 
-				            $('.checkallcls').each(function() { 
-				            	var id = $(this).attr('ques_id'); 
-				            	appendcheckboxtext(id);                
+						if(this.checked) {
+				            $('.checkallcls').each(function() {
+				            	var id = $(this).attr('ques_id');
+				            	appendcheckboxtext(id);
 				            });
 				        }else
 				        {
@@ -216,18 +216,18 @@ class sapp_PerformanceHelper
                                             //$('.empratingcls').prop('checked',false);
                                             $("tr[id^=hiddentr_]").remove();
                                             appendheighttodiv(1);
-				        }          
+				        }
 				    });
 
-				    $('#mgrcmnt').click(function(event) {  //on click 
-						if(this.checked) { 
-							$('.checkallcls').each(function() { 
-								var id = $(this).attr('ques_id'); 
+				    $('#mgrcmnt').click(function(event) {  //on click
+						if(this.checked) {
+							$('.checkallcls').each(function() {
+								var id = $(this).attr('ques_id');
 								if(this.checked)
 								{
 									$("#mgrcmnt_"+id).prop('checked', true);
 								}
-								appendcheckboxtext(id);                
+								appendcheckboxtext(id);
 							});
 						}else
 						{
@@ -237,15 +237,15 @@ class sapp_PerformanceHelper
 						}
 				    });
 
-				    $('#mgrrating').click(function(event) {  //on click 
-						if(this.checked) { 
-							$('.checkallcls').each(function() { 
-								var id = $(this).attr('ques_id'); 
+				    $('#mgrrating').click(function(event) {  //on click
+						if(this.checked) {
+							$('.checkallcls').each(function() {
+								var id = $(this).attr('ques_id');
 								if(this.checked)
 								{
 									$("#mgrrating_"+id).prop('checked', true);
-								}									
-								appendcheckboxtext(id);                
+								}
+								appendcheckboxtext(id);
 							});
 						}else
 						{
@@ -255,15 +255,15 @@ class sapp_PerformanceHelper
 						}
 				    });
 
-				    $('#empcmnt').click(function(event) {  //on click 		    	
-						if(this.checked) { 
-							$('.checkallcls').each(function() { 
-								var id = $(this).attr('ques_id'); 
+				    $('#empcmnt').click(function(event) {  //on click
+						if(this.checked) {
+							$('.checkallcls').each(function() {
+								var id = $(this).attr('ques_id');
 								if(this.checked)
 								{
 									$("#empcmnt_"+id).prop('checked', true);
-								}									
-								appendcheckboxtext(id);                
+								}
+								appendcheckboxtext(id);
 							});
 						}else
 						{
@@ -272,34 +272,34 @@ class sapp_PerformanceHelper
 							appendheighttodiv(1);
 						}
 				    });
-					
+
 					$('#empratings').click(function(event) {  //on click
-				    	if(this.checked) { 
-							$('.checkallcls').each(function() { 
-								var id = $(this).attr('ques_id'); 
+				    	if(this.checked) {
+							$('.checkallcls').each(function() {
+								var id = $(this).attr('ques_id');
 								if(this.checked)
 								{
 									$("#empratings_"+id).prop('checked', true);
-								}									
-								appendcheckboxtext(id);                
+								}
+								appendcheckboxtext(id);
 							});
 						}else
 						{
 							$('.empratingcls').prop('checked',$(this).prop('checked'));
 							$("tr[id^=hiddentr_]").remove();
 							appendheighttodiv(1);
-						} 
-				     
+						}
+
 				    });
-					
+
 					$('.checkallcls').click(function(event) {  //on click
 				    	if(!$(this).prop('checked'))
 				    	{
 				    		/*$('.empratingcls').prop('checked',$(this).prop('checked'));
 				    		$('.empratingcls').prop('checked',$(this).prop('checked'));
 				    		$('.empratingcls').prop('checked',$(this).prop('checked'));*/
-				    	} 
-				     
+				    	}
+
 				    });
 
 				    <?php if(empty($checkArr)) { ?>
@@ -317,32 +317,32 @@ class sapp_PerformanceHelper
 				});
 
 		</script>
-<?php 					
+<?php
     }
-    
+
     	public static function employee_group_questions_privileges($groupEmployeeCountArr,$appraisalid,$initializationdata,$dispflag)
 	    {
-		
+
 	    ?>
 	    	<?php if($dispflag!='view' && !empty($groupEmployeeCountArr)) { ?>
 				<div style="clear: both;position: relative;top: 17px;width: 92%;" class="ml-alert-1-info" id="msg_div">
 					<div class="style-1-icon info"></div>
 					Once appraisal process is initialized and employees start filling their appraisals, questions cannot be added or edited.
 				</div>
-			<?php } ?>	
+			<?php } ?>
 			<div class="width_98">
 <?php 	    	if(!empty($groupEmployeeCountArr))
 	    	{ ?>
-	    	
-<?php 	    	
+
+<?php
 	    		foreach($groupEmployeeCountArr as $key =>  $val)
 	    		{
-?>	    						    		
+?>
 	    			<div class="groupeddiv" id="groupdiv_<?php echo $val['id'];?>">
 	    				<div class="groupnamediv" id="groupname_<?php echo $val['id']; ?>"><?php echo $val['group_name'];?></div>
 	    				<div class="empcountdiv">Employees <span class="count"><?php echo $val['empcount'];?></span></div>
 	    				<div class="qscountdiv">Questions <span class="count"><?php echo $val['qscount'];?></span></div>
-	    				
+
 	    				<div id="hoverdiv_<?php echo $val['id'];?>" class="grphoverclass">
 	    					<ul>
 	    					<?php if($initializationdata['initialize_status'] == 1) { ?>
@@ -351,7 +351,7 @@ class sapp_PerformanceHelper
 		    						<li onclick='editgroupemp("<?php echo $val['group_name'];?>","<?php echo $val['group_id'];?>","<?php echo $appraisalid;?>","<?php echo $val['empcount'];?>");'>Edit</li>
 		    					<?php } //else if($dispflag == 'display') {?>
 		    						<!--  <li onclick='showgroupemp("<?php //echo $val['group_name'];?>","<?php //echo $val['group_id'];?>","<?php //echo $appraisalid;?>","<?php //echo $val['empcount'];?>");'>Edit</li>-->
-		    					<?php //}?>	
+		    					<?php //}?>
 		    				<?php } else {?>
 		    					<li onclick='viewempgroup("<?php echo $val['group_name'];?>","<?php echo $val['group_id'];?>","<?php echo $appraisalid;?>","<?php echo $val['empcount'];?>");'>View</li>
 		    					<?php if($dispflag == 'edit') {?>
@@ -361,53 +361,53 @@ class sapp_PerformanceHelper
 		    				</ul>
 	    				</div>
 	    			</div>
-	    			
-<?php 
+
+<?php
 	    		}
 	    	}
-?>	    		
+?>
 <div class="clear" id="clear_div"></div>
-				<?php if(isset($initializationdata['empcount']) && $initializationdata['empcount'] > 0) {?>	
+				<?php if(isset($initializationdata['empcount']) && $initializationdata['empcount'] > 0) {?>
 					<?php if($dispflag!='view') { ?>
 						<div class="newgroup_msg managerresponsediv_msg">
 							Groups are not configured yet.
 						</div>
-	    				
+
 	    				<div class="new-form-ui-submit" style="margin-left: 0px;">
 	    					<div class="create_new_group" onclick="creategroupemp('<?php echo $appraisalid;?>')" style="margin-left: 0px; height: 17px;">Create New Group</div>
 	    					<button name="submitbutton" id="submitbuttons" class="discard_button" type="button" onclick="changesettings('0','<?php echo $appraisalid?>')">Discard</button>
-	    				</div>	
-	    			<?php } ?>	
-	    		<?php } ?>	
-	    		
+	    				</div>
+	    			<?php } ?>
+	    		<?php } ?>
+
 	    		<div class="invfrnds_confirm create_group_div per_steps"  style="display:none; margin-left: 0px;" >
 				</div>
 				<div class="clear"></div>
 				</div>
-	    		
-	    	
-	    	
+
+
+
 	    		<div class="new-form-ui-submit" id="initialization_div">
 	    		<?php if($initializationdata['initialize_status'] == 1){?>
 	    			<?php if($dispflag!='view' && $dispflag!='display') { ?>
 	    				<button name="submitbutton" id="submitbuttons" type="button" onclick="saveGroupInitilize(1,'<?php echo $appraisalid?>')">Update Initialization</button>
-	    			<?php } ?>	
-	    			
-	    	  	<?php }else {?>	
+	    			<?php } ?>
+
+	    	  	<?php }else {?>
 		    		<?php if($dispflag == 'edit') { ?>
 		    			<?php if($initializationdata['empcount'] == 0 && !empty($groupEmployeeCountArr)){?>
 							 <button name="submitbutton" id="submitbuttons" class="init_class" type="button" onclick="saveGroupInitilize(1,'<?php echo $appraisalid?>')">Initialize</button>
 							<button name="submitbutton" id="submitbuttons" class="init_class_later" type="button" onclick="saveGroupInitilize(2,'<?php echo $appraisalid?>')">Initialize Later</button>
-							<button name="submitbutton" id="submitbuttons" class="discard_button" type="button" onclick="changesettings('0','<?php echo $appraisalid?>')">Discard</button> 
-						<?php }?>	
-						
-					
-					<?php }else{ ?>	
-					
-				<?php }}?>	
+							<button name="submitbutton" id="submitbuttons" class="discard_button" type="button" onclick="changesettings('0','<?php echo $appraisalid?>')">Discard</button>
+						<?php }?>
+
+
+					<?php }else{ ?>
+
+				<?php }}?>
 				</div>
-				<div class="clear"></div>	
-				
+				<div class="clear"></div>
+
 				<script type="text/javascript" language="javascript">
 					$(document).ready(function()
 					{
@@ -423,46 +423,46 @@ class sapp_PerformanceHelper
 						$("#info_message").html('Customized Employee Groups');
 					});
 				</script>
-<?php			
-	    	
+<?php
+
 	    }
-	    
+
 	    public static function check_selected_Qs($check,$mgrcheck,$mgrrate,$empratcheck,$empcmntcheck,$id)
 	    {
 	    	if($check == 'checked' || $mgrcheck == 'checked' || $mgrrate == 'checked' || $empratcheck == 'checked' || $empcmntcheck == 'checked')
 	    	{
-?>	    
+?>
 				<script>
 						var id = '<?php echo $id;?>';
 						appendcheckboxtext(id);
-				</script>		
-	    		
-<?php    	
+				</script>
+
+<?php
 	   		}
 	   }
-	   
+
 		public static function ff_check_selected_Qs($check,$empratcheck,$empcmntcheck,$id)
 	    {
 	    	if($check == 'checked' || $empratcheck == 'checked' || $empcmntcheck == 'checked')
 	    	{
-?>	    
+?>
 				<script>
 						var id = '<?php echo $id;?>';
 						ff_appendcheckboxtext(id);
-				</script>		
-	    		
-<?php    	
+				</script>
+
+<?php
 	   		}
 	   }
-	   
-	   
+
+
     public static function questions_privileges_view($questionarray,$appraisalid,$checkArr,$initializationdata)
     {
-?>     
-        
-            <ul class="tabs_all_button"><li id="selecteddiv" class="active" style="cursor: default;">Questions</li></ul> 
+?>
+
+            <ul class="tabs_all_button"><li id="selecteddiv" class="active" style="cursor: default;">Questions</li></ul>
             <div id="questiondiv" class="qstnscrldiv">
-            <div class="total-form-controller_">		
+            <div class="total-form-controller_">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; margin-top: 0px; width: 97%;" class="requisition-table employee_appraisal-table" >
                     <tr>
                         <th class="question_field">Questions</th>
@@ -473,7 +473,7 @@ class sapp_PerformanceHelper
                             <div class="comments_div_fiel">Employee Ratings</div>
                         </th>
                     </tr>
-<?php 
+<?php
             foreach($questionarray as $key => $question)
             {
                 $check = '';  $mgrcheck = '';  $mgrrate = '';  $empratcheck = '';  $empcmntcheck = '';
@@ -488,16 +488,16 @@ class sapp_PerformanceHelper
                             if($checkid['MC'] == 1)
                                 $mgrcheck = 'checked';
                             if($checkid['MR'] == 1)
-                                $mgrrate = 'checked';		 
+                                $mgrrate = 'checked';
                             if($checkid['ER'] == 1)
                                 $empratcheck = 'checked';
                             if($checkid['EC'] == 1)
-                                $empcmntcheck = 'checked';		 		 
-                       }			 			   
-                    } 
-                }  
+                                $empcmntcheck = 'checked';
+                       }
+                    }
+                }
 ?>
-                    <tr id="questiontr_<?php echo $question['id'];?>">				   
+                    <tr id="questiontr_<?php echo $question['id'];?>">
                         <td class="question_field" id="queshtml_<?php echo $question['id'];?>">
                         <div>
 				   			<span class="appri_ques"><?php echo $question['question']; ?></span>
@@ -506,14 +506,14 @@ class sapp_PerformanceHelper
                         </td>
                         <td class="field_width">
                             <div class="comments_div_fiel"><input type="checkbox" class ="mgrcmntcls" ques_id ="<?php echo $question['id'];?>" id="mgrcmnt_<?php echo $question['id'];?>" name="mgrcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $mgrcheck;?> disabled >Manager Comments</div>
-                            <div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> disabled >Manager Ratings</div>	
+                            <div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> disabled >Manager Ratings</div>
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empcmntcls" ques_id ="<?php echo $question['id'];?>" id="empcmnt_<?php echo $question['id'];?>" name="empcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $empcmntcheck;?> disabled >Employee Comments</div>
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empratingcls" ques_id ="<?php echo $question['id'];?>" id="empratings_<?php echo $question['id'];?>" name="empratings[<?php echo $question['id'];?>]" value="1"  <?php echo $empratcheck;?> disabled >Employee Ratings</div>
-                        </td>				  	
+                        </td>
                     </tr>
 <?php
-            } 
-?>	    				 
+            }
+?>
                 </table>
                 <input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $appraisalid;?>">
                 <input type="hidden" id="initializeflag" name="initializeflag" value="">
@@ -521,36 +521,36 @@ class sapp_PerformanceHelper
             </div>
         </div>
         <div class="new-form-ui-submit" id="qssubmitdiv">
-               </div>	
+               </div>
         <div class="clear"></div>
-   		
+
     <script type="text/javascript">
         $(document).ready(function()
         {
             $('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-            //$('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});	
+            //$('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
             if($("#info_message").html()=='')
-		    	$("#info_message").html('Configure Questions For All Employees');									
+		    	$("#info_message").html('Configure Questions For All Employees');
         });
     </script>
-<?php 					
-    }        
-			   public static function question_div($moduleflag) 
+<?php
+    }
+			   public static function question_div($moduleflag)
 			   {
 		?>
-			
-			<div id="qspopupdiv" style="display: none; ">	
-				
-					 <div class="total-form-controller" >	
+
+			<div id="qspopupdiv" style="display: none; ">
+
+					 <div class="total-form-controller" >
 					 <div id="successdiv" style="display:none;">
 						<div class='ml-alert-1-success'>
 						<div class='style-1-icon success'></div>
 							Question added succesfully
 					  </div>
-					 </div>	
-					 <div id="error_message" style="display:none;"></div>	
-					  <div id="contentdiv"> 
-					 		<div class="new-form-ui ">				  
+					 </div>
+					 <div id="error_message" style="display:none;"></div>
+					  <div id="contentdiv">
+					 		<div class="new-form-ui ">
 					  			<label class="required">Parameter</label>
 								<div class="division">
 									<select id="category_id" name="category_id" >
@@ -558,14 +558,14 @@ class sapp_PerformanceHelper
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="new-form-ui ">
 				            	<label class="required">Question <img class="tooltip" title="Special characters allowed are - ? ' . , / # @ $ & * ( ) !" src="<?php echo MEDIA_PATH;?>images/help.png"></label>
 				            	<div class="division">
-									<input type="text" onkeyup="validatequestionname(this)" onblur="validatequestionname(this)" name="question_id" id="question_id" value="" maxlength="100">                            
+									<input type="text" onkeyup="validatequestionname(this)" onblur="validatequestionname(this)" name="question_id" id="question_id" value="" maxlength="100">
 								</div>
 				        	</div>
-				        	
+
 				        	<div class="new-form-ui textareaheight">
 				            <label class="">Description </label>
 					            <div class="division">
@@ -573,14 +573,14 @@ class sapp_PerformanceHelper
 							    </div>
 				        	</div>
 				        	<input type="hidden" id="moduleflag" name="moduleflag" value="<?php echo $moduleflag;?>">
-				        	
+
 				        	<div class="new-form-ui-submit"  >
-						
-							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="savequestions()"/>																	
+
+							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="savequestions()"/>
 							<button name="Cancels" id="Cancels" type="button" onclick="closeqspopup()">Cancel</button>
-							
+
 							</div>
-					 </div>  
+					 </div>
 					 </div>
 				 </div>
 <?php
@@ -593,17 +593,17 @@ class sapp_PerformanceHelper
         <ul class="tabs_all_button white_tabs"  style="margin-left: 0px;">
             <li class="active divider" id="alldiv" onclick="showhideqsdiv(1)" >All</li>
             <li id="selecteddiv" onclick="showhideqsdiv(2)">Selected</li>
-        </ul> 
-     
+        </ul>
+
 	     <div class="addnewqs" onclick="ffaddnewqspopup();">
 	     		 + Add New Question
 	     </div>
-	    
-     <?php 
+
+     <?php
      		sapp_PerformanceHelper::ff_question_div();
      ?>
      <div id="hiddenquestiondiv" style="display:none;" class="qstnscrldiv">
-		<div class="total-form-controller" id="childqsdiv">		
+		<div class="total-form-controller" id="childqsdiv">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; width: 100%; margin-top: 0px;" id="questiontable" class="requisition-table employee_appraisal-table">
 				<tr>
 				   <th class="question_field">Questions</th>
@@ -615,10 +615,10 @@ class sapp_PerformanceHelper
 			</table>
 		</div>
 	</div>
-     
+
      <div id="questiondiv" class="qstnscrldiv">
-    	
-			<div class="total-form-controller_" id="parentqsdiv">		
+
+			<div class="total-form-controller_" id="parentqsdiv">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; width: 100%;margin-top: 0px;" class="requisition-table employee_appraisal-table">
 				 <tr>
 				   <th class="check_field" width="10%"><input type="checkbox" class ="selectallcls" name="selectall" value="selectall" id="selectall">Check All</th>
@@ -646,17 +646,17 @@ class sapp_PerformanceHelper
 								if($checkid['ER'] == 1)
 									 $empratcheck = 'checked';
 								if($checkid['EC'] == 1)
-									 $empcmntcheck = 'checked';		 		 
+									 $empcmntcheck = 'checked';
 						   }
-						} 
+						}
 					}
 					else
 					{
 						 $check = 'checked';
 						 $empratcheck = 'checked';
 						 $empcmntcheck = 'checked';
-						
-					}  
+
+					}
 				?>
 				<tr id="questiontr_<?php echo $question['id'];?>">
 					<td class="check_field"><input type="checkbox" class ="checkallcls" ques_id ="<?php echo $question['id'];?>" id="check_<?php echo $question['id'];?>" name="check[]" value="<?php echo $question['id'];?>" <?php echo $check;?> onclick="checkchildtd(this)"></td>
@@ -673,49 +673,49 @@ class sapp_PerformanceHelper
 					<?php sapp_PerformanceHelper::ff_check_selected_Qs($check,$empratcheck,$empcmntcheck,$question['id']); ?>
 				</tr>
 				<?php
-				} 
-		?>		 
-				 
+				}
+		?>
+
 				</table>
 			</div>
 			</div>
-			</div> </div> 
+			</div> </div>
 			<div class="new-form-ui-submit" style="margin-top: 40px;">
 				<input type="hidden" name="initialize_status" id="initialize_status" value="">
 				<button name="submitbutton" id="submitbuttons" type="button" onclick="saveInitilize(1)">Save & Initialize</button>
 				<button name="submitbutton" id="submitbuttons" type="button" onclick="saveInitilize(2)">Save & Initialize Later</button>
 				<button onclick="window.location.href='<?php echo BASE_URL;?>feedforwardinit';" type="button" id="Cancel" name="Cancel">Cancel</button>
 			</div>
-				
+
 		<script type="text/javascript">
 				$(document).ready(function()
 				{
 					$('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
 					$('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-					
-					$('#selectall').click(function(event) {  
+
+					$('#selectall').click(function(event) {
 						$('.checkallcls').prop('checked',$(this).prop('checked'));
-						if(this.checked) { 
-				            $('.checkallcls').each(function() { 
-				            	var id = $(this).attr('ques_id'); 
-				            	appendcheckboxtext(id);                
+						if(this.checked) {
+				            $('.checkallcls').each(function() {
+				            	var id = $(this).attr('ques_id');
+				            	appendcheckboxtext(id);
 				            });
 				        }else
 				        {
                         	$("tr[id^=hiddentr_]").remove();
 							  appendheighttodiv(1);
-				        }          
+				        }
 				    });
 
-				    $('#empcmnt').click(function(event) {  //on click 
-					    	if(this.checked) { 
-					            $('.checkallcls').each(function() { 
-					            	var id = $(this).attr('ques_id'); 
+				    $('#empcmnt').click(function(event) {  //on click
+					    	if(this.checked) {
+					            $('.checkallcls').each(function() {
+					            	var id = $(this).attr('ques_id');
 									if(this.checked)
 									{
 										$("#empcmnt_"+id).prop('checked', true);
-									}									
-					            	appendcheckboxtext(id);                
+									}
+					            	appendcheckboxtext(id);
 					            });
 					        }else
 					        {
@@ -724,7 +724,7 @@ class sapp_PerformanceHelper
 								appendheighttodiv(1);
 					        }
 				    });
-				    
+
 				    <?php if(empty($checkArr)) { ?>
 					    $('#selectall').prop('checked',true);
 			    		$('#empcmnt').prop('checked',true);
@@ -733,15 +733,15 @@ class sapp_PerformanceHelper
 				});
 
 		</script>
-<?php 					
+<?php
     }
 	public static function ff_questions_privileges_view($questionarray,$checkArr,$saveFlag='')
     {
-?>   <div style="margin-left: 0px;" class="cofig_title">Questions</div>   
+?>   <div style="margin-left: 0px;" class="cofig_title">Questions</div>
 <ul class="tabs_all_button" style="margin-left: 0px;"><li id="selecteddiv" class="active" style="cursor: default; background: none repeat scroll 0% 0% #fff;">Questions</li></ul>
         <div id="questiondiv" class="qstnscrldiv per_steps"  style="overflow: hidden; padding-bottom: 0px; margin-bottom: 20px;">
-            
-            	
+
+
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; width: 100%; margin-top: 0px; margin-bottom: 0px;" class="requisition-table employee_appraisal-table">
                     <tr>
                         <th class="question_field">Question</th>
@@ -750,7 +750,7 @@ class sapp_PerformanceHelper
                             <div class="comments_div_fiel">Ratings</div>
                         </th>
                     </tr>
-<?php 
+<?php
             foreach($questionarray as $key => $question)
             {
                 $check = '';  $mgrcheck = '';  $mgrrate = '';  $empratcheck = '';  $empcmntcheck = '';
@@ -765,12 +765,12 @@ class sapp_PerformanceHelper
                             if($checkid['ER'] == 1)
                                 $empratcheck = 'checked';
                             if($checkid['EC'] == 1)
-                                $empcmntcheck = 'checked';		 		 
-                       }			 			   
-                    } 
-                }  
+                                $empcmntcheck = 'checked';
+                       }
+                    }
+                }
 ?>
-                    <tr id="questiontr_<?php echo $question['id'];?>">				   
+                    <tr id="questiontr_<?php echo $question['id'];?>">
                         <td class="question_field" id="queshtml_<?php echo $question['id'];?>">
                         <div>
 				   			<span class="appri_ques"><?php echo $question['question']; ?></span>
@@ -780,13 +780,13 @@ class sapp_PerformanceHelper
                         <td class="field_width">
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empcmntcls" ques_id ="<?php echo $question['id'];?>" id="empcmnt_<?php echo $question['id'];?>" name="empcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $empcmntcheck;?> disabled >Comments</div>
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empratingcls" ques_id ="<?php echo $question['id'];?>" id="empratings_<?php echo $question['id'];?>" name="empratings[<?php echo $question['id'];?>]" value="1"  <?php echo $empratcheck;?> disabled >Ratings</div>
-                        </td>				  	
+                        </td>
                     </tr>
 <?php
-            } 
-?>	    				 
+            }
+?>
                 </table>
-            
+
         </div>
         <?php if($saveFlag=='yes'){?>
         	<div class="new-form-ui-submit">
@@ -795,42 +795,42 @@ class sapp_PerformanceHelper
 			</div>
 		<?php }?>
         <div class="clear"></div>
-    </div>		
+    </div>
     <script type="text/javascript">
         $(document).ready(function()
         {
             $('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-            $('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});										
+            $('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
         });
     </script>
-<?php 					
-    } 
-    
-				public static function ff_question_div() 
+<?php
+    }
+
+				public static function ff_question_div()
 			   {
 ?>
 <script type="text/javascript" src="<?php echo MEDIA_PATH;?>js/pa.js"></script>
-			<div id="ffqspopupdiv" style="display: none;">	
-				  
-		</div>		 		    
+			<div id="ffqspopupdiv" style="display: none;">
+
+		</div>
 <?php
    			}
-   			
-   			   public static function saveCronMail($optionArr) 
+
+   			   public static function saveCronMail($optionArr)
 			   {
 			   		$options['subject'] = APPLICATION_NAME.':'.$optionArr['subject'];
                     $options['header'] = $optionArr['header'];
-                    $options['toEmail'] = $optionArr['toname'];  
+                    $options['toEmail'] = $optionArr['toname'];
                     $options['toName'] = $optionArr['toemail'];
                     $options['bcc'] = $optionArr['bcc'];
                     $options['message'] = $optionArr['message'];
                     $options['cron'] = $optionArr['cron'];
-	                sapp_Global::_sendEmail($options);    		
-			   	
+	                sapp_Global::_sendEmail($options);
+
 			   }
-   			
-				
-			   public static function displayappdetails($appraisalid) 
+
+
+			   public static function displayappdetails($appraisalid)
 			   {
 
 			   		//$appperiod = '';
@@ -839,9 +839,9 @@ class sapp_PerformanceHelper
 			 		if(isset($budeptArr['appdata']))
 			 		{
 				  		$appraisalInfo = $budeptArr['appdata'];
-				  		$appstring = self::getAppraisalText($appraisalInfo);	
+				  		$appstring = self::getAppraisalText($appraisalInfo);
 			 		}
-?> 		
+?>
 
 		 		<div id="deptinfo" class="deptinfo">
 					<span class="head_txt">Business Unit : </span><span><?php echo $budeptArr['buname'].''.($budeptArr['deptname']!=''?'</span> <span class="head_txt">Department : </span><span> '.$budeptArr['deptname']:''); ?></span>
@@ -849,19 +849,19 @@ class sapp_PerformanceHelper
 				<div id="appraisalinfo" class="appraisalinfo">
 					<?php echo $appstring;?>
 				</div>
-<?php 
+<?php
 			   }
-			   
+
 			   public static function getAppraisalText($appraisalInfo = array()) {
 			   		$appperiod = '';
 					$appmode = $appraisalInfo['appraisal_mode'].' Appraisal';
-			 		
+
 					if($appraisalInfo['appraisal_mode'] != 'Yearly')
 						$appperiod = ' ('.utf8_encode(substr($appraisalInfo['appraisal_mode'],0,1)).$appraisalInfo['appraisal_period'].')';
-				
+
 					return $appmode.$appperiod.(isset($appraisalInfo['to_year'])?(', '.$appraisalInfo['to_year']):'');
 			   }
-		   
+
 public static function manager_questions_privileges($questionarray,$appraisalid,$checkArr,$initializationdata)
 {
 ?>
@@ -869,17 +869,17 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 	<ul class="tabs_all_button"  style="margin-left: 0px;">
 		<li class="active divider" id="alldiv" onclick="showhideqsdiv(1)" >All</li>
 		<li id="selecteddiv" onclick="showhideqsdiv(2)">Selected</li>
-	</ul>      
+	</ul>
 	<?php if(isset($initializationdata['poppermission']) && $initializationdata['poppermission']=='yes') { ?>
 	<div class="addnewqs" onclick="addmanagerqspopup(1,'<?php echo $appraisalid; ?>');">
 		 + Add New Question
-	</div>   
-	<?php 
+	</div>
+	<?php
 		sapp_PerformanceHelper::manager_question_div(1);
 	}
 	?>
 	<div id="hiddenquestiondiv" style="display:none;" class="qstnscrldiv">
-		<div class="total-form-controller" id="childqsdiv">		
+		<div class="total-form-controller" id="childqsdiv">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; margin-top: 0px; width: 100%;" id="questiontable" class="requisition-table employee_appraisal-table">
 				<tr>
 					<th class="question_field">Questions</th>
@@ -893,16 +893,16 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 			</table>
 		</div>
 	</div>
-     
+
 	<div id="questiondiv" class="qstnscrldiv">
-		<div class="total-form-controller_" id="parentqsdiv">		
+		<div class="total-form-controller_" id="parentqsdiv">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; margin-top: 0px; width: 100%;" class="requisition-table employee_appraisal-table">
 				<tr>
 					<th class="check_field"><input type="checkbox" class ="selectallcls" name="selectall" value="selectall" id="selectall">Check All</th>
 					<th class="question_field">Questions</th>
 					<th class="field_width">
 						<div class="comments_div_fiel"> <input type="checkbox" class ="mgrcmntcls" name="mgrcmnt" value="" id="mgrcmnt">Manager Comments</div>
-						<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls" name="mgrrating" value="" id="mgrrating">Manager Ratings</div>					
+						<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls" name="mgrrating" value="" id="mgrrating">Manager Ratings</div>
 						<div class="comments_div_fiel" style="width:45%;"> <input type="checkbox" class ="empcmntcls" name="empcmnt" value="" id="empcmnt">Employee Comments</div>
 						<div class="comments_div_fiel"><input type="checkbox" class ="empratingcls" name="empratings" value="" id="empratings" >Employee Ratings</div>
 					</th>
@@ -911,7 +911,7 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				{
 					$check = '';
 		 			$mgrcheck = '';
-		 			$mgrrate = '';					
+		 			$mgrrate = '';
 					$empratcheck = '';
 					$empcmntcheck = '';
 					if(!empty($checkArr))
@@ -925,19 +925,19 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 			 			   		if($checkid['MC'] == 1)
 			 			   			 $mgrcheck = 'checked';
 			 			   		if($checkid['MR'] == 1)
-			 			   			 $mgrrate = 'checked';								
+			 			   			 $mgrrate = 'checked';
 								if($checkid['ER'] == 1)
 								$empratcheck = 'checked';
 								if($checkid['EC'] == 1)
-								$empcmntcheck = 'checked';		 		 
+								$empcmntcheck = 'checked';
 							}
-						} 
+						}
 					}
 					else
 					{
-						$check = 'checked';	
+						$check = 'checked';
 						$mgrcheck = 'checked';
-						$mgrrate = 'checked';		 
+						$mgrrate = 'checked';
 						$empratcheck = 'checked';
 						$empcmntcheck = 'checked';
 					}
@@ -952,34 +952,34 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 						</td>
 						<td class="field_width">
 							<div class="comments_div_fiel"><input type="checkbox" class ="mgrcmntcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrcmnt_<?php echo $question['id'];?>" name="mgrcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $mgrcheck;?> onclick="checkparenttd(this)">Manager Comments</div>
-							<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" >Manager Ratings</div>							
+							<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" >Manager Ratings</div>
 							<div class="comments_div_fiel" style="width:45%;"> <input type="checkbox" class ="empcmntcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="empcmnt_<?php echo $question['id'];?>" name="empcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $empcmntcheck;?> onclick="checkmgrparenttd(this)">Employee Comments</div>
 							<div class="comments_div_fiel"> <input type="checkbox" class ="empratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="empratings_<?php echo $question['id'];?>" name="empratings[<?php echo $question['id'];?>]" value="1"  <?php echo $empratcheck;?> onclick="checkmgrparenttd(this)">Employee Ratings</div>
 						</td>
 						<?php sapp_PerformanceHelper::check_manager_selected_Qs($check,$empratcheck,$empcmntcheck,$question['id']); ?>
 					</tr>
 				<?php
-				} 
-				?>		 
+				}
+				?>
 			</table>
 			<input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $appraisalid;?>">
 			<input type="hidden" id="initializeflag" name="initializeflag" value="">
 			<input type="hidden" id="initializestep" name="initializestep" value="<?php echo $initializationdata['initialize_status'];?>">
 			<input type="hidden" id="questioncount" name="questioncount" value="<?php echo sizeof($questionarray);?>">
 		</div>
-	</div>		
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
 			$('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
 			$('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-			
-			$('#selectall').click(function(event) {  
+
+			$('#selectall').click(function(event) {
 				$('.checkallcls').prop('checked',$(this).prop('checked'));
-				if(this.checked) { 
-					$('.checkallcls').each(function() { 
-						var id = $(this).attr('ques_id'); 
-						appendmgrcheckboxtext(id);                
+				if(this.checked) {
+					$('.checkallcls').each(function() {
+						var id = $(this).attr('ques_id');
+						appendmgrcheckboxtext(id);
 					});
 				}else
 				{
@@ -989,38 +989,38 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 					//$('.empratingcls').prop('checked',false);
 					$("tr[id^=hiddentr_]").remove();
 					appendheighttodiv(2);
-				}          
+				}
 			});
 
-			$('#mgrcmnt').click(function(event) {  //on click 
-				
-					if(this.checked) { 
-						$('.checkallcls').each(function() { 
-							var id = $(this).attr('ques_id'); 
+			$('#mgrcmnt').click(function(event) {  //on click
+
+					if(this.checked) {
+						$('.checkallcls').each(function() {
+							var id = $(this).attr('ques_id');
 							if(this.checked)
 							{
 								$("#mgrcmnt_"+id).prop('checked', true);
-							}							
-							appendcheckboxtext(id);                
+							}
+							appendcheckboxtext(id);
 						});
 					}else
 					{
-						$('.mgrcmntcls').prop('checked',$(this).prop('checked'));					
+						$('.mgrcmntcls').prop('checked',$(this).prop('checked'));
 						$("tr[id^=hiddentr_]").remove();
 						appendheighttodiv(1);
 					}
 			});
 
-			$('#mgrrating').click(function(event) {  //on click 
-				
-					if(this.checked) { 
-						$('.checkallcls').each(function() { 
-							var id = $(this).attr('ques_id'); 
+			$('#mgrrating').click(function(event) {  //on click
+
+					if(this.checked) {
+						$('.checkallcls').each(function() {
+							var id = $(this).attr('ques_id');
 							if(this.checked)
 							{
 								$("#mgrrating_"+id).prop('checked', true);
-							}							
-							appendcheckboxtext(id);                
+							}
+							appendcheckboxtext(id);
 						});
 					}else
 					{
@@ -1028,18 +1028,18 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 						$("tr[id^=hiddentr_]").remove();
 						appendheighttodiv(1);
 					}
-			});			
-			
-			$('#empcmnt').click(function(event) {  //on click 
-				
-					if(this.checked) { 
-						$('.checkallcls').each(function() { 
-							var id = $(this).attr('ques_id'); 
+			});
+
+			$('#empcmnt').click(function(event) {  //on click
+
+					if(this.checked) {
+						$('.checkallcls').each(function() {
+							var id = $(this).attr('ques_id');
 							if(this.checked)
 							{
 								$("#empcmnt_"+id).prop('checked', true);
-							}								
-							appendmgrcheckboxtext(id);                
+							}
+							appendmgrcheckboxtext(id);
 						});
 					}else
 					{
@@ -1049,33 +1049,33 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 					}
 			});
 			$('#empratings').click(function(event) {  //on click
-				
-					if(this.checked) { 
-						$('.checkallcls').each(function() { 
-							var id = $(this).attr('ques_id'); 
+
+					if(this.checked) {
+						$('.checkallcls').each(function() {
+							var id = $(this).attr('ques_id');
 							if(this.checked)
 							{
 								$("#empratings_"+id).prop('checked', true);
-							}									
-							appendmgrcheckboxtext(id); 
+							}
+							appendmgrcheckboxtext(id);
 						});
 					}else
 					{
-						$('.empratingcls').prop('checked',$(this).prop('checked'));					
+						$('.empratingcls').prop('checked',$(this).prop('checked'));
 						$("tr[id^=hiddentr_]").remove();
 						appendheighttodiv(2);
-					} 
-			 
+					}
+
 			});
-			
+
 			$('.checkallcls').click(function(event) {  //on click
 				if(!$(this).prop('checked'))
 				{
 					// $('.empratingcls').prop('checked',$(this).prop('checked'));
 					// $('.empratingcls').prop('checked',$(this).prop('checked'));
 					// $('.empratingcls').prop('checked',$(this).prop('checked'));
-				} 
-			 
+				}
+
 			});
 			<?php if(empty($checkArr)) { ?>
 				$('#selectall').prop('checked',true);
@@ -1089,16 +1089,16 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 		});
 
 	</script>
-<?php 					
+<?php
     }
-    
+
 	public static function manager_questions_privileges_view($questionarray,$appraisalid,$checkArr,$initializationdata)
     {
-?>     
-        
+?>
+
             <ul class="tabs_all_button"  style="margin-left: 0px;"><li id="selecteddiv" class="active" style="cursor: default;">Configured Questions</li></ul>
-            <div id="questiondiv" class="qstnscrldiv"> 
-            <div class="total-form-controller">		
+            <div id="questiondiv" class="qstnscrldiv">
+            <div class="total-form-controller">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="clear: both; margin-top: 0px; width: 100%;" class="requisition-table employee_appraisal-table">
                     <!---<tr>
                         <th class="question_field">Question</th>
@@ -1106,10 +1106,10 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 							<div class="comments_div_fiel">Manager Comments</div>
 							<div class="comments_div_fiel">Manager Ratings</div>
 							<div class="comments_div_fiel">Employee Comments</div>
-							<div class="comments_div_fiel">Employee Ratings</div>							
+							<div class="comments_div_fiel">Employee Ratings</div>
                         </th>
                     </tr>-->
-<?php 
+<?php
             foreach($questionarray as $key => $question)
             {
                 $check = '';  $mgrcheck = '';  $mgrrate = '';  $empratcheck = '';  $empcmntcheck = '';
@@ -1124,16 +1124,16 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
                             if($checkid['MC'] == 1)
                                 $mgrcheck = 'checked';
                             if($checkid['MR'] == 1)
-                                $mgrrate = 'checked';		 
+                                $mgrrate = 'checked';
                             if($checkid['ER'] == 1)
                                 $empratcheck = 'checked';
                             if($checkid['EC'] == 1)
-                                $empcmntcheck = 'checked';		 		 
-                       }			 			   
-                    } 
-                }  
+                                $empcmntcheck = 'checked';
+                       }
+                    }
+                }
 ?>
-                    <tr id="questiontr_<?php echo $question['id'];?>">				   
+                    <tr id="questiontr_<?php echo $question['id'];?>">
                         <td class="question_field" id="queshtml_<?php echo $question['id'];?>">
                         <div>
 				   			<span class="appri_ques"><?php echo $question['question']; ?></span>
@@ -1142,14 +1142,14 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
                         </td>
                         <td class="field_width">
 							<div class="comments_div_fiel"><input type="checkbox" class ="mgrcmntcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrcmnt_<?php echo $question['id'];?>" name="mgrcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $mgrcheck;?> onclick="checkparenttd(this)" disabled>Manager Comments</div>
-							<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" disabled>Manager Ratings</div>						
+							<div class="comments_div_fiel"><input type="checkbox" class ="mgrratingcls qprivileges_<?php echo $question['id'];?>" ques_id ="<?php echo $question['id'];?>" id="mgrrating_<?php echo $question['id'];?>" name="mgrrating[<?php echo $question['id'];?>]" value="1" <?php echo $mgrrate;?> onclick="checkparenttd(this)" disabled>Manager Ratings</div>
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empcmntcls" ques_id ="<?php echo $question['id'];?>" id="empcmnt_<?php echo $question['id'];?>" name="empcmnt[<?php echo $question['id'];?>]" value="1"  <?php echo $empcmntcheck;?> disabled >Employee Comments</div>
                             <div class="comments_div_fiel"> <input type="checkbox" class ="empratingcls" ques_id ="<?php echo $question['id'];?>" id="empratings_<?php echo $question['id'];?>" name="empratings[<?php echo $question['id'];?>]" value="1"  <?php echo $empratcheck;?> disabled >Employee Ratings</div>
-                        </td>				  	
+                        </td>
                     </tr>
 <?php
-            } 
-?>	    				 
+            }
+?>
                 </table>
                 <input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $appraisalid;?>">
                 <input type="hidden" id="initializeflag" name="initializeflag" value="">
@@ -1158,49 +1158,49 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
         </div>
         <div class="new-form-ui-submit" id="qssubmitdiv">
             <button onclick="window.location.href='<?php echo BASE_URL;?>appraisalinit';" type="button" id="Cancel" name="Cancel">Cancel</button>
-        </div>	
+        </div>
         <div class="clear"></div>
-    </div>		
+    </div>
     <script type="text/javascript">
         $(document).ready(function()
         {
             $('#questiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
-            $('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});										
+            $('#hiddenquestiondiv').alternateScroll({ 'horizontal-bar-class': 'styled-h-bar'});
         });
     </script>
-<?php 					
+<?php
     }
-    
+
 		public static function check_manager_selected_Qs($check,$empratcheck,$empcmntcheck,$id)
 	    {
 	    	if($check == 'checked' || $empratcheck == 'checked' || $empcmntcheck == 'checked')
 	    	{
-?>	    
+?>
 				<script>
 						var id = '<?php echo $id;?>';
 						appendmgrcheckboxtext(id);
-				</script>		
-	    		
-<?php    	
+				</script>
+
+<?php
 	   		}
 	   }
-	   
-		public static function manager_question_div($moduleflag) 
+
+		public static function manager_question_div($moduleflag)
 			   {
 		?>
-			
-			<div id="qspopupdiv" style="display: none; ">	
-				
-					 <div class="total-form-controller" >	
+
+			<div id="qspopupdiv" style="display: none; ">
+
+					 <div class="total-form-controller" >
 					 <div id="successdiv" style="display:none;">
 						<div class='ml-alert-1-success'>
 						<div class='style-1-icon success'></div>
 							Question added succesfully
 					  </div>
-					 </div>	
-					 <div id="error_message" style="display:none;"></div>	
-					  <div id="contentdiv"> 
-					 		<div class="new-form-ui ">				  
+					 </div>
+					 <div id="error_message" style="display:none;"></div>
+					  <div id="contentdiv">
+					 		<div class="new-form-ui ">
 					  			<label class="required">Parameter</label>
 								<div class="division">
 									<select id="category_id" name="category_id" >
@@ -1208,14 +1208,14 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="new-form-ui ">
 				            	<label class="required">Question</label>
 				            	<div class="division">
-									<input type="text" onkeyup="validatequestionname(this)" onblur="validatequestionname(this)" name="question_id" id="question_id" value="" maxlength="100">                            
+									<input type="text" onkeyup="validatequestionname(this)" onblur="validatequestionname(this)" name="question_id" id="question_id" value="" maxlength="100">
 								</div>
 				        	</div>
-				        	
+
 				        	<div class="new-form-ui textareaheight">
 				            <label class="">Description </label>
 					            <div class="division">
@@ -1223,37 +1223,37 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 							    </div>
 				        	</div>
 				        	<input type="hidden" id="moduleflag" name="moduleflag" value="<?php echo $moduleflag;?>">
-				        	
+
 				        	<div class="new-form-ui-submit"  >
-						
-							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="savemanagerquestions()"/>																	
+
+							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="savemanagerquestions()"/>
 							<button name="Cancel" id="Cancel" type="button" onclick="closeqspopup()">Cancel</button>
-							
+
 							</div>
-					 </div>  
+					 </div>
 					 </div>
 				 </div>
 <?php
    			}
-   			
-	public static function display_ratings_div($ratingtype,$ratingsarr) 
+
+	public static function display_ratings_div($ratingtype,$ratingsarr)
 			   {
 			   	if($ratingtype == 1)
 			   	{
 			   	 	$ratingsstar = 5;
 			   	 	$ratingclass = "rating_star_class rating_star_";
 			   	 	$ratingtextclass = "rating_text_";
-			   	} 
+			   	}
 			   	else
 			   	{
 			   	 	$ratingsstar = 10;
 			   	 	$ratingclass = "rating-star-class rating_star-";
 			   	 	$ratingtextclass = "rating_text-";
-			   	} 
-			   	
+			   	}
+
 			   	 ?>
 			   	 <div id="ratingsdiv" class="ratings_div" style="display: none;">
-	   <?php 	
+	   <?php
 			   	 for($i=0;$i<$ratingsstar;$i++)
 			   	 {
 		?>
@@ -1262,12 +1262,12 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 						<span id="ratingtext_<?php echo $i+1;?>" class="<?php echo $ratingtextclass.($i+1);?>"><?php echo $ratingsarr[$i]['rating_text'];?> </span>
                         </div>
 		<?php
-			   	 }	
+			   	 }
 	   ?>
-	   				
-	   				</div>		   	 
+
+	   				</div>
    		<?php 	}
-   		
+
 	public static function update_QsParmas_Allemps($questions,$categoryids='')
 		    {
 		    		$auth = Zend_Auth::getInstance();
@@ -1276,33 +1276,33 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 					}
 		    		$appraisalQsModel = new Default_Model_Appraisalquestions();
 		    		$appraisalCategoryModel = new Default_Model_Appraisalcategory();
-		    		
+
 		    		if($questions!='')
 		    		{
-			    		$QsdataArr = array('isused'=>1, 
+			    		$QsdataArr = array('isused'=>1,
 								  'modifiedby'=>$loginUserId,
 								  'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 						$Qswhere = " id IN($questions) ";
 						$QsId = $appraisalQsModel->SaveorUpdateAppraisalQuestionData($QsdataArr, $Qswhere);
 		    		}
-					
+
 					if($categoryids!='')
 					{
-						$CatdataArr = array('isused'=>1, 
+						$CatdataArr = array('isused'=>1,
 								  'modifiedby'=>$loginUserId,
 								  'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 						$Catwhere = " id IN($categoryids) ";
 						$CatId = $appraisalCategoryModel->SaveorUpdateAppraisalCategoryData($CatdataArr, $Catwhere);
 					}
-		    		
-	?>	    
-	<?php    	
+
+	?>
+	<?php
 	   }
-	   
-	   
-		public static function skills_div($key, $emp_skills = NULL) 
+
+
+		public static function skills_div($key, $emp_skills = NULL)
 			   {
 		?>
 			<script type="text/javascript">
@@ -1320,10 +1320,10 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 	            var content = "<tr id='idtr_skill_"+inc_val+"' class='cls_skillrow'>";
 	            content += "<td><select class='cls_sel_skills' name='sel_skill[]' id='idsel_skill_"+inc_val+"' ><option value="+inc_val+">"+inc_text+"</option></select><div class='hide_select'></div>";
 	            content += "<input tabindex='-1' class='app_req_field_"+key+" cls_srating_"+key+"' type='hidden' id='id_emp_skills_"+inc_val+"' name='emp_skills[]' value='"+inc_val+"' /></td>";
-	            content += "<td><input tabindex='-1' class='app_req_field_"+key+" cls_srating_"+key+"' type='hidden' id='skill_rating_"+inc_val+"' name='skill_rating[]' value='' /><div onclick='removeValidationMessage(this)' class='rateit' data-rateit-backingfld='#skill_rating_"+inc_val+"' data-rateit-step='1' data-rateit-resetable='false' data-rateit-min='"+ratingsmin+"' data-rateit-max='"+ratingsmax+"'></div></td>";            
+	            content += "<td><input tabindex='-1' class='app_req_field_"+key+" cls_srating_"+key+"' type='hidden' id='skill_rating_"+inc_val+"' name='skill_rating[]' value='' /><div onclick='removeValidationMessage(this)' class='rateit' data-rateit-backingfld='#skill_rating_"+inc_val+"' data-rateit-step='1' data-rateit-resetable='false' data-rateit-min='"+ratingsmin+"' data-rateit-max='"+ratingsmax+"'></div></td>";
 	            content += "<td><span class='cls_close_skill' onclick = delete_skill('"+inc_val+"')>Close</span></td>";
 	            content += "</tr>";
-	            
+
 	            $('#idskill_table').append(content);
 	            $("#selectedskills").val(newselectedskillsval);
 	            $('#idsel_skill_'+inc_val).select2();
@@ -1332,18 +1332,18 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 	            	$('#idskills_norows').hide();
 			}
 
-			
+
 			function saveskills(flag)
 			{
 				if(flag==1)
 				{
-					 $('.errors').remove(); 
+					 $('.errors').remove();
 					 if($.trim($('#skills_multi').val()) == '')
 				      {
 						// To place error messages after Add Link
 				         $('#s2id_skills_multi').after("<span class='errors' id='errors-skills_multi'>Please select skill.</span>");
 				      }
-				      else 
+				      else
 				      {
 				           $("#skills_multi option:selected").each(function () {
 				        	   var $this = $(this);
@@ -1361,13 +1361,13 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				        	$("#skills_multi").html('');
 				        	setTimeout(function(){
 				        		$('#skillsdiv').dialog('close');
-				        	},3000);	
-				
+				        	},3000);
+
 				      }
-					
+
 				}else
 				{
-					$('#errors-skills_multi').remove(); 
+					$('#errors-skills_multi').remove();
 					$('#s2id_skills_multi').off("blur");
 					var skillValue = $('#skill_name').val();
 					var description = $('#description').val();
@@ -1377,7 +1377,7 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				  	if(skillValue == '')
 				  	{
 				  		$('#skill_name').parent().append("<span class='errors' id='errors-skill_name'>Please enter skill.</span>");
-				  	}		
+				  	}
 				  	else if(!re.test(skillValue))
 				  	{
 				  		$('#skill_name').parent().append("<span class='errors' id='errors-skill_name'>Please enter valid skill.</span>");
@@ -1385,20 +1385,20 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				  	else
 				  	{
 						skillValue = encodeURIComponent(skillValue);
-						description = encodeURIComponent(description);	
+						description = encodeURIComponent(description);
 				  		$.ajax({
 					     	url: base_url+"/appraisalskills/saveskillspopup/format/json",
-					     	type : 'POST',	
+					     	type : 'POST',
 							data : 'skillsval='+skillValue+'&description='+description,
 							dataType: 'json',
 							beforeSend: function () {
 								$.blockUI({ width:'50px',message: $("#spinner").html() });
 							},
-							success : function(response){	
+							success : function(response){
 								$.unblockUI();
 								if(response['msg'] == 'success')
 								{
-									
+
 									appendskillsdata(response['id'],response['skills']);
 									$("#contentdiv").hide();
 									$("#contentdiv_multi").hide();
@@ -1408,20 +1408,20 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 						        	setTimeout(function(){
 						        		$('#skillsdiv').dialog('close');
 						        	},3000);
-									
+
 								}else
 								{
 									$('#skill_name').parent().append("<span class='errors' id='errors-skill_name'>"+response['msg']+"</span>");
-								}	
+								}
 							}
 						});
 				  	}
-					
-				}	
-				
+
+				}
+
 			}
 
-			
+
 			function getskilldata()
 			  {
 				  apply_select2();
@@ -1444,30 +1444,30 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 					  $.ajax({
 				         	url: base_url+"/appraisalskills/getappraisalskills/format/json",
 				         	type : 'POST',
-				         	data : 'skillsval='+skillsval,	
+				         	data : 'skillsval='+skillsval,
 							dataType: 'json',
-							success : function(response){	
+							success : function(response){
 								if(response.result=='success')
 								{
 									$("#skills_multi").html(response.data);
 								}else
 								{
 									$("#skills_multi").parent().append("<span class='errors' id='errors-select_multi'>"+response.data+"</span>");
-								}	
-							    
+								}
+
 							}
 						});
-				 
-				    var title = "Add Skills"; 
+
+				    var title = "Add Skills";
 				    $("#skillsdiv").dialog({
-				       		draggable:false, 
+				       		draggable:false,
 							resizable: false,
 						    width:500,
 							title: title,
-						    modal: true 
+						    modal: true
 						    });
 			  }
-			  	
+
 				 function validateskillname(ele,flag)
 				  {
 				  	var elementid = $(ele).attr('id');
@@ -1480,21 +1480,21 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				  		$('#errors-'+elementid).remove();
 					  	  if($.trim($('#'+elementid).val()) == '')
 					      {
-					
+
 					         // To place error messages after Add Link
 					         $('#'+elementid).after("<span class='errors' id='errors-"+elementid+"'>Please select skill.</span>");
 					      }
-					      else 
+					      else
 					      {
-					          $('#errors-'+elementid).remove();   
-					
+					          $('#errors-'+elementid).remove();
+
 					      }
 				  	}else
-				  	{  	  	
+				  	{
 						  	if(skillValue == '')
 						  	{
 						  		$(ele).parent().append("<span class='errors' id='errors-"+elementid+"'>Please enter skill.</span>");
-						  	}		
+						  	}
 						  	else if(!re.test(skillValue))
 						  	{
 						  		$(ele).parent().append("<span class='errors' id='errors-"+elementid+"'>Please enter valid skill.</span>");
@@ -1506,17 +1506,17 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 				  	}
 				  }
 				 </script>
-			<div id="skillsdiv" style="display: none; ">	
-					<div class="total-form-controller" >	
+			<div id="skillsdiv" style="display: none; ">
+					<div class="total-form-controller" >
 					 <div id="successdiv_multi" style="display:none;">
 						<div class='ml-alert-1-success'>
 						<div class='style-1-icon success'></div>
 							Skills selected succesfully
 					  </div>
-					 </div>	
-					 <div id="error_message_multi" style="display:none;"></div>	
-					  <div id="contentdiv_multi"> 
-					 		<div class="new-form-ui-multi  ">				  
+					 </div>
+					 <div id="error_message_multi" style="display:none;"></div>
+					  <div id="contentdiv_multi">
+					 		<div class="new-form-ui-multi  ">
 					  			<label class="required">Skill</label>
 								<div class="division">
 									<select  id="skills_multi" name="skills_multi" multiple="multiple" class="skills">
@@ -1525,52 +1525,52 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 							</div>
 							<input type="hidden" name="selectedskills" id="selectedskills" value="<?php echo $emp_skills; ?>" />
 				        	<div class="new-form-ui-submit" style="width: auto; clear: none; margin-top: 37px;">
-						
-							<input type="button" value="Select" id="submitqs" name="submitqs" onclick="saveskills(1)"/>																	
+
+							<input type="button" value="Select" id="submitqs" name="submitqs" onclick="saveskills(1)"/>
 							<button name="Cancel" id="Cancel" type="button" onclick="$('#skillsdiv').dialog('close');">Cancel</button>
-							
+
 							</div>
-					 </div>  
+					 </div>
 					 </div>
 					<div class="or_css">(or)</div>
 					<div class="label-title" id="crt_skill">Create Skill</div>
-					 <div class="total-form-controller" style="clear: both;">	
+					 <div class="total-form-controller" style="clear: both;">
 					 <div id="successdiv" style="display:none;">
 						<div class='ml-alert-1-success'>
 						<div class='style-1-icon success'></div>
 							Skill added succesfully
 					  </div>
-					 </div>	
-					 <div id="error_message" style="display:none;"></div>	
-					  <div id="contentdiv"> 
-					 		<div class="new-form-ui ">				  
+					 </div>
+					 <div id="error_message" style="display:none;"></div>
+					  <div id="contentdiv">
+					 		<div class="new-form-ui ">
 					  			<label class="required">Skill</label>
 								<div class="division">
 									<input type="text" maxlength="30" value="" id="skill_name" name="skill_name" onkeyup="validateskillname(this,2)" onblur="validateskillname(this,2)">
 								</div>
 							</div>
-							
+
 				        	<div class="new-form-ui textareaheight">
 				            <label class="">Description </label>
 					            <div class="division">
 									<textarea name="description" id="description"></textarea>
 							    </div>
 				        	</div>
-				        	
+
 				        	<div class="new-form-ui-submit"   style="width: auto; clear: none; margin-top: 48px;">
-						
-							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="saveskills(2)"/>																	
+
+							<input type="button" value="Save" id="submitqs" name="submitqs" onclick="saveskills(2)"/>
 							<button name="Cancel" id="Cancel" type="button" onclick="$('#skillsdiv').dialog('close');">Cancel</button>
-							
+
 							</div>
-					 </div>  
+					 </div>
 					 </div>
 				 </div>
-			
+
 <?php
    			}
-   			
-   			public static function calculateheight($employeeArr) 
+
+   			public static function calculateheight($employeeArr)
 			   {
 			   	$height = '180px';
 			    if($employeeArr>0)
@@ -1579,52 +1579,51 @@ public static function manager_questions_privileges($questionarray,$appraisalid,
 						$height = '350px';
 				}
 				return $height;
- 
+
 			   }
-			   
-			   
-			public static function appraisal_status_dropdown($statusArr,$flag) 
+
+
+			public static function appraisal_status_dropdown($statusArr,$flag)
 			   {
-			   	
+
 			   	 ?>
 			   	 	<div class="new-form-ui" id="statusdiv">
-		            <label >Appraisal Status <img class="tooltip" title="Select business unit and check the status" src="<?php echo DOMAIN.'public/media/';?>images/help.png"></label>
+		            <label >Estado de Tasación <img class="tooltip" title="Seleccionar unidad de negocios y comprobar el estado" src="<?php echo DOMAIN.'public/media/';?>images/help.png"></label>
 					<button type="button" id="appraisalstatusclear" name="appraisalstatusclear" class="inputclear" style="display:none;"  onclick="clearappstatus('<?php echo $flag;?>')">Clear</button>
 		            <div class="division">
 							<select  id="appraisal_status" name="appraisal_status" onchange="displappstatus('<?php echo $flag;?>',this.value)">
-		        				<option value="">Select Appraisal Status</option>
-			        			<?php 
+		        				<option value="">Seleccionar Estado de Tasación</option>
+			        			<?php
 			        					foreach($statusArr as $key => $val)
 			        					{
 			        			?>
 			        					<option value="<?php echo $key;?>"><?php echo $val;?></option>
-			        			<?php 
+			        			<?php
 			        					}
 			        			?>
 							</select>
 					</div>
-		        	</div>		   	 
+		        	</div>
    		<?php 	}
-   		
-	public static function manager_appraisal_status_dropdown($flag,$loginuserGroup = '') 
-			   {					
+
+	public static function manager_appraisal_status_dropdown($flag,$loginuserGroup = '')
+			   {
 			   	 ?>
 			   	 	<div class="new-form-ui" id="statusdiv">
-		            <label >Manager Appraisal Status 
+		            <label >Estado de Evaluación del Gerente
 					<?php if(isset($loginuserGroup) && $loginuserGroup != HR_GROUP){ ?>
-					<img class="tooltip" title="Select business unit and check the status" src="<?php echo DOMAIN.'public/media/';?>images/help.png">
+					<img class="tooltip" title="Seleccione la unidad de negocio y compruebe el estado." src="<?php echo DOMAIN.'public/media/';?>images/help.png">
 					<?php } ?>
 					</label>
-					<button type="button" id="appraisalstatusclear" name="appraisalstatusclear" class="inputclear" style="display:none;"  onclick="clearappstatus('<?php echo $flag;?>')">Clear</button>					
+					<button type="button" id="appraisalstatusclear" name="appraisalstatusclear" class="inputclear" style="display:none;"  onclick="clearappstatus('<?php echo $flag;?>')">Limpiar</button>
 		            <div class="division">
 							<select  id="appraisal_status" name="appraisal_status" onchange="displmanagerappstatus('<?php echo $flag;?>',this.value)">
-		        						<option value="">Select Appraisal Status</option>
-			        					<option value="2">Completed</option>
-			        					<option value="3">Not Completed</option>
+		        						<option value="">Seleccione Estado de Evaluación</option>
+			        					<option value="2">Completado</option>
+			        					<option value="3">No Completado</option>
 							</select>
 					</div>
-		        	</div>		   	 
+		        	</div>
    		<?php 	}
-}			   
+}
 ?>
-

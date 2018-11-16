@@ -43,7 +43,7 @@ if(empty($this->empdata)){?>
 	<div class="ml-alert-1-info m1-info-set">
 		<div class="style-1-icon info"></div>
 		<?php if($this->rowexist == 'norows'){?>
-				No data found.
+				Datos no encontrados.
 		<?php }else{?>
 				Employee inactivated.
 		<?php }?>
@@ -146,7 +146,7 @@ if ($atts > 0) {
 				<div id="edit_emp_doc_<?php echo $empDoc[$i]['id'];?>" class="edit_emp_docs"></div>
 			</div>
 			<?php }}else{?>
-				<p class="no-data-docs">No data found</p>
+				<p class="no-data-docs">Datos no encontrados</p>
 			<?php }?>
 		
 		<input type="hidden" name="file_count" id="file_count" value="<?php echo sizeof($empDoc);?>">
@@ -389,9 +389,9 @@ function deleteEmpDoc(doc_id,userid)
 							file_count = $('#file_count').val()-1;
 							$('#file_count').val(file_count);
 
-							// Show message 'No data found' when there are no documents
+							// Show message 'Datos no encontrados' when there are no documents
 							if (file_count == 0) {
-								$("#right_block_data").append('<p class="no-data-docs">No data found</p>');
+								$("#right_block_data").append('<p class="no-data-docs">Datos no encontrados</p>');
 							}
 
 							// Remove 'Click to view' button when there are no attachments

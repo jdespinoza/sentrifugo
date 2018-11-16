@@ -23,9 +23,9 @@
      <div class="ml-alert-1-info">
 		<div class="style-1-icon info"></div>
 		<?php if($this->rowexist == 'norows'){?>
-		No data found.
+		Datos no encontrados.
 		<?php }else{?>
-		No data found.
+		Datos no encontrados.
 		<?php }?>
 	</div>
 <?php 
@@ -333,7 +333,7 @@ function search(){
         }
     });
     if(trShowCount == 0){
-    	$("#idaddtaskstbl tbody").append('<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">No data found</p></td></tr>');
+    	$("#idaddtaskstbl tbody").append('<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">Datos no encontrados</p></td></tr>');
 	}
 
     if(value.length>0){

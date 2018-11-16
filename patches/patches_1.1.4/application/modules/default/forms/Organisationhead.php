@@ -134,14 +134,14 @@ class Default_Form_Organisationhead extends Zend_Form
 		
 		$jobtitle = new Zend_Form_Element_Select('jobtitle_id');
 		$jobtitle->setLabel("Job Title");
-		$jobtitle->addMultiOption('','Select Job Title');
+		$jobtitle->addMultiOption('','Seleccione el título del trabajo');
 		$jobtitle->setAttrib('onchange', 'displayPositions(this,"position_id","")');
 		$jobtitle->setRegisterInArrayValidator(false);	
         
 		
 		$position = new Zend_Form_Element_Select('position_id');
 		$position->setLabel("Position");
-		$position->addMultiOption('','Select Position');
+		$position->addMultiOption('','Seleccionar posición');
 		$position->setRegisterInArrayValidator(false);	
         
 		

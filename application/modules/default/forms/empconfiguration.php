@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ class Default_Form_empconfiguration extends Zend_Form
 		$this->setAttrib('id', 'formid');
 		$this->setAttrib('name', 'empconfiguration');
 
-		 
+
 
 		$empConfigureArray = array(
 									'employeedocs' => 'Employee Documents',
@@ -65,10 +65,10 @@ class Default_Form_empconfiguration extends Zend_Form
 								   $checktype->addValidator('NotEmpty', false, array('messages' => 'Please select atleast one employee configuration.'));
 								   $checktype->setOptions(array('class'=>'empconfigcheckbox'));
 								   $checktype->setSeparator(PHP_EOL);
-								    
+
 								   $checkall = new Zend_Form_Element_Checkbox('checkall');
 								   $checkall->setLabel('Check All');
-								 
+
 								   $submit = new Zend_Form_Element_Submit('submit');
 								   $submit->setAttrib('id', 'submitbutton');
 								   $submit->setLabel('Save');

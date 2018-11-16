@@ -36,7 +36,7 @@ echo $this->reportsheader('requisitionstatusreport');
 
 	<div id="filters_div"><div class="left-config-ctrl">
 		<div class="total-form-controller-left">
-			<div class="heading-name-1">Generate Custom Report</div>
+			<div class="heading-name-1">Generar informe personalizado</div>
 			<form name="<?php echo $this->form->getName(); ?>" id="<?php echo $this->form->getId(); ?>" action="<?php echo $this->form->getAction();?>" method="<?php echo $this->form->getMethod(); ?>">
 			    
 	
@@ -268,7 +268,7 @@ $(document).ready(function(){
                     $('#s2id_req_status').find('a.select2-choice').find('span').html('Select Requisition Status');
                     break;
             	case 'jobtitle':
-                    $('#s2id_jobtitle').find('a.select2-choice').find('span').html('Select Job Title');
+                    $('#s2id_jobtitle').find('a.select2-choice').find('span').html('Seleccione el título del trabajo');
                     break;
             	case 'createdon':
                     $('#s2id_createdon').find('a.select2-choice').find('span').html('Select Requisition Year');
@@ -282,7 +282,7 @@ $(document).ready(function(){
     });
     
     $('#idbtnreset').click(function(){
-        $('#s2id_jobtitle').find('a.select2-choice').find('span').html('Select Job Title');
+        $('#s2id_jobtitle').find('a.select2-choice').find('span').html('Seleccione el título del trabajo');
         $('#s2id_req_status').find('a.select2-choice').find('span').html('Select Requisition Status');
         $('#s2id_createdon').find('a.select2-choice').find('span').html('Select Requisition Year');
         

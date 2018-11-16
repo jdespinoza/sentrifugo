@@ -60,7 +60,7 @@ $emp_arr = $this->emp_arr;
 		else
 		{
 			?> 
-			<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">No data found</p></td></tr>
+			<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">Datos no encontrados</p></td></tr>
 			<?php
 		}
 		?>
@@ -116,7 +116,7 @@ $("#idaddtaskstbl").tablesorter({
         }
     });
     if(trShowCount == 0){
-    	$("#idaddtaskstbl tbody").append('<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">No data found</p></td></tr>');
+    	$("#idaddtaskstbl tbody").append('<tr id="nodata"><td class="no-data-td" colspan="18"><p class="no-data">Datos no encontrados</p></td></tr>');
 	}
 
     if(value.length>0){

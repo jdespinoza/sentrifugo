@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -49,7 +49,7 @@ class Default_Model_Roles extends Zend_Db_Table_Abstract
 		->where($where)
 		->order("$by $sort")
 		->limitPage($pageNo, $perPage);
-		
+
 		return $roleData;
 	}
 	/*
@@ -138,35 +138,35 @@ class Default_Model_Roles extends Zend_Db_Table_Abstract
 		$db = Zend_Db_Table::getDefaultAdapter();
 		if($id == '')
 		{
-			
-			$query = "select r.id,r.rolename 
-			          from main_privileges p 
-					  inner join main_roles r on r.id = p.role and r.isactive = 1 
-					  where p.group_id = ".USERS_GROUP." and p.isactive = 1  and p.role is not null 
-					  and p.role not in (select distinct role from main_privileges where object = ".EMPSCREENING." and role is not null 
+
+			$query = "select r.id,r.rolename
+			          from main_privileges p
+					  inner join main_roles r on r.id = p.role and r.isactive = 1
+					  where p.group_id = ".USERS_GROUP." and p.isactive = 1  and p.role is not null
+					  and p.role not in (select distinct role from main_privileges where object = ".EMPSCREENING." and role is not null
 					  and isactive = 1 and group_id = ".USERS_GROUP.") group by r.id order by r.rolename";
 		}
-		else 
+		else
 		{
-			if (strpos($type,'Background Agency') !== false) 
+			if (strpos($type,'Background Agency') !== false)
 			{
-				
+
 				$query = "select r.id,r.rolename from main_privileges p
 							inner join main_roles r on r.id = p.role
 							where object = ".EMPSCREENING." and role is not null and p.isactive = 1 and p.group_id = ".USERS_GROUP.";";
 			}
 			else
 			{
-				
-				$query = "select r.id,r.rolename 
-			          from main_privileges p 
-					  inner join main_roles r on r.id = p.role and r.isactive = 1 
-					  where p.group_id = ".USERS_GROUP." and p.isactive = 1  and p.role is not null 
-					  and p.role not in (select distinct role from main_privileges where object = ".EMPSCREENING." and role is not null 
+
+				$query = "select r.id,r.rolename
+			          from main_privileges p
+					  inner join main_roles r on r.id = p.role and r.isactive = 1
+					  where p.group_id = ".USERS_GROUP." and p.isactive = 1  and p.role is not null
+					  and p.role not in (select distinct role from main_privileges where object = ".EMPSCREENING." and role is not null
 					  and isactive = 1 and group_id = ".USERS_GROUP.") group by r.id order by r.rolename";
 			}
 		}
-		
+
 		$result = $db->query($query);
 		$role_arr = array();
 		while($row = $result->fetch())
@@ -185,7 +185,7 @@ class Default_Model_Roles extends Zend_Db_Table_Abstract
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "select r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id not in (".USERS_GROUP.") order by r.rolename asc";
 		$result = $db->query($query);
 		$role_arr = array();
@@ -205,7 +205,7 @@ class Default_Model_Roles extends Zend_Db_Table_Abstract
 	{
             $db = Zend_Db_Table::getDefaultAdapter();
             $query = "select r.id,r.rolename from main_roles r
-                      where r.isactive = 1 and r.group_id is not null 
+                      where r.isactive = 1 and r.group_id is not null
                       and r.group_id in (".MANAGEMENT_GROUP.") order by r.rolename asc";
             $result = $db->query($query);
             $role_arr = array();
@@ -227,13 +227,13 @@ public function getRolesList_EMP($con='')
 		if(!empty($con) && $con == 'orghead')
 		{
 			$query = "select r.group_id,r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id in (".MANAGEMENT_GROUP.") order by r.rolename asc";
 		}
 		else
 		{
 			$query = "select r.group_id,r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id not in (".USERS_GROUP.") order by r.rolename asc";
 		}
 		$result = $db->query($query);
@@ -245,12 +245,12 @@ public function getRolesList_EMP($con='')
 
 		return $role_arr;
 	}
-	
+
 	public function getRolesListByGroupID($groupID)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "select r.group_id,r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id = ".$groupID." order by r.rolename asc";
 		$result = $db->query($query);
 		$role_arr = array();
@@ -261,7 +261,7 @@ public function getRolesList_EMP($con='')
 
 		return $role_arr;
 	}
-	
+
     /**
 	 * This function is used to get all roles dropdown list in emp screen.
 	 *
@@ -308,7 +308,7 @@ public function getRolesList_EMP($con='')
 		->from(array('r'=>'main_roles'),array('r.*'))
 		->where('r.isactive = 1 AND r.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-		
+
 	}
 	/**
 	 * This function gives all content for grid view.
@@ -343,11 +343,11 @@ public function getRolesList_EMP($con='')
 		}
 		$objName = 'roles';
 
-		$tableFields = array('action'=>'Action',
-                             'rolename' => 'Role Name',
-                             'roletype' => 'Role Type',
-                             'roledescription' => 'Role Description',
-                             'group_name' => 'Group'
+		$tableFields = array('action'=>'Acción',
+                             'rolename' => 'Nombre de Rol',
+                             'roletype' => 'Tipo de Rol',
+                             'roledescription' => 'Descripción del Rol',
+                             'group_name' => 'Grupo'
                              );
 
                              $tablecontent = $this->getRolesData($sort, $by, $pageNo, $perPage,$searchQuery);
@@ -362,7 +362,7 @@ public function getRolesList_EMP($con='')
                 'sort' => $sort,
                 'by' => $by,
                 'pageNo' => $pageNo,
-                'perPage' => $perPage,				
+                'perPage' => $perPage,
                 'tablecontent' => $tablecontent,
                 'objectname' => $objName,
                 'extra' => array(),
@@ -379,7 +379,7 @@ public function getRolesList_EMP($con='')
                              )
                              ),
                              );
-                             
+
                              return $dataTmp;
 	}
 
@@ -407,15 +407,15 @@ public function getRolesList_EMP($con='')
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "select u.id,u.userfullname,u.emailaddress,r.rolename
-                  from main_users u inner join main_roles r on r.id = u.emprole 
-                  and r.group_id in (".$group_ids.") and r.isactive = 1 
-                  inner join main_privileges p on p.group_id = r.group_id and p.role = r.id 
-                  and p.object = ".$object_id." and (p.editpermission = 'Yes' or p.addpermission = 'Yes') and p.isactive = 1 
-                  where u.isactive = 1 group by u.id 
-                  union 
-                  select u.id,u.userfullname,u.emailaddress,r.rolename 
-                  from main_users u inner join main_roles r on r.id = u.emprole and r.isactive = 1 
-                  and u.emprole = ".SUPERADMINROLE." 
+                  from main_users u inner join main_roles r on r.id = u.emprole
+                  and r.group_id in (".$group_ids.") and r.isactive = 1
+                  inner join main_privileges p on p.group_id = r.group_id and p.role = r.id
+                  and p.object = ".$object_id." and (p.editpermission = 'Yes' or p.addpermission = 'Yes') and p.isactive = 1
+                  where u.isactive = 1 group by u.id
+                  union
+                  select u.id,u.userfullname,u.emailaddress,r.rolename
+                  from main_users u inner join main_roles r on r.id = u.emprole and r.isactive = 1
+                  and u.emprole = ".SUPERADMINROLE."
                   where u.isactive = 1 and u.id = ".SUPERADMIN." ";
 		$result = $db->query($query);
 		$emp_arr = array();
@@ -438,7 +438,7 @@ public function getRolesList_EMP($con='')
 			try
 			{
 				$qry = "select ob.id, ob.rolename from main_roles ob
-                                        where ob.id IN (".$resultstring.") and ob.isactive = 1";		
+                                        where ob.id IN (".$resultstring.") and ob.isactive = 1";
 				$db = Zend_Db_Table::getDefaultAdapter();
 				$sqlRes = $db->query($qry);
 				$empRoleRes = $sqlRes->fetchAll();
@@ -467,28 +467,28 @@ public function getRolesList_EMP($con='')
     public function getdata_for_rolesgroup_rpt($sort_name,$sort_type)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
-        $query = "select group_id,group_name,count(*) cnt from main_groups g,main_roles r 
+        $query = "select group_id,group_name,count(*) cnt from main_groups g,main_roles r
                   where r.group_id = g.id and r.isactive = 1 group by g.id order by ".$sort_name." ".$sort_type;
         $result = $db->query($query);
         $data = $result->fetchAll();
-        
+
         return $data;
     }
     /**
      * This function is used in roles group report to get roles data.
-     * @param Integer $group_id = id of group 
+     * @param Integer $group_id = id of group
      * @param String $sort_name = field name to be sort.
-     * @param String $sort_type = type of sorting     
+     * @param String $sort_type = type of sorting
      * @return Array  Array of groups and their role count.
      */
     public function getdata_for_rolesgroup_popup($group_id,$sort_name,$sort_type)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
-        $query = "select r.rolename,r.roledescription from main_roles r 
+        $query = "select r.rolename,r.roledescription from main_roles r
                   where r.isactive = 1 and r.group_id = ".$group_id." order by ".$sort_name." ".$sort_type;
         $result = $db->query($query);
         $data = $result->fetchAll();
-        
+
         return $data;
     }
     /**
@@ -500,19 +500,19 @@ public function getRolesList_EMP($con='')
     public function getdata_emprolesgroup_rpt($sort_name,$sort_type)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
-        $query = "select r.group_id,r.id role_id,g.group_name,r.rolename,count(u.id) user_cnt 
-                  from main_roles r 
-                  left join main_users u on u.emprole = r.id and u.isactive =1 
-                  inner join main_groups g on g.id = r.group_id 
+        $query = "select r.group_id,r.id role_id,g.group_name,r.rolename,count(u.id) user_cnt
+                  from main_roles r
+                  left join main_users u on u.emprole = r.id and u.isactive =1
+                  inner join main_groups g on g.id = r.group_id
                   where r.isactive = 1 group by r.id order by ".$sort_name." ".$sort_type;
         $result = $db->query($query);
         $data = $result->fetchAll();
-        
+
         return $data;
     }
-	
+
 	public function getRolesList_Dept($dept_id = '')
-	{	
+	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		if($dept_id != '')
 		$role_str = '';
@@ -544,18 +544,18 @@ public function getRolesList_EMP($con='')
 		if(!empty($con) && $con == 'orghead')
 		{
 			$query = "select r.group_id,r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id in (".MANAGEMENT_GROUP.") order by r.rolename asc";
 		}
 		else
 		{
 			$query = "select r.group_id,r.id,r.rolename from main_roles r
-                  where r.isactive = 1 and r.group_id is not null 
+                  where r.isactive = 1 and r.group_id is not null
                   and r.group_id not in (".USERS_GROUP.") order by r.rolename asc";
 		}
 		$result = $db->query($query);
-		
+
 		return $result->fetchAll();
 	}
-	
+
 }//end of class

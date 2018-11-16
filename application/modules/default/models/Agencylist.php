@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,25 +23,25 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_bgagencylist';
     protected $_primary = 'id';
-	
+
 	public function getagencylistData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "b.isactive = 1 ";
 		if($searchQuery)
-			$where .= " AND ".$searchQuery;		
+			$where .= " AND ".$searchQuery;
 		$agencylistdata = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
 						   ->from(array('b' => 'main_bgagencylist'))
 						   ->joinInner(array('u'=>'main_users'), "u.id = b.user_id and u.isactive = 1",array('userid'=>'u.id','employeeId'=>'employeeId'))
 							->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $agencylistdata;       		
+
+		return $agencylistdata;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{	
+	{
 		$searchQuery = '';
         $searchArray = array();
         $data = array();
@@ -53,16 +53,16 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 				$searchQuery .= " ".$key." like '%".$val."%' AND ";
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
-		$objName = 'agencylist';		
-		$tableFields = array('action'=>'Action','agencyname' => 'Agency Name','primaryphone' => 'Phone','address' => 'Address','website_url' => 'Website URL','employeeId'=>'User ID');
-		$tablecontent = $this->getagencylistData($sort, $by, $pageNo, $perPage,$searchQuery);     
+		$objName = 'agencylist';
+		$tableFields = array('action'=>'Acción','agencyname' => 'Nombre de la Agencia','primaryphone' => 'Teléfono','address' => 'Dirección','website_url' => 'URL','employeeId'=>'Id de Usuario');
+		$tablecontent = $this->getagencylistData($sort, $by, $pageNo, $perPage,$searchQuery);
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -73,10 +73,10 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 			'add' =>'add',
 			'call' => $call,
 			'dashboardcall'=>$dashboardcall,
-		);		
+		);
 		return $dataTmp;
 	}
-	
+
 	public function getSingleAgencyData($id)
 	{
 		$row = $this->fetchRow("id = '".$id."'");
@@ -85,7 +85,7 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function SaveorUpdateAgency($data, $where)
 	{
 		if($where != ''){
@@ -97,7 +97,7 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	public function SaveorUpdatePOCDetails($data, $where)
 	{
 		if($where != ''){
@@ -109,40 +109,40 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	public function getSingleagencyPOCData($id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$agencyData = $db->query("SELECT a.id as agencyid, p.id as pocid, a.*,p.* FROM main_bgagencylist a 
+		$agencyData = $db->query("SELECT a.id as agencyid, p.id as pocid, a.*,p.* FROM main_bgagencylist a
 									RIGHT JOIN main_bgpocdetails p
 									ON p.bg_agencyid = a.id
-									WHERE a.id=".$id." AND a.isactive = 1 AND p.isactive = 1;");									
+									WHERE a.id=".$id." AND a.isactive = 1 AND p.isactive = 1;");
 		$result= $agencyData->fetchAll();
-		return $result; 
-		
+		return $result;
+
 	}
-	
+
 	public function checkSiteDuplicates($website,$id)
 	{
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		if($id)
 		{
 			$agencyData = $db->query("SELECT b.*,b.isactive as isactive,u.employeeId from main_bgagencylist b
 									left join main_users u on b.user_id = u.id
-									WHERE b.website_url = '".$website."' AND b.id <> ".$id);									
+									WHERE b.website_url = '".$website."' AND b.id <> ".$id);
 		}else{
 			$agencyData = $db->query("SELECT b.*,b.isactive as isactive,u.employeeId from main_bgagencylist b
 									left join main_users u on b.user_id = u.id
 									WHERE b.website_url = '".$website."'");
 		}
 		$result= $agencyData->fetch();
-		return $result; 
+		return $result;
 	}
-	
+
 	public function deleteAgencyData($id,$userid)
 	{
-		$db = Zend_Db_Table::getDefaultAdapter();		
+		$db = Zend_Db_Table::getDefaultAdapter();
 		$agencyData = $db->query("UPDATE main_bgagencylist a, main_bgpocdetails p
 									SET p.isactive=3,
 									a.isactive=0,
@@ -152,24 +152,24 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 									p.modifiedby = ".$userid."
 									WHERE a.id=p.bg_agencyid
 									AND a.id=".$id);
-		$agencyData = $db->query("UPDATE main_users SET isactive = 0 WHERE id = (SELECT user_id FROM 				
+		$agencyData = $db->query("UPDATE main_users SET isactive = 0 WHERE id = (SELECT user_id FROM
 									main_bgagencylist where id = ".$id." AND isactive = 0);");
 		$pocIds = $db->query("select id from main_bgpocdetails where bg_agencyid = ".$id.";");
 		$result= $pocIds->fetchAll();
 		$ids = array_map(function($item) { return $item['id']; }, $result);
-		$output = implode(',', $ids);		
+		$output = implode(',', $ids);
 		return $output;
 	}
-	
+
 	public function deleteBGcheckdetails_normalquery($agencyid,$userid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$agencyData = $db->query("update main_bgcheckdetails set 
+		$agencyData = $db->query("update main_bgcheckdetails set
 								isactive=2,modifieddate = '".gmdate("Y-m-d H:i:s")."',
 								modifiedby = ".$userid."
-								where isactive = 1 and bgagency_id = ".$agencyid.";");		
+								where isactive = 1 and bgagency_id = ".$agencyid.";");
 	}
-	
+
 	public function deleteBGcheckdetails($agencyid,$userid)
 	{
 		$screeningmodel = new Default_Model_Empscreening();
@@ -181,18 +181,18 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 		$where = "isactive = 1 and bgagency_id = ".$agencyid;
 		$screeningmodel->SaveorUpdateDetails($data,$where);
 	}
-	
+
 	public function getagencyrole()
 	{
-		$db = Zend_Db_Table::getDefaultAdapter();	
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$agencyrole = $db->query("select r.id,r.rolename from main_privileges p
 							inner join main_roles r on r.id = p.role
 							where object = ".EMPSCREENING." and role is not null and p.isactive = 1 and p.group_id = ".USERS_GROUP.";");
 		$data = $agencyrole->fetchAll();
 		return $data;
 	}
-	
+
 	public function getAllHRManagementEMails()
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -202,14 +202,14 @@ class Default_Model_Agencylist extends Zend_Db_Table_Abstract
 		$data = $emailData->fetchAll();
 		return $data;
 	}
-	
+
 	public function getAgencyEmail($id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$emailData = $db->query("select u.emailaddress,u.userfullname,u.emprole from  main_users u
-						join main_bgagencylist b on u.id = b.user_id 
+						join main_bgagencylist b on u.id = b.user_id
 						where b.id = ".$id);
 		$data = $emailData->fetch();
 		return $data;
-	}	
+	}
 }

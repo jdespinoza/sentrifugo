@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -32,20 +32,20 @@ class Zend_View_Helper_Shortcuticons extends Zend_View_Helper_Abstract {
 	public  function shortcuticons($userId)
 	{
 		$role_id ="";$privilegedmenuIdsArr=array();$privilegedmenuIdsCsv="";
-		
+
 		$settingsModel = new Default_Model_Settings();
 		$session=new Zend_Auth_Storage_Session();
 		$data=$session->read();
 		//echo "Session Data : <pre>";print_r($data);die;
 		if(!empty($data))	$role_id = $data['emprole'];
-		
+
 		$iconidcount = $settingsModel->getActiveiconCount($userId);
-				
+
 		$shortcutsStr = '<div><ul>';
 		if($iconidcount[0]['count'] > 0)
 		{
 			$menuIdsArr = $settingsModel->getMenuIds($userId,2);
-			
+
 			if(!empty($menuIdsArr) === true)
 			{
 				$menuIdsStr = $menuIdsArr[0]['menuid'];
@@ -53,10 +53,10 @@ class Zend_View_Helper_Shortcuticons extends Zend_View_Helper_Abstract {
 					Modified By:	Yamini
 					Purpose:	Checking the privileges for shortcut icons for logged in role...
 					Modified Date:	26/09/2013.
-					
+
 				*/
-				$idCsv=1;	//Flag 
-				
+				$idCsv=1;	//Flag
+
 				$privilege_model = new Default_Model_Privileges();
 				$privilegesofObj = $privilege_model->getObjPrivileges($menuIdsStr,"",$role_id,$idCsv);
 				$menuwithaddprivilegeArr = array(SITEPREFERENCE,LEAVEREQUEST,IDENTITYCODES,IDENTITYDOCUMENTS);
@@ -72,7 +72,7 @@ class Zend_View_Helper_Shortcuticons extends Zend_View_Helper_Abstract {
 					$privilegedmenuIdsCsv= implode(",",$privilegedmenuIdsArr);
 				}
 				if($privilegedmenuIdsCsv != "")	$menuIdsStr = $privilegedmenuIdsCsv;
-				
+
 				$menuDetailsArr = $settingsModel->getMenuName($menuIdsStr,1);
 				$betaFlag = 0;
 				if(!empty($menuDetailsArr))
@@ -92,18 +92,18 @@ class Zend_View_Helper_Shortcuticons extends Zend_View_Helper_Abstract {
 							$menuUrl = $tmpMenuUrl;
 						else
 							$menuUrl = 'javascript:void(0);';
-							
-						if($menuDetailsArr[$s]['iconPath'] !='') 
+
+						if($menuDetailsArr[$s]['iconPath'] !='')
 						  $menuIcon = 'images/menuIcons/shortcuts/'.$menuDetailsArr[$s]['iconPath'];
 						else
-						  $menuIcon = 'images/sampleimg.png';	
+						  $menuIcon = 'images/sampleimg.png';
 
-						//$shortcutsStr.='<li><a href="'.$menuUrl.'"><img src="'.MEDIA_PATH.'images/'.$menuIcon.'" onerror=this.src="'.MEDIA_PATH.'images/sampleimg.png"; height="33" width="33" border="0" /></a></li>';					  
+						//$shortcutsStr.='<li><a href="'.$menuUrl.'"><img src="'.MEDIA_PATH.'images/'.$menuIcon.'" onerror=this.src="'.MEDIA_PATH.'images/sampleimg.png"; height="33" width="33" border="0" /></a></li>';
 						$shortcutsStr.='<li><a href="'.$menuUrl.'" title="'.$menuName.'" ><img src="'.MEDIA_PATH.''.$menuIcon.'"  onerror=this.src="'.MEDIA_PATH.'images/sampleimg.png"; height="33" width="33" border="0" /></a></li>';
 
 						if($menuDetailsArr[$s]['id'] > 148 && $menuDetailsArr[$s]['id'] < 175)
 							$betaFlag = 1;
-					}										
+					}
 
 					echo $shortcutsStr.='</ul></div>';
 					if($betaFlag == 1)
@@ -111,19 +111,19 @@ class Zend_View_Helper_Shortcuticons extends Zend_View_Helper_Abstract {
 				}
 				else
 				{
-					echo "No active shortcut icons. ".'<a href="'.BASE_URL.'viewsettings/2">'."Click here".'</a> '."to configure.";
+					echo "No hay iconos de acceso directo activos. ".'<a href="'.BASE_URL.'viewsettings/2">'."Haga click aqui".'</a> '."para configurar.";
 				}
 			}
 			else
 			{
-				echo "You have not configured your shortcut icons. ".'<a href="'.BASE_URL.'viewsettings/2">'."Click here".'</a> '."to configure.";
+				echo "No has configurado tus iconos de acceso directo. ".'<a href="'.BASE_URL.'viewsettings/2">'."Haga clic aqui".'</a> '."para configurar.";
 			}
 		}
 		else
 		{
-			echo "You have not configured your shortcut icons. ".' <a href="'.BASE_URL.'viewsettings/2">'."Click here".'</a> '."to configure";
+			echo "No has configurado tus iconos de acceso directo. ".' <a href="'.BASE_URL.'viewsettings/2">'."Haga clic aquí".'</a> '."para configurar.";
 		}
-		
+
 	}
 }
 ?>

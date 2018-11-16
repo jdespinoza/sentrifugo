@@ -112,7 +112,7 @@
 					
 				</tr>
 				<?php } } else{?>
-				 <tr><td class="no-data-td" colspan="10"><p class="no-data">No data found</p></td></tr>
+				 <tr><td class="no-data-td" colspan="10"><p class="no-data">Datos no encontrados</p></td></tr>
                 <?php }?>
 			</tbody>
 		</table>
@@ -122,7 +122,7 @@
 		 <?php if(count($this->agencylistData) >0){?>
 			<div class="records_block">
 				<div class="page_txt">
-					<span>Records per page</span>
+					<span>Registros por página</span>
 					<div class="records_number-drop-down">						
 						<select id="sel_per_page">
 						    <option value="20" <?php echo ($this->perPage == 20)?"selected":"" ;?>>20</option>

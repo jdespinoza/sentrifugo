@@ -3,5 +3,5 @@
 	           defined('SENTRIFUGO_USERNAME') || define('SENTRIFUGO_USERNAME','root');
 	           defined('SENTRIFUGO_PASSWORD') || define('SENTRIFUGO_PASSWORD','');
 	           defined('SENTRIFUGO_DBNAME') || define('SENTRIFUGO_DBNAME','sentrifugo_db');
-	           
+
 	         ?>

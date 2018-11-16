@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_veteranstatus';
     protected $_primary = 'id';
-	
+
 	public function getVeteranStatusData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
@@ -31,23 +31,23 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 			$where = " ".$columnkey." like '%".$columntext."%' "; */
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$veteranstatusData = $this->select()
-    					   ->setIntegrityCheck(false)	    					
+    					   ->setIntegrityCheck(false)
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		//echo $dateFormatData->__toString(); 
-		return $veteranstatusData;       		
+		//echo $dateFormatData->__toString();
+		return $veteranstatusData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -56,19 +56,19 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
 					$searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
+
 		$objName = 'veteranstatus';
-		$tableFields = array('action'=>'Action','veteranstatus' => 'Veteran Status','description' => 'Description');
-		
-		$tablecontent = $this->getVeteranStatusData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+		$tableFields = array('action'=>'Acción','veteranstatus' => 'Estatus de Veterano','description' => 'Descripción');
+
+		$tablecontent = $this->getVeteranStatusData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -76,10 +76,10 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 			'jsGridFnName' => 'getAjaxgridData',
 			'jsFillFnName' => '',
 			'searchArray' => $searchArray,'call'=>$call
-		);	
+		);
 		return $dataTmp;
 	}
-	
+
 	public function getsingleVeteranStatusData($id)
 	{
 		$row = $this->fetchRow("id = '".$id."'");
@@ -88,7 +88,7 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function getVeteranStatusDataByID($id)
 	{
 	    $select = $this->select()
@@ -96,9 +96,9 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 						->from(array('v'=>'main_veteranstatus'),array('v.*'))
 					    ->where('v.isactive = 1 AND v.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function getTotalVeteranStatusData()
 	{
 	    $select = $this->select()
@@ -107,9 +107,9 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 					    ->where('v.isactive = 1')
 						->order('v.veteranstatus');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function SaveorUpdateVeteranStatusData($data, $where)
 	{
 	    if($where != ''){
@@ -120,7 +120,7 @@ class Default_Model_Veteranstatus extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_veteranstatus');
 			return $id;
 		}
-		
-	
+
+
 	}
 }

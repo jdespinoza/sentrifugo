@@ -173,7 +173,7 @@
 						
 					} else { ?>
 						<tr class="row1">
-							<td class="no-data-td" colspan="<?php echo count($this->selectColumnLabels);?>"><p class="no-data">No data found</p></td>
+							<td class="no-data-td" colspan="<?php echo count($this->selectColumnLabels);?>"><p class="no-data">Datos no encontrados</p></td>
 						</tr>
 					<?php } ?>
 					</tbody>
@@ -184,7 +184,7 @@
 					<div class="records_block">
 						<?php if(count($this->businessunitsArr) > 0) { ?>
 						<div class="page_txt">
-							<span>Records per page</span>
+							<span>Registros por página</span>
 							<div class="records_number-drop-down">
 								<select id="perPagetext" name="perPagetext" onchange="getbusinessunits('perpage');">
 										<option value="20" <?php echo ($this->perpage == 20)?"selected":"" ;?>>20</option>

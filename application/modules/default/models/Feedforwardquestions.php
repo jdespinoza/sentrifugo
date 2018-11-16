@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,12 +23,12 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_pa_questions';
     protected $_primary = 'id';
-	
+
 	public function getFeedforwardQuestionData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
-		
+
 		$loginuserRole = $auth->getStorage()->read()->emprole;
 		$loginuserGroup = $auth->getStorage()->read()->group_id;
      	}
@@ -37,23 +37,23 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 			$where .= " AND ".$searchQuery;
 			if($loginuserRole != 1)
 			$where .= " AND aq.createdby_group = ".$loginuserGroup;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$appQuestionsData = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
                            ->from(array('aq'=>'main_pa_questions'),array('aq.*'))
                            ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		return $appQuestionsData;       		
+		return $appQuestionsData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -62,20 +62,20 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 							$searchQuery .= " aq.".$key." like '%".mysql_real_escape_string($val)."%' AND ";
                            $searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
+
 		$objName = 'feedforwardquestions';
-		
-		$tableFields = array('action'=>'Action','question' => 'Question','description' => 'Description');
-		
-		$tablecontent = $this->getFeedforwardQuestionData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','question' => 'Pregunta','description' => 'Descripción');
+
+		$tablecontent = $this->getFeedforwardQuestionData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -89,36 +89,36 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 		);
 		return $dataTmp;
 	}
-	
+
 	public function getFeedforwardQuestionbyID($id)
 	{
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
-		
+
 		$loginuserRole = $auth->getStorage()->read()->emprole;
 		$loginuserGroup = $auth->getStorage()->read()->group_id;
      	}
 		$where = 'aq.isactive = 1 AND aq.id='.$id.' ';
-		
+
 			if($loginuserRole != 1)
 			$where .= " AND aq.createdby_group = ".$loginuserGroup;
-			
+
 	    $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('aq'=>'main_pa_questions'),array('aq.*'))
 					    ->where($where);
-		return $this->fetchAll($select)->toArray();	
+		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function getFeedforwardQuestionsByCategotyID($categotyId)
 	{
 	    $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('aq'=>'main_pa_questions'),array('aq.*'))
 					    ->where('aq.isactive = 1 AND aq.pa_category_id='.$categotyId.' ');
-		return $this->fetchAll($select)->toArray();	
+		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function SaveorUpdateFeedforwardQuestionData($data, $where)
 	{
 	    if($where != ''){
@@ -128,9 +128,9 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 			$this->insert($data);
 			$id=$this->getAdapter()->lastInsertId('main_pa_questions');
 			return $id;
-		}	
+		}
 	}
-	
+
 	public function checkDuplicateQuestionName($categoryId,$question)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -138,7 +138,7 @@ class Default_Model_Feedforwardquestions extends Zend_Db_Table_Abstract
 		$res = $db->query($qry)->fetchAll();
 		return $res;
 	}
-	
+
 	public function checkQuestionUsed($questionId)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();

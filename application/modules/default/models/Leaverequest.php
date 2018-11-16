@@ -365,9 +365,9 @@ class Default_Model_Leaverequest extends Zend_Db_Table_Abstract
 
 
             //$tableFields = array('action'=>'Action','employeename' => 'Leave Applied By','leavetype' => 'Leave Type','leaveday' => 'Leave Duration','from_date' => 'From Date','to_date' => 'To Date','reason' => 'Reason','approver_comments' => 'Comments','reportingmanagername'=>'Reporting Manager','appliedleavescount' => 'Leave Count','applieddate' => 'Applied On');
-            $tableFields = array('action'=>'Action','employeename' => 'Employee',
-            'leavetype' => 'Leave Type','from_date' => 'From Date','to_date' => 'To Date',
-            'appliedleavescount' => 'Leave Count','applieddate' => 'Applied On');
+            $tableFields = array('action'=>'Acción','employeename' => 'Empleado',
+            'leavetype' => 'Tipo de Salida','from_date' => 'Fecha Inicio','to_date' => 'Fecha Fin',
+            'appliedleavescount' => 'Número de Salidas','applieddate' => 'Aplicado en');
 
 			$leave_arr = array('' => 'All',1 =>'Full Day',2 => 'Half Day');
 

@@ -58,7 +58,7 @@ class Default_Form_positions extends Zend_Form
         $jobtitleid = new Zend_Form_Element_Select('jobtitleid');
         $jobtitleid->setAttrib('class', 'selectoption');
         $jobtitleid->setRegisterInArrayValidator(false);
-        $jobtitleid->addMultiOption('','Select Job Title');
+        $jobtitleid->addMultiOption('','Seleccione el título del trabajo');
         $jobtitleid->setRequired(true);
 		$jobtitleid->addValidator('NotEmpty', false, array('messages' => 'Please select job title.'));		
    	

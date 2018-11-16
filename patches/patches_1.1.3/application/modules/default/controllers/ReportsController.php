@@ -1211,14 +1211,14 @@ class Default_ReportsController extends Zend_Controller_Action
             $employmentStatusData = $employmentstatusModel->getempstatuslist();
             if(count($job_data)==0)
             {
-                $norec_arr['jobtitle_id'] = "Job titles are not configured yet.";
-                $norec_arr['position_id'] = "Positions are not configured yet.";
+                $norec_arr['jobtitle_id'] = "Los títulos de trabajo no están configurados todavía.";
+                $norec_arr['position_id'] = "Las posiciones aún no están configuradas.";
             }
             if(count($employmentStatusData)==0)
             {
                 $norec_arr['emp_status_id'] = "Employment status is not configured yet.";
             }
-            $form->jobtitle_id->addMultiOptions(array(''=>'Select Job Title')+$job_data);
+            $form->jobtitle_id->addMultiOptions(array(''=>'Seleccione el título del trabajo')+$job_data);
             if(count($employmentStatusData) > 0)
             {
                     $form->emp_status_id->addMultiOption('','Select Employment Status');
@@ -4635,10 +4635,10 @@ class Default_ReportsController extends Zend_Controller_Action
 			$job_data = $requi_model->getJobTitleList();
 
 			if(count($job_data)==0){
-				$norec_arr['jobtitle'] = "Job titles are not configured yet.";
+				$norec_arr['jobtitle'] = "Los títulos de trabajo no están configurados todavía.";
 			}
 
-			$form->jobtitle->addMultiOptions(array(''=>'Select Job Title')+$job_data);
+			$form->jobtitle->addMultiOptions(array(''=>'Seleccione el título del trabajo')+$job_data);
 			
 			// Requisiton's Raised in limit from  past 10 years to next two years 
 			$raised_in_years1 = range(date('Y', strtotime('-10 years')), date('Y', strtotime('+2 years')));

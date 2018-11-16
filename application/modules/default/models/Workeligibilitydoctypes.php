@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,42 +23,42 @@ class Default_Model_Workeligibilitydoctypes extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_workeligibilitydoctypes';
     protected $_primary = 'id';
-	
+
 	public function getWorkEligibilityDocTypesData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$workEligibilityDocTypesData = $this->select()
     					   ->setIntegrityCheck(false)
                             ->from(array('w'=>'main_workeligibilitydoctypes'),
 						          array( 'w.*',
-										 'issuingauthority' => new Zend_Db_Expr("CASE w.issuingauthority WHEN 1 THEN 'Country' WHEN 2 THEN 'State' ELSE 'City' END"),										 
-								       ))						   
+										 'issuingauthority' => new Zend_Db_Expr("CASE w.issuingauthority WHEN 1 THEN 'Country' WHEN 2 THEN 'State' ELSE 'City' END"),
+								       ))
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $workEligibilityDocTypesData;       		
+
+		return $workEligibilityDocTypesData;
 	}
 	public function getsingleWorkEligibilityDocTypeData($id)
 	{
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$workeligibilityDoctypesData = $db->query("SELECT * FROM main_workeligibilitydoctypes WHERE id = ".$id." AND isactive=1");
 		$res = $workeligibilityDoctypesData->fetchAll();
-		if (isset($res) && !empty($res)) 
-		{	
+		if (isset($res) && !empty($res))
+		{
 			return $res;
 		}
 		else
 			return 'norows';
-		
+
 	}
-	
+
 	public function SaveorUpdateWorkEligibilityDocumentData($data, $where)
 	{
 	    if($where != ''){
@@ -71,7 +71,7 @@ class Default_Model_Workeligibilitydoctypes extends Zend_Db_Table_Abstract
 		}
 	}
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$exParam1='',$exParam2='',$exParam3='',$exParam4='')
-	{		
+	{
         $searchQuery = '';$tablecontent = '';  $searchArray = array();$data = array();$id='';
         $dataTmp = array();
 		if($searchData != '' && $searchData!='undefined')
@@ -82,23 +82,23 @@ class Default_Model_Workeligibilitydoctypes extends Zend_Db_Table_Abstract
 				$searchQuery .= " ".$key." like '%".$val."%' AND ";
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 
 		/** search from grid - END **/
 		$objName = 'workeligibilitydoctypes';
-		
-		$tableFields = array('action'=>'Action','documenttype' => 'Document Type','issuingauthority' => 'Issuing Authority','description' => 'Description');
-		
-			
-		$tablecontent = $this->getWorkEligibilityDocTypesData($sort, $by, $pageNo, $perPage,$searchQuery);    
-		
-		    
+
+		$tableFields = array('action'=>'Acción','documenttype' => 'Tipo de Documento','issuingauthority' => 'Autoridad Emisora','description' => 'Descripción');
+
+
+		$tablecontent = $this->getWorkEligibilityDocTypesData($sort, $by, $pageNo, $perPage,$searchQuery);
+
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -107,11 +107,11 @@ class Default_Model_Workeligibilitydoctypes extends Zend_Db_Table_Abstract
 			'jsFillFnName' => '',
 			'searchArray' => $searchArray,
 			'call'=>$call,'dashboardcall'=>$dashboardcall
-		);		
-			
+		);
+
 		return $dataTmp;
 	}
-	
+
 	public function getIssuingAuthority($doctypeid)
 	{
 	    $select = $this->select()

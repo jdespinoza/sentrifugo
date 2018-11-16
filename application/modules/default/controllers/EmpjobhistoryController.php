@@ -408,7 +408,7 @@ class Default_EmpjobhistoryController extends Zend_Controller_Action
 			}
 		}
 		$positionArr = $positionModel->getTotalPositionList();
-		$empjobhistoryform->positionheld->addMultiOption('','Select Position');
+		$empjobhistoryform->positionheld->addMultiOption('','Seleccionar posición');
 		if(!empty($positionArr))
 		{
 			foreach ($positionArr as $positionres){
@@ -416,11 +416,11 @@ class Default_EmpjobhistoryController extends Zend_Controller_Action
 			}
 		}else
 		{
-			$msgarray['positionheld'] = 'Positions are not configured yet.';
+			$msgarray['positionheld'] = 'Las posiciones aún no están configuradas.';
 			$emptyFlag++;
 		}
 		$jobtitleArr = $jobtitleModel->getJobTitleList();
-		$empjobhistoryform->jobtitleid->addMultiOption('','Select Job Title');
+		$empjobhistoryform->jobtitleid->addMultiOption('','Seleccione el título del trabajo');
 		if(!empty($jobtitleArr))
 		{
 			foreach ($jobtitleArr as $jobtitleres){
@@ -430,7 +430,7 @@ class Default_EmpjobhistoryController extends Zend_Controller_Action
 		}
 		else
 		{
-			$msgarray['jobtitleid'] = 'Job titles are not configured yet.';
+			$msgarray['jobtitleid'] = 'Los títulos de trabajo no están configurados todavía.';
 			$emptyFlag++;
 		}
 		$clientsArr = $clientsModel->getActiveClientsData();
@@ -626,7 +626,7 @@ class Default_EmpjobhistoryController extends Zend_Controller_Action
 			$positionArr = $positionModel->getTotalPositionList();
 			if(!empty($positionArr))
 			{
-				$empjobhistoryform->positionheld->addMultiOption('','Select Position');
+				$empjobhistoryform->positionheld->addMultiOption('','Seleccionar posición');
 				foreach ($positionArr as $positionres){
 					$empjobhistoryform->positionheld->addMultiOption($positionres['id'],$positionres['positionname']);
 
@@ -635,7 +635,7 @@ class Default_EmpjobhistoryController extends Zend_Controller_Action
 			$jobtitleArr = $jobtitleModel->getJobTitleList();
 			if(!empty($jobtitleArr))
 			{
-				$empjobhistoryform->jobtitleid->addMultiOption('','Select Job Title');
+				$empjobhistoryform->jobtitleid->addMultiOption('','Seleccione el título del trabajo');
 				foreach ($jobtitleArr as $jobtitleres){
 					$empjobhistoryform->jobtitleid->addMultiOption($jobtitleres['id'],$jobtitleres['jobtitlename']);
 

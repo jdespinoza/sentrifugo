@@ -275,7 +275,7 @@ class Zend_View_Helper_Menubuilder extends Zend_View_Helper_Abstract {
 					  ///////////////////////
 						//Traduccion del menu//
 						///////////////////////
-						if($menuid ==EXPENSES)
+						/*if($menuid ==EXPENSES)
 						{
 							$groupclass= "";
 							$parent_menu .= "<li id='main_parent_".$menuid."' ".$dummy_parent_div." ".$super_str." super-parent = 'main_parent_".$menuid."' class = 'clickable_menu ".$parent_menu_selected_class[$menuid].($groupbasedclass!=''?"-main-common ":"-main ").$tour_menu_class[$menuid]."' menu-url ='".$parent_url."' for-childs = '".$for_childs_str."' selected-class = '".(($groupbasedclass!='')?$parent_menu_selected_class[$menuid]."-common":$parent_menu_selected_class[$menuid])."'><a id='".$menuid."'><span class='scroll-menu ".(($groupbasedclass!='')?$parent_menu_class[$menuid]."-common":$parent_menu_class[$menuid])."'></span><b>Gastos</b></a></li>";
@@ -330,7 +330,7 @@ class Zend_View_Helper_Menubuilder extends Zend_View_Helper_Abstract {
 							$groupclass= "";
 							$parent_menu .= "<li id='main_parent_".$menuid."' ".$dummy_parent_div." ".$super_str." super-parent = 'main_parent_".$menuid."' class = 'clickable_menu ".$parent_menu_selected_class[$menuid].($groupbasedclass!=''?"-main-common ":"-main ").$tour_menu_class[$menuid]."' menu-url ='".$parent_url."' for-childs = '".$for_childs_str."' selected-class = '".(($groupbasedclass!='')?$parent_menu_selected_class[$menuid]."-common":$parent_menu_selected_class[$menuid])."'><a id='".$menuid."'><span class='scroll-menu ".(($groupbasedclass!='')?$parent_menu_class[$menuid]."-common":$parent_menu_class[$menuid])."'></span><b>Tasaciones</b></a></li>";
 						}
-						else if($menuid != TIMEMANAGEMENT)
+						else */if($menuid != TIMEMANAGEMENT)
 						{
 							$groupclass= "";
 							$parent_menu .= "<li id='main_parent_".$menuid."' ".$dummy_parent_div." ".$super_str." super-parent = 'main_parent_".$menuid."' class = 'clickable_menu ".$parent_menu_selected_class[$menuid].($groupbasedclass!=''?"-main-common ":"-main ").$tour_menu_class[$menuid]."' menu-url ='".$parent_url."' for-childs = '".$for_childs_str."' selected-class = '".(($groupbasedclass!='')?$parent_menu_selected_class[$menuid]."-common":$parent_menu_selected_class[$menuid])."'><a id='".$menuid."'><span class='scroll-menu ".(($groupbasedclass!='')?$parent_menu_class[$menuid]."-common":$parent_menu_class[$menuid])."'></span><b>".$data['menuName']."</b></a></li>";
@@ -659,7 +659,7 @@ class Zend_View_Helper_Menubuilder extends Zend_View_Helper_Abstract {
 		$recentlyViewed = new Zend_Session_Namespace('recentlyViewed'); // Creating a new session with namespace
 		if(!empty($recentlyViewed->recentlyViewedObject))
 		{
-			echo '<div class="recentviewd"><label id="recentviewtext">Recently viewed</label><ul>';
+			echo '<div class="recentviewd"><label id="recentviewtext">Visto recientemente</label><ul>';
 			$rvSize = 0;
 			if(sizeof($recentlyViewed->recentlyViewedObject) > 3)
 				$rvSize = 3;

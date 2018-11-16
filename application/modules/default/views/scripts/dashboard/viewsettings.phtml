@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,7 @@
  ********************************************************************************/
 ?>
 
-<?php 
+<?php
 $role_id = $this->role_id;
 ?>
 <script type="text/javascript" src="<?php echo MEDIA_PATH; ?>jquery/js/jquery-ui.js"></script>
@@ -40,7 +40,7 @@ var html = '';
 
 	tabFlag = 'widgets';
  var divsize = $("#settingstab > div").size();
- 
+
  if(divsize == 0){
    $(".save-div").hide();
    $(".cancel-div").hide();
@@ -48,8 +48,8 @@ var html = '';
    $(".save-div").show();
    $(".cancel-div").show();
  }
-$("#widgetsspan").addClass("actvier"); 
-$("#shortcutspan").removeClass("actvier"); 
+$("#widgetsspan").addClass("actvier");
+$("#shortcutspan").removeClass("actvier");
 $("#shortcuticontab").hide();
 $("#settingstab").show();
 $("#shortcutgridtab").hide();
@@ -69,7 +69,7 @@ html +="</div>";
 
 tabFlag = 'shortcuts';
  var diviconsize = $("#shortcuticontab > div").size();
- 
+
  if(diviconsize == 0){
    $(".save-div").hide();
    $(".cancel-div").hide();
@@ -78,8 +78,8 @@ tabFlag = 'shortcuts';
    $(".cancel-div").show();
  }
 
-$("#shortcutspan").addClass("actvier"); 
-$("#widgetsspan").removeClass("actvier");  
+$("#shortcutspan").addClass("actvier");
+$("#widgetsspan").removeClass("actvier");
 $("#settingstab").hide();
 $("#shortcuticontab").show();
 $("#widgetsgridtab").hide();
@@ -94,7 +94,7 @@ function redirecttohome(flag){
      $.blockUI({ width:'50px',message: $("#spinner").html() });
 	 window.location = base_url;
   }
-  
+
   if(flag == 'shortcuts'){
      $.blockUI({ width:'50px',message: $("#spinner").html() });
 	 window.location = base_url;
@@ -110,7 +110,7 @@ function makeAjaxCall(url,menuid,menuicon)
   var diviconsize = $("#shortcuticontab > div").size();
   var duplicatemenuname = $("#settingstab").find("div[id="+menuid+"]").html();
   var duplicateshortcuticon = $("#shortcuticontab").find("div[id='shortcut_"+menuid+"']").html();
- 
+
 	jQuery.ajax({
           url: base_url+'/dashboard/getmenuname',
 	  data:'menuid='+menuid+'&menuurl='+url,
@@ -119,13 +119,13 @@ function makeAjaxCall(url,menuid,menuicon)
           success: function(response){
           var menuname = response['menuname'];
 	  if(response['message'] == 'success'){
-	   
+
 		   if(duplicatemenuname == null && $("#settingstab").is(":visible")){
 
 				  if(divsize < 10){
-			            
+
 				   html +="<div class='setting-div-1' id="+menuid+">";
-				   html +="<label>"+menuname+"</label>"; 
+				   html +="<label>"+menuname+"</label>";
 				   html +="<a href='#' class='close-1' onclick=\"removesettingsdiv("+menuid+",'widgets','"+menuicon+"')\"></a>";
 				   html +="</div>";
 
@@ -136,9 +136,9 @@ function makeAjaxCall(url,menuid,menuicon)
 				   }
 
 				   $(".save-div").show();
-				   
+
 				  }
-				  
+
 				  if(divsize >= 10){
 				    $('.settingserror').show();
 				    $('.settingserror').css('color','red');
@@ -161,21 +161,21 @@ function makeAjaxCall(url,menuid,menuicon)
 		     if(duplicateshortcuticon == null && $("#shortcuticontab").is(":visible")){
 
 				  if(diviconsize < 10){
-			    
+
 			   	   if(menuicon!=''){
 				     icon = base_url+'/public/media/images/sampleimg.png';
 				   }else{
 				     icon = base_url+'/public/media/images/sampleimg.png';
 				   }
-				   
+
 			       imghtml +="<div class='setting-div' id='shortcut_"+menuid+"'>";
 				   imghtml +="<img width='23' height='23' border='0' src="+icon+" />";
-				   imghtml +="<label>"+menuname+"</label>"; 
+				   imghtml +="<label>"+menuname+"</label>";
 				   imghtml +="<a href='#' class='close-1' onclick=\"removesettingsdiv("+menuid+",'icon','"+menuicon+"')\"></a>";
 				   imghtml +="</div>";
 
 				   $(".save-div").show();
-				  }				  
+				  }
 
 				  if(diviconsize >= 10){
 				    $('.settingserror').show();
@@ -185,7 +185,7 @@ function makeAjaxCall(url,menuid,menuicon)
 					$('.settingserror').fadeOut('slow');
 				    },3000);
 				  }
-				  
+
 				   $("#shortcuticontab").append(imghtml);
 
 		     }else{
@@ -200,7 +200,7 @@ function makeAjaxCall(url,menuid,menuicon)
 			 }
 
 		     }
-			  
+
            }
 	   else if(response['result'] == 'error'){
 
@@ -240,35 +240,35 @@ function makeDroppableAjaxCall(menuid)
           var menuname = response['menuname'];
 		  var menuicon = response['menuicon'];
 		  var menuurl = response['menuurl'];
-		
+
 	    if(response['message'] == 'success'){
-	       
-	   
+
+
 		   if(duplicatemenuname == null && $("#settingstab").is(":visible")){
-		    
+
 				if(divsize < 10){
-			             
+
 				   html +="<div class='setting-div-1' id="+menuid+">";
-				   html +="<label>"+menuname+"</label>"; 
+				   html +="<label>"+menuname+"</label>";
 				   html +="<a href='javascript:void(0);' class='close-1' onclick=\"removesettingsdiv("+menuid+",'widgets')\"></a>";
 				   html +="</div>";
 
 				   if(menuicon!=''){
-				     
+
 				     icon = base_url+'/public/media/images/sampleimg.png';
 				   }else{
 				     icon = base_url+'/public/media/images/sampleimg.png';
 				   }
-				   
+
 				   $(".save-div").show();
 				   $(".cancel-div").show();
 				   getmenuid(+menuid,'widgets','');
 				   $("#settingstab").append(html);
 				   $("#settingstab").removeClass("newtr");
 				   $('.settings-block').css("border", "1px dashed #008000");
-				   
+
 				     setTimeout(function(){
-				   
+
 				   $('.settings-block').css('border', '1px dashed #A2A2A2');
 				    },3000);
 				  }
@@ -283,7 +283,7 @@ function makeDroppableAjaxCall(menuid)
 					$('.settings-block').css('border', '1px dashed #A2A2A2');
 				    },3000);
 				  }
-				   
+
 		     }
 			 else if($("#settingstab").is(":visible"))
 			 {
@@ -298,12 +298,12 @@ function makeDroppableAjaxCall(menuid)
 					},3000);
              }
 			 else if(duplicateshortcuticon == null && $("#shortcuticontab").is(":visible")){
-                
+
 				  if(diviconsize < 16){
-			   	   			  
-			       imghtml +="<div class='setting-div' id='shortcut_"+menuid+"'>";				   				   
+
+			       imghtml +="<div class='setting-div' id='shortcut_"+menuid+"'>";
 				   imghtml +="<img width='23' height='23' border='0' src='"+domain_data+"/public/media/images/menuIcons/shortcuts/"+menuicon+"' onerror=this.src='"+domain_data+"/public/media/images/sampleimg.png'; />";
-				   imghtml +="<label>"+menuname+"</label>"; 
+				   imghtml +="<label>"+menuname+"</label>";
 				   imghtml +="<a href='javascript:void(0);' class='close-1' onclick=\"removesettingsdiv("+menuid+",'icon')\"></a>";
 				   imghtml +="</div>";
 
@@ -312,8 +312,8 @@ function makeDroppableAjaxCall(menuid)
 				   getmenuid(+menuid,'icon');
 				   $("#shortcuticontab").append(imghtml);
 				   $("#shortcuticontab").removeClass("newtr");
-				   $('.settings-block').css("border", "1px dashed #008000");				   				   				   
-				     setTimeout(function(){				   
+				   $('.settings-block').css("border", "1px dashed #008000");
+				     setTimeout(function(){
 				   $('.settings-block').css('border', '1px dashed #A2A2A2');
 				    },3000);
 				  }
@@ -327,8 +327,8 @@ function makeDroppableAjaxCall(menuid)
 					$('.settingserror').fadeOut('slow');
 					$('.settings-block').css('border', '1px dashed #A2A2A2');
 				    },3000);
-				  }  
-				   
+				  }
+
 
 			}else if($("#shortcuticontab").is(":visible")){
 				$('.settingserror').show();
@@ -341,7 +341,7 @@ function makeDroppableAjaxCall(menuid)
 					$('.settings-block').css('border', '1px dashed #A2A2A2');
 				},3000);
 			}
-			  
+
            }
 		   else if(response['message'] == 'error'){
 
@@ -350,8 +350,8 @@ function makeDroppableAjaxCall(menuid)
 				$(".settingserror").html("Menu cannot be added.");
 				if($("#shortcuticontab").is(":visible"))
 				   $("#shortcuticontab").removeClass("newtr");
-				else  
-                   $("#settingstab").removeClass("newtr");				
+				else
+                   $("#settingstab").removeClass("newtr");
 				 $('.settings-block').css("border", "1px dashed #ff0000");
 				setTimeout(function(){
 					$('.settingserror').fadeOut('slow');
@@ -362,7 +362,7 @@ function makeDroppableAjaxCall(menuid)
 		   $("#loaderdragimg").hide();
          }
         },'json');
- 
+
 }
 /**
 	*	Commented By	:	Sapplica
@@ -372,7 +372,7 @@ function makeDroppableAjaxCall(menuid)
 **/
 function makeDroppableAjaxCall_30082013(menuid)
 {
-	
+
   var html ='';
   var imghtml='';
   var icon = '';
@@ -393,35 +393,35 @@ function makeDroppableAjaxCall_30082013(menuid)
           success: function(response){
           var menuname = response['menuname'];
 		  var menuicon = response['menuicon'];
-		  var menuurl = response['menuurl'];				
+		  var menuurl = response['menuurl'];
 	    if(response['message'] == 'success'){
-	       
-	   
+
+
 		   if(duplicatemenuname == null && $("#settingstab").is(":visible")){
-		    
+
 				if(divsize < 10){
-			             
+
 				   html +="<div class='setting-div-1' id="+menuid+">";
-				   html +="<label>"+menuname+"</label>"; 
+				   html +="<label>"+menuname+"</label>";
 				   html +="<a href='javascript:void(0);' class='close-1' onclick=\"removesettingsdiv("+menuid+",'widgets')\"></a>";
 				   html +="</div>";
 
 				   if(menuicon!=''){
-				     
+
 				     icon = domain_data+'/public/media/images/sampleimg.png';
 				   }else{
 				     icon = domain_data+'/public/media/images/sampleimg.png';
 				   }
-				   
+
 				   $(".save-div").show();
 				   $(".cancel-div").show();
 				   getmenuid(+menuid,'widgets','');
 				   $("#settingstab").append(html);
 				   $("#settingstab").removeClass("newtr");
 				   $('.settings-block').css("border", "1px dashed #008000");
-				   				   				   
+
 				     setTimeout(function(){
-				   
+
 				   $('.settings-block').css('border', '');
 				    },3000);
 				  }
@@ -436,7 +436,7 @@ function makeDroppableAjaxCall_30082013(menuid)
 					$('.settings-block').css('border', '');
 				    },3000);
 				  }
-				   
+
 		     }
 			 else if($("#settingstab").is(":visible"))
 			 {
@@ -451,12 +451,12 @@ function makeDroppableAjaxCall_30082013(menuid)
 					},3000);
              }
 			 else if(duplicateshortcuticon == null && $("#shortcuticontab").is(":visible")){
-                
+
 				  if(diviconsize < 16){
-			   	   			  
-			       imghtml +="<div class='setting-div' id='shortcut_"+menuid+"'>";				   				   
+
+			       imghtml +="<div class='setting-div' id='shortcut_"+menuid+"'>";
 				   imghtml +="<img width='23' height='23' border='0' src='"+domain_data+"/public/media/images/menuIcons/shortcuts/"+menuicon+"' onerror=this.src='"+domain_data+"/public/media/images/sampleimg.png'; />";
-				   imghtml +="<label>"+menuname+"</label>"; 
+				   imghtml +="<label>"+menuname+"</label>";
 				   imghtml +="<a href='javascript:void(0);' class='close-1' onclick=\"removesettingsdiv("+menuid+",'icon')\"></a>";
 				   imghtml +="</div>";
 
@@ -466,9 +466,9 @@ function makeDroppableAjaxCall_30082013(menuid)
 				   $("#shortcuticontab").append(imghtml);
 				   $("#shortcuticontab").removeClass("newtr");
 				   $('.settings-block').css("border", "1px dashed #008000");
-				   
+
 				     setTimeout(function(){
-				   
+
 				   $('.settings-block').css('border', '');
 				    },3000);
 				  }
@@ -482,8 +482,8 @@ function makeDroppableAjaxCall_30082013(menuid)
 					$('.settingserror').fadeOut('slow');
 					$('.settings-block').css('border', '');
 				    },3000);
-				  }  
-				   
+				  }
+
 
 			}else if($("#shortcuticontab").is(":visible")){
 				$('.settingserror').show();
@@ -496,7 +496,7 @@ function makeDroppableAjaxCall_30082013(menuid)
 					$('.settings-block').css('border', '');
 				},3000);
 			}
-			  
+
            }
 		   else if(response['message'] == 'error'){
 
@@ -505,8 +505,8 @@ function makeDroppableAjaxCall_30082013(menuid)
 				$(".settingserror").html("Menu cannot be added");
 				if($("#shortcuticontab").is(":visible"))
 				   $("#shortcuticontab").removeClass("newtr");
-				else  
-                   $("#settingstab").removeClass("newtr");				
+				else
+                   $("#settingstab").removeClass("newtr");
 				 $('.settings-block').css("border", "1px dashed #ff0000");
 				setTimeout(function(){
 					$('.settingserror').fadeOut('slow');
@@ -517,7 +517,7 @@ function makeDroppableAjaxCall_30082013(menuid)
 		   $("#loaderdragimg").hide();
          }
         },'json');
- 
+
 }
 
 function removesettingsdiv(menuid,flag){
@@ -528,19 +528,19 @@ function removesettingsdiv(menuid,flag){
 		setTimeout(function(){
 		$('.settings-block').css("border", "1px dashed #A2A2A2");
 		},200);
-	    
-		
+
+
 		var index = $.inArray(parseInt(menuid),menuarray);
 	    if(index != -1){
 	    menuarray.splice(index, 1);
 	    }
 	    var divsize = $("#settingstab > div").size();
 	    if(divsize == 0){
-	    
+
 		 $('.settingserror').show();
 			$('.settingserror').css('color','red');
 			$(".settingserror").html("Your dashboard widget settings will be lost.");
-			
+
 	    }
 	}
 	if(flag == 'icon'){
@@ -549,18 +549,18 @@ function removesettingsdiv(menuid,flag){
 		setTimeout(function(){
 		$('.settings-block').css("border", "1px dashed #A2A2A2");
 		},200);
-		
+
 		var index = $.inArray(parseInt(menuid),iconarray);
 		if(index != -1){
 			iconarray.splice(index, 1);
 		}
 	    var diviconsize = $("#shortcuticontab > div").size();
 	    if(diviconsize == 0){
-	     
+
 		   $('.settingserror').show();
 			$('.settingserror').css('color','red');
 			$(".settingserror").html("Your Shortcut settings will be lost.");
-			
+
 	    }
 	}
 }
@@ -570,11 +570,11 @@ function getmenuid(menuid,flag)
 	if(flag == 'widgets'){
 
 			if(jQuery.inArray(menuid,menuarray) == -1){
-			    
+
 			    menuarray.push(menuid);
 			}
 			else{
-			    
+
 				var index = $.inArray(parseInt(menuid),menuarray);
 			    if(index != -1){
 			      menuarray.splice(index, 1);
@@ -587,30 +587,30 @@ function getmenuid(menuid,flag)
 				iconarray.push(menuid);
 			}
 			else{
-				
+
 				var index = $.inArray(parseInt(menuid),iconarray);
 			    if(index != -1){
 			      iconarray.splice(index, 1);
 			     }
-				
+
 			}
-	}      
+	}
 }
 
 function savemenuwidgets(){
-    	
+
 		    var totalarray = new Array();
 			var arraytype = '';
 			var url = '';
-			if($("#settingstab").is(":visible")){ 
-			   arraytype = "Widgets"; 
+			if($("#settingstab").is(":visible")){
+			   arraytype = "Widgets";
 			   totalarray.push(menuarray,arraytype);
 			   url = 1;
-			   
+
 			}
 		    if($("#shortcuticontab").is(":visible")){
 			    arraytype = "Shortcuts";
-				
+
 				totalarray.push(iconarray,arraytype);
 				url = 2;
 			}
@@ -624,83 +624,83 @@ function savemenuwidgets(){
               },
 			  success: function(response){
 				   if(response['result'] == 'save'){
-					 					 
+
 					$("#savewidget").removeAttr("onclick");
 					$("#cancelwidget").removeAttr("onclick");
 					$('#cancelwidget').attr('onclick','').unbind('click');
 					 $("#loaderdragimg").hide();
 					$("#error_message").css('display','block');
-					$("#error_message").html("<div class='ml-alert-1-success'><div class='style-1-icon success'></div>"+arraytype+"\ added successfully.\</div>"); 
+					$("#error_message").html("<div class='ml-alert-1-success'><div class='style-1-icon success'></div>"+arraytype+"\ added successfully.\</div>");
 					menuarray.length = 0;
 					iconarray.length = 0;
 					setTimeout(function(){
 						$('#error_message').fadeOut('slow');
-						
+
 						if(url == 2)
 						{
 						   top.location.href = base_url+'/viewsettings/'+url;
-						  
+
 						}
 						else
 						{
 							displayajaxsettingspage(url);
 						}
-					},1500);  
-					
-					window.location=base_url+'/welcome';	
+					},1500);
+
+					window.location=base_url+'/welcome';
 				   }
 					if(response['result'] == 'update'){
-					
+
 					  $("#savewidget").removeAttr("onclick");
 					  $("#cancelwidget").removeAttr("onclick");
 					  $('#cancelwidget').attr('onclick','').unbind('click');
 					  $("#loaderdragimg").hide();
 					$("#error_message").css('display','block');
-					$("#error_message").html("<div class='ml-alert-1-success'><div class='style-1-icon success'></div>"+arraytype+"\ updated successfully.\</div>"); 
+					$("#error_message").html("<div class='ml-alert-1-success'><div class='style-1-icon success'></div>"+arraytype+"\ updated successfully.\</div>");
 					menuarray.length = 0;
 					iconarray.length = 0;
 					setTimeout(function(){
 						$('#error_message').fadeOut('slow');
 						if(url == 2)
 						{
-						
+
 							top.location.href = base_url+'/viewsettings/'+url;
 						}
 						else
 						{
 							displayajaxsettingspage(url);
-						}	
-						
-					},1500);  
+						}
+
+					},1500);
 					window.location=base_url+'/welcome';
 				   }
 				}
-		},'json');    
+		},'json');
 }
 
 function displayajaxsettingspage(tabid)
 {
     $.ajax({
-			url: base_url+"/dashboard/viewsettings/format/html",   
+			url: base_url+"/dashboard/viewsettings/format/html",
 			type : 'POST',
 			data : 'tab='+tabid+'&layout=layout',
-			success : function(response){			   	
+			success : function(response){
 				$('.wrapperdivright').html(response);
 			}
 		});
 }
 </script>
 
-<?php 
+<?php
 
-if($this->menuidcount > 0){ 
+if($this->menuidcount > 0){
 ?>
 <div id="menutabdiv" style="display:none;">
-    <?php for($i=0;$i <= sizeof($this->menunamearray);$i++){ 
+    <?php for($i=0;$i <= sizeof($this->menunamearray);$i++){
 			if(isset($this->menunamearray[$i])){
 	?>
 		<div class="setting-div-1" id="<?php echo $this->menunamearray[$i]['id'];?>">
-		<label><?php echo $this->menunamearray[$i]['menuName'];?></label> 
+		<label><?php echo $this->menunamearray[$i]['menuName'];?></label>
 		<a href="javascript:void(0);" class="close-1" onclick="removesettingsdiv('<?php echo $this->menunamearray[$i]['id'];?>','widgets')"></a>
 		</div>
     <?php }} ?>
@@ -712,9 +712,9 @@ if($this->menuidcount > 0){
     <?php for($j=0;$j <= sizeof($this->iconnamearray);$j++){
         if(isset($this->iconnamearray[$j])){
         ?>
-		<div class='setting-div' id='shortcut_<?php echo $this->iconnamearray[$j]['id'];?>'>		
+		<div class='setting-div' id='shortcut_<?php echo $this->iconnamearray[$j]['id'];?>'>
 		<img width='23' height='23' border='0' src=<?php echo $this->baseUrl('public/media/images/menuIcons/shortcuts/').$this->iconnamearray[$j]['iconPath'];?> onerror="this.src='<?php echo $this->baseUrl('public/media/images/sampleimg.png')?>'" />
-		<label><?php echo $this->iconnamearray[$j]['menuName'];?></label> 
+		<label><?php echo $this->iconnamearray[$j]['menuName'];?></label>
 		<a href='javascript:void(0);' class='close-1' onclick="removesettingsdiv(<?php echo $this->iconnamearray[$j]['id'];?>,'icon')"></a>
 		</div>
     <?php }} ?>
@@ -732,18 +732,18 @@ if($this->menuidcount > 0){
                 <div class="profile-icon view-settings-hover"></div><p>Settings</p>
                 <div class="absolute-div"></div></li>
                 <li><a href="<?php echo BASE_URL; ?>dashboard/changepassword"><div class="profile-icon view-password"></div><p>Change Password</p></a></li>
-                <?php 
+                <?php
                 if($role_id == SUPERADMINROLE)
                 {
                 ?>
                 <li><a href="<?php echo BASE_URL; ?>dashboard/emailsettings"><div class="profile-icon view-emailsettings"></div><p>Mail Settings</p></a></li>
-                <?php 
+                <?php
                 }
                 ?>
         </ul>
-        
+
     </div>
-    
+
     <div class="profile-tabs-right-settings">
        <div class="profile-tabs-right-inside">
        	 <div class="settings-div">
@@ -761,78 +761,78 @@ if($this->menuidcount > 0){
             </span>
 			<span class="cancel-div" style="display:none">
                 <input type="submit" class="submit_bg" id="cancelwidget" value="Cancel" />
-            </span>        		 
+            </span>
 				  <div id="widgetsgridtab">
 					 <?php
-							
+
 							if(count($this->widgetmessage)>0)
 							{
 								echo "<div id='messageData'>".$this->widgetmessage."</div>";
 							}
 
 							if(!empty($this->widgets)){
-								
+
 								for($w = 0; $w <sizeof($this->widgets); $w++)
 								{
 						?>
 									<div style="clear: both;width:auto;padding-bottom:20px;">
-									<?php 
+									<?php
 										echo $this->widgets[$w];
 									?>
-									</div>  
+									</div>
 						<?php
 								}
 							}
 						?>
-				   </div> 
+				   </div>
 				   <div id="shortcutgridtab" style="display:none;">
 					 <?php
-							
+
 							if(count($this->shortcutmessage)>0)
 							{
 								echo "<div id='messageData'>".$this->shortcutmessage."</div>";
 							}
 
 							if(!empty($this->shortcuts)){
-								
+
 								for($x = 0; $x <sizeof($this->shortcuts); $x++)
 								{
 						?>
 									<div style="clear: both;width:auto;padding-bottom:20px;">
-									<?php 
+									<?php
 										echo $this->shortcuts[$x];
 									?>
-									</div>  
+									</div>
 						<?php
 								}
 							}
 						?>
-				   </div> 
-       </div>	         	   
+				   </div>
+       </div>
     </div>
 </div>
 <script type='text/javascript'>
 
-$(document).ready(function() { 
+$(document).ready(function() {
 
 	var total_width = $('.profile-tabs').width();
-	
-	var profile_tabs_right_password_width = total_width-2;	
+
+	var profile_tabs_right_password_width = total_width-2;
 	$('.profile-tabs-left').css("width", "150");
 	$('.profile-tabs-right-settings').css("width", (profile_tabs_right_password_width-155));
-	
+
 	function checkWidth() {
         var total_width = $('.profile-tabs').width();
-		
-		var profile_tabs_right_password_width = total_width-2;		
+
+		var profile_tabs_right_password_width = total_width-2;
 		$('.profile-tabs-left').css("width", "150");
-		$('.profile-tabs-right-settings').css("width", (profile_tabs_right_password_width-155));        
+		$('.profile-tabs-right-settings').css("width", (profile_tabs_right_password_width-155));
     }
-	
+
 	$(window).resize(function() {
 		checkWidth();
-	});			
-	var disphtml = '';	
+	});
+	var disphtml = '';
 	var icondisphtml = '';
 
    <?php if($this->menuidcount > 0){ ?>
@@ -846,14 +846,14 @@ $(document).ready(function() {
 		if(isset($this->menunamearray[$i])){
 	 ?>
           menuarray.push(<?php echo $this->menunamearray[$i]['id'];?>);
-	 
+
    <?php } }} ?>
-   
+
    <?php if($this->iconidcount > 0){ ?>
      var icondisphtml =$("#icontabdiv").html();
 	  if(icondisphtml != ''){
 	     $("#shortcuticontab").html(icondisphtml);
-		 
+
 	  }
     <?php for($j=0;$j<= sizeof($this->iconnamearray);$j++){
         if(isset($this->iconnamearray[$j])){
@@ -861,18 +861,18 @@ $(document).ready(function() {
          	iconarray.push(<?php echo $this->iconnamearray[$j]['id'];?>);
 	<?php }
    }
-        
+
     } ?>
-	
+
 	<?php if($this->settingsflag == 2){ ?>
 	      showshortcuticons();
 	<?php }else if(($this->settingsflag == 1)){?>
-	      showwidgets();     
+	      showwidgets();
 	<?php }else{?>
-	       showwidgets();  
-    <?php }?> 
-   
-  $('#cancelwidget').click(function(){       
+	       showwidgets();
+    <?php }?>
+
+  $('#cancelwidget').click(function(){
 		window.location = document.referrer;
     });
 });

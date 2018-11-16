@@ -90,7 +90,7 @@ class Expenses_Model_Expenses extends Zend_Db_Table_Abstract
 		$tableFields = array(
 					'action'=>'Action',
 					'expense_name' => 'Nombre del Gasto',
-					'project_name'=>'Projecto',
+					'project_name'=>'Proyecto',
 					'client_name'=>'Cliente',
 					'expense_category_name'=>'Categoría',
 					'expense_date' => 'Fecha del Gasto',

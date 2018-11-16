@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -29,7 +29,7 @@ class Default_Form_identitydocuments extends Zend_Form
 
 
         $id = new Zend_Form_Element_Hidden('id');
-		
+
 		/*$identitydocuments = new Zend_Form_Element_MultiCheckbox('identitydoc');
 		$identitydocuments->setLabel('Identity Documents');
 		$identitydocuments->setMultiOptions(array(
@@ -41,13 +41,13 @@ class Default_Form_identitydocuments extends Zend_Form
 							));
 		$identitydocuments->setRequired(true);
 		$identitydocuments->addValidator('NotEmpty', false, array('messages' => 'Please select at least one identity document type.'));
-		$identitydocuments->setSeparator(PHP_EOL);	
-		
+		$identitydocuments->setSeparator(PHP_EOL);
+
 		$othercheck = new Zend_Form_Element_Checkbox('othercheck');
 		$othercheck->setLabel('Other Documents');
 		$othercheck->setAttrib('onclick', 'displayotherdocumentdiv(this)');
-	 
-		
+
+
 		$otherdocument = new Zend_Form_Element_Text('otherdocument');
 		$otherdocument->setAttrib('maxlength',50);
 		$otherdocument->setAttrib('onblur', 'validate_otherdocument(this)');
@@ -58,7 +58,7 @@ class Default_Form_identitydocuments extends Zend_Form
                                'regexNotMatch'=>'Please enter valid document name.'
                            )
         	));*/
-        
+
         $documentname = new Zend_Form_Element_Text('document_name');
 		$documentname->setAttrib('maxlength',50);
 		$documentname->setLabel('Document Name');
@@ -73,11 +73,11 @@ class Default_Form_identitydocuments extends Zend_Form
 		$documentname->addValidator(new Zend_Validate_Db_NoRecordExists(
 	                                            array(  'table'=>'main_identitydocuments',
 	                                                     'field'=>'document_name',
-	                                                     'exclude'=>'id!="'.Zend_Controller_Front::getInstance()->getRequest()->getParam('id').'" AND isactive=1',    
-	
+	                                                     'exclude'=>'id!="'.Zend_Controller_Front::getInstance()->getRequest()->getParam('id').'" AND isactive=1',
+
 	                                                      ) ) );
 		$documentname->getValidator('Db_NoRecordExists')->setMessage('Document name already exists.');
-		
+
 		$mandatory = new Zend_Form_Element_Radio('mandatory');
 		$mandatory->setLabel("Mandatory");
         $mandatory->addMultiOptions(array(
@@ -85,11 +85,11 @@ class Default_Form_identitydocuments extends Zend_Form
 										        '0' => 'No',
     									   ));
 		$mandatory->setRequired(true);
-        $mandatory->addValidator('NotEmpty', false, array('messages' => 'Please select mandatory.'));    									   
-		$mandatory->setSeparator('');    
-		$mandatory->setValue(0);									   
+        $mandatory->addValidator('NotEmpty', false, array('messages' => 'Please select mandatory.'));
+		$mandatory->setSeparator('');
+		$mandatory->setValue(0);
 		$mandatory->setRegisterInArrayValidator(false);
-		
+
 		$expiry = new Zend_Form_Element_Radio('expiry');
 		$expiry->setLabel("Expiry");
         $expiry->addMultiOptions(array(
@@ -97,25 +97,25 @@ class Default_Form_identitydocuments extends Zend_Form
 										        '0' => 'No',
     									   ));
 		$expiry->setRequired(true);
-        $expiry->addValidator('NotEmpty', false, array('messages' => 'Please select expiry.'));    									   
-		$expiry->setSeparator('');    
-		$expiry->setValue(0);									   
+        $expiry->addValidator('NotEmpty', false, array('messages' => 'Please select expiry.'));
+		$expiry->setSeparator('');
+		$expiry->setValue(0);
 		$expiry->setRegisterInArrayValidator(false);
 
-		
+
 		$description = new Zend_Form_Element_Textarea('description');
 		$description->setLabel("Description");
         $description->setAttrib('rows', 10);
         $description->setAttrib('cols', 50);
 		$description ->setAttrib('maxlength', '200');
-        	
-		
-		
+
+
+
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('id', 'submitbutton');
 		$submit->setLabel('Save');
 
 		 $this->addElements(array($id,$documentname,$mandatory,$expiry,$description,$submit));
-        $this->setElementDecorators(array('ViewHelper')); 
+        $this->setElementDecorators(array('ViewHelper'));
 	}
 }

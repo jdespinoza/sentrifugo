@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,10 +27,10 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 	{
 		$this->db = Zend_Db_Table::getDefaultAdapter();
 	}
-	
+
 	/**
 	** function to retrieve exit type
-	** @con = 'add' gets active exit type 
+	** @con = 'add' gets active exit type
 	** @con = 'cnt' gets active exit type count
 	** @con = 'grid' gets active exit type data
 	**/
@@ -39,16 +39,16 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 		$where = "et.isactive = 1";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$res = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
                            ->from(array('et'=>'main_exit_types'),array('et.*'))
                            ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		return $res ; 
-		
+		return $res ;
+
 	}
 
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
@@ -56,7 +56,7 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 		$searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -65,21 +65,21 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 							$searchQuery .= " ".$key." like '%".($val)."%' AND ";
                            $searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
-	
-			
+
+
+
 		$objName = 'exittypes';
-		
-		$tableFields = array('action'=>'Action','exit_type'=>'Exit Type','description'=>'Description');
-		
-		$tablecontent = $this->getExittypes('grid',$sort, $by, $pageNo, $perPage,$searchQuery);     
+
+		$tableFields = array('action'=>'Acción','exit_type'=>'Tipo de Salida','description'=>'Descripción');
+
+		$tablecontent = $this->getExittypes('grid',$sort, $by, $pageNo, $perPage,$searchQuery);
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -93,8 +93,8 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 		);
 		return $dataTmp;
 	}
- 
-	// get all exit type data 
+
+	// get all exit type data
 	public function getExittypesData()
 	{
 	    $select = $this->select()
@@ -102,7 +102,7 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 						->from(array('ac'=> $this->_name),array('ac.*'))
 					    ->where('ac.isactive = 1');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
 	// get exit type data based on id
 	public function getExittypeById($id)
@@ -112,7 +112,7 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 						->from(array('ac'=>'main_exit_types'),array('ac.*'))
 					    ->where('ac.isactive = 1 AND ac.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
 	//save or update exit types
 	public function SaveorUpdateExitTypesData($data, $where)
@@ -124,7 +124,7 @@ class Exit_Model_Exittypes extends Zend_Db_Table_Abstract
 			$this->insert($data);
 			$id=$this->getAdapter()->lastInsertId('main_exit_types');
 			return $id;
-		}	
+		}
 	}
 }
 ?>

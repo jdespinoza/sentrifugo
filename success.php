@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -17,8 +17,8 @@
  *  along with Sentrifugo.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  Sentrifugo Support <support@sentrifugo.com>
- ********************************************************************************/ 
-$filepath = 'install';  
+ ********************************************************************************/
+$filepath = 'install';
 require_once 'public/db_constants.php';
 require_once 'public/constants.php';
 require_once 'public/application_constants.php';
@@ -28,7 +28,7 @@ if(file_exists($filepath))
 else
 	require 'application/modules/default/library/PHPMailer/PHPMailerAutoload.php';
 ?>
-<?php 
+<?php
 if(!empty($_POST))
 {
 	$msgarray = array();
@@ -39,12 +39,13 @@ if(!empty($_POST))
                     $mysqlPDO = new PDO('mysql:host='.SENTRIFUGO_HOST.';dbname='.SENTRIFUGO_DBNAME.'',SENTRIFUGO_USERNAME, SENTRIFUGO_PASSWORD,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 					if (!$mysqlPDO)
 					{
-		                            $msgarray['error'] = 'Could not connect to specified database' ;
+		                            $msgarray['error'] = 'No se pudo conectar a la base de datos especificada' ;
 					}
 					else
 					{
-						    $generatedPswd = uniqid();
-							$encodedPswd = md5($generatedPswd);
+						    //$generatedPswd = uniqid(); //genera Contraseña, caracteres aleatorios
+							$generatedPswd = "superAdmin-".APPLICATION_NAME; //Contraseña por el momento
+							$encodedPswd = md5($generatedPswd); //codifica Contraseña de super admin
 							$query = "update main_users  set emppassword = '".$encodedPswd."' where emailaddress = '".SUPERADMIN_EMAIL."' and id= 1 ";
 							$mysqlPDO->query($query);
 							$mail = sendconfirmationmail($_POST['mailcontent'],$generatedPswd);
@@ -53,51 +54,51 @@ if(!empty($_POST))
 							{
 								if($renamefolder == 'true')
 								{
-								  $msgarray['error'] = "<div>Problem encountered while sending mail to ".SUPERADMIN_EMAIL."</div><br/>
-														<div>Login Credentials for ".APPLICATION_NAME."</div><br/>
-														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Username : empp0001</div>
-														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Password : ".$generatedPswd."</div><br/><br/>
-								  						<div style='margin-bottom: 20px;'>Follow this <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> to open application.</div>";
+								  $msgarray['error'] = "<div>Problema encontrado al enviar correo a ".SUPERADMIN_EMAIL."</div><br/>
+														<div>Credenciales de inicio de sesión para ".APPLICATION_NAME."</div><br/>
+														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Nombre de Usuario : super-admin</div>
+														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Contraseña : ".$generatedPswd."</div><br/><br/>
+								  						<div style='margin-bottom: 20px;'>Abra este <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> para acceder a la aplicación.</div>";
 								}
-								else 
+								else
 								{
-								  $msgarray['error'] = "<div>Problem encountered while sending mail to ".SUPERADMIN_EMAIL."</div><br/>
-														<div>Login Credentials for ".APPLICATION_NAME."</div><br/>
-														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Username : empp0001</div>
-														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Password : ".$generatedPswd."</div><br/><br/>
-								  						<div style='margin-bottom: 20px;'>After you delete, move or rename the install directory follow this  <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> to access your application. While the install directory exists, only the Install Panel will be accessible.</div>";	
-									
-								}  
+								  $msgarray['error'] = "<div>Problema encontrado al enviar correo a ".SUPERADMIN_EMAIL."</div><br/>
+														<div>Credenciales de inicio de sesión para ".APPLICATION_NAME."</div><br/>
+														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Nombre de Usuario : super-admin</div>
+														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Contraseña : ".$generatedPswd."</div><br/><br/>
+								  						<div style='margin-bottom: 20px;'>Después de eliminar, mover o cambiar el nombre del directorio de instalación, abra este  <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> para acceder a la aplicación Mientras exista el directorio de instalación, solo se podrá acceder al Panel de Instalación.</div>";
 
-								  
-							}else 
+								}
+
+
+							}else
 							{
 								if($renamefolder == 'true')
 								{
-								  $msgarray['error'] = "<div class='sucss_mess_info'>Mail has been succesfully sent to ".SUPERADMIN_EMAIL."</div><br/>
-														<div>Login Credentials for ".APPLICATION_NAME."</div><br/>
-														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Username : empp0001</div>
-														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Password : ".$generatedPswd."</div><br/><br/>
-								  						<div style='margin-bottom: 20px;'>Follow this <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> to open application.</div>";
-								}else 
+								  $msgarray['error'] = "<div class='sucss_mess_info'>El correo ha sido enviado exitosamente a ".SUPERADMIN_EMAIL."</div><br/>
+														<div>Credenciales de inicio de sesión para ".APPLICATION_NAME."</div><br/>
+														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Nombre de Usuario : super-admin</div>
+														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Contraseña : ".$generatedPswd."</div><br/><br/>
+								  						<div style='margin-bottom: 20px;'>Abra este <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> para acceder a la aplicación.</div>";
+								}else
 								{
-								  $msgarray['error'] = "<div>Mail has been succesfully sent to ".SUPERADMIN_EMAIL."</div><br/>
-								  						<div>Login Credentials for ".APPLICATION_NAME."</div><br/>
-														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Username : empp0001</div>
-														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Password : ".$generatedPswd."</div><br/><br/>
-								  						<div style='margin-bottom: 20px;'>After you delete, move or rename the install directory follow this  <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> to access your application. While the install directory exists, only the Install Panel will be accessible.</div>";	
-									
-								  
+								  $msgarray['error'] = "<div>El correo ha sido enviado exitosamente a ".SUPERADMIN_EMAIL."</div><br/>
+								  						<div>Credenciales de inicio de sesión para ".APPLICATION_NAME."</div><br/>
+														<div style='color: rgb(105, 145, 61); font-weight: 400; margin-bottom: 14px; margin-top: 8px;'>Nombre de Usuario : super-admin</div>
+														<div style='color: rgb(105, 145, 61); font-weight: 400;'>Contraseña : ".$generatedPswd."</div><br/><br/>
+								  						<div style='margin-bottom: 20px;'>Después de eliminar, mover o cambiar el nombre del directorio de instalación, abra este  <a style='color: rgb(172, 88, 26); text-decoration: none;' href=".BASE_URL.">link</a> para acceder a tu aplicación Mientras exista el directorio de instalación, solo se podrá acceder al Panel de Instalación.</div>";
+
+
 								}
-								
+
 							}
 					}
-			
-    		} 
+
+    		}
     		catch (PDOException $e)
-            {   
-        
-   				   $msgarray['error'] = $e->getMessage();                     
+            {
+
+   				   $msgarray['error'] = $e->getMessage();
             }
     }
 }
@@ -111,28 +112,28 @@ function sendconfirmationmail($content,$encodedPswd)
 				            <div style="padding:20px 20px 50px 20px;">
 			                    <div style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:30px; margin:0 0 20px 0;">
 			                       <div>
-										<div>Dear Super Admin,</div><br/>
-										<div>Sentrifugo has been successfully installed. Following are the Super Admin login credentials for '.APPLICATION_NAME.':</div><br/>
-										<div>Username : empp0001</div>
-										<div>Password : '.$encodedPswd.'</div><br/><br/>
+										<div>Estimado super administrador,</div><br/>
+										<div>Sentrifugo ha sido instalado con éxito. A continuación se muestran las credenciales de inicio de sesión como Super Admin para '.APPLICATION_NAME.':</div><br/>
+										<div>Nombre de Usuario : super-admin</div>
+										<div>Contraseña : '.$encodedPswd.'</div><br/><br/>
 										<div>'.$content.'</div>
 								  </div>
 			                    </div>
-	                    
+
 			                    <div style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:30px;">
-			                        Regards,<br />
+			                        Saludos,<br />
 			                        <b>Sentrifugo</b>
 			                    </div>
-			                </div>    
+			                </div>
             			</div>
     					</div>';
-	$username = '';   
+	$username = '';
     $mail = new PHPMailer(); // create a new object
     $mail->isSMTP(); // enable SMTP
     $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
     $mail->SMTPAuth = (MAIL_AUTH=='true')?true:false;//$auth; // authentication enabled
     if(MAIL_TLS) $mail->SMTPSecure = MAIL_TLS; // secure transfer enabled REQUIRED for GMail
-   // $mail->AuthType = MAIL_AUTH;   
+   // $mail->AuthType = MAIL_AUTH;
     $mail->Host = MAIL_SMTP;
     if(MAIL_AUTH == 'true'){
 		$mail->Username = MAIL_USERNAME;
@@ -143,17 +144,17 @@ function sendconfirmationmail($content,$encodedPswd)
 
     $pos = strpos(MAIL_USERNAME, 'yahoo');
 	if($pos !== false)
-		$mail->setFrom(MAIL_USERNAME,'Do not Reply');
+		$mail->setFrom(MAIL_USERNAME,'No responder');
 	else
-		$mail->setFrom(SUPERADMIN_EMAIL,'Do not Reply');
+		$mail->setFrom(SUPERADMIN_EMAIL,'No responder');
 
-    $mail->Subject = APPLICATION_NAME." - successfully installed";
+    $mail->Subject = APPLICATION_NAME." - instalado exitosamente";
     $mail->msgHTML($htmlcontentdata);
     $mail->addAddress(SUPERADMIN_EMAIL,'Super Admin');
-    
+
     if(!$mail->Send())
         return $mail->ErrorInfo;
-    else 
+    else
         return 'true';
 }
 
@@ -164,11 +165,11 @@ function renamefolder()
 			if(is_writable("install"))
 			{
 				if(@rename("install","install_old"))
-					return "true"; 
-				else 
+					return "true";
+				else
 					return "false";
 			}
-			else 
+			else
 			{
 				return "false";
 			}
@@ -186,8 +187,8 @@ if(!empty($_POST))
     if(isset($_POST['mailcontent']))
 		$content = urlencode($_POST['mailcontent']);
 	else
-		$content = 'Installation succesful';
-		
+		$content = 'Instalado exitosamente';
+
 	$dbhost = $_POST['dbhost'];
 	$dbusername = $_POST['dbusername'];
 	$dbpassword = $_POST['dbpassword'];
@@ -203,8 +204,8 @@ if(!empty($_POST))
 	$cronjoburl = $_POST['cronjoburl'];
 	$expirydocurl = $_POST['expirydocurl'];
 	$tmcronurl = $_POST['tmcronurl'];
-	
-?>	
+
+?>
 
 
 <!DOCTYPE html>
@@ -216,20 +217,20 @@ if(!empty($_POST))
 	<link rel="shortcut icon" href="public/media/images/favicon.ico" />
      <link href="public/media/css/successstyle.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,300,300italic,100italic,100,700italic,900,900italic' rel='stylesheet' type='text/css'>
-   
-	
+
+
 </head>
   <body>
       <div class="container">
-     
+
       	<div class="header"> <div class="logo"></div></div>
-        
+
         <div class="content_wrapper">
-            
+
           <div id="successmsgdiv"><?php echo isset($msgarray['error'])?$msgarray['error']:'';?></div>
 			<form name="generatereport" id="generatereport" action="data/generatereport.php" method="post">
 			<input type="hidden" id="pdfcontent" name="pdfcontent" value="<?php echo $content;?>" />
-			<input type="hidden" id="loginusername" name="loginusername" value="empp0001" />
+			<input type="hidden" id="loginusername" name="loginusername" value="super-admin" />
 			<input type="hidden" id="loginpwd" name="loginpwd" value="<?php echo $generatedPswd;?>" />
 			<input type="hidden" id="dbhost" name="dbhost" value="<?php echo $dbhost;?>" />
 		    <input type="hidden" id="dbusername" name="dbusername" value="<?php echo $dbusername;?>" />
@@ -240,13 +241,13 @@ if(!empty($_POST))
 		    <input type="hidden" id="mailusername" name="mailusername" value="<?php echo $mailusername;?>" />
 		    <input type="hidden" id="mailpassword" name="mailpassword" value="<?php echo $mailpassword;?>" />
 		    <input type="hidden" id="mailsmtp" name="mailsmtp" value="<?php echo $mailsmtp;?>" />
-		    <input type="hidden" id="mailauth" name="mailauth" value="<?php echo $mailauth;?>" /> 
+		    <input type="hidden" id="mailauth" name="mailauth" value="<?php echo $mailauth;?>" />
 		    <input type="hidden" id="mailtls" name="mailtls" value="<?php echo $mailtls;?>" />
 		    <input type="hidden" id="mailport" name="mailport" value="<?php echo $mailport;?>" />
 		    <input type="hidden" id="cronjoburl" name="cronjoburl" value="<?php echo $cronjoburl;?>" />
 		    <input type="hidden" id="expirydocurl" name="expirydocurl" value="<?php echo $expirydocurl;?>" />
 		    <input type="hidden" id="tmcronurl" name="tmcronurl" value="<?php echo $tmcronurl;?>" />
-			<input type="submit" name="btnfinish" id="idbtnfinish"    value="Download PDF" />
+			<input type="submit" name="btnfinish" id="idbtnfinish"    value="Descargar PDF" />
 			</form>
         </div>
       </div>
@@ -257,6 +258,3 @@ if(!empty($_POST))
 
 header("Location: index.php");
  }?>
-
-
-

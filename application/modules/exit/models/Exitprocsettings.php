@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 	{
 		$this->db = Zend_Db_Table::getDefaultAdapter();
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
 	{
 		$searchQuery = '';
@@ -41,14 +41,14 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 				{
 					$searchArray[$key] = $val;
 				}
-								
-			}
-			
-		$objName = 'exitprocsettings';
-		
-		$tableFields = array('action'=>'Action','businessunit_id'=>'Business Unit','department_id'=>'Department','l2_manager'=>'L2 Manager','hr_manager'=>'HR Manager','sys_admin'=>'System Admin','general_admin'=>'General Admin','finance_manager'=>'Finance Manager');
 
-		$tablecontent = $this->getExitprocSettings('grid',$sort, $by, $pageNo, $perPage,$searchQuery,$a,$searchArray);     
+			}
+
+		$objName = 'exitprocsettings';
+
+		$tableFields = array('action'=>'Acción','businessunit_id'=>'Unidad de Negocios','department_id'=>'Departamento','l2_manager'=>'Gerente L2','hr_manager'=>'Gerente RH','sys_admin'=>'Administrador del Sistema','general_admin'=>'Administrador General','finance_manager'=>'Gerente de Finanzas');
+
+		$tablecontent = $this->getExitprocSettings('grid',$sort, $by, $pageNo, $perPage,$searchQuery,$a,$searchArray);
 
 		/** retrieve names array **/
 		$tmpRes = $tablecontent;
@@ -57,24 +57,24 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 		if(count($tmpResObj) > 0)
 		{
 			$lineManager1 = $lineManager2 = $employeesStr = $businessUnitsStr = $departmentsStr = '';
-			
+
 			for($e = 0; $e < sizeof($tmpResObj); $e++)
 			{
-				$employeesStr .= $tmpResObj[$e]['hr_manager'].","; 
+				$employeesStr .= $tmpResObj[$e]['hr_manager'].",";
 				if(!empty($tmpResObj[$e]['l2_manager']))
 					$employeesStr .= $tmpResObj[$e]['l2_manager'].",";
 				if(!empty($tmpResObj[$e]['sys_admin']))
 					$employeesStr .= $tmpResObj[$e]['sys_admin'].",";
 				if(!empty($tmpResObj[$e]['general_admin']))
-					$employeesStr .= $tmpResObj[$e]['general_admin'].","; 
+					$employeesStr .= $tmpResObj[$e]['general_admin'].",";
 				if(!empty($tmpResObj[$e]['finance_manager']))
 					$employeesStr .= $tmpResObj[$e]['finance_manager'].",";
 
-				$businessUnitsStr .= $tmpResObj[$e]['businessunit_id'].","; 
+				$businessUnitsStr .= $tmpResObj[$e]['businessunit_id'].",";
 				$departmentsStr .= $tmpResObj[$e]['department_id'].",";
 			}
-			
-			if(empty($sort)) 
+
+			if(empty($sort))
 				$sort = 'ASC';
 
 			if(!empty($employeesStr))
@@ -123,13 +123,13 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 				foreach ($deptDetailsObj_tmp as &$row) {
 					$deptDetailsObj[$row['id']] = &$row;
 				}
-			}			
+			}
 		}
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -149,21 +149,21 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 
 	public function getExitprocSettings($con,$sort='', $by='', $pageNo='', $perPage='',$searchQuery='',$conText = '',$searchArray=array())
 	{
-	
+
 		try
 		{
 			$columns = 'e.*';
 			$where = "e.isactive = 1";
-			
+
 			if($conText)
 			{
 				$searchQuery1 = $searchQuery2 = $searchQuery3 = $searchQuery4 = $searchQuery5 = $searchQuery6 = $searchQuery7 ='';
-				
+
 				if(!empty($searchArray))
 				{
 					foreach($searchArray as $key => $val)
 					{
-						
+
 						if($key == 'businessunit_id'){
 							$searchQuery1 = " b.id = e.businessunit_id AND b.unitname  like '%".$val."%' AND b.isactive = 1 ";
 						}
@@ -172,24 +172,24 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 						}
 						else if($key == 'l2_manager')
 						{
-							$searchQuery7 = " l2.user_id = e.l2_manager AND l2.userfullname  like '%".$val."%' AND l2.isactive = 1 ";	
+							$searchQuery7 = " l2.user_id = e.l2_manager AND l2.userfullname  like '%".$val."%' AND l2.isactive = 1 ";
 						}
 						else if($key == 'hr_manager')
 						{
 							$searchQuery3 = " hr.user_id = e.hr_manager AND hr.userfullname  like '%".$val."%' AND hr.isactive = 1 ";
-						}							
+						}
 						else if($key == 'sys_admin')
 						{
-							$searchQuery4 = " sy.user_id = e.sys_admin AND sy.userfullname  like '%".$val."%' AND sy.isactive = 1 ";	
+							$searchQuery4 = " sy.user_id = e.sys_admin AND sy.userfullname  like '%".$val."%' AND sy.isactive = 1 ";
 						}
 						else if($key == 'general_admin')
 						{
 							$searchQuery5 = " ga.user_id = e.general_admin AND ga.userfullname  like '%".$val."%' AND ga.isactive = 1 ";
 						}
-								
+
 						else if($key == 'finance_manager')
 						{
-							$searchQuery6 = " fm.user_id = e.finance_manager AND fm.userfullname  like '%".$val."%' AND fm.isactive = 1 ";	
+							$searchQuery6 = " fm.user_id = e.finance_manager AND fm.userfullname  like '%".$val."%' AND fm.isactive = 1 ";
 						}
 					}
 				}
@@ -197,14 +197,14 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 				{
 
 				}
-			
+
 			 $res = $this->select()
 					 ->setIntegrityCheck(false)
 					 ->from(array('e' => $this->_name),array($columns));
-					
+
 				if(!empty($searchQuery1))
 				{
-				
+
 					$res = $res->joinInner(array('b' => 'main_businessunits'),$searchQuery1,array());
 				}
 				if(!empty($searchQuery2))
@@ -231,14 +231,14 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 				{
 					$res = $res->joinInner(array('fm' => 'main_employees_summary'),$searchQuery6,array());
 				}
-				
+
 				 $res = $res->where($where)
 					->order("$by $sort")
 					->limitPage($pageNo, $perPage);
-			}	
+			}
 			else
 			{
-			
+
 			 $res = $this->select()
 					->setIntegrityCheck(false)
 					->from(array('e' => $this->_name),array('e.id',$columns))
@@ -246,7 +246,7 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 					->order("$by $sort")
 					->limitPage($pageNo, $perPage);
 			}
-		
+
 			if($con == 'grid' && !empty($pageNo) && !empty($perPage))
 			{
 				$this->select()->limitPage($pageNo, $perPage);
@@ -266,7 +266,7 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 			//print_r($e);
 		}
 	}
-	
+
 	public function getExitProcSettingsById($id)
 	{
 		if($id)
@@ -279,10 +279,10 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 			return $this->fetchAll($res)->toArray();
 		}
 	}
-	//function for get the data based on setting id 
+	//function for get the data based on setting id
 	public function getExitProcSettingsDetails($id)
 	{
-	
+
 		if($id)
 		{
 			$res = $this->select()
@@ -315,7 +315,7 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 				->where($where);
 
 		return $this->fetchAll($res)->toArray();
-		
+
 	}
 
 	public function getDepartments($bunitId, $deptId = '', $con='')
@@ -341,7 +341,7 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 	public function getEmployeesDataByRole($empGroup,$bunitId, $deptId,$con='')
 	{
 		$where = 'e.isactive = 1';
-		
+
 		/* if($deptId)
 			$where .= ' AND e.department_id = '.$deptId; */
 
@@ -357,14 +357,14 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 			->from(array('e' => 'main_employees_summary'),array('e.user_id','e.userfullname','e.profileimg', 'e.jobtitle_name'))
 			->joinInner(array('r' => 'main_roles'),'r.id = e.empRole',array())
 			->where($where.' AND e.businessunit_id = '.$bunitId);
-		
+
 		return $this->fetchAll($res)->toArray();
 	}
 
 	public function getEmployeesDataById($ids,$con='')
 	{
 		$where = 'e.isactive = 1';
-		
+
 		if(!empty($con))
 		{
 			$idsStr = implode(", ",$ids);
@@ -379,10 +379,10 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 			->setIntegrityCheck(false)
 			->from(array('e' => 'main_employees_summary'),array('e.user_id','e.userfullname','e.profileimg', 'e.jobtitle_name'))
 			->where($where);
-		
+
 		return $this->fetchAll($res)->toArray();
 	}
-	
+
 	public function saveExitProcSettings($data,$where = '', $con = '')
 	{
 		if($con == 'add' && !empty($data))
@@ -400,11 +400,11 @@ class Exit_Model_Exitprocsettings extends Zend_Db_Table_Abstract
 	public function getActiveDepartmentIds()
 	{
 	  $select = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
                            ->from(array('l'=>'main_exit_settings'),array('deptid'=>'l.department_id'))
-						   ->where('l.isactive = 1');  		   					   				
-		return $this->fetchAll($select)->toArray(); 
+						   ->where('l.isactive = 1');
+		return $this->fetchAll($select)->toArray();
 	}
-	
+
 }
 ?>

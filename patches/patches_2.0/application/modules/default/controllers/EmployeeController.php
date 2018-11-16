@@ -174,8 +174,8 @@ class Default_EmployeeController extends Zend_Controller_Action
 			}
 			else
 			{			    
-				$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-				$msgarray['position_id'] = 'Positions are not configured yet.';
+				$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+				$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 			}
 			
 			$form->position_id->addMultiOption('','Select a Position');
@@ -375,8 +375,8 @@ class Default_EmployeeController extends Zend_Controller_Action
 			}
 			else
 			{			    
-				$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-				$msgarray['position_id'] = 'Positions are not configured yet.';
+				$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+				$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 			}
 			
 			$form->position_id->addMultiOption('','Select a Position');
@@ -722,7 +722,7 @@ class Default_EmployeeController extends Zend_Controller_Action
 			
 			$jobtitlesModel = new Default_Model_Jobtitles();
 			$jobtitleData = $jobtitlesModel->getJobTitleList();
-			$employeeform->jobtitle_id->addMultiOption('','Select Job Title');
+			$employeeform->jobtitle_id->addMultiOption('','Seleccione el título del trabajo');
 			if(!empty($jobtitleData))
 			{
 				foreach ($jobtitleData as $jobtitleres)
@@ -732,8 +732,8 @@ class Default_EmployeeController extends Zend_Controller_Action
 			}
 			else
 			{
-				$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-				$msgarray['position_id'] = 'Positions are not configured yet.';
+				$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+				$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 				$emptyFlag++;
 			}
 		
@@ -910,7 +910,7 @@ class Default_EmployeeController extends Zend_Controller_Action
 							$jobtitleData = $jobtitlesModel->getJobTitleList();
 							if(sizeof($jobtitleData) > 0)
 							{
-								$employeeform->jobtitle_id->addMultiOption('','Select Job Title');
+								$employeeform->jobtitle_id->addMultiOption('','Seleccione el título del trabajo');
 								foreach ($jobtitleData as $jobtitleres){
 									$employeeform->jobtitle_id->addMultiOption($jobtitleres['id'],$jobtitleres['jobtitlename']);
 								}
@@ -919,7 +919,7 @@ class Default_EmployeeController extends Zend_Controller_Action
 							$positionlistArr = $positionsmodel->getPositionList($data['jobtitle_id']);
 							if(sizeof($positionlistArr) > 0)
 							{
-								$employeeform->position_id->addMultiOption('','Select Position');
+								$employeeform->position_id->addMultiOption('','Seleccionar posición');
 								foreach ($positionlistArr as $positionlistres)
 								{
 									$employeeform->position_id->addMultiOption($positionlistres['id'],$positionlistres['positionname']);
@@ -1317,7 +1317,7 @@ public function editappraisal($id)
 					$jobtitleData = $jobtitlesModel->getJobTitleList();
 					if(sizeof($jobtitleData) > 0)
 					{
-						$employeeform->jobtitle_id->addMultiOption('','Select Job Title');
+						$employeeform->jobtitle_id->addMultiOption('','Seleccione el título del trabajo');
 						foreach ($jobtitleData as $jobtitleres){
 							$employeeform->jobtitle_id->addMultiOption($jobtitleres['id'],$jobtitleres['jobtitlename']);
 						}
@@ -1730,7 +1730,7 @@ public function editappraisal($id)
 				$positionsmodel = new Default_Model_Positions();
 				$positionlistArr = $positionsmodel->getPositionList($jobtitle_id);
 				$employeeform->position_id->clearMultiOptions();
-				$employeeform->position_id->addMultiOption('','Select Position');
+				$employeeform->position_id->addMultiOption('','Seleccionar posición');
 				foreach($positionlistArr as $positionlistRes)
 				{
 					$employeeform->position_id->addMultiOption($positionlistRes['id'],utf8_encode($positionlistRes['positionname']));
@@ -2165,8 +2165,8 @@ public function editappraisal($id)
 		}
 		else
 		{			    
-			$msgarray['jobtitle_id'] = 'Job titles are not configured yet.';
-			$msgarray['position_id'] = 'Positions are not configured yet.';
+			$msgarray['jobtitle_id'] = 'Los títulos de trabajo no están configurados todavía.';
+			$msgarray['position_id'] = 'Las posiciones aún no están configuradas.';
 			//$flag = 'false';
 		}
 		
@@ -2175,7 +2175,7 @@ public function editappraisal($id)
 			$positionlistArr = $positionsmodel->getPositionList($_POST['jobtitle_id']);
 			if(sizeof($positionlistArr) > 0)
 			{
-				$emp_form->position_id->addMultiOption('','Select Position');
+				$emp_form->position_id->addMultiOption('','Seleccionar posición');
 				foreach ($positionlistArr as $positionlistres)
 				{
 					$emp_form->position_id->addMultiOption($positionlistres['id'],$positionlistres['positionname']);

@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,20 +28,20 @@ if($this->ermsg !='')
 
 <?php if($this->flag == 1) {?>
 	<?php if(!empty($this->checkActiveApp)) { ?>
-	
-	 <?php echo sapp_PerformanceHelper::manager_appraisal_status_dropdown(2,$this->loginuserGroup);?>	
-		
+
+	 <?php echo sapp_PerformanceHelper::manager_appraisal_status_dropdown(2,$this->loginuserGroup);?>
+
 	 <input type="hidden" id="appraisalid" name="appraisalid" value="<?php echo $this->checkActiveApp['id'];?>" >
 	 <input type="hidden" id="completedmgrids" name="completedmgrids" value="<?php echo $this->checkActiveApp['manager_ids'];?>" >
-	<?php } ?> 
+	<?php } ?>
 <?php } else {?>
 
 			<div class="new-form-ui">
-				<label >Business Unit</label>
+				<label >Unidad de Negocios</label>
 				<div class="division">
 					<select id="bunit_id" name="bunit_id" onchange="checkimp('1',this.value)">
-					<option  value="">Select Business Unit</option>
-					
+					<option  value="">Seleccionar Unidad de Negocios</option>
+
 					<?php if(!empty($this->bunitdataarr)) { ?>
 					<?php 	foreach($this->bunitdataarr as $value) {
 					?>
@@ -51,30 +51,30 @@ if($this->ermsg !='')
 					?>
 					</select>
 					<span class="errors" id="errors-bunit_id"></span>
-				</div>	
+				</div>
 			</div>
-			
+
 			<div class="new-form-ui" id="deptdiv">
-            <label >Department <img class="tooltip" title="Select business unit to populate departments" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+            <label >Departamento <img class="tooltip" title="Seleccionar unidad de negocio para poblar departamentos." src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
             <div class="division">
 					<select id="dept_id" name="dept_id" onchange="checkimp('2',this.value)">
-					<option  value="">Select Department</option>
+					<option  value="">Seleccionar departamento</option>
 					</select>
 					<span class="errors" id="errors-dept_id"></span>
 			</div>
         	</div>
-        	
+
         	<?php echo sapp_PerformanceHelper::manager_appraisal_status_dropdown(1);?>
-        	
+
         	<input type="hidden" id="perf_app_flag" name = "perf_app_flag" value="">
-        	<?php if(empty($this->bunitdataarr)) { ?> 
+        	<?php if(empty($this->bunitdataarr)) { ?>
 	        	<div class="manager_feed_div_block">
-	        		<div class="managerresponsediv_msg"> No active Appraisal.</div>
-	        	</div>	
-        	<?php } ?>	
+	        		<div class="managerresponsediv_msg"> No hay tasación activa.</div>
+	        	</div>
+        	<?php } ?>
 <?php } ?>
 
-<input type="hidden" id="app_status_val" value="1">	
+<input type="hidden" id="app_status_val" value="1">
 
 <div id="managerresponsediv" style="display:none;" class="managerresponsediv">
 </div>
@@ -114,20 +114,20 @@ function displmanagerappstatus(flag,value)
 					{
 						$('#app_status_val').val(value);
 						displaymanagerstatus(2);
-					}	
+					}
 				}
 				else
 				{
 					$('#app_status_val').val(value);
 					displaymanagerstatus(2);
-				}			
+				}
 			}
 		}
 		else
 		{
 			$('#app_status_val').val(value);
 			displaymanagerstatus(1);
-		}	
+		}
 	}
 	else
 	{
@@ -137,7 +137,7 @@ function displmanagerappstatus(flag,value)
 			displaymanagerstatus(2);
 		else
 			displaymanagerstatus(1);
-	}		
+	}
 }
 
 function displaymanagerstatus(flag)
@@ -155,20 +155,20 @@ function displaymanagerstatus(flag)
 		DATA = 'bunitid='+bunitid+'&deptid='+deptid+'&flag='+flag+'&perf_app_flag='+perf_app_flag+'&app_status='+app_status_val;
 		        	$.ajax({
 			         	url: base_url+"/appraisalstatus/managerstatus/format/html",
-			         	type : 'POST',	
+			         	type : 'POST',
 						data : DATA,
 						dataType: 'html',
 						beforeSend: function () {
 							$.blockUI({ width:'50px',message: $("#spinner").html() });
 						},
 						success : function(response){
-							$.unblockUI();	
+							$.unblockUI();
 							$("#managerresponsediv").show();
 						    $("#managerresponsediv").html(response);
-							
+
 						}
 		        	});
-		
+
 }
 
 function checkimp(flag,id)
@@ -186,14 +186,14 @@ function checkimp(flag,id)
 			$("#errors-dept_id").html("");
 			$.ajax({
 	         	url: base_url+"/appraisalstatus/checkappraisalimplementation/format/json",
-	         	type : 'POST',	
+	         	type : 'POST',
 				data : 'buid=' + id + '&enable_step=1',
 				dataType: 'json',
 				beforeSend: function () {
 					$.blockUI({ width:'50px',message: $("#spinner").html() });
 				},
 				success : function(response){
-					$.unblockUI();	
+					$.unblockUI();
 					if($.trim(response['flag']) == 'notinitialized')
 					{
 						$("#errors-bunit_id").html("Performance appraisal is not initialized.");
@@ -201,37 +201,37 @@ function checkimp(flag,id)
 					if($.trim(response['flag']) == 'deptwise')
 					{
 						$("#perf_app_flag").val(0);
-						
+
 					}
 					if($.trim(response['flag']) == 'buwise')
 					{
 						$("#perf_app_flag").val(1);
 						displaymanagerstatus(2);
 					}
-					
+
 					if($.trim(response['msg']) == 'true')
 					{
-						
+
 						$("#dept_id").html(response['result']);
 					}else
 					{
 						$("#errors-dept_id").removeClass('errors').addClass('add-coloum');
 						$("#errors-dept_id").html("No departments listed as appraisal is configured business unit wise.");
 					}
-					
-					
+
+
 				}
 	    	});
-			
-		}	
+
+		}
 	}else
 	{
 		$("#managerresponsediv").html('');
 		if(id)
 		{
 			displaymanagerstatus(2);
-		}	
-	}	
+		}
+	}
 }
 function clearappstatus(flag)
 {
