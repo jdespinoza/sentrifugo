@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,7 @@ class Default_Model_Empskills extends Zend_Db_Table_Abstract
 		->where($where)
 		->order("$by $sort")
 		->limitPage($pageNo, $perPage);
-		
+
 		return $empskillsData;
 	}
 	/*	Purpose:	TO get drop down for search filters.Getting all competency levels from main_competencylevel table.
@@ -51,9 +51,9 @@ class Default_Model_Empskills extends Zend_Db_Table_Abstract
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$Data = $db->query("select c.id,c.competencylevel
 								from main_competencylevel as c
-								where c.isactive=1 ");	
+								where c.isactive=1 ");
 		$data = $Data->fetchAll();
-		
+
 		return $data;
 	}
 	public function getsingleEmpSkillsData($id)
@@ -62,7 +62,7 @@ class Default_Model_Empskills extends Zend_Db_Table_Abstract
 		->setIntegrityCheck(false)
 		->from(array('es'=>'main_empskills'),array('es.*'))
 		->where('es.id='.$id.' AND es.isactive = 1');
-			
+
 		return $this->fetchAll($select)->toArray();
 	}
 
@@ -114,14 +114,14 @@ class Default_Model_Empskills extends Zend_Db_Table_Abstract
 		}
 		$objName = 'empskills';
 
-		$tableFields = array('action'=>'Action','skillname'=>'Skill','yearsofexp'=>'Years of Experience','competencylevelid'=>'Competency Level','year_skill_last_used'=>'Skill Last Used Year');
-			
+		$tableFields = array('action'=>'Acción','skillname'=>'Habilidades','yearsofexp'=>'Años de Experiencia','competencylevelid'=>'Nivel de Competencia','year_skill_last_used'=>'Última Habilidad Usada');
+
 		$tablecontent = $this->getEmpSkillsData($sort,$by,$pageNo,$perPage,$searchQuery,$exParam1);
 		$dataTmp = array('userid'=>$exParam1,
 						'sort' => $sort,
 						'by' => $by,
 						'pageNo' => $pageNo,
-						'perPage' => $perPage,				
+						'perPage' => $perPage,
 						'tablecontent' => $tablecontent,
 						'objectname' => $objName,
 						'extra' => array(),

@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 
     private $options;
     public function preDispatch()
-    {		 		
+    {
     }
 	/**
 	 * Init
@@ -33,38 +33,38 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 	 */
     public function init()
     {
-        $this->_options= $this->getInvokeArg('bootstrap')->getOptions();	
+        $this->_options= $this->getInvokeArg('bootstrap')->getOptions();
 		$this->businessunitsmodel = new Default_Model_Businessunits();
     }
-	
+
     public function indexAction()
     {
 	    $orgInfoModel = new Default_Model_Organisationinfo();
 		$getorgData = $orgInfoModel->getorgrecords();
 		    if(!empty($getorgData))
 			{
-			    $orgdata = ''; 
-				$businessunitModel = new Default_Model_Businessunits();	
+			    $orgdata = '';
+				$businessunitModel = new Default_Model_Businessunits();
 				 $call = $this->_getParam('call');
 				if($call == 'ajaxcall')
-						$this->_helper->layout->disableLayout();		
-				$view = Zend_Layout::getMvcInstance()->getView();		
+						$this->_helper->layout->disableLayout();
+				$view = Zend_Layout::getMvcInstance()->getView();
 				$objname = $this->_getParam('objname');
 				$refresh = $this->_getParam('refresh');
 				$dashboardcall = $this->_getParam('dashboardcall');
 				$data = array();
 				$searchQuery = '';
 				$searchArray = array();
-				$tablecontent='';	
+				$tablecontent='';
 				if($refresh == 'refresh')
 				{
 					if($dashboardcall == 'Yes')
 						$perPage = DASHBOARD_PERPAGE;
-					else	
+					else
 						$perPage = PERPAGE;
 					$sort = 'DESC';$by = 'b.modifieddate';$pageNo = 1;$searchData = '';$searchQuery = '';$searchArray='';
 				}
-				else 
+				else
 				{
 					$sort = ($this->_getParam('sort') !='')? $this->_getParam('sort'):'DESC';
 					$by = ($this->_getParam('by')!='')? $this->_getParam('by'):'b.modifieddate';
@@ -72,10 +72,10 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						$perPage = $this->_getParam('per_page',DASHBOARD_PERPAGE);
 					else $perPage = $this->_getParam('per_page',PERPAGE);
 					$pageNo = $this->_getParam('page', 1);
-					$searchData = $this->_getParam('searchData');	
-					$searchData = rtrim($searchData,',');					
+					$searchData = $this->_getParam('searchData');
+					$searchData = rtrim($searchData,',');
 				}
-						
+
 				$dataTmp = $businessunitModel->getGrid($sort, $by, $perPage, $pageNo, $searchData,$call,$dashboardcall);
 				array_push($data,$dataTmp);
 				$this->view->dataArray = $data;
@@ -85,28 +85,28 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 			else
 			{
 			    $orgdata = 'noorgdata';
-                $this->view->orgdata = $orgdata ;			
-			}	
+                $this->view->orgdata = $orgdata ;
+			}
 	}
-	
+
 	public function departmentGrid($unitid)
-	{	
-		$deptModel = new Default_Model_Departments();	
+	{
+		$deptModel = new Default_Model_Departments();
 		$sort = 'DESC';$by = 'd.modifieddate';$pageNo = 1;$searchData = '';$searchArray=array();
 		$dashboardcall = $this->_getParam('dashboardcall');
 		if($dashboardcall == 'Yes')
 				$perPage = DASHBOARD_PERPAGE;
-			else	
+			else
 				$perPage = PERPAGE;
 		$objName = 'departments';
-		$tableFields = array('action'=>'Action','deptname' => 'Name','deptcode' =>'Code','startdate'=>'Started On','depthead'=>'Department Head','timezone'=>'Time Zone','unitname'=>'Business Unit');
-		$tablecontent = $deptModel->getDepartmentsData($sort, $by, $pageNo, $perPage,'',$unitid);     
+		$tableFields = array('action'=>'Acción','deptname' => 'Nombre','deptcode' =>'Código','startdate'=>'Comenzó en','depthead'=>'Jefe de Departamento','timezone'=>'Zona Horaria','unitname'=>'Unidad de Negocios');
+		$tablecontent = $deptModel->getDepartmentsData($sort, $by, $pageNo, $perPage,'',$unitid);
 		$data = array();
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -118,14 +118,14 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 			'call'=>'',
 			'dashboardcall'=>$dashboardcall,
 			'search_filters' => array(
-					'startdate' =>array('type'=>'datepicker')					
+					'startdate' =>array('type'=>'datepicker')
 				)
-			
-		);		
+
+		);
 		array_push($data,$dataTmp);
 		return $data;
 	}
-	
+
 	public function editAction()
 	{
 	    $orgInfoModel = new Default_Model_Organisationinfo();
@@ -142,10 +142,10 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 							$loginUserId = $auth->getStorage()->read()->id;
 							$loginuserRole = $auth->getStorage()->read()->emprole;
 							$loginuserGroup = $auth->getStorage()->read()->group_id;
-				}				
+				}
 				if(sapp_Global::_checkprivileges(TIMEZONE,$loginuserGroup,$loginuserRole,'add') == 'Yes'){
 					array_push($popConfigPermission,'timezone');
-				}  
+				}
 				if(sapp_Global::_checkprivileges(COUNTRIES,$loginuserGroup,$loginuserRole,'add') == 'Yes'){
 					array_push($popConfigPermission,'country');
 				}
@@ -160,25 +160,25 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 				$callval = $this->getRequest()->getParam('call');
 				if($callval == 'ajaxcall')
 					$this->_helper->layout->disableLayout();
-				
+
 				$countriesModel = new Default_Model_Countries();
 				$statesmodel = new Default_Model_States();
 				$citiesmodel = new Default_Model_Cities();
 				$timezonemodel = new Default_Model_Timezone();
-				
-				$allTimezoneData = $timezonemodel->fetchAll('isactive=1','timezone')->toArray();	
+
+				$allTimezoneData = $timezonemodel->fetchAll('isactive=1','timezone')->toArray();
 				$allCountriesData = $countriesModel->fetchAll('isactive=1','country')->toArray();
 				$allStatesData = $statesmodel->fetchAll('isactive=1','state')->toArray();
-				$allCitiesData = $citiesmodel->fetchAll('isactive=1','city')->toArray();	
-				
+				$allCitiesData = $citiesmodel->fetchAll('isactive=1','city')->toArray();
+
 				$businessunitsform = new Default_Form_businessunits();
 				$businessunitsmodel = new Default_Model_Businessunits();
 				$orgInfoModel = new Default_Model_Organisationinfo();
-				
+
 				$deptModel = new Default_Model_Departments();
-				$deptform = new Default_Form_departments(); 		
+				$deptform = new Default_Form_departments();
 				$deptData = array();$msgarray = array();
-			
+
 				$businessunitsform->setAttrib('action',BASE_URL.'businessunits/edit');
 				$country = $getorgData[0]['country'];
                                 if(isset($_POST['country']))
@@ -195,36 +195,36 @@ class Default_BusinessunitsController extends Zend_Controller_Action
                                 {
                                     $city = $_POST['city'];
                                 }
-                              
+
                 $businessunitsform->setDefault('timezone',$timezoneid);
 				$address = $getorgData[0]['address1'];
 				if(isset($country) && $country != 0 && $country != '')
 				{
 					$businessunitsform->setDefault('country',$country);
 					$statesData = $statesmodel->getBasicStatesList($country);
-					foreach($statesData as $res) 
+					foreach($statesData as $res)
 					$businessunitsform->state->addMultiOption($res['state_id_org'],utf8_encode($res['state']));
 				    if(isset($state) && $state != 0 && $state != '')
-						$businessunitsform->setDefault('state',$state);			
+						$businessunitsform->setDefault('state',$state);
 				}
 				if(isset($state) && $state != 0 && $state != ''){
 					$citiesData = $citiesmodel->getBasicCitiesList($state);
-					foreach($citiesData as $res) 
-					$businessunitsform->city->addMultiOption($res['city_org_id'],utf8_encode($res['city']));		
+					foreach($citiesData as $res)
+					$businessunitsform->city->addMultiOption($res['city_org_id'],utf8_encode($res['city']));
 					if(isset($city) && $city != 0 && $city != '')
-					$businessunitsform->setDefault('city',$city);			
+					$businessunitsform->setDefault('city',$city);
 				}
 				if(isset($address) && $address !='')
 				    $businessunitsform->address1->setValue($address);
 
 				if(is_numeric($id) && $id > 0)
-				{			
+				{
 					$data = $businessunitsmodel->getSingleUnitData($id);
 					if(!empty($data))
 					{
 						$businessunitsform->setAttrib('action',BASE_URL.'businessunits/edit/id/'.$id);
 						$businessunitsform->populate($data);
-						$businessunitsform->submit->setLabel('Update'); 
+						$businessunitsform->submit->setLabel('Update');
 						$st_date = sapp_Global::change_date($data["startdate"], 'view');
 						$businessunitsform->setDefault('start_date', $st_date);
 						$businessunitsform->state->clearMultiOptions();
@@ -249,21 +249,21 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						if($countryId !='')
 						{
                                                     $statesData = $statesmodel->getBasicStatesList($countryId);
-							
-                                                    foreach($statesData as $res) 
+
+                                                    foreach($statesData as $res)
 							$businessunitsform->state->addMultiOption($res['state_id_org'],utf8_encode($res['state']));
-                                                        
-                                                    $businessunitsform->setDefault('country',$countryId);															
-                                                    $businessunitsform->setDefault('state',$stateId);								
+
+                                                    $businessunitsform->setDefault('country',$countryId);
+                                                    $businessunitsform->setDefault('state',$stateId);
 						}
                          if($stateId != '')
 						{
 							$citiesData = $citiesmodel->getBasicCitiesList($stateId);
-							foreach($citiesData as $res) 
+							foreach($citiesData as $res)
 							$businessunitsform->city->addMultiOption($res['city_org_id'],utf8_encode($res['city']));
-                           $businessunitsform->setDefault('city',$cityId);	
+                           $businessunitsform->setDefault('city',$cityId);
                         }
-						
+
 						$deptData = $deptModel->getAllDeptsForUnit($id);
 						$this->view->ermsg = '';
 						$this->view->datarr = $data;
@@ -278,9 +278,9 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 				$this->view->dataArray = $this->departmentGrid($id);
 				$this->view->deptData = sizeof($deptData);
 				$this->view->form = $businessunitsform;
-				$this->view->unitid = $id; 
-			
-					
+				$this->view->unitid = $id;
+
+
 				if(!empty($allCountriesData) && !empty($allStatesData) && !empty($allCitiesData) && !empty($allTimezoneData))
 				{
 					$this->view->configuremsg = '';
@@ -301,13 +301,13 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 				{
 					$msgarray['city'] = 'Cities are not configured yet.';
 					$flag = 'false';
-				}		
+				}
 				if(empty($allTimezoneData))
 				{
 					$msgarray['timezone'] = 'Time zones are not configured yet.';
 					$flag = 'false';
 				}
-				$start_date = $this->_request->getParam('start_date');				
+				$start_date = $this->_request->getParam('start_date');
 				$start_date =sapp_Global::change_date($start_date,'database');
 				$this->view->msgarray = $msgarray;
 				if($this->getRequest()->getPost())
@@ -317,7 +317,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						$unitname = $this->_request->getParam('unitname');
 						$unitcode = $this->_request->getParam('unitcode');
 						$description = $this->_request->getParam('description');
-						
+
 						$country = $this->_request->getParam('country');
 						$state = intval($this->_request->getParam('state'));
 						$city = $this->_request->getParam('city');
@@ -325,14 +325,14 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						$address2 = $this->_request->getParam('address2');
 						$address3 = $this->_request->getParam('address3');
 						$timezone = $this->_request->getParam('timezone');
-						$unithead = $this->_request->getParam('unithead');				
-						
+						$unithead = $this->_request->getParam('unithead');
+
 						$unitcodeExistance = $businessunitsmodel->checkUnitCodeDuplicates($unitcode,$id);
 						if(!$unitcodeExistance)
 						{
 							$date = new Zend_Date();
 							$actionflag = '';
-							$tableid  = ''; 
+							$tableid  = '';
 							   $data = array(
 										'unitname'=>trim($unitname),
 										'unitcode'=>trim($unitcode),
@@ -350,7 +350,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 										'modifieddate'=>gmdate("Y-m-d H:i:s")
 									);
 								if($id!=''){
-									$where = array('id=?'=>$id);  
+									$where = array('id=?'=>$id);
 									$actionflag = 2;
 								}
 								else
@@ -366,15 +366,15 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 								{
 								   $tableid = $id;
 								   $this->_helper->getHelper("FlashMessenger")->addMessage("Business unit updated successfully.");
-								}   
+								}
 								else
 								{
-								   $tableid = $Id; 	
-									$this->_helper->getHelper("FlashMessenger")->addMessage("Business unit added successfully.");					   
-								}   
+								   $tableid = $Id;
+									$this->_helper->getHelper("FlashMessenger")->addMessage("Business unit added successfully.");
+								}
 								$menuID = BUSINESSUNITS;
 								$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$tableid);
-								$this->_redirect('businessunits');	
+								$this->_redirect('businessunits');
 						}
 						else
 						{
@@ -404,18 +404,18 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 								}
 							}
 						$this->view->msgarray = $msgarray;
-					
+
 					}
 				}
 		}
 		else
 		{
 			$orgdata = 'noorgdata';
-			$this->view->orgdata = $orgdata ;			
-		}		
+			$this->view->orgdata = $orgdata ;
+		}
 		$this->view->popConfigPermission = $popConfigPermission;
 	}
-	
+
 	public function viewAction()
 	{
 	    $orgInfoModel = new Default_Model_Organisationinfo();
@@ -450,7 +450,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 								}
 						}
 					}
-					$businessunitsmodel = new Default_Model_Businessunits();			
+					$businessunitsmodel = new Default_Model_Businessunits();
 					$data = $businessunitsmodel->getSingleUnitData($id);
 					if(!empty($data))
 					{
@@ -464,17 +464,17 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 							$citiesmodel = new Default_Model_Cities();
 							$statesData = $statesmodel->getBasicStatesList($countryId);
 							$citiesData = $citiesmodel->getBasicCitiesList($stateId);
-							foreach($statesData as $res) 
+							foreach($statesData as $res)
 							$businessunitsform->state->addMultiOption($res['state_id_org'],utf8_encode($res['state']));
-							foreach($citiesData as $res) 
+							foreach($citiesData as $res)
 							$businessunitsform->city->addMultiOption($res['city_org_id'],utf8_encode($res['city']));
 							$businessunitsform->setDefault('country',$countryId);
 							$businessunitsform->setDefault('state',$stateId);
-							$businessunitsform->setDefault('city',$cityId);		
+							$businessunitsform->setDefault('city',$cityId);
 						}
 						$st_date = sapp_Global::change_date($data["startdate"], 'view');
 						$businessunitsform->setDefault('start_date', $st_date);
-						$permission = sapp_Global::_checkprivileges(BUSINESSUNITS,$loginuserGroup,$loginuserRole,'edit');	
+						$permission = sapp_Global::_checkprivileges(BUSINESSUNITS,$loginuserGroup,$loginuserRole,'edit');
 						$deptData = $deptModel->getAllDeptsForUnit($id);
 						$this->view->deptData = sizeof($deptData);
 						$this->view->dataArray = $this->departmentGrid($id);
@@ -488,7 +488,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 							$data['timezone'] = $timezoneval['timezone'].' ['. $timezoneval['timezone_abbr'].']';
 						}
 					}
-					
+
 					if(!empty($data['country'])) {
 						$countryname = $countrymodel->getActiveCountryName($data['country']);
 						if(!empty($countryname)){
@@ -500,13 +500,13 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						if(!empty($statename)){
 							$data['state'] = $statename[0]['state'];
 						}
-					}	
+					}
 					if(!empty($data['city'])) {
 						$cityname = $citiesmodel->getCitiesNameData($data['city']);
 						if(!empty($cityname)){
 							$data['city'] = $cityname[0]['city'];
 						}
-					}		
+					}
 					$this->view->editpermission = $permission;
 					$this->view->controllername = $objName;
 					$this->view->id = $id;
@@ -521,9 +521,9 @@ class Default_BusinessunitsController extends Zend_Controller_Action
         {
 		   $orgdata = 'noorgdata';
 		   $this->view->orgdata = $orgdata ;
-        }   		
+        }
 	}
-	
+
 	public function deleteAction()
 	{
 	     $auth = Zend_Auth::getInstance();
@@ -546,7 +546,7 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 					if($Id == 'update')
 					{
 					 $menuID = BUSINESSUNITS;
-					   $result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id); 
+					   $result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id);
 					   $messages['message'] = 'Business unit deleted successfully.';
 					   $messages['msgtype'] = 'success';
 					}else{
@@ -554,12 +554,12 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 						$messages['msgtype'] = 'error';
 					}
 				}else{
-					$messages['message'] = 'Since departments are associated with this business unit, you cannot delete the business unit.';		
+					$messages['message'] = 'Since departments are associated with this business unit, you cannot delete the business unit.';
 					$messages['msgtype'] = 'error';
 				}
 			}
 			else
-			{ 
+			{
 			 $messages['message'] = 'Business unit cannot be deleted.';
 			}
 			// delete success message after delete in view
@@ -575,12 +575,12 @@ class Default_BusinessunitsController extends Zend_Controller_Action
 				}
 			}
 			$this->_helper->json($messages);
-		
+
 	}
-	
+
 	public function getdeptnamesAction()
 	{
-		$this->_helper->layout->disableLayout();	
+		$this->_helper->layout->disableLayout();
 		$unitid = $this->_request->getparam('bunitid');
 		$pageno = intval($this->_request->getParam('pageno',1));
 		$perpage = intval($this->_request->getParam('perpage',PERPAGE));

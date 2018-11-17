@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,8 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_disciplinary_incident';
     protected $_primary = 'id';
-    
-           
+
+
     public function getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag)
     {
         $auth = Zend_Auth::getInstance();
@@ -48,9 +48,9 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
         }
         if($searchQuery) {
                    $where .= " AND ".$searchQuery;
-                }   
+                }
               $myDisciplinaryData = $this->select()
-                            ->setIntegrityCheck(false)  
+                            ->setIntegrityCheck(false)
                             ->from(array('i'=>'main_disciplinary_incident'),array('i.*','employee_appeal'=>'if(i.employee_appeal = 1,"Yes","No")'
                                         ,'cao_verdict'=>'if(i.cao_verdict = 1,"Guilty","Not Guilty")',new Zend_Db_Expr("if(CURDATE()<=i.violation_expiry,'notexpired','expired') as dateexpired")
                                         ,'date_of_occurrence'=>'DATE_FORMAT(date_of_occurrence,"'.DATEFORMAT_MYSQL.'")'))
@@ -59,16 +59,16 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
                             ->joinLeft(array('d'=>'main_departments'), 'd.id=i.employee_dept_id',array('d.deptname'))
                             ->joinLeft(array('v'=>'main_disciplinary_violation_types'), 'v.id=i.violation_id',array('v.violationname'))
                             ->where($where)
-                            ->order("$by $sort") 
+                            ->order("$by $sort")
                             ->limitPage($pageNo, $perPage);
 
                 return $myDisciplinaryData;
-                
+
     }
-        
+
     public function getIncidentData($id) {
         $incidentData = $this->select()
-                            ->setIntegrityCheck(false)  
+                            ->setIntegrityCheck(false)
                             ->from(array('i'=>'main_disciplinary_incident'),array('i.*','employee_appeal'=>'if(i.employee_appeal = 1,"Yes","No")'
                                         ,'cao_verdict'=>'if(i.cao_verdict = 1,"Guilty","Not Guilty")',new Zend_Db_Expr("if(CURDATE()<=i.violation_expiry,'notexpired','expired') as dateexpired")))
                             ->joinLeft(array('u'=>'main_users'), 'u.id=i.employee_rep_mang_id',array('reportingmanagername'=>'u.userfullname','reportingmanageremail'=>'u.emailaddress'))
@@ -79,11 +79,11 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
                             ->joinLeft(array('v'=>'main_disciplinary_violation_types'), 'v.id=i.violation_id',array('v.violationname'))
                             ->joinLeft(array('j'=>'main_jobtitles'), 'j.id=i.employee_job_title_id',array('j.jobtitlename'))
                             ->where('i.id='.$id.' and i.isactive=1 ');
-        return $this->fetchAll($incidentData)->toArray();                            
+        return $this->fetchAll($incidentData)->toArray();
     }
-        
+
         public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$flag='',$b='',$c='',$d='')
-        {       
+        {
             $searchQuery = '';
             $searchArray = array();
             $data = array();
@@ -99,19 +99,19 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
                         $searchQuery .= " mu.userfullname like '%".$val."%' AND ";
                     elseif($key == 'date_of_occurrence')
                         $searchQuery .= "  ".$key." like '%".  sapp_Global::change_date($val,'database')."%' AND ";
-                    else                                                 
-                        $searchQuery .= $key." like '%".$val."%' AND ";                
+                    else
+                        $searchQuery .= $key." like '%".$val."%' AND ";
 
                     $searchArray[$key] = $sval;
                 }
-                $searchQuery = rtrim($searchQuery," AND");                  
+                $searchQuery = rtrim($searchQuery," AND");
             }
-                if($flag=='myincident') {   
+                if($flag=='myincident') {
                     $objName = 'disciplinarymyincidents';
-                    $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);  
+                    $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);
                 }elseif($flag=='teamincident'){
                     $objName = 'disciplinaryteamincidents';
-                    $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);  
+                    $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);
                 }elseif($flag=='managementincident'){
                     $objName = 'disciplinaryincident';
                     $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);
@@ -120,23 +120,23 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
                     $tablecontent = $this->getDisciplinaryIncidents($sort, $by, $pageNo, $perPage,$searchQuery,$flag);
                 }
         if($flag=='myincident') {
-            $tableFields = array('action'=>'Action','unitname' => 'Business Unit','deptname' => 'Department',
-                                'violationname' => 'Violation Name','date_of_occurrence'=>'Date Of Occurence',
-                                'employee_appeal'=>'Appealed','cao_verdict' => 'Verdict');
-        }else{        
-            $tableFields = array('action'=>'Action','employeename'=>'Employee Name','unitname' => 'Business Unit',
-                            'deptname' => 'Department','violationname' => 'Violation Name','date_of_occurrence'=>'Date Of Occurence',
-                            'employee_appeal'=>'Appealed','cao_verdict' => 'Verdict');
-        }   
-        
+            $tableFields = array('action'=>'Acción','unitname' => 'Unidad de Negocios','deptname' => 'Departamento',
+                                'violationname' => 'Nombre de la Violación','date_of_occurrence'=>'Fecha de Ocurrencia',
+                                'employee_appeal'=>'Apelado','cao_verdict' => 'Veredicto');
+        }else{
+            $tableFields = array('action'=>'Acción','employeename'=>'Nombre del Empleado','unitname' => 'Unidad de Negocios',
+                            'deptname' => 'Departamento','violationname' => 'Nombre de la Violación','date_of_occurrence'=>'Fecha de Ocurrencia',
+                            'employee_appeal'=>'Apelado','cao_verdict' => 'Veredicto');
+        }
+
         $verdict_array = array('' => 'All',1 =>'Guilty',2 => 'Not Guilty');
         $employee_appeal_array = array('' => 'All',1 =>'Yes',2 => 'No');
-        
+
         $dataTmp = array(
             'sort' => $sort,
             'by' => $by,
             'pageNo' => $pageNo,
-            'perPage' => $perPage,              
+            'perPage' => $perPage,
             'tablecontent' => $tablecontent,
             'objectname' => $objName,
             'extra' => array(),
@@ -162,7 +162,7 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
         );
         return $dataTmp;
     }
-    
+
     //function to get the list of employees on businessunit_id and department_id
     public function getemployees($businessunit_id,$department_id)
     {
@@ -174,13 +174,13 @@ class Default_Model_Disciplinaryincident extends Zend_Db_Table_Abstract
         $where_condition = " where user_id!=$loginUserId";
         if(is_numeric($businessunit_id))
         {
-            $where_condition .= " and businessunit_id = $businessunit_id ";    
+            $where_condition .= " and businessunit_id = $businessunit_id ";
         }
         if(is_numeric($department_id) && $department_id != 0)
         {
-            $where_condition .= " and department_id = $department_id ";   
+            $where_condition .= " and department_id = $department_id ";
         }
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         //$query ="select * from main_employees_summary $where_condition";
         $query ="select user_id,userfullname,profileimg,jobtitle_id,jobtitle_name,employeeId,reporting_manager,reporting_manager_name from main_employees_summary $where_condition";

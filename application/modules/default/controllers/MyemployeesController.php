@@ -914,7 +914,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 							}
 
 							$objName = 'empskills';
-							$tableFields = array('action'=>'Action','skillname'=>'Skill','yearsofexp'=>'Years of Experience','competencylevelid'=>'Competency Level','year_skill_last_used'=>'Skill Last Used Year');
+							$tableFields = array('action'=>'Acción','skillname'=>'Habilidades','yearsofexp'=>'Años de Experiencia','competencylevelid'=>'Nivel de Competencia','year_skill_last_used'=>'Última Habilidad Usada');
 
 							$tablecontent = $empskillsModel->getEmpSkillsData($sort, $by, $pageNo, $perPage,$searchQuery,$Uid);
 								$empcompetencyLevelsArr = $empskillsModel->empcompetencylevels($Uid);
@@ -2271,7 +2271,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 							}
 
 							$objName = 'empskills';
-							$tableFields = array('action'=>'Action','skillname'=>'Skill','yearsofexp'=>'Years of Experience','competencylevelid'=>'Competency Level','year_skill_last_used'=>'Skill Last Used Year');
+							$tableFields = array('action'=>'Acción','skillname'=>'Habilidad','yearsofexp'=>'Años de Experiencia','competencylevelid'=>'Nivel de Competencia','year_skill_last_used'=>'Última Habilidad Usada');
 
 							$tablecontent = $empskillsModel->getEmpSkillsData($sort, $by, $pageNo, $perPage,$searchQuery,$Uid);
 								$empcompetencyLevelsArr = $empskillsModel->empcompetencylevels($Uid);
@@ -3972,7 +3972,7 @@ class Default_MyemployeesController extends Zend_Controller_Action
 	            }
 	            else
 	            {
-	                $norec_arr['businessunit_id'] = 'Business Units are not added yet.';
+	                $norec_arr['businessunit_id'] = 'Las unidades de negocio no se han agregado todavía.';
 	            }
 
 	            // Show count of employees reporting to manager

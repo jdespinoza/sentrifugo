@@ -3293,7 +3293,7 @@ function displayReportingmanagers_emp(ele,eleId,role_id,empId)
         Url= base_url+"/employee/getempreportingmanagers/format/html";
 
     $("#"+eleId).find('option').remove();
-    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
     $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
     if(Url != "" && empRole != "")
     {
@@ -3312,7 +3312,7 @@ function displayReportingmanagers_emp(ele,eleId,role_id,empId)
                     $("#loader").remove();
                     $("#errors-"+eleId).show();
                     $("#"+eleId).parent().append('<span id="errors-'+eleId+'" class="errors">Managers are not added for the selected department.</span>');
-                    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+                    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
                     $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
 
                 }
@@ -3325,7 +3325,7 @@ function displayReportingmanagers_emp(ele,eleId,role_id,empId)
                 }
                 else
                 {
-                    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+                    $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
                     $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
                 }
             }
@@ -3335,7 +3335,7 @@ function displayReportingmanagers_emp(ele,eleId,role_id,empId)
     {
         $("#"+eleId).find('option').remove();
         $('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
-        $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+        $("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
     }
 }
 
@@ -3407,7 +3407,7 @@ function displayEmpReportingmanagers(ele,eleId,con,empId)
 							if(con == "req")
 							{
 								$("#"+eleId).parent().append('<span id="errors-reporting_id" class="errors">Managers are not added for the selected department.</span>');
-								$("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+								$("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
 								$('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
 								$('#'+eleId).trigger('change');
 							}
@@ -3415,7 +3415,7 @@ function displayEmpReportingmanagers(ele,eleId,con,empId)
 							{
 								$("#errors-"+eleId).show();
 								$("#"+eleId).parent().append('<span id="errors-'+eleId+'" class="errors">Managers are not added for the selected department.</span>');
-								$("#"+eleId).html("<option value='' label='select a Reporting Manager'>Select a Reporting Manager</option>");
+								$("#"+eleId).html("<option value='' label='select a Reporting Manager'>Seleccione un administrador de informes</option>");
 								$('#s2id_'+eleId).find('a.select2-choice').find('span').html('Select a Reporting Manager');
 							}
 						}

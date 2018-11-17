@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,38 +23,38 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_businessunits';
     protected $_primary = 'id';
-	
+
 	public function getBusinessUnitsData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = " b.isactive = 1 AND b.id <> 0 ";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$businessunitsdata = $this->select()
-    					   ->setIntegrityCheck(false)	 
+    					   ->setIntegrityCheck(false)
 						   ->from(array('b' => 'main_businessunits'),array('id'=>'distinct(b.id)','isactive'=>'b.isactive','unitcode'=>'b.unitcode','address1'=>'b.address1','unitname'=>'b.unitname','unithead'=>'b.unithead','startdate'=>'DATE_FORMAT(b.startdate,"'.DATEFORMAT_MYSQL.'")'))
 						   ->joinLeft(array('c'=>'main_cities'),'b.city=c.city_org_id',array('city'=>'c.city'))
 						   ->joinLeft(array('s'=>'main_states'),' s.state_id_org = b.state',array('state'=>'s.state'))
 						   ->joinLeft(array('cn'=>'main_countries'),' cn.country_id_org = b.country',array('country'=>'cn.country'))
 						   ->joinLeft(array('tz'=>'main_timezone'), 'b.timezone=tz.id and tz.isactive=1', array('timezone' => 'concat(tz.timezone," [",tz.timezone_abbr,"]")'))
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $businessunitsdata;       		
+
+		return $businessunitsdata;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
-		{		
+		{
 			$searchValues = json_decode($searchData);
-                 
+
 			foreach($searchValues as $key => $val)
 			{
 				$searchAlias = ' ';
@@ -74,17 +74,17 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 				$searchQuery .= $searchAlias.$key." like '%".urldecode($val)."%' AND ";
 				$searchArray[$key] = urldecode($val);
 			}
-			$searchQuery = rtrim($searchQuery," AND");					
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 		$objName = 'businessunits';
-		$tableFields = array('action'=>'Action','unitname' =>'Name','unitcode' => 'Code','startdate'=>'Started On','address1'=>'Street Address','city'=>'City','state'=>'State','country'=>'Country','timezone'=>'Time zone');
-		$tablecontent = $this->getBusinessUnitsData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+		$tableFields = array('action'=>'Acción','unitname' =>'Nombre','unitcode' => 'Código','startdate'=>'Comenzó en','address1'=>'Dirección','city'=>'Ciudad','state'=>'Estado','country'=>'País','timezone'=>'Zona Horaria');
+		$tablecontent = $this->getBusinessUnitsData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -95,21 +95,21 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall,
 			'search_filters' => array(
-					'startdate' =>array('type'=>'datepicker')					
+					'startdate' =>array('type'=>'datepicker')
 				)
-				);			
+				);
 		return $dataTmp;
 	}
-	
+
 	public function getSingleUnitData($id)
 	{
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "select * from main_businessunits where id = ".$id." AND isactive = 1";
 		$result = $db->query($query)->fetch();
 		return $result;
 	}
-	
+
 	public function SaveorUpdateBusinessUnits($data, $where)
 	{
 		if($where != ''){
@@ -121,7 +121,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
         /**
          * This function is used to get business unit list.
          * @param integer $page_no   = page number.
@@ -135,36 +135,36 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
             $result_cnt = $db->query($query_cnt);
             $row_cnt = $result_cnt->fetch();
             $total_cnt = $row_cnt['cnt'];
-            
+
             $offset = ($per_page*$page_no) - $per_page;
             $limit_str = " limit ".$per_page." offset ".$offset;
             $page_cnt = ceil($total_cnt/$per_page);
-            
-            $query = "select b.id,b.unitname,b.unitcode,b.address1,c.country,s.state,ci.city 
-                        from main_businessunits b 
-                        left join main_countries c on c.country_id_org = b.country 
-                        left join main_states s on s.state_id_org = b.state 
-                        left join main_cities ci on b.city = ci.city_org_id 
+
+            $query = "select b.id,b.unitname,b.unitcode,b.address1,c.country,s.state,ci.city
+                        from main_businessunits b
+                        left join main_countries c on c.country_id_org = b.country
+                        left join main_states s on s.state_id_org = b.state
+                        left join main_cities ci on b.city = ci.city_org_id
                         where b.isactive = 1 and b.id > 0 order by b.unitname asc ".$limit_str;
             $result = $db->query($query);
             $data = $result->fetchAll();
-            
-            return array('rows' => $data,'page_cnt' => $page_cnt);            
+
+            return array('rows' => $data,'page_cnt' => $page_cnt);
         }
 	public function getDeparmentList()
 	{
-	
+
 	  $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('b'=>'main_businessunits'),array('b.id','b.unitname'))
 					    ->where('b.isactive = 1')
 						->order('b.unitname');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
         /**
          * This function gives array of business units and its id's for drop down list.
-         * @return Array  
+         * @return Array
          */
 	public function getBusinessUnitsList()
         {
@@ -174,34 +174,34 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
             {
                 $options_arr[$option['id']] = $option['unitname'];
             }
-			
+
             return $options_arr;
         }
 	public function checkUnitCodeDuplicates($code,$id)
 	{
 		if($id){
-			$row = $this->fetchRow("unitcode = '".$code."' AND id <> ".$id.' AND  isactive=1'); 
+			$row = $this->fetchRow("unitcode = '".$code."' AND id <> ".$id.' AND  isactive=1');
 		}else{
 			$row = $this->fetchRow("unitcode = '".$code."' AND isactive=1");
-		}	
-		
+		}
+
 		if(!$row){
 			return false;
 		}else{
 			return true;
 		}
 	}
-	
+
 	public function getParicularBusinessUnit($id)
 	{
 	  $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('b'=>'main_businessunits'),array('b.id','b.unitname'))
 					    ->where('b.id = '.$id.' AND b.isactive = 1');
-	
-		return $this->fetchAll($select)->toArray();	
+
+		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function checkdeptstobusinessunits($businessunitid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -209,7 +209,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetch();
 	    return $result['count'];
 	}
-	
+
 	public function getBusinessunitNamesByIds($businessunitArray)
 	{
 		$resultstring = implode(',', $businessunitArray);
@@ -239,16 +239,16 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 		}
 		return $BUArray;
 	}
-	
+
 	public function getDeptForBusinessUnit($bid,$pageNo,$perPage)
 	{
 		if($pageNo != 0)
 		$limitpage = (($pageNo-1)*$perPage);
 		else
 		$limitpage = 0;
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$query = "select d.*,c.country as ccountry,s.state as sstate,ct.city as ccity,if(d.isactive = 1,'Active','Inactive') as status,DATE_FORMAT(d.startdate,'".DATEFORMAT_MYSQL."') as startdate from main_departments d 
+		$query = "select d.*,c.country as ccountry,s.state as sstate,ct.city as ccity,if(d.isactive = 1,'Active','Inactive') as status,DATE_FORMAT(d.startdate,'".DATEFORMAT_MYSQL."') as startdate from main_departments d
 					left join main_countries c on c.country_id_org = d.country
 					left join main_states s on s.state_id_org = d.state
 					left join main_cities ct on ct.city_org_id = d.city
@@ -256,7 +256,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetchAll();
 	    return $result;
 	}
-	
+
         public function getBU_report()
         {
             $db = Zend_Db_Table::getDefaultAdapter();
@@ -267,7 +267,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 	public function getDeptCountForBusinessUnit($bid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$query = "select count(*) as rowcount from main_departments d 
+		$query = "select count(*) as rowcount from main_departments d
 					left join main_countries c on c.country_id_org = d.country
 					left join main_states s on s.state_id_org = d.state
 					left join main_cities ct on ct.city_org_id = d.city
@@ -275,7 +275,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetchAll();
 	    return count($result);
 	}
-	
+
 	public function getBusinessUnits($buids)
 	{
 				$qry = "select b.id, b.unitname from main_businessunits b
@@ -284,7 +284,7 @@ class Default_Model_Businessunits extends Zend_Db_Table_Abstract
 				$sqlRes = $db->query($qry);
 				$buRes = $sqlRes->fetchAll();
 
-				
+
 		return $buRes;
 	}
 	public function checkDuplicateUnitName($unitName)

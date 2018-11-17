@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 	{
 		$this->db = Zend_Db_Table::getDefaultAdapter();
 	}
-	
+
 	public function addCategory($data)
 	{
 		if(!empty($data))
@@ -40,7 +40,7 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 
 	/**
 	** function to retrieve categories
-	** @con = 'add' gets active category names 
+	** @con = 'add' gets active category names
 	** @con = 'cnt' gets active categories count
 	** @con = 'grid' gets active categories data
 	** @con = 'menu' gets active categories with document count
@@ -61,12 +61,12 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 			{
 				$columns = 'c.*';
 			}
-			
+
 			$where = "c.isactive = 1";
 			if($searchQuery)
 				$where .= " AND ".$searchQuery;
 
-			if(empty($by) && empty($sort)) 
+			if(empty($by) && empty($sort))
 			{
 				$by = 'c.category';
 				$sort = 'ASC';
@@ -89,7 +89,7 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 			}
 			else if($con == 'menu')
 			{
-				$qry = 'select d.category_id,count(d.id) as doccnt  from main_pd_documents d where d.isactive = 1 group by d.category_id'; 					
+				$qry = 'select d.category_id,count(d.id) as doccnt  from main_pd_documents d where d.isactive = 1 group by d.category_id';
 				$tmpRes = $this->db->query($qry);
 				$documentsObj = $tmpRes->fetchAll();
 				$categoryObj = $this->fetchAll($res)->toArray();
@@ -112,7 +112,7 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 		$searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -121,20 +121,20 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 					$searchQuery .= " c.".$key." like '%".$val."%' AND ";
 					$searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
-			
+
 		$objName = 'categories';
-		
-		$tableFields = array('action'=>'Action','category'=>'Category','description' => 'Description');
-		
-		$tablecontent = $this->getCategories('grid',$sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','category'=>'Categoría','description' => 'Descripción');
+
+		$tablecontent = $this->getCategories('grid',$sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -169,7 +169,7 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 		{
 			//print_r($e);
 		}
-	}	
+	}
 	public function editCategory($data,$where)
 	{
 		if(!empty($data) && !empty($where))
@@ -179,6 +179,6 @@ class Default_Model_Categories extends Zend_Db_Table_Abstract
 		}
 		else
 			return false;
-	}	
+	}
 }
 ?>

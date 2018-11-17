@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,16 +27,16 @@
 		<?php foreach ($this->messages as $message){?>
 		 <?php echo $this->escape($message); ?>
 		<?php } ?>
-       </div> 
-	</div>	
-	
+       </div>
+	</div>
+
 <?php } ?>
 
 <div class="menu-explain-data">
-	<div class="menu-text">You can manage your <?php echo APPLICATION_NAME; ?> system by selecting or de-selecting the above modules. </div>
+	<div class="menu-text">Puede administrar su sistema <?php echo APPLICATION_NAME; ?> seleccionando o anulando la selección de los siguientes módulos. </div>
 	<div class="diagram-details">
-    	<div class="active-label"><b></b><span>Active</span></div>
-        <div class="inactive-label"><b></b><span>In-active</span></div>
+    	<div class="active-label"><b></b><span>Activo</span></div>
+        <div class="inactive-label"><b></b><span>Inactivo</span></div>
     </div>
 </div>
 
@@ -70,10 +70,10 @@
 <script type="text/javascript">
 var checkmenu  = '';
 $(document).ready(function() {
-	
-	<?php $menuArr = $this->isactArr;if(!empty($menuArr)){ 
+
+	<?php $menuArr = $this->isactArr;if(!empty($menuArr)){
 		for($i=0;$i<sizeof($menuArr);$i++)
-		{	
+		{
 			if($menuArr[$i]['id'] == '7')
 			{ ?>
 				checkmenu += '7,';
@@ -93,7 +93,7 @@ $(document).ready(function() {
 				$('#menu_130').parent().addClass('time-active');
 	<?php	}
 			else if($menuArr[$i]['id'] == '15')
-			{ ?>	
+			{ ?>
 				checkmenu += '15,';
 				$('#menu_15').parent().removeClass('benefits-inactive');
 				$('#menu_15').parent().addClass('benefits-active');
@@ -126,127 +126,127 @@ $(document).ready(function() {
  	} ?>
 	$('#chk_menu').val(checkmenu);
 	$('#menu_7').on('click',function() {
-			if($('#menu_7').parent().hasClass('compli-active')) 
-			{				
-				checkmenu = checkmenu.replace(/7,/,"");		
+			if($('#menu_7').parent().hasClass('compli-active'))
+			{
+				checkmenu = checkmenu.replace(/7,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_7').parent().removeClass('compli-active');
 				$('#menu_7').parent().addClass('compli-inactive');
-			}else if($('#menu_7').parent().hasClass('compli-inactive')) 
+			}else if($('#menu_7').parent().hasClass('compli-inactive'))
 			{
-				checkmenu = checkmenu+'7,';				
-				$('#chk_menu').val(checkmenu);				
+				checkmenu = checkmenu+'7,';
+				$('#chk_menu').val(checkmenu);
 				$('#menu_7').parent().removeClass('compli-inactive');
 				$('#menu_7').parent().addClass('compli-active');
 			}
 	});
 	$('#menu_8').on('click',function() {
-			if($('#menu_8').parent().hasClass('reports-active')) 
-			{				
-				checkmenu = checkmenu.replace(/8,/,"");				
+			if($('#menu_8').parent().hasClass('reports-active'))
+			{
+				checkmenu = checkmenu.replace(/8,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_8').parent().removeClass('reports-active');
 				$('#menu_8').parent().addClass('reports-inactive');
-			}else if($('#menu_8').parent().hasClass('reports-inactive')) 
+			}else if($('#menu_8').parent().hasClass('reports-inactive'))
 			{
-				checkmenu = checkmenu+'8,';				
+				checkmenu = checkmenu+'8,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_8').parent().removeClass('reports-inactive');
 				$('#menu_8').parent().addClass('reports-active');
 			}
 	});
-	$('#menu_130').on('click',function() {	
-			if($('#menu_130').parent().hasClass('time-active')) 
+	$('#menu_130').on('click',function() {
+			if($('#menu_130').parent().hasClass('time-active'))
 			{
-				checkmenu = checkmenu.replace(/130,/,"");				
+				checkmenu = checkmenu.replace(/130,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_130').parent().removeClass('time-active');
 				$('#menu_130').parent().addClass('time-inactive');
-			}else if($('#menu_130').parent().hasClass('time-inactive')) 
+			}else if($('#menu_130').parent().hasClass('time-inactive'))
 			{
-				checkmenu = checkmenu+'130,';				
+				checkmenu = checkmenu+'130,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_130').parent().removeClass('time-inactive');
 				$('#menu_130').parent().addClass('time-active');
 			}
 	});
-	$('#menu_15').on('click',function() {	
-			if($('#menu_15').parent().hasClass('benefits-active')) 
+	$('#menu_15').on('click',function() {
+			if($('#menu_15').parent().hasClass('benefits-active'))
 			{
-				checkmenu = checkmenu.replace(/15,/,"");				
+				checkmenu = checkmenu.replace(/15,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_15').parent().removeClass('benefits-active');
 				$('#menu_15').parent().addClass('benefits-inactive');
-			}else if($('#menu_15').parent().hasClass('benefits-inactive')) 
+			}else if($('#menu_15').parent().hasClass('benefits-inactive'))
 			{
-				checkmenu = checkmenu+'15,';				
+				checkmenu = checkmenu+'15,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_15').parent().removeClass('benefits-inactive');
 				$('#menu_15').parent().addClass('benefits-active');
-			}			
+			}
 	});
 	$('#menu_18').on('click',function() {
-			if($('#menu_18').parent().hasClass('pa-active')) 
+			if($('#menu_18').parent().hasClass('pa-active'))
 			{
-				checkmenu = checkmenu.replace(/18,/,"");				
+				checkmenu = checkmenu.replace(/18,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_18').parent().removeClass('pa-active');
 				$('#menu_18').parent().addClass('pa-inactive');
-			}else if($('#menu_18').parent().hasClass('pa-inactive')) 
+			}else if($('#menu_18').parent().hasClass('pa-inactive'))
 			{
-				checkmenu = checkmenu+'18,';				
+				checkmenu = checkmenu+'18,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_18').parent().removeClass('pa-inactive');
 				$('#menu_18').parent().addClass('pa-active');
 			}
 	});
 	$('#menu_19').on('click',function() {
-			if($('#menu_19').parent().hasClass('resource-active')) 
+			if($('#menu_19').parent().hasClass('resource-active'))
 			{
-				checkmenu = checkmenu.replace(/19,/,"");				
+				checkmenu = checkmenu.replace(/19,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_19').parent().removeClass('resource-active');
 				$('#menu_19').parent().addClass('resource-inactive');
-			}else if($('#menu_19').parent().hasClass('resource-inactive')) 
+			}else if($('#menu_19').parent().hasClass('resource-inactive'))
 			{
-				checkmenu = checkmenu+'19,';				
+				checkmenu = checkmenu+'19,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_19').parent().removeClass('resource-inactive');
 				$('#menu_19').parent().addClass('resource-active');
 			}
 	});
 	$('#menu_5').on('click',function() {
-			if($('#menu_5').parent().hasClass('bgchk-active')) 
-			{	
-				checkmenu = checkmenu.replace(/5,/,"");				
+			if($('#menu_5').parent().hasClass('bgchk-active'))
+			{
+				checkmenu = checkmenu.replace(/5,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_5').parent().removeClass('bgchk-active');
 				$('#menu_5').parent().addClass('bgchk-inactive');
-			}else if($('#menu_5').parent().hasClass('bgchk-inactive')) 
+			}else if($('#menu_5').parent().hasClass('bgchk-inactive'))
 			{
-				checkmenu = checkmenu+'5,';				
+				checkmenu = checkmenu+'5,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_5').parent().removeClass('bgchk-inactive');
 				$('#menu_5').parent().addClass('bgchk-active');
 			}
 	});
 	$('#menu_6').on('click',function() {
-			if($('#menu_6').parent().hasClass('staffing-active')) 
+			if($('#menu_6').parent().hasClass('staffing-active'))
 			{
-				checkmenu = checkmenu.replace(/6,/,"");				
+				checkmenu = checkmenu.replace(/6,/,"");
 				$('#chk_menu').val(checkmenu);
 				$('#menu_6').parent().removeClass('staffing-active');
 				$('#menu_6').parent().addClass('staffing-inactive');
-			}else if($('#menu_6').parent().hasClass('staffing-inactive')) 
+			}else if($('#menu_6').parent().hasClass('staffing-inactive'))
 			{
-				checkmenu = checkmenu+'6,';				
+				checkmenu = checkmenu+'6,';
 				$('#chk_menu').val(checkmenu);
 				$('#menu_6').parent().removeClass('staffing-inactive');
 				$('#menu_6').parent().addClass('staffing-active');
 			}
-			
+
 		});
-		
+
 	<?php if (count($this->messages)) {?>
       setTimeout(function(){
 			$('#dispmsgmenu').fadeOut('slow');

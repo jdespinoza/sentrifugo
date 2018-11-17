@@ -233,7 +233,7 @@ class Default_ReportsController extends Zend_Controller_Action
             }
             else
             {
-                $norec_arr['businessunit_id'] = 'Business Units are not added yet.';
+                $norec_arr['businessunit_id'] = 'Las unidades de negocio no se han agregado todavía.';
             }
 			$this->view->emp_data = $emp_data;
 			$this->view->emp_grouped_data = $emp_grouped_data;
@@ -1186,43 +1186,43 @@ class Default_ReportsController extends Zend_Controller_Action
 	public function empreport_heplper1($type)
 	{
 		$columns_array = array(
-                        'employeeId' => 'Employee ID',
-                        'userfullname' => 'Employee',
-                        'emailaddress' => 'Email',
-                        'contactnumber' => 'Mobile',
-                        'emprole_name' => 'Role',
-                        'reporting_manager_name' => 'Reporting Manager',
-                        'date_of_joining' => 'Date of Joining',
-                        'modeofentry' => 'Mode of Employment',
-                        'jobtitle_name' => 'Job Title',
-                        'position_name' => 'Position',
-                        'businessunit_name' => 'Business Unit',
-                        'department_name' => 'Department',
-                        'emp_status_name' => 'Employment Status',
-                        'date_of_leaving' => 'Date of Leaving',
-                        'years_exp' => 'Years of Experience',
-                        'holiday_group_name' => 'Holiday Group',
-                        'office_number' => 'Work Phone',
-                        'extension_number' => 'Extension Number',
-                        'backgroundchk_status' => 'Background Check Status',
-                        'other_modeofentry' => 'Mode of Entry(Other)',
-                        'referer_name' => 'Referred By',
-                        'currencyname' => 'Salary Currency',
-                        'freqtype' => 'Pay Frequency',
-                        'salary' => 'Salary',
+                        'employeeId' => 'Id Empleado',
+                        'userfullname' => 'Empleado',
+                        'emailaddress' => 'Correo',
+                        'contactnumber' => 'Teléfono',
+                        'emprole_name' => 'Rol',
+                        'reporting_manager_name' => 'Gerente de Informes',
+                        'date_of_joining' => 'Fecha de Inscripción',
+                        'modeofentry' => 'Modo de Empleo',
+                        'jobtitle_name' => 'Título Profesional',
+                        'position_name' => 'Posición',
+                        'businessunit_name' => 'Unidad de Negocios',
+                        'department_name' => 'Departamento',
+                        'emp_status_name' => 'Estado de Empleo',
+                        'date_of_leaving' => 'Fecha de partida',
+                        'years_exp' => 'Años de Experiencia',
+                        'holiday_group_name' => 'Grupo de Vacaciones',
+                        'office_number' => 'Teléfono del Trabajo',
+                        'extension_number' => 'Número de Extensión',
+                        'backgroundchk_status' => 'Estado de Verificación de Antecedentes',
+                        'other_modeofentry' => 'Modo de Entrada (Otro)',
+                        'referer_name' => 'Referido por',
+                        'currencyname' => 'Moneda de Salario',
+                        'freqtype' => 'Frecuencia de Pago',
+                        'salary' => 'Salario',
 
 		);
 		$mandatory_array = array(
-                        'employeeId' => 'Employee ID',
-                        'userfullname' => 'Employee',
-                        'emailaddress' => 'Email',
-                        'contactnumber' => 'Mobile',
-                        'emprole_name' => 'Role',
-                        'reporting_manager_name' => 'Reporting Manager',
-                        'jobtitle_name' => 'Job Title',
+                        'employeeId' => 'Id Empleado',
+                        'userfullname' => 'Empleado',
+                        'emailaddress' => 'Correo',
+                        'contactnumber' => 'Teléfono',
+                        'emprole_name' => 'Rol',
+                        'reporting_manager_name' => 'Gerente de Informes',
+                        'jobtitle_name' => 'Título Profesional',
                         // 'position_name' => 'Position',
-                        'businessunit_name' => 'Business Unit',
-                        'department_name' => 'Department',
+                        'businessunit_name' => 'Unidad de Negocios',
+                        'department_name' => 'Departamento',
 						/*'emp_status_name' => 'Employment Status',
                         'date_of_joining' => 'Date of Joining',  */
 		);
@@ -1591,7 +1591,7 @@ class Default_ReportsController extends Zend_Controller_Action
             }
             else
             {
-                $norec_arr['businessunit_id'] = 'Business Units are not added yet.';
+                $norec_arr['businessunit_id'] = 'Las unidades de negocio no se han agregado todavía.';
             }
 
             $this->view->form = $form;

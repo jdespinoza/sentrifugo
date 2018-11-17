@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,30 +23,30 @@ class Default_Model_Maritalstatus extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_maritalstatus';
     protected $_primary = 'id';
-	
+
 	public function getMaritalStatusData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$maritalstatusData = $this->select()
-    					   ->setIntegrityCheck(false)	    					
+    					   ->setIntegrityCheck(false)
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $maritalstatusData;       		
+
+		return $maritalstatusData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -55,18 +55,18 @@ class Default_Model_Maritalstatus extends Zend_Db_Table_Abstract
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
 					$searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
 		$objName = 'maritalstatus';
-		
-		$tableFields = array('action'=>'Action','maritalcode' => 'Marital Code','maritalstatusname' =>'Marital Status','description' => 'Description');
-		$tablecontent = $this->getMaritalStatusData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','maritalcode' => 'Código Civil','maritalstatusname' =>'Estado Civil','description' => 'Descripción');
+		$tablecontent = $this->getMaritalStatusData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -76,24 +76,24 @@ class Default_Model_Maritalstatus extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall
-		);		
+		);
 		return $dataTmp;
 	}
-	
+
 	public function getsingleMaritalstatusData($id)
 	{
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$maritalstatusData = $db->query("SELECT * FROM main_maritalstatus WHERE id = ".$id." AND isactive=1");
 		$res = $maritalstatusData->fetchAll();
-		if (isset($res) && !empty($res)) 
-		{	
+		if (isset($res) && !empty($res))
+		{
 			return $res;
 		}
 		else
 			return 'norows';
 	}
-	
+
 	public function SaveorUpdateMaritalStatusData($data, $where)
 	{
 	    if($where != ''){
@@ -104,10 +104,10 @@ class Default_Model_Maritalstatus extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_maritalstatus');
 			return $id;
 		}
-		
-	
+
+
 	}
-	
+
 	public function getMaritalStatusList()
 	{
 	    $select = $this->select()
@@ -116,6 +116,6 @@ class Default_Model_Maritalstatus extends Zend_Db_Table_Abstract
 					    ->where('m.isactive = 1')
 						->order('m.maritalstatusname');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
 }

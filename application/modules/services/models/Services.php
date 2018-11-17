@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,7 @@ class Services_Model_Services extends Zend_Db_Table_Abstract
 	 */
 	public function login($postarray)
     {
-	  
+
 	  if(isset($postarray['employeeid']) && $postarray['employeeid'] != '' && isset($postarray['password']) && $postarray['password'] != '')
 	  {
 	     $employeeid = $postarray['employeeid'];
@@ -52,12 +52,12 @@ class Services_Model_Services extends Zend_Db_Table_Abstract
 			  }
 			  else
 			  {
-			     $data = array('message'=>'Invalid credentials given' ); 
+			     $data = array('message'=>'Invalid credentials given' );
 			  }
-	     
+
 	  }else if($postarray['employeeid'] == '')
 	  {
-	     $data = array('message'=>'Employee Id cannot be empty.');
+	     $data = array('message'=>'Id Empleado no puede estar vacio');
 	  }else if($postarray['password'] == '')
 	  {
 	     $data = array('message'=>'Password cannot be empty.');
@@ -72,12 +72,12 @@ class Services_Model_Services extends Zend_Db_Table_Abstract
 	    if ($employeeid !='' && $password !='')
 		{
 			$db = Zend_Db_Table::getDefaultAdapter();
-			$query = "SELECT count(*) AS `count` FROM (SELECT `a`.`id` AS `aid`, if(r.group_id in (1,5) and a.userstatus = 'new','old',a.userstatus) 
-					AS `def_status` FROM `main_users` AS `a` 
-					INNER JOIN `main_roles` AS `r` ON r.id=a.emprole 
-					WHERE (a.isactive = 1 AND r.isactive = 1 AND a.emptemplock = 0 AND a.employeeId = '".$employeeid."' AND a.emppassword = '".$password."')) 
+			$query = "SELECT count(*) AS `count` FROM (SELECT `a`.`id` AS `aid`, if(r.group_id in (1,5) and a.userstatus = 'new','old',a.userstatus)
+					AS `def_status` FROM `main_users` AS `a`
+					INNER JOIN `main_roles` AS `r` ON r.id=a.emprole
+					WHERE (a.isactive = 1 AND r.isactive = 1 AND a.emptemplock = 0 AND a.employeeId = '".$employeeid."' AND a.emppassword = '".$password."'))
 					AS `ac` WHERE (ac.def_status = 'old')";
-					   
+
 			$result = $db->query($query)->fetchAll();
 		}
 		return $result;
@@ -97,11 +97,11 @@ class Services_Model_Services extends Zend_Db_Table_Abstract
 			->where("u.employeeId = '".$employeeid."' and u.emppassword = '".$password."' and u.isactive = 1");
 
 			$result = $this->fetchAll($query)->toArray();
-			
+
 		}
 		return $result;
 
-	}	
-	
+	}
+
 
 }

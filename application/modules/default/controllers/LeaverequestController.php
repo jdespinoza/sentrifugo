@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,20 +25,20 @@ class Default_LeaverequestController extends Zend_Controller_Action
     private $options;
 	public function preDispatch()
 	{
-	 
+
 			 $ajaxContext = $this->_helper->getHelper('AjaxContext');
 			 $ajaxContext->addActionContext('gethalfdaydetails', 'json')->initContext();
 			 $ajaxContext->addActionContext('saveleaverequestdetails', 'json')->initContext();
 			 $ajaxContext->addActionContext('updateleavedetails', 'json')->initContext();
-		
+
 	}
-	
+
     public function init()
     {
         $this->_options= $this->getInvokeArg('bootstrap')->getOptions();
-		
+
     }
-	
+
 	public function indexAction()
     {
 	    $auth = Zend_Auth::getInstance();
@@ -55,7 +55,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 		$employeesmodel = new Default_Model_Employees();
 		$weekdaysmodel = new Default_Model_Weekdays();
 		$holidaydatesmodel = new Default_Model_Holidaydates();
-		$msgarray = array(); 
+		$msgarray = array();
 		$dateofjoiningArr = array();
 		$holidayDateslistArr = array();
 		$rMngr = 'No';
@@ -78,7 +78,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			{
 				$loggedinEmpId = $usersmodel->getUserDetailsByID($loginUserId);
 				$loggedInEmployeeDetails = $employeesmodel->getLoggedInEmployeeDetails($loginUserId);
-				
+
 				if(!empty($loggedInEmployeeDetails))
 					{
 					    if($loggedInEmployeeDetails[0]['date_of_joining'] !='')
@@ -86,7 +86,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						    $date = new DateTime($loggedInEmployeeDetails[0]['date_of_joining']);
                             $datofjoiningtimestamp =  $date->getTimestamp();
 							$dateofjoining = explode("-",$loggedInEmployeeDetails[0]['date_of_joining']);
-							
+
 							$year = $dateofjoining[0];
 							$month = $dateofjoining[1];
 							$day = $dateofjoining[2];
@@ -96,7 +96,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						$employeeDepartmentId = $loggedInEmployeeDetails[0]['department_id'];
 						$employeeEmploymentStatusId = $loggedInEmployeeDetails[0]['emp_status_id'];
 						$employeeHolidayGroupId = $loggedInEmployeeDetails[0]['holiday_group'];
-						
+
 						$reportingManagerDetails = $usersmodel->getUserDetailsByID($reportingmanagerId);
 						$weekendDatailsArr = $leavemanagementmodel->getWeekendDetails($employeeDepartmentId);
                         $employeeemail = $loggedinEmpId[0]['emailaddress'];
@@ -104,24 +104,24 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						$businessunitid = $loggedInEmployeeDetails[0]['businessunit_id'];
                         if(!empty($reportingManagerDetails))
 						{
-							$leaverequestform->rep_mang_id->setValue($reportingManagerDetails[0]['userfullname']); 
+							$leaverequestform->rep_mang_id->setValue($reportingManagerDetails[0]['userfullname']);
 							$reportingManageremail = $reportingManagerDetails[0]['emailaddress'];
 							$reportingmanagerName = $reportingManagerDetails[0]['userfullname'];
-							$rep_mang_id = $reportingManagerDetails[0]['id']; 
+							$rep_mang_id = $reportingManagerDetails[0]['id'];
 							$rMngr = 'Yes';
 						}
 						else
 						{
 						   $msgarray['rep_mang_id'] = 'Reporting manager is not assigned yet. Please contact your HR.';
 						}
-						
+
 						if(!empty($weekendDatailsArr))
 						{
 							$week_startday = $weekendDatailsArr[0]['weekendstartday'];
 							$week_endday = $weekendDatailsArr[0]['weekendday'];
 							$ishalf_day = $weekendDatailsArr[0]['is_halfday'];
 							$isskip_holidays = $weekendDatailsArr[0]['is_skipholidays'];
-							
+
                         }
                         else
 						{
@@ -131,28 +131,28 @@ class Default_LeaverequestController extends Zend_Controller_Action
 
 						if($employeeHolidayGroupId !='' && $employeeHolidayGroupId != NULL)
 							$holidayDateslistArr = $holidaydatesmodel->getHolidayDatesListForGroup($employeeHolidayGroupId	);
-							
+
                         if (defined('LV_HR_'.$businessunitid))
 							$hremailgroup = 'hremailgroupexists';
 						else
 						    $hremailgroup = '';
 
-						/* Search Filters */    
+						/* Search Filters */
 						$isReportingManagerFlag = 'false';
 						$searchRepFlag = 'false';
 						$searchMeFlag = 'true';
-						
+
 				    	$filter = $this->_request->getParam('filter');
 				    	if(!empty($filter)) {
-				    	  if(in_array(2, $filter))		
+				    	  if(in_array(2, $filter))
 				    	  	$searchRepFlag = 'true';
-				    	  	
-				    	  if(in_array(1, $filter))	
+
+				    	  if(in_array(1, $filter))
 				    	  	$searchMeFlag = 'true';
 				    	  else
-				    	  	$searchMeFlag = 'false';	
-				    	}	  	
-				    	
+				    	  	$searchMeFlag = 'false';
+				    	}
+
 				    	if($searchMeFlag == 'true')
 							$leaverequestdetails = $leaverequestmodel->getUserApprovedOrPendingLeavesData($loginUserId);
 						/* Start -For Checking if logged in user is reporting manager */
@@ -162,9 +162,9 @@ class Default_LeaverequestController extends Zend_Controller_Action
 								$managerrequestdetails = $leaverequestmodel->getManagerApprovedOrPendingLeavesData($loginUserId);
 							$isReportingManagerFlag = 'true';
 						}
-						/* End */	
+						/* End */
 						/* Start -For Checking if logged in user is hr manager for thar particular department*/
-						
+
 						//get hr_id from leavemanagemnt table based on login user dept id
 						$configure_hr_id=$leavemanagementmodel->gethrDetails($loginUserdepartment_id);
 						if(!empty($configure_hr_id))
@@ -175,17 +175,17 @@ class Default_LeaverequestController extends Zend_Controller_Action
 								$managerrequestdetails = $leaverequestmodel->getHrApprovedOrPendingLeavesData($loginUserId);
 								$isReportingManagerFlag = 'true';
 						  }
-						} 
-						/* End */	
-						$this->view->userfullname = $userfullname; 					
+						}
+						/* End */
+						$this->view->userfullname = $userfullname;
 						$this->view->loggedinEmpId = $loggedinEmpId;
 						$this->view->weekendDatailsArr = $weekendDatailsArr;
-						$this->view->reportingManagerDetails = $reportingManagerDetails;  
+						$this->view->reportingManagerDetails = $reportingManagerDetails;
 						$this->view->rMngr = $rMngr;
 						$this->view->hremailgroup = $hremailgroup;
 						$this->view->dateofjoiningArr = $dateofjoiningArr;
 						$this->view->leaverequestdetails = !empty($leaverequestdetails)?$leaverequestdetails:array();
-						$this->view->holidayDateslistArr = $holidayDateslistArr;																								
+						$this->view->holidayDateslistArr = $holidayDateslistArr;
 						$this->view->managerrequestdetails = !empty($managerrequestdetails)?$managerrequestdetails:array();
 						$this->view->isReportingManagerFlag = $isReportingManagerFlag;
 						$this->view->searchRepFlag = $searchRepFlag;
@@ -196,11 +196,11 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					   $msgarray['rep_mang_id'] = 'Reporting manager is not assigned yet. Please contact your HR.';
 					   $msgarray['from_date'] = 'Leave management options are not configured yet.';
 					   $msgarray['to_date'] = 'Leave management options are not configured yet.';
-					}   					
+					}
 			}
 		/* End */
-		
-		/* 
+
+		/*
 		 Start
 		 Query to fetch and build multioption for Leavetype dropdown
 		*/
@@ -220,11 +220,11 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			}
 			$this->view->leavetype = $leavetype;
 		/* End */
-		
+
 		/*
 		START
-		Query to get the number of available leaves for the employee 
-		*/   
+		Query to get the number of available leaves for the employee
+		*/
       	   $getavailbaleleaves = $leaverequestmodel->getAvailableLeaves($loginUserId);
 		     if(!empty($getavailbaleleaves))
 			   {
@@ -235,22 +235,22 @@ class Default_LeaverequestController extends Zend_Controller_Action
 				{
 				   $msgarray['no_of_days'] = 'You have not been allotted leaves for this financial year. Please contact your HR.';
 				}
-			$this->view->getavailbaleleaves = $getavailbaleleaves;	
+			$this->view->getavailbaleleaves = $getavailbaleleaves;
 	    /* END */
-		
-		
-		$this->view->form = $leaverequestform; 
+
+
+		$this->view->form = $leaverequestform;
 		$this->view->msgarray = $msgarray;
 		$this->view->loginUserId = $loginUserId;
-		
+
 		if($this->getRequest()->getPost() && empty($filter)){
-				$result = $this->saveleaverequest($leaverequestform,$availableleaves,$rep_mang_id,$employeeemail,$reportingManageremail,$week_startday,$week_endday,$ishalf_day,$userfullname,$reportingmanagerName,$businessunitid);	
-				$this->view->msgarray = $result; 
+				$result = $this->saveleaverequest($leaverequestform,$availableleaves,$rep_mang_id,$employeeemail,$reportingManageremail,$week_startday,$week_endday,$ishalf_day,$userfullname,$reportingmanagerName,$businessunitid);
+				$this->view->msgarray = $result;
 			}
-        		
+
 		$this->view->messages = $this->_helper->flashMessenger->getMessages();
     }
-	
+
 	public function saveleaverequestdetailsAction()
 	{
 	  $this->_helper->layout->disableLayout();
@@ -290,30 +290,30 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			{
 				$loggedinEmpId = $usersmodel->getUserDetailsByID($loginUserId);
 				$loggedInEmployeeDetails = $employeesmodel->getLoggedInEmployeeDetails($loginUserId);
-				
+
 				if(!empty($loggedInEmployeeDetails))
 					{
-					  
+
 						$reportingmanagerId = $loggedInEmployeeDetails[0]['reporting_manager'];
 						$employeeDepartmentId = $loggedInEmployeeDetails[0]['department_id'];
 						$employeeEmploymentStatusId = $loggedInEmployeeDetails[0]['emp_status_id'];
 						$businessunitid = $loggedInEmployeeDetails[0]['businessunit_id'];
 						$dateofjoining = $loggedInEmployeeDetails[0]['date_of_joining'];
-						
+
 						if($reportingmanagerId !='' && $reportingmanagerId != NULL)
 						 $reportingManagerDetails = $usersmodel->getUserDetailsByID($reportingmanagerId);
-						 
+
 						if($employeeDepartmentId !='' && $employeeDepartmentId != NULL)
 						 $weekendDatailsArr = $leavemanagementmodel->getWeekendDetails($employeeDepartmentId);
                         $employeeemail = $loggedinEmpId[0]['emailaddress'];
 						$userfullname = $loggedinEmpId[0]['userfullname'];
-						
+
                         if(!empty($reportingManagerDetails))
 						{
-							$leaverequestform->rep_mang_id->setValue($reportingManagerDetails[0]['userfullname']); 
+							$leaverequestform->rep_mang_id->setValue($reportingManagerDetails[0]['userfullname']);
 							$reportingManageremail = $reportingManagerDetails[0]['emailaddress'];
 							$reportingmanagerName = $reportingManagerDetails[0]['userfullname'];
-							$rep_mang_id = $reportingManagerDetails[0]['id']; 
+							$rep_mang_id = $reportingManagerDetails[0]['id'];
 							$rMngr = 'Yes';
 						}
 						else
@@ -321,14 +321,14 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						   $msgarray['rep_mang_id'] = 'Reporting manager is not assigned yet. Please contact your HR.';
 						   $errorflag = 'false';
 						}
-						
+
 						if(!empty($weekendDatailsArr))
 						{
 							$week_startday = $weekendDatailsArr[0]['weekendstartday'];
 							$week_endday = $weekendDatailsArr[0]['weekendday'];
 							$ishalf_day = $weekendDatailsArr[0]['is_halfday'];
 							$isskip_holidays = $weekendDatailsArr[0]['is_skipholidays'];
-							
+
                         }
                         else
 						{
@@ -336,7 +336,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						   $msgarray['to_date'] = 'Leave management options are not configured yet.';
 						   $errorflag = 'false';
 						}
-						 
+
 					}
                     else
 					{
@@ -344,14 +344,14 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					   $msgarray['rep_mang_id'] = 'Reporting manager is not assigned yet. Please contact your HR.';
 					   $msgarray['from_date'] = 'Leave management options are not configured yet.';
 					   $msgarray['to_date'] = 'Leave management options are not configured yet.';
-					}   					
+					}
 			}
-			
+
 			/*START- Validating if employee has been allotted leaves
 			  Validating if employee has not been assigned any leaves
-			*/ 
+			*/
 			$getavailbaleleaves = $leaverequestmodel->getAvailableLeaves($loginUserId);
-			
+
 			 if(!empty($getavailbaleleaves))
 			   {
 				$availableleaves = $getavailbaleleaves[0]['remainingleaves'];
@@ -363,10 +363,10 @@ class Default_LeaverequestController extends Zend_Controller_Action
 				}
 			/*
 			  END- Validating if employee has been allotted leaves
-			*/		
-			
-		
-		$id = $this->_request->getParam('id'); 
+			*/
+
+
+		$id = $this->_request->getParam('id');
 		$reason = $this->_request->getParam('reason'); // reason
 		$leavetypeparam = $this->_request->getParam('leavetypeid');
 		if(isset($leavetypeparam) && $leavetypeparam !='')
@@ -375,7 +375,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			$leavetypeid = $leavetypeArr[0];
 			$leavetypeArr = $employeeleavetypesmodel->getLeavetypeDataByID($leavetypeid);
 		}
-		
+
 		/*
 		   START- Leave Type Validation
 		   Server side validation for leavetype count based on user selection.
@@ -396,19 +396,19 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			else if($leavetypeparam =='')
 			{
 				$msgarray['leavetypeid'] = 'Please select leave type.';
-			    $errorflag = 'false';	
-			}	
+			    $errorflag = 'false';
+			}
 			else
 			{
 				$msgarray['leavetypeid'] = 'Leave types are not configured yet.';
-			    $errorflag = 'false';	
-			}	
+			    $errorflag = 'false';
+			}
 		}
-		
+
 		/*
 		   END- Leave Type Validation
 		*/
-		
+
 		$leaveday = $this->_request->getParam('leaveday');
 		/*
 		   START- Leave Day Validation
@@ -424,25 +424,25 @@ class Default_LeaverequestController extends Zend_Controller_Action
 		/*
 		   END- Leave Day Validation
 		*/
-		
+
 		$from_date = $this->_request->getParam('from_date');
 		$from_date = sapp_Global::change_date($from_date,'database');
-		
+
 		$to_date = $this->_request->getParam('to_date');
 		$to_date = sapp_Global::change_date($to_date,'database');
-		
+
 		$appliedleavesdaycount = $this->_request->getParam('appliedleavesdaycount'); // no of leaves applied
-		
-		 
-        /* 
+
+
+        /*
 		   START- Day calculation and validations.
 		   I. Calculation of days based on start date and end data.
-		   II. Also checking whether Applied no of days is less than leavetype configuration. 
-		   III. Also If leaveday is selected as full day then making todata as manadatory and 
+		   II. Also checking whether Applied no of days is less than leavetype configuration.
+		   III. Also If leaveday is selected as full day then making todata as manadatory and
 		        if leave day is selected as half day then no mandatory validation for todate.
 		*/
 				if($from_date != '' && $to_date !='' && $leavetypecount !='')
-				{		 
+				{
 					$days = $this->calculatebusinessdays($from_date,$to_date);
 					if(is_numeric($days) && $leavetypecount >= $days)
 					{
@@ -458,9 +458,9 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						{
 						   $msgarray['to_date'] = $leavetypetext." permits maximum of ".$leavetypecount." leaves.";
 						   $errorflag = 'false';
-						}  				
+						}
 					}
-							   
+
 				}else
 				{
 				    if($leaveday == 1)
@@ -468,48 +468,48 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					   if($to_date == '' && !empty($weekendDatailsArr))
 					   {
 						 $msgarray['to_date'] = "Please select date.";
-						 $errorflag = 'false'; 
-					   } 
-                    }					   
+						 $errorflag = 'false';
+					   }
+                    }
 				}
-				
+
 		/*
 		    END- Day calculation and validations.
-        */  		
-				
-		/*  
+        */
+
+		/*
 		    START- Validating Half day requests based on Leave management options
-		    Validation for half day leaves. 
-		    If halfday leave is configure in leave management options then only half day leave can be applied. 
-	    */		
+		    Validation for half day leaves.
+		    If halfday leave is configure in leave management options then only half day leave can be applied.
+	    */
 		if($ishalf_day == 2)
 		{
 		   if($leaveday == 2)
 		   {
 		    $errorflag = 'false';
 			$msgarray['leaveday'] = 'Half day leave cannot be applied.';
-		   }	
-          
+		   }
+
 		}
-		
-		/*  
+
+		/*
 		    END- Validating Half day requests based on Leave management options
 		*/
-		
-		/* 
+
+		/*
 		   START- Validating if leave request has been previoulsy applied
-		   I.Validating from and to dates to check whether previously 
+		   I.Validating from and to dates to check whether previously
 		   any leave has been raised with the same dates.
 		   II.If full day leave is applied then fromdate and todate are passed as parameter to query.
 		   III.If half day leave is applied then fromdate and fromdate are passed as a parameter to query.
 		*/
-		
+
 		$userAppliedLeaves = $leaverequestmodel->getUsersAppliedLeaves($loginUserId);
 		if(!empty($userAppliedLeaves)) {
 				foreach($userAppliedLeaves as $leave) {
 					if($leaveday == 1)
 						$leavesDateExists = $leaverequestmodel->checkLeaveExists($leave['from_date'],$leave['to_date'],$from_date, $to_date, $loginUserId);
-					else	
+					else
 						$leavesDateExists = $leaverequestmodel->checkLeaveExists($leave['from_date'],$leave['to_date'],$from_date, $from_date, $loginUserId);
 					if($leavesDateExists[0]['leaveexist'] > 0)
 					{
@@ -518,13 +518,13 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					   break;
 					}
 				}
-				
-		} 
-	
+
+		}
+
 		/*
 		  END- Validating if leave request has been previoulsy applied
 		*/
-		
+
 		/* START Validating whether applied date is prior to date of joining */
 		if($dateofjoining >= $from_date && $from_date!='')
 		{
@@ -532,31 +532,31 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			$msgarray['from_date'] = ' Leave cannot be applied before date of joining.';
 		}
 		/* End */
-		
-		
-		
+
+
+
 		if($leaveday == 2)
 		 $appliedleavescount =  0.5;
 		else if($leaveday == 1)
 		 $appliedleavescount = ($days !=''?$days:$appliedleavesdaycount);
-		 
+
 
 		//get hr_id from leavemanagemnt table based on login user dept id
 	    $configure_hr_id=$leavemanagementmodel->gethrDetails($employeeDepartmentId);
 		if(!empty($configure_hr_id))
 		{
 		  $hr_id=$configure_hr_id[0]['hr_id'];
-		} 
+		}
 
 		if($this->getRequest()->getPost())
 		{
 		if($leaverequestform->isValid($this->_request->getPost()) && $errorflag == 'true')
 		    {
-			 	
+
 				$date = new Zend_Date();
 				$actionflag = '';
-				$tableid  = ''; 
-				   $data = array('user_id'=>$loginUserId, 
+				$tableid  = '';
+				   $data = array('user_id'=>$loginUserId,
 				                 'reason'=>$reason,
 				                 'leavetypeid'=>$leavetypeid,
 				                 'leaveday'=>$leaveday,
@@ -571,7 +571,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 								 'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 					if($id!=''){
-						$where = array('id=?'=>$id);  
+						$where = array('id=?'=>$id);
 						$actionflag = 2;
 					}
 					else
@@ -583,14 +583,14 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						$actionflag = 1;
 					}
 					$Id = $leaverequestmodel->SaveorUpdateLeaveRequest($data, $where);
-					/** 
-					leave request history 
+					/**
+					leave request history
 					**/
 					if($Id != 'update')
 					{
 						$history = 'Leave Request has been sent for Manager Approval by ';
 						 $leaverequesthistory_model = new Default_Model_Leaverequesthistory();
-						 $leave_history = array(											
+						 $leave_history = array(
 										'leaverequest_id' =>$Id,
 										'description' => $history,
 										//'emp_name' =>  ucfirst($auth->getStorage()->read()->userfullname),
@@ -601,23 +601,23 @@ class Default_LeaverequestController extends Zend_Controller_Action
 										'modifieddate'=> gmdate("Y-m-d H:i:s"),
 									);
 					      $where = '';
-						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where); 
+						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where);
 					}
 					if($Id == 'update')
 					{
 					   $tableid = $id;
 					   $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Leave request updated successfully."));
-					}   
+					}
 					else
 					{
-                       $tableid = $Id; 	
+                       $tableid = $Id;
                        $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Leave request added successfully."));
                             /** MAILING CODE **/
 							//$hremail = explode(",",HREMAIL);
 							/* Mail to Reporting manager */
 							if($to_date == '' || $to_date == NULL)
 							$to_date = $from_date;
-							
+
 							$toemailArr = $reportingManageremail; //$employeeemail
 							if(!empty($toemailArr))
 							{
@@ -663,8 +663,8 @@ class Default_LeaverequestController extends Zend_Controller_Action
             </div>
             <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>
             </div>';
-                                $result = sapp_Global::_sendEmail($options);	
-							}		
+                                $result = sapp_Global::_sendEmail($options);
+							}
 							/* END */
 							/* Mail to HR */
                             if (defined('LV_HR_'.$businessunitid) && $businessunitid !='')
@@ -710,100 +710,101 @@ class Default_LeaverequestController extends Zend_Controller_Action
 
             </div>
             <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>
-            </div>';	
+            </div>';
 								//$options['cron'] = 'yes';
                                 $result = sapp_Global::_sendEmail($options);
-							
+
 							}
-						 		
+
 							/* END */
 							/* Mail to the applied employee*/
+              /*Solicitud de salida, para aprobar*/
 								$toemailArr = $employeeemail;
-								$options['subject'] = 'Leave request for approval';
-								$options['header'] = 'Leave Request';
+								$options['subject'] = 'Solicutud de salida, para aprobar';
+								$options['header'] = 'Solicitud Salida';
 								$options['toEmail'] = $toemailArr;
 								$options['toName'] = $userfullname;
 								$options['message'] = '<div>
-												<div>Hi,</div>
-												<div>A leave request raised by you is sent for your managers approval.</div>
+												<div>Hola,</div>
+												<div>Su solicutud fue enviada a su manager, para ser analizada</div>
 <div>
                 <table width="100%" cellspacing="0" cellpadding="15" border="0" style="border:3px solid #BBBBBB; font-size:16px; font-family:Arial, Helvetica, sans-serif; margin:30px 0 30px 0;" bgcolor="#ffffff">
                       <tbody><tr>
-                        <td width="28%" style="border-right:2px solid #BBBBBB;">Employee Name</td>
+                        <td width="28%" style="border-right:2px solid #BBBBBB;">Nombre Empleado</td>
                         <td width="72%">'.$userfullname.'</td>
                       </tr>
                       <tr bgcolor="#e9f6fc">
-                        <td style="border-right:2px solid #BBBBBB;">No. of Day(s)</td>
+                        <td style="border-right:2px solid #BBBBBB;">Numero de Dias</td>
                         <td>'.$appliedleavescount.'</td>
                       </tr>
                       <tr>
-                        <td style="border-right:2px solid #BBBBBB;">From</td>
+                        <td style="border-right:2px solid #BBBBBB;">De</td>
                         <td>'.$from_date.'</td>
                       </tr>
                       <tr bgcolor="#e9f6fc">
-                        <td style="border-right:2px solid #BBBBBB;">To</td>
+                        <td style="border-right:2px solid #BBBBBB;">Hasta</td>
                         <td>'.$to_date.'</td>
             	     </tr>
 	    	          <tr>
-    	                 <td style="border-right:2px solid #BBBBBB;">Leave Type</td>
+    	                 <td style="border-right:2px solid #BBBBBB;">Tipo de Salida</td>
                         <td>'.$leavetypetext.'</td>
                   </tr>
                       <tr bgcolor="#e9f6fc">
-                        <td style="border-right:2px solid #BBBBBB;">Reason for Leave</td>
+                        <td style="border-right:2px solid #BBBBBB;">Razon de Salida</td>
                         <td>'.$reason.'</td>
                   </tr>
                 </tbody></table>
 
             </div>
-            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>												
+            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>
             </div>';
-                                $result = sapp_Global::_sendEmail($options);	
-							
-					} 
+                                $result = sapp_Global::_sendEmail($options);
+
+					}
 					$menuID = LEAVEREQUEST;
 					$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$tableid);
                     $this->_helper->json(array('result'=>'saved',
 												'message'=>'Leave request applied successfully.',
 												'controller'=>'pendingleaves'
-										));						
+										));
 			}
 			else
 			{
      			$messages = $leaverequestform->getMessages();
 				if(isset($msgarray['rep_mang_id'])){
-    				
+
     				$messages['rep_mang_id']= array($msgarray['rep_mang_id']);
     			}
 				if(isset($msgarray['from_date'])){
-    				
+
     				$messages['from_date']= array($msgarray['from_date']);
     			}
 				if(isset($msgarray['to_date'])){
-    				
+
     				$messages['to_date']= array($msgarray['to_date']);
     			}
 				if(isset($msgarray['leaveday'])){
-    				
+
     				$messages['leaveday']= array($msgarray['leaveday']);
     			}
 				if(isset($msgarray['leavetypeid'])){
-    				
+
     				$messages['leavetypeid']= array($msgarray['leavetypeid']);
     			}
 				if(isset($msgarray['no_of_days'])){
-    				
+
     				$messages['no_of_days']= array($msgarray['no_of_days']);
     			}
     			$messages['result']='error';
-    			$this->_helper->json($messages);	
-				
+    			$this->_helper->json($messages);
+
 			}
-		}	
+		}
 	}
-	
+
 	function calcBusinessDays($dDate1,$dDate2,$constantday)
 	{
-	   $iWeeks = ''; 
+	   $iWeeks = '';
 	   $iDateDiff = '';
 	   $iAdjust = 0;
         if (strtotime($dDate2) - strtotime($dDate1) < 0)
@@ -816,18 +817,18 @@ class Default_LeaverequestController extends Zend_Controller_Action
         $iWeekday2 = ($iWeekday2 == 0) ? 7 : $iWeekday2;
         if (($iWeekday1 > $constantday) && ($iWeekday2 > $constantday))
 		 $iAdjust = 1; // adjustment if both days on weekend
-		 
+
         $iWeekday1 = ($iWeekday1 > $constantday) ? $constantday : $iWeekday1; // only count weekdays
         $iWeekday2 = ($iWeekday2 > $constantday) ? $constantday : $iWeekday2;
 
         // calculate differnece in weeks ( 60sec * 60min * 24hrs * 7 days = 604800)
-		
+
         $iWeeks = floor((strtotime($dDate2) - strtotime($dDate1)) / 604800);
 
         if ($iWeekday1 <= $iWeekday2) {
           $iDateDiff = ($iWeeks * $constantday) + ($iWeekday2 - $iWeekday1);
-        } 
-		else 
+        }
+		else
 		{
           $iDateDiff = (($iWeeks + 1) * $constantday) - ($iWeekday1 - $iWeekday2);
         }
@@ -835,16 +836,16 @@ class Default_LeaverequestController extends Zend_Controller_Action
         $iDateDiff -= $iAdjust; // take into account both days on weekend
 
         return ($iDateDiff + 1); // add 1 because dates are inclusive
-	
+
 	}
-	
+
 	public function calculatebusinessdays($fromDate,$toDate)
 	{
 	    $auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
 			$loginUserId = $auth->getStorage()->read()->id;
 		}
-		
+
 		$noOfDays =0;
 		$weekDay='';
 		$employeeDepartmentId = '';
@@ -855,20 +856,20 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			//Calculating the no of days in b/w from date & to date with out taking weekend & holidays....
 			$employeesmodel = new Default_Model_Employees();
 			$leavemanagementmodel = new Default_Model_Leavemanagement();
-			$holidaydatesmodel = new Default_Model_Holidaydates();	
-			
-			
+			$holidaydatesmodel = new Default_Model_Holidaydates();
+
+
 			$loggedInEmployeeDetails = $employeesmodel->getLoggedInEmployeeDetails($loginUserId);
 			if(!empty($loggedInEmployeeDetails))
 			{
 				$employeeDepartmentId = $loggedInEmployeeDetails[0]['department_id'];
 				$employeeGroupId = $loggedInEmployeeDetails[0]['holiday_group'];
-				
+
 				if($employeeDepartmentId !='' && $employeeDepartmentId != NULL)
 				 $weekendDetailsArr = $leavemanagementmodel->getWeekendNamesDetails($employeeDepartmentId);
-				
+
 				if(!empty($weekendDetailsArr))
-				{	
+				{
 					if($weekendDetailsArr[0]['is_skipholidays'] == 1 && isset($employeeGroupId) && $employeeGroupId !='')
 					{
 					  $holidayDateslistArr = $holidaydatesmodel->getHolidayDatesListForGroup($employeeGroupId);
@@ -878,13 +879,13 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						   {
 							  $holidayDatesArr[$i] = $holidayDateslistArr[$i]['holidaydate'];
 						   }
-					  } 
-					}  
+					  }
+					}
 						$weekend1 = $weekendDetailsArr[0]['daystartname'];
 						$weekend2 = $weekendDetailsArr[0]['dayendname'];
 				}
-					
-					
+
+
 				$fromdate_obj = new DateTime($fromDate);
 				$weekDay = $fromdate_obj->format('l');
 				while($fromDate <= $toDate)
@@ -907,14 +908,14 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					$fromdate_obj->add(new DateInterval('P1D'));	//Increment from date by one day...
 					$fromDate = $fromdate_obj->format('Y-m-d');
 					$weekDay = $fromdate_obj->format('l');
-				}	
-			}		
-				
+				}
+			}
+
 		return $noOfDays;
-			
+
 	}
-	
-	
+
+
 	function gethalfdaydetailsAction()
 	{
 	    $this->_helper->layout->disableLayout();
@@ -934,12 +935,12 @@ class Default_LeaverequestController extends Zend_Controller_Action
 				if(!empty($weekendDatailsArr))
 				   $ishalf_day = $weekendDatailsArr[0]['is_halfday'];
 				else
-                   $ishalf_day = 'error';				
+                   $ishalf_day = 'error';
 			}
-        $result['result'] =  $ishalf_day;			
+        $result['result'] =  $ishalf_day;
 	    $this->_helper->_json($result);
 	}
-	
+
 	public function editpopupAction()
 	{
 		Zend_Layout::getMvcInstance()->setLayoutPath(APPLICATION_PATH."/layouts/scripts/popup/");
@@ -952,7 +953,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 		$userid = $this->getRequest()->getParam('unitId');
 		if($id == '')
 		$id = $loginUserId;
-		
+
 		$leaverequestmodel = new Default_Model_Leaverequest();
 		$leaverequestform = new Default_Form_leaverequest();
 		$user_logged_in = 'true';
@@ -965,7 +966,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 			$leave_details = $leaverequestmodel->getLeaveDetails($id);
 			if(!empty($leave_details)) {
 				$leave_details = call_user_func_array('array_merge', $leave_details);
-				
+
 				if($leave_details['user_id']==$loginUserId) {
 					if($leave_details['leavestatus']=='Approved') {
 						if(isset($leave_details['from_date'])) {
@@ -979,22 +980,22 @@ class Default_LeaverequestController extends Zend_Controller_Action
 					$approve_flag = 'false';
 					$reject_flag = 'false';
 				}
-				
+
 				if($leave_details['rep_mang_id']==$loginUserId || $leave_details['hr_id']==$loginUserId ) {
 					if($leave_details['leavestatus']=='Approved') {
 						$approve_flag = 'false';
 						$reject_flag = 'false';
 					}
 					$manager_logged_in = 'true';
-				}		
-			}	
-			
+				}
+			}
+
  		}
  		else
  		{
  			$this->view->rowexist = "norows";
  		}
- 		
+
 		$this->view->form = $leaverequestform;
 		$this->view->controllername = 'leaverequest';
 		$this->view->leave_details = $leave_details;
@@ -1003,12 +1004,12 @@ class Default_LeaverequestController extends Zend_Controller_Action
 		$this->view->cancel_flag = $cancel_flag;
 		$this->view->approve_flag = $approve_flag;
 		$this->view->reject_flag = $reject_flag;
-		
+
 	}
-	
+
 	public function updateleavedetailsAction()
 	{
-		
+
 		$this->_helper->layout->disableLayout();
 		$result['result'] = 'success';
 		$result['msg'] = '';
@@ -1024,7 +1025,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 		{
 			$loginUserId = $auth->getStorage()->read()->id;
 		}
-		
+
 		$id = $this->_request->getParam('id');
 		$status = $this->_request->getParam('status');
 		$comments = $this->_request->getParam('comments');
@@ -1042,21 +1043,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						$leavestatus = 4;
 						if($leave_details['leavestatus']=='Approved') {
 							if(!empty($leavetypeArr)) {
-								if($leavetypeArr[0]['leavepredeductable'] == 1) {		
-							  		$updateemployeeleave = $leaverequestmodel->updatecancelledemployeeleaves($leave_details['appliedleavescount'],$leave_details['user_id']);
-							  	}
-							}
-						}
-						$successmsg ='Leave request cancelled succesfully.';
-						$subject = 'Leave request cancelled';						
-						$message = '<div>Hi,</div><div>The below leave(s) has been cancelled.</div>';
-					}
-				}elseif($leave_details['rep_mang_id']==$loginUserId || ($leave_details['hr_id']==$loginUserId )) {
-					if(sapp_Global::_decrypt($status)=='Cancel') {
-						$leavestatus = 4;
-						if($leave_details['leavestatus']=='Approved') {
-							if(!empty($leavetypeArr)) {
-								if($leavetypeArr[0]['leavepredeductable'] == 1) {		
+								if($leavetypeArr[0]['leavepredeductable'] == 1) {
 							  		$updateemployeeleave = $leaverequestmodel->updatecancelledemployeeleaves($leave_details['appliedleavescount'],$leave_details['user_id']);
 							  	}
 							}
@@ -1064,37 +1051,54 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						$successmsg ='Leave request cancelled succesfully.';
 						$subject = 'Leave request cancelled';
 						$message = '<div>Hi,</div><div>The below leave(s) has been cancelled.</div>';
+					}
+				}elseif($leave_details['rep_mang_id']==$loginUserId || ($leave_details['hr_id']==$loginUserId )) {
+					if(sapp_Global::_decrypt($status)=='Cancel') {
+						$leavestatus = 4;
+						if($leave_details['leavestatus']=='Approved') {
+							if(!empty($leavetypeArr)) {
+								if($leavetypeArr[0]['leavepredeductable'] == 1) {
+							  		$updateemployeeleave = $leaverequestmodel->updatecancelledemployeeleaves($leave_details['appliedleavescount'],$leave_details['user_id']);
+							  	}
+							}
+						}
+						$successmsg ='Leave request cancelled succesfully.';
+						$subject = 'Solicitud de Salida Cancelada';
+						$message = '<div>Hola,</div><div>La solicitud ha sido cancelada.</div>';
 					}elseif(sapp_Global::_decrypt($status)=='Approved'){
 						$leavestatus =2;
 						if(!empty($leavetypeArr)) {
-							if($leavetypeArr[0]['leavepredeductable'] == 1) {		
+							if($leavetypeArr[0]['leavepredeductable'] == 1) {
 							  	$updateemployeeleave = $leaverequestmodel->updateemployeeleaves($leave_details['appliedleavescount'],$leave_details['user_id']);
 							  }
 						}
+            /*Solicitudes de salida, para ser aprobadas, rechazadas o canceladas*/
 						$successmsg ='Leave request approved succesfully.';
-						$subject = 'Leave request approved';
-						$message = '<div>Hi,</div><div>The below leave(s) has been approved.</div>';
+						$subject = 'Solicitud de Salida Aprobada';
+						$message = '<div>Hola,</div><div>La solicitud ha sido Aprobada.</div>';
+            /**Solicitud de rechazo
+            **/
 					}elseif(sapp_Global::_decrypt($status)=='Rejected'){
 						$leavestatus = 3;
 						$successmsg ='Leave request rejected succesfully.';
-						$subject = 'Leave request rejected';
-						$message = '<div>Hi,</div><div>The below leave(s) has been rejected.</div>';
-					}	
+						$subject = 'Solicitud de Salida Rechazada';
+						$message = '<div>Hola,</div><div>La solicitud ha sido rechazada.</div>';
+					}
 					$manager_logged_in = 'true';
 				}
-				
+
 				if(!empty($leavestatus)) {
 					$data = array( 'leavestatus'=>$leavestatus,
-				   				  'approver_comments'=> !empty($comments)?$comments:NULL,	
+				   				  'approver_comments'=> !empty($comments)?$comments:NULL,
 				                  'modifiedby'=>$loginUserId,
 								  'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 					$where = array('id=?'=>$id);
 					$Id = $leaverequestmodel->SaveorUpdateLeaveRequest($data, $where);
-					
-					
-					/** 
-					leave request history 
+
+
+					/**
+					leave request history
 					**/
 					if($Id == 'update')
 					{
@@ -1113,7 +1117,7 @@ class Default_LeaverequestController extends Zend_Controller_Action
 						}
 						$history = 'Leave Request has been '.$leavestatus.' by ';
 						$leaverequesthistory_model = new Default_Model_Leaverequesthistory();
-						$leave_history = array(											
+						$leave_history = array(
 										'leaverequest_id' =>$id ,
 										'description' => $history,
 										'createdby' => $loginUserId,
@@ -1123,10 +1127,10 @@ class Default_LeaverequestController extends Zend_Controller_Action
 										'modifieddate'=>gmdate("Y-m-d H:i:s"),
 									   );
 					    $where = '';
-						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where); 
+						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where);
 					}
-					
-					
+
+
 					$businessunitid = $leave_details['bunit_id'];
 					$userDetails = $usersmodel->getUserDetailsByID($leave_details['user_id']);
 					$employeename = $userDetails[0]['userfullname'];
@@ -1150,9 +1154,11 @@ class Default_LeaverequestController extends Zend_Controller_Action
 							$toName = 'Leave management';
 							}
 						}
-						
+            /**
+            Envia correo de rechazo
+            **/
 						if($toEmail!='' && $toName!='') {
-							$options['header'] = 'Leave Request';
+							$options['header'] = 'Solicitud Salida';
 							$options['toEmail'] = $toEmail;
 							$options['toName'] = $toName;
 							$options['subject'] = $subject;
@@ -1161,47 +1167,50 @@ class Default_LeaverequestController extends Zend_Controller_Action
                 			<table width="100%" cellspacing="0" cellpadding="15" border="0" style="border:3px solid #BBBBBB; font-size:16px; font-family:Arial, Helvetica, sans-serif; margin:30px 0 30px 0;" bgcolor="#ffffff">
 	                      	<tbody>
 		                      <tr>
-		                        <td width="28%" style="border-right:2px solid #BBBBBB;">Employee Name</td>
+		                        <td width="28%" style="border-right:2px solid #BBBBBB;">Nombre Empleado</td>
 		                        <td width="72%">'.$employeename.'</td>
 		                      </tr>
 		                      <tr bgcolor="#e9f6fc">
-		                        <td style="border-right:2px solid #BBBBBB;">No. of Day(s)</td>
+		                        <td style="border-right:2px solid #BBBBBB;">Numero de Dias</td>
 		                        <td>'.$leave_details['appliedleavescount'].'</td>
 		                      </tr>
 		                      <tr>
-		                        <td style="border-right:2px solid #BBBBBB;">From</td>
+		                        <td style="border-right:2px solid #BBBBBB;">De</td>
 		                        <td>'.$leave_details['from_date'].'</td>
 		                      </tr>
 		                      <tr bgcolor="#e9f6fc">
-		                        <td style="border-right:2px solid #BBBBBB;">To</td>
+		                        <td style="border-right:2px solid #BBBBBB;">Hasta</td>
 		                        <td>'.$leave_details['to_date'].'</td>
 		            	      </tr>
 		                      <tr bgcolor="#e9f6fc">
-		                        <td style="border-right:2px solid #BBBBBB;">Reason for Leave</td>
+		                        <td style="border-right:2px solid #BBBBBB;">Razon de salida</td>
 		                        <td>'.$leave_details['reason'].'</td>
 	                  		  </tr>
+                          <tr bgcolor="#e9f6fc">
+                           <td style="border-right:2px solid #BBBBBB;">Motivo</td>
+                           <td>'.$comments.'</td>
+                         </tr>
                 			</tbody>
                 			</table>
 							</div>
-            				<div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';	
+            				<div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';
                             sapp_Global::_sendEmail($options);
-							
+
 						}
-					}	
-					
+					}
+
 					$menuID = ($manager_logged_in=='true')?MANAGEREMPLOYEEVACATIONS:PENDINGLEAVES;
 					sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id);
 					$result['msg'] = $successmsg;
 				}
-			}	
+			}
  		}
  		else{
  			$result['result'] ='fail';
  			$result['msg'] = '';
  		}
-		
+
 		$this->_helper->json($result);
 	}
 
 }
-

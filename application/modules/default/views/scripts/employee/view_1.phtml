@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -24,86 +24,86 @@
      <div class="ml-alert-1-info m1-info-set">
 				<div class="style-1-icon info"></div>
 				<?php if($this->rowexist == 'norows'){?>
-				No record exists
+				No Existe Registro.
 				<?php }else{?>
-				Employee deleted
+				Empleado Eliminado.
 				<?php }?>
 	</div>
 
-<?php 
+<?php
 }else
 {
 	 if(!empty($this->employeedata))
 	 {
-			echo $this->employeedetails($this->employeedata,'view',$this->id); 
-	 } 
+			echo $this->employeedetails($this->employeedata,'view',$this->id);
+	 }
 ?>
 
-<div class="right-block-data right-over-border"> 
+<div class="right-block-data right-over-border">
 	<div id="error_message" style="display:none;"></div>
 <?php	if(empty($this->data))
 {	?>
 		<div class="ml-alert-1-info m1-info-set">
-			<div class="style-1-icon info"></div>No record exists with this id.
-		</div>	
+			<div class="style-1-icon info"></div>No existe ningún registro con este id.
+		</div>
 <?php	}
-else	{	?>	
+else	{	?>
 	<?php echo $this->form->id; ?>
 			<div class="total-form-controller cancel-set view-form-detail">
 				<div class="new-form-ui">
-				  <label>Employee Name</label>
+				  <label>Nombre de Empleado</label>
 				<div class="division"><?php echo $this->form->user_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Business Unit</label>
+				  <label>Unidad de Negocios</label>
 				<div class="division"><?php echo $this->form->businessunit_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Department</label>
+				  <label>Departamento</label>
 				<div class="division"><?php echo $this->form->department_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Reporting Manager</label>
+				  <label>Gerente de Informes</label>
 				<div class="division"><?php echo $this->form->reporting_manager; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Job Title</label>
+				  <label>Título Profesional</label>
 				<div class="division"><?php echo $this->form->jobtitle_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Position</label>
+				  <label>Posición</label>
 				<div class="division"><?php echo $this->form->position_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Employment Status</label>
+				  <label>Estado de Empleo</label>
 				<div class="division"><?php echo $this->form->emp_status_id; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Date of Joining</label>
+				  <label>Fecha de Ingreso</label>
 				<div class="division"><?php echo $this->form->date_of_joining; ?></div>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Date of Leaving</label>
+				  <label>Fecha de Partida</label>
 				<div class="division"><?php echo $this->form->date_of_leaving; ?></div>
 				</div>
-								
+
 				<div class="new-form-ui">
-				  <label>Years of Experience</label>
+				  <label>Años de Experiencia</label>
 				<div class="division"><?php echo $this->form->years_exp; ?></div>
 				</div>
-				
+
 			</div>
-			  
+
 <?php	}	?>
-</div>	
+</div>
 </div>
 
 

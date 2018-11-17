@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,7 @@
  ********************************************************************************/
 ?>
 
-<?php 
+<?php
 if($this->nodata != '')
 {
 ?>
@@ -28,9 +28,9 @@ if($this->nodata != '')
     <div class="style-1-icon info"></div>
        Datos no encontrados.
 </div>
-<?php 
+<?php
 }
-else 
+else
 {
 sapp_Global::generateClientValidations($this->form);
 
@@ -50,7 +50,7 @@ sapp_Global::generateClientValidations($this->form);
 			</div>
 			<?php if(sapp_Global::_isactivemodule(BGCHECKS)){ ?>
 			<div class="new-form-ui clearb">
-				<label class="required">Background Agency </label>
+				<label class="required">Agencia de fondo</label>
 				<div class="division"><?php echo $this->form->bg_code; ?></div>
 				<span class="errors" id="errors-bg_code" ></span>
 			</div>
@@ -60,7 +60,7 @@ sapp_Global::generateClientValidations($this->form);
 				<div class="division"><?php echo $this->form->users_code; ?></div>
 				<span class="errors" id="errors-users_code" ><?php	echo (isset($this->msgarray["users_code"]) && $this->msgarray["users_code"] != "")? $this->msgarray["users_code"]: ''; ?></span>
 			</div>
-			
+
 			<?php if(sapp_Global::_isactivemodule(RESOURCEREQUISITION)) { ?>
 			<div class="new-form-ui clearb">
 				<label class="required">Requisition</label>
@@ -88,6 +88,6 @@ sapp_Global::generateClientValidations($this->form);
 	else	$("#errors-vendor_code").text("");
 	if(staffingError != "")	$("#errors-staffing_code").text(staffingError);
 	else	$("#errors-staffing_code").text("");
-	
+
 </script>
 <?php	}	}?>

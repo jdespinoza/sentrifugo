@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -26,11 +26,11 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 	public function preDispatch()
 	{
 		$ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('uploadsave', 'json')->initContext();		
+        $ajaxContext->addActionContext('uploadsave', 'json')->initContext();
         $ajaxContext->addActionContext('uploaddelete', 'html')->initContext();
         $ajaxContext->addActionContext('getdepts', 'json')->initContext();
 	}
-	
+
     public function init()
     {
         $this->_options= $this->getInvokeArg('bootstrap')->getOptions();
@@ -38,55 +38,55 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 
     public function indexAction()
     {
-		$announcementsModel = new Default_Model_Announcements();	
+		$announcementsModel = new Default_Model_Announcements();
         $call = $this->_getParam('call');
 		if($call == 'ajaxcall')
 				$this->_helper->layout->disableLayout();
-		
-		$view = Zend_Layout::getMvcInstance()->getView();		
+
+		$view = Zend_Layout::getMvcInstance()->getView();
 		$objname = $this->_getParam('objname');
 		$refresh = $this->_getParam('refresh');
 		$dashboardcall = $this->_getParam('dashboardcall');
-		
+
 		$data = array();
 		$searchQuery = '';
 		$searchArray = array();
 		$tablecontent='';
-		
+
 		if($refresh == 'refresh')
 		{
 		    if($dashboardcall == 'Yes')
 				$perPage = DASHBOARD_PERPAGE;
-			else	
+			else
 				$perPage = PERPAGE;
 			$sort = 'DESC';$by = 'a.modifieddate';$pageNo = 1;$searchData = '';$searchQuery = '';$searchArray='';
 		}
-		else 
+		else
 		{
 			$sort = ($this->_getParam('sort') !='')? $this->_getParam('sort'):'DESC';
 			$by = ($this->_getParam('by')!='')? $this->_getParam('by'):'a.modifieddate';
 			if($dashboardcall == 'Yes')
 				$perPage = $this->_getParam('per_page',DASHBOARD_PERPAGE);
-			else 
+			else
 				$perPage = $this->_getParam('per_page',PERPAGE);
 			$pageNo = $this->_getParam('page', 1);
 			/** search from grid - START **/
-			$searchData = $this->_getParam('searchData');	
+			$searchData = $this->_getParam('searchData');
 			$searchData = rtrim($searchData,',');
 			/** search from grid - END **/
 		}
-				
-		$dataTmp = $announcementsModel->getGrid($sort, $by, $perPage, $pageNo, $searchData,$call,$dashboardcall);		 		
-					
+
+		$dataTmp = $announcementsModel->getGrid($sort, $by, $perPage, $pageNo, $searchData,$call,$dashboardcall);
+
 		array_push($data,$dataTmp);
 		$this->view->dataArray = $data;
 		$this->view->call = $call ;
 		$this->view->messages = $this->_helper->flashMessenger->getMessages();
-		
+
 		$this->render('commongrid/index', null, true);
-		
+
     }
-	
+
 	public function addAction()
 	{
 	    $auth = Zend_Auth::getInstance();
@@ -102,7 +102,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 			$this->_helper->layout->disableLayout();
 		$announcementsForm = new Default_Form_Announcements();
 		$bu_model = new Default_Model_Businessunits();
-		
+
 		$bu_arr = $bu_model->getBU_report();
 		if(!empty($bu_arr))
         {
@@ -116,12 +116,12 @@ class Default_AnnouncementsController extends Zend_Controller_Action
         }
         else
         {
-        	$msgarray['businessunit_id'] = 'Business Units are not added yet.';
+        	$msgarray['businessunit_id'] = 'Las unidades de negocio no se han agregado todavía.';
         }
         // hr can add announcements for any businessunit and department
         /* if($loginuserGroup == HR_GROUP){
         	$announcementsForm->businessunit_id->setValue($loginuserbusinessunit_id);
-        	
+
         	if($loginuserbusinessunit_id)
             {
                 $dept_model = new Default_Model_Departments();
@@ -138,20 +138,20 @@ class Default_AnnouncementsController extends Zend_Controller_Action
                 }
             }
         } */
-		
+
 		$announcementsForm->setAttrib('action',BASE_URL.'announcements/add');
-		$this->view->form = $announcementsForm; 
-		$this->view->msgarray = $msgarray; 
+		$this->view->form = $announcementsForm;
+		$this->view->msgarray = $msgarray;
 		$this->view->ermsg = '';
 		if($this->getRequest()->getPost()){
 			 $result = $this->save($announcementsForm);
-			 $this->view->msgarray = $result; 
-		}  		
-		$this->render('form');	
+			 $this->view->msgarray = $result;
+		}
+		$this->render('form');
 	}
 
     public function viewAction()
-	{	
+	{
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity())
         {
@@ -159,7 +159,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
             $login_group_id = $auth->getStorage()->read()->group_id;
             $login_role_id = $auth->getStorage()->read()->emprole;
         }
-        
+
 		$id = $this->getRequest()->getParam('id');
 		$callval = $this->getRequest()->getParam('call');
 		if($callval == 'ajaxcall')
@@ -172,17 +172,17 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 			{
 			    if(is_numeric($id) && $id>0)
 				{
-					$announcementsModel = new Default_Model_Announcements();	
+					$announcementsModel = new Default_Model_Announcements();
 					$data = $announcementsModel->getAnnouncementsDatabyID($id);
 					$previ_data = sapp_Global::_checkprivileges(ANNOUNCEMENTS,$login_group_id,$login_role_id,'edit');
-                   	
+
 					$busi_names = '';
 					$dept_names = '';
-					
+
 					if($data[0]['businessunit_id'] != ''){
 						$busiData = $announcementsModel->getBusinessUnitNames($data[0]['businessunit_id']);
 						foreach ($busiData as $bd)
-							$b_a[] = $bd['unitname']; 
+							$b_a[] = $bd['unitname'];
 						$busi_names = implode(', ', $b_a);
 					}
 					if($data[0]['department_id']){
@@ -191,46 +191,46 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 							$d_a[] = $dd['deptname'];
 						$dept_names = implode(', ', $d_a);
 					}
-					
+
 					if(!empty($data))
 					{
-						
+
 						$data[0]['modifieddate'] =  sapp_Global::change_date($data[0]['modifieddate'],'view');
 						$data = $data[0];
 						$data['busi_names'] = $busi_names;
-						$data['dept_names'] = $dept_names; 
+						$data['dept_names'] = $dept_names;
 						$data['description'] =html_entity_decode( $data['description']);
-						$this->view->ermsg = ''; 
+						$this->view->ermsg = '';
                     	$this->view->data = $data;
 						$this->view->previ_data = $previ_data;
                    	 	$this->view->id = $id;
                     	$this->view->controllername = $objName;
-                    	
+
 					}else
 					{
 					   $this->view->ermsg = 'norecord';
 					}
-                } 
+                }
                 else
 				{
 				   $this->view->ermsg = 'norecord';
-				}				
+				}
 			}
             else
 			{
 			   $this->view->ermsg = 'norecord';
-			} 			
+			}
 		}
 		catch(Exception $e)
 		{
 			   $this->view->ermsg = 'nodata';
 		}
-		
+
 	}
-	
-	
+
+
 	public function editAction()
-	{	
+	{
 	    $auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
 					$loginUserId = $auth->getStorage()->read()->id;
@@ -238,22 +238,22 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 					$loginuserGroup = $auth->getStorage()->read()->group_id;
 					$loginuserbusinessunit_id = $auth->getStorage()->read()->businessunit_id;
 		}
-	 	
+
 		$id = $this->getRequest()->getParam('id');
 		$callval = $this->getRequest()->getParam('call');
 		if($callval == 'ajaxcall')
 			$this->_helper->layout->disableLayout();
-		
+
 		$announcementsForm = new Default_Form_Announcements();
 		$announcementsModel = new Default_Model_Announcements();
 		try
-        {		
+        {
 			if($id)
 			{
 			    if(is_numeric($id) && $id>0)
 				{
 					$data = $announcementsModel->getAnnouncementsDatabyID($id);
-					
+
 					if((isset($data[0]['status']) && $data[0]['status']==1) || $loginuserRole == SUPERADMINROLE || $loginuserGroup == HR_GROUP || $loginuserGroup == MANAGEMENT_GROUP) //
 					{
 						$bu_model = new Default_Model_Businessunits();
@@ -268,7 +268,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 				            		$announcementsForm->businessunit_id->addMultiOption($bu['id'],utf8_encode($bu['bu_name']));
 							}
 				        }
-						
+
 						$dept_model = new Default_Model_Departments();
 		                $dept_data = $dept_model->getDepartmentWithCodeList_bu($data[0]['businessunit_id']);
 		                if(!empty($dept_data))
@@ -278,7 +278,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 		                    	$announcementsForm->department_id->addMultiOption($dept['id'],$dept['unitcode']." ".$dept['deptname']);
 		                    }
 		                }
-				        
+
 						if(!empty($data))
 						{
 							$data = $data[0];
@@ -288,11 +288,11 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 							if($data['department_id'])
 								$announcementsForm->department_id->setValue(explode(',', $data['department_id']));
 							$announcementsForm->setAttrib('action',BASE_URL.'announcements/edit/id/'.$id);
-							
+
 							if($data['attachments']){
 								$new = array();
 								$ori = array();
-								
+
 								$attachments = json_decode($data['attachments'],true);
 								foreach ($attachments as $k => $v) {
 									$new[] = $v["new_name"];
@@ -300,9 +300,9 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 								}
 								$msg['file_original_names'] = implode(',', $ori);
 								$msg['file_new_names'] = implode(',', $new);
-								$this->view->msgarray = $msg;								
-							}							
-							
+								$this->view->msgarray = $msg;
+							}
+
 	                        $this->view->data = $data;
 						}else
 						{
@@ -316,25 +316,25 @@ class Default_AnnouncementsController extends Zend_Controller_Action
                 else
 				{
 					$this->view->ermsg = 'norecord';
-				}				
+				}
 			}
 			else
 			{
 				$this->view->ermsg = '';
 			}
-		}	
+		}
 		catch(Exception $e)
 		{
 			   $this->view->ermsg = 'nodata';
-		}	
+		}
 		$this->view->form = $announcementsForm;
 		if($this->getRequest()->getPost()){
-      		$result = $this->save($announcementsForm);	
-		    $this->view->msgarray = $result; 
+      		$result = $this->save($announcementsForm);
+		    $this->view->msgarray = $result;
 		}
-		$this->render('form');	
+		$this->render('form');
 	}
-	
+
 	public function save($announcementsForm)
 	{
 	  	$auth = Zend_Auth::getInstance();
@@ -343,10 +343,10 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 			$loginuserRole = $auth->getStorage()->read()->emprole;
 			$loginuserGroup = $auth->getStorage()->read()->group_id;
 			$loginuserbusinessunit_id = $auth->getStorage()->read()->businessunit_id;
-		} 
+		}
 	    $announcementsModel = new Default_Model_Announcements();
 		$msgarray = array();
-	    
+
 		if($announcementsForm->isValid($this->_request->getPost()))
 		{
             try
@@ -355,14 +355,14 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 				$actionflag = '';
 				$tableid  = '';
 
-				$status_value = 1;         
+				$status_value = 1;
 	          	$businessunit_id = $this->_getParam('businessunit_id',null);
                 $department_id = $this->_getParam('department_id',null);
                 $title = $this->_getParam('title',null);
                 $description = $this->_getParam('post_description',null);
                 $attachment = $this->_getParam('attachment',null);
                 $status = $this->_getParam('status',null);
-                    
+
                 $file_original_names = $this->_getParam('file_original_names',null);
                 $file_new_names = $this->_getParam('file_new_names',null);
 
@@ -375,10 +375,10 @@ class Default_AnnouncementsController extends Zend_Controller_Action
                 	if($new_names[$i] != '')
                     	$attachment_array[] = array("original_name" => $org_names[$i], "new_name" => $new_names[$i]);
               	}
-                  	
+
                 if($status == 'post')
                 	$status_value = 2;
-				
+
 			   	$data = array(
                                     'businessunit_id' => count($businessunit_id) > 0?implode(',', $businessunit_id):null,
                                     'department_id' => count($department_id) > 0?implode(',', $department_id):null,
@@ -394,9 +394,9 @@ class Default_AnnouncementsController extends Zend_Controller_Action
                         );
               /* 	if($loginuserGroup == HR_GROUP)
               		$data['businessunit_id'] = $loginuserbusinessunit_id; */
-					
+
 				if($id!=''){
-					$where = array('id=?'=>$id);  
+					$where = array('id=?'=>$id);
 					$actionflag = 2;
 				}
 				else
@@ -430,15 +430,15 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 				{
 				   $tableid = $id;
 				   $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Announcement updated successfully."));
-				}   
+				}
 				else
 				{
-				   	$tableid = $Id; 	
-					$this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Announcement added successfully."));					   
-				}   
+				   	$tableid = $Id;
+					$this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Announcement added successfully."));
+				}
 				$menuID = ANNOUNCEMENTS;
 				$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$tableid);
-				$this->_redirect('announcements');	
+				$this->_redirect('announcements');
 			}
 	        catch(Exception $e)
 	      	{
@@ -455,18 +455,18 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 					break;
 				 }
 			}
-			
+
 			$file_original_names = $this->_getParam('file_original_names',null);
 			$file_new_names = $this->_getParam('file_new_names',null);
-			
+
 			$file_original_names = $this->getRequest()->getParam('file_original_names');
 			$final_original_name_array = explode(',',$file_original_names);
 			$final_original_name_array = array_filter($final_original_name_array);
-			
+
 			if(count($final_original_name_array)>0)
 			{
 				$file_original_names=implode(',',$final_original_name_array);
-				
+
 			}
 			else
 			{
@@ -475,7 +475,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 
             $msgarray['file_original_names'] = $file_original_names;
             $msgarray['file_new_names'] = $file_new_names;
-            
+
 			$bu_id = $this->_getParam('businessunit_id',null);
             $options = "";
             if(!empty($bu_id))
@@ -483,7 +483,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 				//if superadmin
 				if(strtoupper(gettype($bu_id)) == 'ARRAY')
 				{
-					$bu_id = implode(',', $bu_id);	
+					$bu_id = implode(',', $bu_id);
 				}
 
                 $dept_model = new Default_Model_Departments();
@@ -496,15 +496,15 @@ class Default_AnnouncementsController extends Zend_Controller_Action
                     }
                 }
             }
-			return $msgarray;	
-		}	
+			return $msgarray;
+		}
 	}
-	
+
 	public function getdeptsAction()
         {
             $bu_id = $this->_getParam('bu_id',null);
             $options = "";
-            
+
             if(!empty($bu_id))
             {
                 $bu_id = implode(',', $bu_id);
@@ -520,7 +520,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
             }
             $this->_helper->json(array('options' => $options));
         }
-	
+
 	public function deleteAction()
 	{
 		$auth = Zend_Auth::getInstance();
@@ -548,7 +548,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 				$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id);
 				$messages['message'] = 'Announcement deleted successfully.';
 				$messages['msgtype'] = 'success';
-			}   
+			}
 			else
 			{
 	        	$messages['message'] = 'Announcement cannot be deleted.';
@@ -556,7 +556,7 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 	       	}
 		}
 		else
-		{ 
+		{
 			$messages['message'] = 'Announcement cannot be deleted.';
 			$messages['msgtype'] = 'error';
 		}
@@ -570,19 +570,19 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 			{
 				$this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>$messages['message'],"msgtype"=>$messages['msgtype'],'deleteflag'=>$deleteflag));
 			}
-				
+
 		}
-		$this->_helper->json($messages);		
+		$this->_helper->json($messages);
 	}
 
-	public function uploadsaveAction() 
+	public function uploadsaveAction()
     {
     	$user_id = sapp_Global::_readSession('id');
         $filedata = array();
         if(isset($_FILES["myfile"]))
         {
             $fileName = $_FILES["myfile"]["name"];
-            $fileName = preg_replace('/[^a-zA-Z0-9.\']/', '_', $fileName);			  	
+            $fileName = preg_replace('/[^a-zA-Z0-9.\']/', '_', $fileName);
             $newName  = time().'_'.$user_id.'_'.str_replace(' ', '_', $fileName);
 
             move_uploaded_file($_FILES["myfile"]["tmp_name"],CA_TEMP_UPLOAD_PATH.$newName);
@@ -594,14 +594,14 @@ class Default_AnnouncementsController extends Zend_Controller_Action
     }
 
     public function uploaddeleteAction()
-    {	
+    {
     	$attData =array();
         if(isset($_POST["op"]) && $_POST["op"] == "delete" && isset($_POST['doc_new_name']))
         {
-        	$filePath = CA_UPLOAD_PATH.$_POST['doc_new_name']; 
-        	
+        	$filePath = CA_UPLOAD_PATH.$_POST['doc_new_name'];
+
         	if(isset($_POST["a_id"]) && $_POST["a_id"] != '' && isset($_POST["status"])){
-        		
+
         		// Update attachments field in database by removing deleted attachment
         		$announcementsModel = new Default_Model_Announcements();
 				$annData = $announcementsModel->getAnnouncementsDatabyID($_POST["a_id"]);
@@ -614,31 +614,31 @@ class Default_AnnouncementsController extends Zend_Controller_Action
 							break;
 						}
 					}
-					
+
 					$data = array('attachments'=>(count($attData)>0)?json_encode($attData):null);
 					$where = array('id=?'=>$_POST["a_id"]);
 					$announcementsModel->SaveorUpdateAnnouncementsData($data, $where);
 				}
-				
+
 				// Get file path of attachment to be removed.
 				if ($_POST["status"] == 1) {
 					// Path of attachment files when Announcement saved as draft
 					$filePath = CA_TEMP_UPLOAD_PATH.$_POST['doc_new_name'];
 				}
-		    	                                	
+
 	        	// Remove attachment files from upload folder.
 	            if (file_exists($filePath)) {
 	                unlink($filePath);
 	            }
-				
+
 	            // Update photo gallery with removed attachment
 	            if($_POST["status"]==2){ $path = CA_FILES_PATH; } else { $path = CA_FILES_TEMP_PATH; }
-	        	
+
 	            $this->view->path = $path;
-				$this->view->attachments = $attData; 
-				
+				$this->view->attachments = $attData;
+
         	} else {
-		    	                                	
+
 	        	// Remove attachment files from upload folder.
 	            if (file_exists($filePath)) {
 	                unlink($filePath);
@@ -648,4 +648,3 @@ class Default_AnnouncementsController extends Zend_Controller_Action
         }
     }
 }
-

@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,18 +20,16 @@
  ********************************************************************************/
 ?>
 
-<?php echo $this->form->id; 
+<?php echo $this->form->id;
 		echo $this->form->user_id;
 		?>
-<?php 
+<?php
 $skill_last_used = $this->form->year_skill_last_used->getValue();
 sapp_Helper::viewHeader();
-sapp_Helper::viewBody('alt','Skill',(!empty($this->data['skillname']))?$this->data['skillname']:"...",'Years of Experience',(!empty($this->data['yearsofexp']))?$this->data['yearsofexp']:"...");
-sapp_Helper::viewBody('nor','Competency Level',(!empty($this->data['competencylevelid']))?$this->data['competencylevelid']:"...",'Skill Last Used Year',(!empty($skill_last_used))?$this->form->year_skill_last_used->getValue():"...");
+sapp_Helper::viewBody('alt','Habilidad',(!empty($this->data['skillname']))?$this->data['skillname']:"...",'Años de Experiencia',(!empty($this->data['yearsofexp']))?$this->data['yearsofexp']:"...");
+sapp_Helper::viewBody('nor','Nivel de Competencia',(!empty($this->data['competencylevelid']))?$this->data['competencylevelid']:"...",'Última Habilidad Usada',(!empty($skill_last_used))?$this->form->year_skill_last_used->getValue():"...");
 sapp_Helper::viewFooter();
 ?>
 		 <div class="new-form-ui-submit" id="formSubmit">
          <input onclick="closeiframepopup('empskills','cancel');" type="button" value="Close"  />
         </div>
-     
-        

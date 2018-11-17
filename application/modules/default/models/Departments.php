@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_departments';
     protected $_primary = 'id';
-	
+
 	public function getDepartmentsData($sort, $by, $pageNo, $perPage,$searchQuery,$unitid)
 	{
 		$where = "d.isactive = 1 and b.isactive = 1 ";
@@ -31,30 +31,30 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 			$where .= " AND ".$searchQuery;
 		if($unitid)
 			$where .= ' AND d.unitid='.$unitid.' ';
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$departmentsdata = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
 						   ->from(array('d' => 'main_departments'),array('id'=>'d.id','isactive'=>'d.isactive','deptcode'=>'d.deptcode','deptname'=>'d.deptname','startdate'=>'DATE_FORMAT(d.startdate,"'.DATEFORMAT_MYSQL.'")'))
 						   ->joinLeft(array('u'=>'main_users'),'d.depthead=u.id',array('depthead'=>'u.userfullname'))
 						   ->joinLeft(array('c'=>'main_cities'),'d.city=c.city_org_id',array('address'=>'concat(d.address1,", ",c.city)'))
 						   ->joinLeft(array('b'=>'main_businessunits'), 'd.unitid=b.id', array('unitname' => 'if(b.unitname="No Business Unit","",b.unitname)'))
 						   ->joinLeft(array('tz'=>'main_timezone'), 'd.timezone=tz.id and tz.isactive=1', array('timezone' => 'concat(tz.timezone," [",tz.timezone_abbr,"]")'))
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $departmentsdata;       		
+
+		return $departmentsdata;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$unitId,$a='',$b='',$c='')
 	{
 		$searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
-		{	
+		{
 			$searchValues = json_decode($searchData);
 			foreach($searchValues as $key => $val)
 			{
@@ -71,18 +71,18 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 				else $searchQuery .= " d.".$key." like '%".$val."%' AND ";
 				$searchArray[$key] = $val;
 			}
-			$searchQuery = rtrim($searchQuery," AND");		
+			$searchQuery = rtrim($searchQuery," AND");
 		}
 		$objName = 'departments';
-		$tableFields = array('action'=>'Action','deptname' => 'Name','deptcode' =>'Code','startdate'=>'Started On','depthead'=>'Department Head','timezone'=>'Time Zone','unitname'=>'Business Unit');
-		
-		$tablecontent = $this->getDepartmentsData($sort, $by, $pageNo, $perPage,$searchQuery,$unitId);     
+		$tableFields = array('action'=>'Acción','deptname' => 'Nombre','deptcode' =>'Código','startdate'=>'Comenzó en','depthead'=>'Jefe de Departamento','timezone'=>'Zona Horaria','unitname'=>'Unidad de Negocios');
+
+		$tablecontent = $this->getDepartmentsData($sort, $by, $pageNo, $perPage,$searchQuery,$unitId);
 		if(isset($unitId) && $unitId != '') $formgrid = 'true'; else $formgrid = '';
 		$dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -95,15 +95,15 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 			'dashboardcall'=>$dashboardcall,
 			'call'=>$call,
 			'search_filters' => array(
-					'startdate' =>array('type'=>'datepicker')					
+					'startdate' =>array('type'=>'datepicker')
 				)
-		);		
+		);
 		return $dataTmp;
 	}
-	
+
 	public function getSingleDepartmentData($id)
 	{
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$deptData = $db->query("select * from main_departments where isactive = 1 AND id = ".$id);
 	    $result= $deptData->fetch();
@@ -112,9 +112,9 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 	public function getdepts_interview_report()
         {
             $db = Zend_Db_Table::getDefaultAdapter();
-            $query = "select d.id dept_id,concat(d.deptname,' - ',b.unitname) dept_name 
-                      from main_departments d 
-                      inner join main_businessunits b on b.id = d.unitid 
+            $query = "select d.id dept_id,concat(d.deptname,' - ',b.unitname) dept_name
+                      from main_departments d
+                      inner join main_businessunits b on b.id = d.unitid
                       where d.isactive = 1 group by dept_id order by d.deptname";
             $result = $db->query($query);
             $rows = $result->fetchAll();
@@ -126,7 +126,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		$deptData = $db->query("select * from main_departments where isactive = 1 AND unitid = ".$unitid." order by deptname");
 		$result= $deptData->fetchAll();
 		return $result;
-		  
+
 	}
 	public function SaveorUpdateDepartmentsUnits($data, $where)
 	{
@@ -139,7 +139,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 			return $id;
 		}
 	}
-	
+
 	public function getDepartmentList($bussinessunitid)
 	{
             if($bussinessunitid != '')
@@ -149,17 +149,17 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 						->from(array('d'=>'main_departments'),array('d.id','d.deptname'))
 					    ->where('d.unitid = '.$bussinessunitid.' AND d.isactive = 1')
 						->order('d.deptname');
-	
+
 		return $this->fetchAll($select)->toArray();
             }
-            else 
+            else
                 return array();
-	
+
 	}
-	
+
 	public function checkCodeDuplicates($code,$id)
 	{
-		if($id) $row = $this->fetchRow("deptcode = '".$code."' AND id <> ".$id.' AND isactive=1'); 
+		if($id) $row = $this->fetchRow("deptcode = '".$code."' AND id <> ".$id.' AND isactive=1');
 		else	$row = $this->fetchRow("deptcode = '".$code."' AND isactive=1");
 		if(!$row){
 			return false;
@@ -167,7 +167,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		return true;
 		}
 	}
-	
+
 	public function getTotalDepartmentList()
 	{
 	  $select = $this->select()
@@ -175,22 +175,22 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 						->from(array('d'=>'main_departments'),array('d.id','d.deptname'))
 					    ->where('d.isactive = 1')
 						->order('d.deptname');
-	
+
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function getParicularDepartmentId($id)
 	{
 	  $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('d'=>'main_departments'),array('d.id','d.deptname'))
 					    ->where('d.id = '.$id.' AND d.isactive = 1');
-	
+
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function getUniqueDepartmentList($deptidarr,$businessunitid)
 	{
 	    $where = '';
@@ -199,13 +199,13 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		  $where = "and d.id NOT IN(".$deptidarr.") ";
 		}
 	    $db = Zend_Db_Table::getDefaultAdapter();
-        
+
         $query = "select d.id,d.deptname from main_departments d where d.isactive = 1 and d.unitid =".$businessunitid."  $where ";
         $result = $db->query($query)->fetchAll();
 	    return $result;
-		
+
 	}
-	
+
 	public function getUniqueDepartments($querystring)
 	{
 	 $db = Zend_Db_Table::getDefaultAdapter();
@@ -213,7 +213,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 	 $result = $db->query($query)->fetchAll();
 	 return $result;
 	}
-	
+
 	public function checkExistance($deptname, $unitid,$id)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -222,7 +222,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
         $result = $db->query($query)->fetchAll();
 	    return $result[0]['count'];
 	}
-	
+
 	public function checkemployeestodepartment($deptid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -230,7 +230,7 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetch();
 	    return $result['count'];
 	}
-	
+
 	public function getbusinessunitname($unitid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -250,10 +250,10 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 			$empDept_arr = $result->fetchAll();
 			return $empDept_arr;
 		}
-		else 
+		else
 			return array();
 	}
-	
+
 	public function getDepartmentNameFromDeptString($departmentIdArr)
 	{
 	    if(!empty($departmentIdArr))
@@ -264,9 +264,9 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 						->setIntegrityCheck(false)
 						->from(array('d'=>'main_departments'),array('d.id','deptname'=>'concat(d.deptname," (",d.deptcode,")")'))
 						->joinLeft(array('b'=>'main_businessunits'), 'b.id=d.unitid',array('unitcode'=>'if(b.unitcode != "000",concat(b.unitcode,"","'.$a.'"),"")'))
-						
+
 	                    ->where('d.id IN(?)',$departmentIdArr);
-          
+
 		 $result =  $this->fetchAll($select)->toArray();
 		   if(!empty($result))
 			{
@@ -277,9 +277,9 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 			}
 			return $departmentArray;
 	    }
-	
+
 	}
-	
+
 	public function getDepartmentWithCodeList()
 	{
 	 $a = '-';
@@ -289,11 +289,11 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 						->joinLeft(array('b'=>'main_businessunits'), 'b.id=d.unitid',array('unitcode'=>'if(b.unitcode != "000",concat(b.unitcode,"","'.$a.'"),"")'))
 					    ->where('d.isactive = 1')
 						->order('d.deptname');
-	
+
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-        
+
         public function getDepartmentWithCodeList_bu($bu_id)
 	{
             if($bu_id != '')
@@ -306,25 +306,25 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
                             ->where('d.isactive = 1 and d.unitid in ('.$bu_id.')')
                             ->order('d.deptname');
 
-                return $this->fetchAll($select)->toArray();	
+                return $this->fetchAll($select)->toArray();
             }
-            else 
+            else
                 return array();
 	}
-	
+
 	public function getEmpForDepartment($deptid,$pageNo,$perPage)
 	{
 		if($pageNo != 0)
 		$limitpage = (($pageNo-1)*$perPage);
 		else
 		$limitpage = 0;
-		
+
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "select * from main_employees_summary where department_id = ".$deptid." LIMIT ".$limitpage.", ".$perPage;
 		$result = $db->query($query)->fetchAll();
 		return $result;
 	}
-	
+
 	public function getEmpCountForDepartment($deptid)
 	{
 		$db = Zend_Db_Table::getDefaultAdapter();
@@ -332,14 +332,14 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		$result = $db->query($query)->fetchAll();
 		return count($result);
 	}
-	
+
 	public function getDeptHeads()
 	{
 		$managementUsers = array();
 		$db = Zend_Db_Table::getDefaultAdapter();
 		$query = "SELECT id FROM main_roles WHERE isactive = 1 AND group_id = ".MANAGEMENT_GROUP;
 		$roles = $db->query($query)->fetchAll();
-		
+
 		$roleids = implode(', ', array_map(function ($entry) {
 								return $entry['id'];
 					}, $roles));
@@ -350,16 +350,16 @@ class Default_Model_Departments extends Zend_Db_Table_Abstract
 		}
 		return $managementUsers;
 	}
-	
+
 	public function getDepartmenttHead($id)
 	{
 		$managementUsers = array();
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$query = "select user_id,userfullname from main_employees_summary 
+		$query = "select user_id,userfullname from main_employees_summary
 				  where isactive=1";
 		$managementUsers = $db->query($query)->fetchAll();
-		
-		
+
+
 		return $managementUsers;
 	}
 	public function checkDuplicateDeptName($unitName)

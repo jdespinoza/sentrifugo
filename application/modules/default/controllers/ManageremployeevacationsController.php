@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,14 +25,14 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
     private $options;
 	public function preDispatch()
 	{
-		 
-		
+
+
 	}
-	
+
     public function init()
     {
         $this->_options= $this->getInvokeArg('bootstrap')->getOptions();
-		
+
     }
 
     public function indexAction()
@@ -41,57 +41,57 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
      	if($auth->hasIdentity()){
 					$loginUserId = $auth->getStorage()->read()->id;
 		}
-		$leaverequestmodel = new Default_Model_Leaverequest();	
+		$leaverequestmodel = new Default_Model_Leaverequest();
         $call = $this->_getParam('call');
 		if($call == 'ajaxcall')
 				$this->_helper->layout->disableLayout();
-		
-		$view = Zend_Layout::getMvcInstance()->getView();		
+
+		$view = Zend_Layout::getMvcInstance()->getView();
 		$objname = $this->_getParam('objname');
 		$refresh = $this->_getParam('refresh');
 		$dashboardcall = $this->_getParam('dashboardcall');
-		
+
 		$data = array();
 		$searchQuery = '';
 		$searchArray = array();
 		$tablecontent='';
-		
+
 		if($refresh == 'refresh')
 		{
 		    if($dashboardcall == 'Yes')
 				$perPage = DASHBOARD_PERPAGE;
-			else	
+			else
 				$perPage = PERPAGE;
 			$sort = 'ASC';$by = 'leavestatus';$pageNo = 1;$searchData = '';
 		}
-		else 
+		else
 		{
 			$sort = ($this->_getParam('sort') !='')? $this->_getParam('sort'):'ASC';
 			$by = ($this->_getParam('by')!='')? $this->_getParam('by'):'leavestatus';
 			if($dashboardcall == 'Yes')
 				$perPage = $this->_getParam('per_page',DASHBOARD_PERPAGE);
-			else 
+			else
 			    $perPage = $this->_getParam('per_page',PERPAGE);
 			$pageNo = $this->_getParam('page', 1);
 			/** search from grid - START **/
-			$searchData = $this->_getParam('searchData');	
+			$searchData = $this->_getParam('searchData');
 			$searchData = rtrim($searchData,',');
 			/** search from grid - END **/
 		}
-		
-							
+
+
 		$objName = 'manageremployeevacations';
 		$queryflag = '';
-		$dataTmp = $leaverequestmodel->getGrid($sort, $by, $perPage, $pageNo, $searchData,$call,$dashboardcall,$objName,$queryflag);     
-		
+		$dataTmp = $leaverequestmodel->getGrid($sort, $by, $perPage, $pageNo, $searchData,$call,$dashboardcall,$objName,$queryflag);
+
 		array_push($data,$dataTmp);
 		$this->view->dataArray = $data;
 		$this->view->call = $call ;
 		$this->view->messages = $this->_helper->flashMessenger->getMessages();
     }
-	
+
      public function viewAction()
-	{	
+	{
 	    $auth = Zend_Auth::getInstance();
      		if($auth->hasIdentity()){
 					$loginUserId = $auth->getStorage()->read()->id;
@@ -113,16 +113,16 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 					}
         	}
         }
-		
+
 		try
 		{
 			    if($id && is_numeric($id) && $id>0)
                 {
-                	$this->_redirect('manageremployeevacations/edit/id/'.$id);				
+                	$this->_redirect('manageremployeevacations/edit/id/'.$id);
 					$leaverequestmodel = new Default_Model_Leaverequest();
 					$usersmodel= new Default_Model_Users();
-					$flag = 'true'; 
-					
+					$flag = 'true';
+
 					$userid = $leaverequestmodel->getUserID($id);
 					$getreportingManagerArr = $leaverequestmodel->getReportingManagerId($id);
 					$reportingManager = $getreportingManagerArr[0]['repmanager'];
@@ -132,39 +132,39 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 					if(!empty($userid))
 					 $isactiveuser = $usersmodel->getUserDetailsByID($userid[0]['user_id']);
 					else
-					 $this->view->rowexist = "rows"; 
-					 
+					 $this->view->rowexist = "rows";
+
 					if(!empty($userid) && !empty($isactiveuser) && $flag == 'true')
-					{ 
+					{
 						$data = $leaverequestmodel->getLeaveRequestDetails($id);
 						if(!empty($data) && $data[0]['leavestatus'] == 'Pending for approval')
 							{
 								$data = $data[0];
 								$employeeleavetypemodel = new Default_Model_Employeeleavetypes();
 								$usersmodel = new Default_Model_Users();
-										
+
 								$employeeleavetypeArr = $employeeleavetypemodel->getsingleEmployeeLeavetypeData($data['leavetypeid']);
 								if($employeeleavetypeArr !='norows')
 								{
-									$managerleaverequestform->leavetypeid->addMultiOption($employeeleavetypeArr[0]['id'],utf8_encode($employeeleavetypeArr[0]['leavetype']));		   
+									$managerleaverequestform->leavetypeid->addMultiOption($employeeleavetypeArr[0]['id'],utf8_encode($employeeleavetypeArr[0]['leavetype']));
 								}
-								  
+
 								if($data['leaveday'] == 1)
 								{
-								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Full Day');		   
+								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Full Day');
 								}
-								else 
+								else
 								{
 								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Half Day');
-								}					
-							   
-								$employeenameArr = $usersmodel->getUserDetailsByID($data['user_id']);	
-								$managerleaverequestform->populate($data);							
-															
+								}
+
+								$employeenameArr = $usersmodel->getUserDetailsByID($data['user_id']);
+								$managerleaverequestform->populate($data);
+
 															$from_date = sapp_Global::change_date($data['from_date'], 'view');
 															$to_date = sapp_Global::change_date($data['to_date'], 'view');
 															$appliedon = sapp_Global::change_date($data['createddate'], 'view');
-															
+
 								$managerleaverequestform->from_date->setValue($from_date);
 								$managerleaverequestform->to_date->setValue($to_date);
 								$managerleaverequestform->createddate->setValue($appliedon);
@@ -180,7 +180,7 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 						else
 							{
 								   $this->view->rowexist = "rows";
-							}				
+							}
 					}
 					else
 					{
@@ -191,18 +191,18 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 				{
 					   $this->view->rowexist = "rows";
 				}
-			
+
         }
         catch(Exception $e)
 		{
 			 $this->view->rowexist = 'norows';
-		}  		
-			
+		}
+
 	}
-	
-	
+
+
 	public function editAction()
-	{	
+	{
 	    $auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()){
 				$loginUserId = $auth->getStorage()->read()->id;
@@ -211,8 +211,8 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 		$callval = $this->getRequest()->getParam('call');
 		if($callval == 'ajaxcall')
 			$this->_helper->layout->disableLayout();
-		
-		
+
+
 		try
 		{
 		        if($id && is_numeric($id) && $id>0)
@@ -230,17 +230,17 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 					if(!empty($userid))
 					 $isactiveuser = $usersmodel->getUserDetailsByID($userid[0]['user_id']);
 					else
-					 $this->view->rowexist = "rows"; 				
-				
+					 $this->view->rowexist = "rows";
+
 					if(!empty($userid) && !empty($isactiveuser) && $flag=='true')
-					{	
-						$data = $leaverequestmodel->getLeaveRequestDetails($id);				
+					{
+						$data = $leaverequestmodel->getLeaveRequestDetails($id);
 						if(!empty($data) && ($data[0]['leavestatus'] == 'Pending for approval' || $data[0]['leavestatus'] == 'Approved'))
-							{ 
-								$data = $data[0]; 
+							{
+								$data = $data[0];
 								$reason = $data['reason'];
 								$appliedleavescount = $data['appliedleavescount'];
-								$employeeid = $data['user_id']; 
+								$employeeid = $data['user_id'];
 								$leavetypeid = $data['leavetypeid'];
 								$employeeleavetypemodel = new Default_Model_Employeeleavetypes();
 								$usersmodel = new Default_Model_Users();
@@ -249,40 +249,40 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 								$loggedInEmployeeDetails = $employeesmodel->getLoggedInEmployeeDetails($employeeid);
 								 if($loggedInEmployeeDetails[0]['businessunit_id'] != '')
 									$businessunitid = $loggedInEmployeeDetails[0]['businessunit_id'];
-										
+
 							$employeeleavetypeArr = $employeeleavetypemodel->getsingleEmployeeLeavetypeData($data['leavetypeid']);
 								if($employeeleavetypeArr != 'norows')
 								{
 									$managerleaverequestform->leavetypeid->addMultiOption($employeeleavetypeArr[0]['id'],utf8_encode($employeeleavetypeArr[0]['leavetype']));
-									$data['leavetypeid']=$employeeleavetypeArr[0]['leavetype'];	   
+									$data['leavetypeid']=$employeeleavetypeArr[0]['leavetype'];
 								}
 								else
 					            {
 								   $data['leavetypeid'] ="...";
-						        } 	
-								
+						        }
+
 								if($data['leaveday'] == 1)
 								{
-								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Full Day');	
-								  $data['leaveday']=	'Full Day';    
+								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Full Day');
+								  $data['leaveday']=	'Full Day';
 								}
-								else 
+								else
 								{
-								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Half Day');	
-								  $data['leaveday']='Half Day'; 				  
-								}					
-							   
+								  $managerleaverequestform->leaveday->addMultiOption($data['leaveday'],'Half Day');
+								  $data['leaveday']='Half Day';
+								}
+
 								$employeenameArr = $usersmodel->getUserDetailsByID($data['user_id']);
-								$employeeemail = $employeenameArr[0]['emailaddress'];					
+								$employeeemail = $employeenameArr[0]['emailaddress'];
 								$employeename = $employeenameArr[0]['userfullname'];
 								$managerleaverequestform->populate($data);
-								
+
 								if($data['leavestatus'] == 'Approved') {
 									$managerleaverequestform->managerstatus->setLabel("Cancel");
 									$managerleaverequestform->managerstatus->clearMultiOptions();
 	                                $managerleaverequestform->managerstatus->addMultiOption(3,utf8_encode("Cancel"));
 								}
-																						
+
 															$from_date = sapp_Global::change_date($data['from_date'], 'view');
 															$to_date = sapp_Global::change_date($data['to_date'], 'view');
 															$appliedon = sapp_Global::change_date($data['createddate'], 'view');
@@ -290,7 +290,7 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 								 $leaverequesthistory_model = new Default_Model_Leaverequesthistory();
 								 $leave_history = $leaverequesthistory_model->getLeaveRequestHistory($id);
 							  	 $this->view->leave_history = $leave_history;
-							    //end							
+							    //end
 								$managerleaverequestform->from_date->setValue($from_date);
 								$managerleaverequestform->to_date->setValue($to_date);
 								$managerleaverequestform->createddate->setValue($appliedon);
@@ -307,7 +307,7 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 							{
 								   $this->view->rowexist = "rows";
 							}
-					} 
+					}
 					else
 					{
 						   $this->view->rowexist = "rows";
@@ -316,35 +316,35 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 				else
 				{
 					   $this->view->rowexist = "rows";
-				} 					
-			
+				}
+
 		}
 		catch(Exception $e)
 		{
 			 $this->view->rowexist = 'norows';
 		}
 		if($this->getRequest()->getPost()){
-      		$result = $this->save($managerleaverequestform,$appliedleavescount,$employeeemail,$employeeid,$employeename,$from_date,$to_date,$reason,$businessunitid,$leavetypeid,$data);	
-		    $this->view->msgarray = $result; 
+      		$result = $this->save($managerleaverequestform,$appliedleavescount,$employeeemail,$employeeid,$employeename,$from_date,$to_date,$reason,$businessunitid,$leavetypeid,$data);
+		    $this->view->msgarray = $result;
 		}
 	}
-	
+
 	public function save($managerleaverequestform,$appliedleavescount,$employeeemail,$employeeid,$userfullname,$from_date,$to_date,$reason,$businessunitid,$leavetypeid,$leavereqdata)
 	{
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
 					$loginUserId = $auth->getStorage()->read()->id;
-		} 		
+		}
      		if($managerleaverequestform->isValid($this->_request->getPost())){
-			    $id = $this->_request->getParam('id'); 
+			    $id = $this->_request->getParam('id');
 			    $managerstatus = $this->_request->getParam('managerstatus');
 			    $comments = $this->_request->getParam('comments');
 				$date = new Zend_Date();
-				$leaverequestmodel = new Default_Model_Leaverequest(); 
+				$leaverequestmodel = new Default_Model_Leaverequest();
 				$employeeleavetypesmodel = new Default_Model_Employeeleavetypes();
 				$usersmodel = new Default_Model_Users();
 				$actionflag = '';
-				$tableid  = ''; 
+				$tableid  = '';
 				$status = '';
 				$messagestr = '';
 				$successmessagestr = '';
@@ -357,39 +357,39 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 				}
 				if($managerstatus == 1 && !empty($leavetypeArr))
 				{
-				  if($leavetypeArr[0]['leavepredeductable'] == 1) {		
+				  if($leavetypeArr[0]['leavepredeductable'] == 1) {
 				  	$updateemployeeleave = $leaverequestmodel->updateemployeeleaves($appliedleavescount,$employeeid);
-				  }	
-				  $status = 2; 
+				  }
+				  $status = 2;
 				  $messagestr = "Leave request approved";
 				 $successmessagestr  = "Leave request approved successfully.";
 				  //$leavetypetext = $leavetypeArr[0]['leavetype'];
 				}else if($managerstatus == 2)
 				{
-				  $status = 3;  
+				  $status = 3;
 				  $messagestr = "Leave request rejected";
 					$successmessagestr  = "Leave request rejected successfully.";
 				}else if($managerstatus == 3 && !empty($leavetypeArr))
 				{
 					if($leavereqdata['leavestatus']=='Approved') {
-						if($leavetypeArr[0]['leavepredeductable'] == 1) {		
+						if($leavetypeArr[0]['leavepredeductable'] == 1) {
 					  		$updateemployeeleave = $leaverequestmodel->updatecancelledemployeeleaves($appliedleavescount,$employeeid);
 					  	}
 					}
-					$status = 4;  
+					$status = 4;
 				  	$messagestr = "Leave request cancelled";
 					$successmessagestr  = "Leave request cancelled successfully.";
 				}
-				  
+
 				  if($managerstatus == 1 || $managerstatus == 2 || $managerstatus == 3)
 				  {
 				   $data = array( 'leavestatus'=>$status,
-				   				  'approver_comments'=> $comments,	
+				   				  'approver_comments'=> $comments,
 				                  'modifiedby'=>$loginUserId,
 								  'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 						if($id!=''){
-							$where = array('id=?'=>$id);  
+							$where = array('id=?'=>$id);
 							$actionflag = 2;
 						}
 						else
@@ -405,19 +405,19 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 							{
 							   $tableid = $id;
 							   $this->_helper->getHelper("FlashMessenger")->addMessage($successmessagestr);
-							}   
+							}
 							else
 							{
-							   $tableid = $Id; 	
-								$this->_helper->getHelper("FlashMessenger")->addMessage($successmessagestr);					   
+							   $tableid = $Id;
+								$this->_helper->getHelper("FlashMessenger")->addMessage($successmessagestr);
 							}
-								
-							/** 
-					leave request history 
+
+							/**
+					leave request history
 					**/
 					if($Id == 'update')
 					{
-						
+
 						if($managerstatus == 1)
 						{
 							$leavestatus='Approved';
@@ -432,7 +432,7 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 						}
 						$history = 'Leave Request has been '.$leavestatus.' by ';
 						$leaverequesthistory_model = new Default_Model_Leaverequesthistory();
-						$leave_history = array(											
+						$leave_history = array(
 										'leaverequest_id' =>$id ,
 										'description' => $history,
 										'createdby' => $loginUserId,
@@ -442,15 +442,15 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 										'modifieddate'=>gmdate("Y-m-d H:i:s"),
 									   );
 					    $where = '';
-						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where); 
-					}		
-					
+						$leavehistory = $leaverequesthistory_model->saveOrUpdateLeaveRequestHistory($leave_history,$where);
+					}
+
                             /** MAILING CODE **/
-							
+
 							if($to_date == '' || $to_date == NULL)
 								$to_date = $from_date;
-								
-							
+
+
 							/* Mail to Employee */
 								$options['header'] = 'Leave Request';
 								$options['toEmail'] = $employeeemail;
@@ -458,13 +458,13 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 								if($messagestr ==  'Leave request approved'){
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been approved.</div>';
-								}elseif($messagestr == 'Leave request rejected'){ 
+								}elseif($messagestr == 'Leave request rejected'){
 									$options['subject'] = $messagestr;
-									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been rejected. </div>';
+									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been rechazado. </div>';
 								}else{
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been cancelled. </div>';
-								}	
+								}
 								$options['message'] .= '<div>
                 <table width="100%" cellspacing="0" cellpadding="15" border="0" style="border:3px solid #BBBBBB; font-size:16px; font-family:Arial, Helvetica, sans-serif; margin:30px 0 30px 0;" bgcolor="#ffffff">
                       <tbody><tr>
@@ -484,32 +484,37 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
                         <td>'.$to_date.'</td>
             	     </tr>
                       <tr bgcolor="#e9f6fc">
-                        <td style="border-right:2px solid #BBBBBB;">Reason for Leave</td>
+                        <td style="border-right:2px solid #BBBBBB;">Reason for salida</td>
                         <td>'.$reason.'</td>
                   </tr>
+                  </tr>
+                     <tr bgcolor="#e9f6fc">
+                       <td style="border-right:2px solid #BBBBBB;">Rechazo</td>
+                       <td>'.Por motivmos de la empresa.'</td>
+                 </tr>
                 </tbody></table>
 
             </div>
-            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';	
+            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';
                                 $result = sapp_Global::_sendEmail($options);
-							/* END */	
-                                
-                                
+							/* END */
+
+
 		/* Mail to Reporting Manager */
-            if(!empty($repMgrEmail) && !empty($repMgrName)) {                    
+            if(!empty($repMgrEmail) && !empty($repMgrName)) {
 								$options['header'] = 'Leave Request';
 								$options['toEmail'] = $repMgrEmail;
 								$options['toName'] = $repMgrName;
 								if($messagestr == 'Leave request approved'){
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been approved.</div>';
-								}elseif($messagestr == 'Leave request rejected'){ 
+								}elseif($messagestr == 'Leave request rejected'){
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been rejected. </div>';
 								}else{
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been cancelled. </div>';
-								}	
+								}
 								$options['message'] .= '<div>
                 <table width="100%" cellspacing="0" cellpadding="15" border="0" style="border:3px solid #BBBBBB; font-size:16px; font-family:Arial, Helvetica, sans-serif; margin:30px 0 30px 0;" bgcolor="#ffffff">
                       <tbody><tr>
@@ -535,12 +540,12 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
                 </tbody></table>
 
             </div>
-            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';	
+            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';
                                 $result = sapp_Global::_sendEmail($options);
-            }                    
-							/* END */                                
-							
-							/* Mail to HR */	
+            }
+							/* END */
+
+							/* Mail to HR */
 								if (defined('LV_HR_'.$businessunitid) && $businessunitid !='')
 								{
 								$options['header'] = 'Leave Request';
@@ -549,13 +554,13 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 								if($messagestr == 'Leave request approved'){
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been approved.</div>';
-								}elseif($messagestr == 'Leave request rejected'){ 
+								}elseif($messagestr == 'Leave request rejected'){
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been rejected. </div>';
 								}else{
 									$options['subject'] = $messagestr;
 									$options['message'] = '<div>Hi,</div><div>The below leave(s) has been cancelled. </div>';
-								}	
+								}
 								$options['message'] .= '<div>
                 <table width="100%" cellspacing="0" cellpadding="15" border="0" style="border:3px solid #BBBBBB; font-size:16px; font-family:Arial, Helvetica, sans-serif; margin:30px 0 30px 0;" bgcolor="#ffffff">
                       <tbody>
@@ -583,15 +588,15 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
                 </table>
 
             </div>
-            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';	
-                                $result = sapp_Global::_sendEmail($options);	
+            <div style="padding:20px 0 10px 0;">Please <a href="'.BASE_URL.'/index/popup" target="_blank" style="color:#b3512f;">click here</a> to login and check the leave details.</div>';
+                                $result = sapp_Global::_sendEmail($options);
 								}
-							/* END */	
+							/* END */
 						$menuID = MANAGEREMPLOYEEVACATIONS;
 						$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$tableid);
 	    			    $this->_redirect('manageremployeevacations');
-					}	
-							
+					}
+
 			}else
 			{
      			$messages = $managerleaverequestform->getMessages();
@@ -603,10 +608,10 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 							break;
 						 }
 					}
-				return $msgarray;			
+				return $msgarray;
 			}
 	}
-	
+
 	public function deleteAction()
 	{
 	     $auth = Zend_Auth::getInstance();
@@ -618,28 +623,27 @@ class Default_ManageremployeevacationsController extends Zend_Controller_Action
 		 $actionflag = 3;
 		    if($id)
 			{
-			$holidaygroupsmodel = new Default_Model_Holidaygroups(); 
+			$holidaygroupsmodel = new Default_Model_Holidaygroups();
 			  $data = array('isactive'=>0);
 			  $where = array('id=?'=>$id);
 			  $Id = $holidaygroupsmodel->SaveorUpdateGroupData($data, $where);
 			    if($Id == 'update')
 				{
 				   $menuID = HOLIDAYGROUPS;
-				   $result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id); 
+				   $result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$id);
 				   $messages['message'] = 'Holiday group deleted successfully.';
-				}   
+				}
 				else
-                   $messages['message'] = 'Holiday group cannot be deleted.';				
+                   $messages['message'] = 'Holiday group cannot be deleted.';
 			}
 			else
-			{ 
+			{
 			 $messages['message'] = 'Holiday group cannot be deleted.';
 			}
 			$this->_helper->json($messages);
-		
+
 	}
-	
-	
+
+
 
 }
-

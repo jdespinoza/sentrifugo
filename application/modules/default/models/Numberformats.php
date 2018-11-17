@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,30 +23,30 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_numberformats';
     protected $_primary = 'id';
-	
+
 	public function getNumberFormatData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "isactive = 1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$NumberFormatData = $this->select()
-    					   ->setIntegrityCheck(false)	    					
+    					   ->setIntegrityCheck(false)
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $NumberFormatData;       		
+
+		return $NumberFormatData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -55,19 +55,19 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
 					$searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
 		$objName = 'numberformats';
-		
-		$tableFields = array('action'=>'Action','numberformattype' => 'Number Format Type','description' => 'Description');
-		
-		$tablecontent = $this->getNumberFormatData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','numberformattype' => 'Tipo de Formato de Número','description' => 'Descripción');
+
+		$tablecontent = $this->getNumberFormatData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 	    $dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -81,7 +81,7 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 		);
 		return $dataTmp;
 	}
-	
+
 	public function getsingleNumberFormatData($id)
 	{
 		$row = $this->fetchRow("id = '".$id."'");
@@ -90,7 +90,7 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function getNumberFormatDataByID($id)
 	{
 	    $select = $this->select()
@@ -98,9 +98,9 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 						->from(array('n'=>'main_numberformats'),array('n.*'))
 					    ->where('n.isactive = 1 AND n.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function SaveorUpdateNumberFormatData($data, $where)
 	{
 	    if($where != ''){
@@ -111,7 +111,7 @@ class Default_Model_Numberformats extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_numberformats');
 			return $id;
 		}
-		
-	
+
+
 	}
 }

@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,10 +27,10 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$ajaxContext = $this->_helper->getHelper('AjaxContext');
 		$ajaxContext->addActionContext('viewsettings', 'html')->initContext();
 	}
-	
+
 	/**
 	 * Init
-	 * 
+	 *
 	 * @see Zend_Controller_Action::init()
 	 */
     public function init()
@@ -40,18 +40,18 @@ class Default_DashboardController extends Zend_Controller_Action{
 
     /**
      * @name indexAction
-     * 
+     *
      * This method is used to display the login form and to display form errors based on given inputs
-     *  
+     *
      *  @author Mainak
      *  @version 1.0
      */
-    
+
 	public function indexAction(){
 		$activeDashboard=null;
 		$employee = Zend_Registry::get('employee');
 		$userdashboard = $employee->getUserid()->getMain_userdashboardUseridAssocUsermanagementId()->first();
-			
+
 		$roledashboards = $employee->getUserid()->getEmprole()->getMain_dashboardpriviledgesRoleidAssocRolesid();
 
 		if($roledashboards->count()){
@@ -115,7 +115,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$this->_helper->viewRenderer->setNoRender();
 
 		$employee = Zend_Registry::get('employee');
-			
+
 		$roledashboards = $employee->getUserid()->getEmprole()->getMain_dashboardpriviledgesRoleidAssocRolesid();
 
 		if($roledashboards->count()){
@@ -169,7 +169,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 										}
 										$ucfirctcol = 'get'.ucfirst($this->gridFields["Fields"][$i]["FieldName"]);
 
-											
+
 										if(is_object($row->$ucfirctcol())){
 											$genderGridJson['rows'][$j][$this->gridFields["Fields"][$i]["FieldName"]] = $row->$ucfirctcol()->format(DATEFORMAT_PHP);
 										}else{
@@ -203,13 +203,13 @@ class Default_DashboardController extends Zend_Controller_Action{
 					}
 					break;
 				}
-					
+
 			}
 		}
 		echo json_encode($dashboardsettings);
 		exit;
 	}
-	
+
 		public function upgradeapplicationAction()
         {
          $auth = Zend_Auth::getInstance();
@@ -217,18 +217,18 @@ class Default_DashboardController extends Zend_Controller_Action{
 					$loginUserId = $auth->getStorage()->read()->id;
 					$loginuserRole = $auth->getStorage()->read()->emprole;
 					$loginuserGroup = $auth->getStorage()->read()->group_id;
-     		}	
+     		}
         }
 		public function emailsettingsAction()
 		{
 			$auth = Zend_Auth::getInstance();
 			$data = '';
 			if($auth->hasIdentity())
-			{                                
+			{
 				$loginuser_role = $auth->getStorage()->read()->emprole;
 			}
 			if($loginuser_role == SUPERADMINROLE)
-			{  
+			{
 				$email_form = new Default_Form_Emailsettings();
 				if(isset($_POST['submit']))
 				{
@@ -236,15 +236,15 @@ class Default_DashboardController extends Zend_Controller_Action{
 				}
 				else
 				{
-					$usersmodel = new Default_Model_Users();          
+					$usersmodel = new Default_Model_Users();
 					$data = $usersmodel->getMailSettingsData();
 					if(!empty($data))
 						$data = $data[0];
 				}
-				
+
 				if(!empty($data))
 				{
-					
+
 				    $email_form->populate($data);
 					if(!empty($data['PORT']))
 					{
@@ -258,26 +258,26 @@ class Default_DashboardController extends Zend_Controller_Action{
 				{
 					$this->view->auth = 'true';
 				}
-				
+
 				$this->view->form = $email_form;
 				$this->view->messages = $this->_helper->flashMessenger->getMessages();
 
-			
+
 				if($this->getRequest()->getPost())
 				{
 					$result = $this->save_email_settings($email_form);
-					$this->view->msgarray = $result;                
+					$this->view->msgarray = $result;
 				}
 			}
-			else 
-			{                            
+			else
+			{
 				$this->_redirect('error');
 			}
 		}
-		
+
     public function save_email_settings($form)
 	{
-		
+
             $auth = Zend_Auth::getInstance();
             if($auth->hasIdentity())
             {
@@ -287,12 +287,12 @@ class Default_DashboardController extends Zend_Controller_Action{
             }
             $msgarray = array();
             $errorflag = 'true';
-         
+
 		   /* if(extension_loaded('openssl'))
                $errorflag= 'true';
             else
             {
-              $msgarray['tls'] = 'Openssl is not configured';	
+              $msgarray['tls'] = 'Openssl is not configured';
               $errorflag = 'false';
             }    */
 			$auth = $this->_request->getParam('auth');
@@ -318,14 +318,14 @@ class Default_DashboardController extends Zend_Controller_Action{
 			if($form->isValid($this->_request->getPost()) && $errorflag == 'true')
             {
             	$id = $this->_request->getParam('id');
-				
+
 				$server_name = $this->_request->getParam('server_name');
 				$tls = $this->_request->getParam('tls');
 				$port = $this->_request->getParam('port');
-				
+
 				$usersModel = new Default_Model_Users();
 				$options = array();
-							
+
 
 				$options['username'] = !empty($username)?$username:"";
 				$options['password'] = !empty($password)?$password:"";
@@ -341,40 +341,40 @@ class Default_DashboardController extends Zend_Controller_Action{
 				$options['toName'] = $loginuserName;
 				$options['message'] = '<div>
 								<div>Hi '.ucfirst($loginuserName).',</div><br/>
-								<div>This is a test email to check the new mail settings provided for '.APPLICATION_NAME.'.</div></div>';	
-				   
+								<div>This is a test email to check the new mail settings provided for '.APPLICATION_NAME.'.</div></div>';
+
 					$result = sapp_Mail::_checkMail($options);
 					if($result === true)
 					{
            			 $data = array( 'username'=>$username,
 				                 'password'=>$password,
 				   				 'server_name'=>$server_name,
-				   				 'auth'=>$auth,	
+				   				 'auth'=>$auth,
 				                 'tls'=>$tls,
 				   				 'port'=>$port,
  								 'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 					if($id!=''){
-						$where = array('id=?'=>$id);  
-				
+						$where = array('id=?'=>$id);
+
 					}
 					else
 					{
 					  	$data['createddate'] = gmdate("Y-m-d H:i:s");
 						$where = '';
 					}
-					
+
 					$Id = $usersModel->addOrUpdateSettingsData($data, $where);
 					sapp_Global::writeEMailSettingsconstants($tls,$auth,$port,$username,$password,$server_name);
-					
+
 					if($Id == 'update')
 					{
-					   $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Mail Settings updated successfully."));
-					}   
+					   $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Configuraciones de correo actualizadas exitosamente."));
+					}
 					else
 					{
-                        $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Mail Settings added successfully."));					   
-					}   
+                        $this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Configuraciones de correo agregadas exitosamente."));
+					}
 				}
 				else
 				{
@@ -384,7 +384,7 @@ class Default_DashboardController extends Zend_Controller_Action{
             }
             else
             {
-				
+
                 $messages = $form->getMessages();
                 foreach ($messages as $key => $val)
                 {
@@ -397,19 +397,19 @@ class Default_DashboardController extends Zend_Controller_Action{
 				 return $msgarray;
             }
         }
-        
-        
-	    
+
+
+
 	public function changepasswordAction()
 	{
-		
+
 		$form = new Default_Form_changepassword();
 		$sitepreferencemodel = new Default_Model_Sitepreference();
 		$sitepreferenceArr = $sitepreferencemodel->SitePreferanceData();
                 $auth    = Zend_Auth::getInstance();
-		if ($auth->hasIdentity()) 
+		if ($auth->hasIdentity())
                 {
-                    $identity = $auth->getIdentity();                                				
+                    $identity = $auth->getIdentity();
                     $login_role = $identity->emprole;
                 }
 		$this->view->form=$form;
@@ -417,7 +417,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 		if(!empty($sitepreferenceArr))
 		   $this->view->passwordid=$sitepreferenceArr[0]['passwordid'];
 		else
-           $this->view->passwordid= 1;  		
+           $this->view->passwordid= 1;
 		$this->view->message = 'This is change password page';
 	}
 
@@ -446,45 +446,45 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$sitepreferencemodel = new Default_Model_Sitepreference();
 		$sitepreferenceArr = $sitepreferencemodel->SitePreferanceData();
 		/*
-		    Pattern Used for alphanumeric expression 
+		    Pattern Used for alphanumeric expression
 			   'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
 				  -> Here the first bracket() inside the pattern specifies that atleast one number should be there in the expression.
 				  -> Second bracket() specifies that atleast one alphabet should be present in the expression.
 				  -> Third bracket() specifies the allowed set of characters in the expression.
-				  
-			Pattern Used for alphanumeric and special characters 
+
+			Pattern Used for alphanumeric and special characters
 			    'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[.\-#$@&\_*])([a-zA-Z0-9.\-#$@&\_*]+)$/',
 				  -> Here the first bracket() inside the pattern specifies that atleast one number should be there in the expression.
 				  -> Second bracket() specifies that atleast one alphabet should be present in the expression.
 				  -> Third bracket() specifies that atleast one special character should be present in the expression.
 				  -> Fourth bracket() specifies the allowed set of characters in the expression.
 
-            Pattern Used for numbers and special characters 
+            Pattern Used for numbers and special characters
 			    'pattern'=> '/^(?=.*[0-9])(?=.*[.\-#$@&\_*])([0-9.\-#$@&\_*]+)$/',
 				  -> Here the first bracket() inside the pattern specifies that atleast one number should be there in the expression.
 				  -> Second bracket() specifies that atleast one special character should be present in the expression.
-				  -> Third bracket() specifies the allowed set of characters in the expression.				  
+				  -> Third bracket() specifies the allowed set of characters in the expression.
 		*/
 		if(!empty($sitepreferenceArr))
 		{
 				if($sitepreferenceArr[0]['passwordid'] == 1)
-				{ 
-				
+				{
+
 					$changepasswordform->newpassword->addValidator("regex",true,array(
 									'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter only alphanumeric characters.'
 								   )
-					)); 
-					
+					));
+
 					$changepasswordform->passwordagain->addValidator("regex",true,array(
 									'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter only alphanumeric characters.'
 								   )
-					));			
-				} 
-				
+					));
+				}
+
 				else if($sitepreferenceArr[0]['passwordid'] == 2)
 				{
 					$changepasswordform->newpassword->addValidator("regex",true,array(
@@ -493,7 +493,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 									   'regexNotMatch'=>'Please enter only characters,numbers and special characters.'
 								   )
 					));
-					
+
 					$changepasswordform->passwordagain->addValidator("regex",true,array(
 								  'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[.\-#$@&\_*])([a-zA-Z0-9.\-#$@&\_*]+)$/',
 								   'messages'=>array(
@@ -504,14 +504,14 @@ class Default_DashboardController extends Zend_Controller_Action{
 				else if($sitepreferenceArr[0]['passwordid'] == 3)
 				{
 					$changepasswordform->newpassword->addValidator("regex",true,array(
-								   'pattern'=>'/^[0-9]+$/', 
+								   'pattern'=>'/^[0-9]+$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter numbers only.'
 								   )
 					));
-					
+
 					$changepasswordform->passwordagain->addValidator("regex",true,array(
-								   'pattern'=>'/^[0-9]+$/', 
+								   'pattern'=>'/^[0-9]+$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter numbers only.'
 								   )
@@ -524,43 +524,43 @@ class Default_DashboardController extends Zend_Controller_Action{
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter only numbers and special characters.'
 								   )
-					)); 
-					
+					));
+
 					$changepasswordform->passwordagain->addValidator("regex",true,array(
 									'pattern'=> '/^(?=.*[0-9])(?=.*[.\-#$@&\_*])([0-9.\-#$@&\_*]+)$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter only numbers and special characters.'
 								   )
-					));			
+					));
 				}
 		}
 		else
         {
 		    $changepasswordform->newpassword->addValidator("regex",true,array(
-									'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', 
+									'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
 								   'messages'=>array(
 									   'regexNotMatch'=>'Please enter only alphanumeric characters.'
 								   )
-					)); 
-					
+					));
+
 			$changepasswordform->passwordagain->addValidator("regex",true,array(
-							'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', 
+							'pattern'=> '/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
 						   'messages'=>array(
 							   'regexNotMatch'=>'Please enter only alphanumeric characters.'
 						   )
-			));	
-        } 		
+			));
+        }
 
         /* Logic ends for site preference password validation
            END
-        */ 
-	
+        */
+
 		if($this->getRequest()->getPost()){
-   			 
+
     		if($changepasswordform->isValid($this->_request->getPost())&& ($sespwd == $pwd) && $newpwd==$confpwd && $pwd!=$newpwd ){
 					$loginmodel->editadminPassword($newpwd,$id,$email,$employeid);
-					$this->_helper->json(array('result'=>'saved','message'=>"Password changed successfully."));	
-				
+					$this->_helper->json(array('result'=>'saved','message'=>"Password changed successfully."));
+
     		}else{
     			$messages = $changepasswordform->getMessages();
     			if(($sespwd != $pwd) && $password!=''){
@@ -575,29 +575,29 @@ class Default_DashboardController extends Zend_Controller_Action{
     			$messages['result']='error';
     			$this->_helper->json($messages);
     		}
-				
+
 		}
 	}
-	
+
     public function updateAction()
-    {	 
-	    $userid = $this->_request->getParam('user_id');             
+    {
+	    $userid = $this->_request->getParam('user_id');
         $imagepath = $this->_request->getParam('profile_photo');
         if($imagepath !='')
         {
             if(file_exists(USER_PREVIEW_UPLOAD_PATH.'//'.$imagepath))
             {
                 copy(USER_PREVIEW_UPLOAD_PATH.'//'.$imagepath, USER_UPLOAD_PATH.'//'.$imagepath);
-                unlink(USER_PREVIEW_UPLOAD_PATH.'//'.$imagepath);                
-            } 
-   			
-        }              				
-        $usermodel = new Default_Model_Users();                   					
+                unlink(USER_PREVIEW_UPLOAD_PATH.'//'.$imagepath);
+            }
+
+        }
+        $usermodel = new Default_Model_Users();
         $data = array('profileimg'=>$imagepath,
-                      
-					  );							  				               
-        $where = array("id=?" => $userid);                                    
-        $status = $usermodel->addOrUpdateProfileImage($data,$where); 
+
+					  );
+        $where = array("id=?" => $userid);
+        $status = $usermodel->addOrUpdateProfileImage($data,$where);
         if($status == 'update')
         {
             $update_query = "update main_employees_summary set profileimg = '".$imagepath."',
@@ -611,27 +611,27 @@ class Default_DashboardController extends Zend_Controller_Action{
             if($auth->hasIdentity())
             {
                 $auth->getStorage()->read()->profileimg = $imagepath;
-                
+
             }
-        } 		
-     
-        $this->_helper->json($status); 
+        }
+
+        $this->_helper->json($status);
 	}
-	
+
 	public function uploadpreviewAction(){
-    	$result = $this->imageupload();	
-			
+    	$result = $this->imageupload();
+
 		$this->_helper->json($result);
-		
+
     }
-	
+
 	public function imageupload()
 	{
 		// folder for upload
-		$savefolder = USER_PREVIEW_UPLOAD_PATH;		
-		
+		$savefolder = USER_PREVIEW_UPLOAD_PATH;
+
 		// maxim size for image file, in KiloBytes
-		$max_size = 1024;			
+		$max_size = 1024;
 
 		// Allowed image types
 		$allowtype = array('gif', 'jpg', 'jpeg', 'png');
@@ -674,24 +674,24 @@ class Default_DashboardController extends Zend_Controller_Action{
 						}
 					}
 				}
-				else 
-				{ 
-					$rezultat = ''; 
+				else
+				{
+					$rezultat = '';
 					$result_status = 'error';
 					$result_msg = 'The file exceeds the maximum permitted size '. $max_size. ' KB.';
 				}
 			}
-			else 
-			{ 
-				$rezultat = ''; 
+			else
+			{
+				$rezultat = '';
 				$result_status = 'error';
 				$result_msg = 'Please upload only .gif, .jpg, .jpeg, .png images.';
 
 			}
 		}
-		else 
-		{ 
-			$rezultat = ''; 
+		else
+		{
+			$rezultat = '';
 			$result_status = 'error';
 			$result_msg = 'Please upload only .gif, .jpg, .jpeg, .png images.';
 		}
@@ -703,29 +703,29 @@ class Default_DashboardController extends Zend_Controller_Action{
 		);
 		return $result;
 	}
-	
+
 	public function viewprofileAction()
-	{		
+	{
 		$id = '';
 		$username = '';
 		$email = '';
 		$profileimage = '';
 		$role = '';
-		
+
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()){
 			$auth = $auth->getStorage()->read();
-			$id = $auth->id;	
+			$id = $auth->id;
 	        $login_user_role = $auth->emprole;
-			$username = $auth->userfullname;	
+			$username = $auth->userfullname;
 			$email = $auth->emailaddress;
 		}
 
 		if($id == SUPERADMIN)
 		{
 			$role = 'true';
-			
-		}		
+
+		}
 		$viewprofileform = new Default_Form_viewprofile();
 		$usermodel = new Default_Model_Users();
 		$getuserdetails = $usermodel->getUserDetails($id);
@@ -734,32 +734,32 @@ class Default_DashboardController extends Zend_Controller_Action{
 			$lastname = $getuserdetails[0]['lastname'];
 			$email = $getuserdetails[0]['emailaddress'];
 			$profileimage = $getuserdetails[0]['profileimg'];
-			
+
 		$viewprofileform->populate($getuserdetails[0]);
-			
-		$this->view->id = $id;	
+
+		$this->view->id = $id;
 		$this->view->username = $username;
 		$this->view->firstname = $firstname;
-		$this->view->lastname = $lastname;	
+		$this->view->lastname = $lastname;
 		$this->view->email = $email;
 		$this->view->profileimage = $profileimage;
         $this->view->login_user_role = $login_user_role;
         $this->view->role = $role;
-        $this->view->form = $viewprofileform; 
+        $this->view->form = $viewprofileform;
         $this->view->messages = $this->_helper->flashMessenger->getMessages();
 		if($this->getRequest()->getPost()){
-		     $result = $this->saveProfileDetails($viewprofileform);	
-		     $this->view->msgarray = $result; 
+		     $result = $this->saveProfileDetails($viewprofileform);
+		     $this->view->msgarray = $result;
         }
 	}
-	
+
 	public function saveProfileDetails($viewprofileform)
 	{
 			$auth = Zend_Auth::getInstance();
 	     	if($auth->hasIdentity()){
 						$loginUserId = $auth->getStorage()->read()->id;
 			}
-			
+
 			if($viewprofileform->isValid($this->_request->getPost())){
 			    $id = $this->_request->getParam('id');
 			    $firstname = $this->_request->getParam('firstname');
@@ -769,7 +769,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 				$usersModel = new Default_Model_Users();
 				$date = new Zend_Date();
 				$actionflag = '';
-				$tableid  = ''; 
+				$tableid  = '';
 				   $data = array('firstname'=>$firstname,
 				   				 'lastname'=>$lastname,
 				   				 'userfullname'=>$userfullname,
@@ -778,7 +778,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 								 'modifieddate'=>gmdate("Y-m-d H:i:s")
 						);
 					if($id!=''){
-						$where = array('id=?'=>$id);  
+						$where = array('id=?'=>$id);
 						$actionflag = 2;
 					}
 					else
@@ -791,24 +791,24 @@ class Default_DashboardController extends Zend_Controller_Action{
 					}
 					$Id = $usersModel->addOrUpdateUserModel($data, $where);
 					sapp_Global::writeApplicationConstants($emailaddress,APPLICATION_NAME);
-					
+
 		            if($auth->hasIdentity())
 		            {
 		                $auth->getStorage()->read()->userfullname = $userfullname;
-		                
+
 		            }
 					if($Id == 'update')
 					{
 					   $tableid = $id;
 					   $this->_helper->getHelper("FlashMessenger")->addMessage("Profile details updated successfully.");
-					}   
+					}
 					else
 					{
-                       $tableid = $Id; 	
-                        $this->_helper->getHelper("FlashMessenger")->addMessage("Profile details saved successfully.");					   
-					}   
-					
-    			    $this->_redirect('dashboard/viewprofile');		
+                       $tableid = $Id;
+                        $this->_helper->getHelper("FlashMessenger")->addMessage("Profile details saved successfully.");
+					}
+
+    			    $this->_redirect('dashboard/viewprofile');
 			}else
 			{
 			     $messages = $viewprofileform->getMessages();
@@ -820,20 +820,20 @@ class Default_DashboardController extends Zend_Controller_Action{
 							break;
 						 }
 					}
-				return $msgarray;	
-			
+				return $msgarray;
+
 			}
 	}
-	
+
 	public function viewsettingsAction()
 	{
 	    $layoutflag = $this->_request->getParam('layout');
         if($layoutflag == 'layout')
-				$this->_helper->layout->disableLayout();	
+				$this->_helper->layout->disableLayout();
 		$auth = Zend_Auth::getInstance()->getStorage()->read();
 		if(!empty($auth))
 		{
-			$userid = $auth->id;		
+			$userid = $auth->id;
 			$role_id = $auth->emprole;
 		}
 		$settingsflag = $this->_request->getParam('tab');
@@ -851,7 +851,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$shortcount = '';
 		$flag = '';
 		$menuids2 = array();$mids = array();
-		$menuids = $settingsmodel->getallmenuids($userid);	
+		$menuids = $settingsmodel->getallmenuids($userid);
 		$menuidsString = '';
 		$shortcuts = array();
 		$widgets = array();
@@ -865,9 +865,9 @@ class Default_DashboardController extends Zend_Controller_Action{
 				if($menuids[$i]['flag'] == 1) //widgets
 					$menuids_W = explode(',',$menuids[$i]['menuid']);
 				if($menuids[$i]['flag'] == 2) //short cuts
-					$menuids_SC = explode(',',$menuids[$i]['menuid']);		
+					$menuids_SC = explode(',',$menuids[$i]['menuid']);
 			}
-			$idCsv=1;	//flag 
+			$idCsv=1;	//flag
 			$menuIdsArr=array();
 			$menuIdsCsv="";
 			$menusString="";
@@ -883,28 +883,28 @@ class Default_DashboardController extends Zend_Controller_Action{
 				}
 				$menuIdsCsv= implode(",",$menuIdsArr);
 			}
-				
-			array_push($mids,$menuids_SC);	
+
+			array_push($mids,$menuids_SC);
 			array_push($mids,$menuids_W);
-			$menuidsString = rtrim($menuidsString,','); 
+			$menuidsString = rtrim($menuidsString,',');
 			if($menuIdsCsv != "")	$menuidsString =$menuIdsCsv;
 			$menuidnamesData = $settingsmodel->getallmenunames($menuidsString,1);
 			for($i=0;$i<sizeof($menuidnamesData);$i++)
-			{	
+			{
 				if(!empty($menuids_SC))
-				{	
+				{
 					 $size = (sizeof($menuids_SC) > 16) ? 16:sizeof($menuids_SC);
 					for($k=0;$k<$size ;$k++)
-					{	
+					{
 						if($menuidnamesData[$i]['id'] == $menuids_SC[$k])
 						{
 							$shortcuts[$k]['id'] = $menuids_SC[$k];
-							$shortcuts[$k]['menuName'] = $menuidnamesData[$i]['menuName'];					
-							$shortcuts[$k]['iconPath'] = $menuidnamesData[$i]['iconPath'];					
+							$shortcuts[$k]['menuName'] = $menuidnamesData[$i]['menuName'];
+							$shortcuts[$k]['iconPath'] = $menuidnamesData[$i]['iconPath'];
 						}
 					}
 				}
-				
+
 				if(!empty($menuids_W))
 				{
 					$size = (sizeof($menuids_W) > 10) ? 10:sizeof($menuids_W);
@@ -913,17 +913,17 @@ class Default_DashboardController extends Zend_Controller_Action{
 						if($menuidnamesData[$i]['id'] == $menuids_W[$j])
 						{
 							$widgets[$j]['id'] = $menuids_W[$j];
-							$widgets[$j]['menuName'] = $menuidnamesData[$i]['menuName'];					
+							$widgets[$j]['menuName'] = $menuidnamesData[$i]['menuName'];
 							$widgets[$j]['iconPath'] = $menuidnamesData[$i]['iconPath'];
 						}
 					}
 				}
 			}
 			$this->view->menuidcount=1;
-			$this->view->iconidcount=1; 
+			$this->view->iconidcount=1;
 			$this->view->menunamearray=$widgets;
 			$this->view->iconnamearray=$shortcuts;
-			$this->view->message = $userid; 
+			$this->view->message = $userid;
 		}
 		$this->view->layoutflag=$layoutflag;
 		$this->view->settingsflag=$settingsflag;
@@ -950,8 +950,8 @@ class Default_DashboardController extends Zend_Controller_Action{
 				$gridHelper->configG1($grid1, $menuName, 'wg_'.$objectName,$gridFields, $objectName);
 			else if($con == 2)
 				$gridHelper->configG1($grid1, $menuName, 'sh_'.$objectName,$gridFields, $objectName);
-			return $grid1->deploy();		
-		
+			return $grid1->deploy();
+
 		}
 		catch(Exception $e)
 		{
@@ -982,14 +982,14 @@ class Default_DashboardController extends Zend_Controller_Action{
 		}
 		return $gridFields;
 	}
-	
-	
+
+
 	public function savemenuwidgetsAction()
 	{
-	
+
 	  $auth = Zend_Auth::getInstance()->getStorage()->read();
 	  $userid = $auth->id;
-	  
+
 	  $date = new Zend_Date();
 	  $totalarray = $this->_request->getParam('totalarray');
 	  $arraytype = $totalarray[0];
@@ -1000,13 +1000,13 @@ class Default_DashboardController extends Zend_Controller_Action{
 	      $menuidstring = '';
 		  $menutype = $totalarray[0];
 	  }
-	  $flag = ''; 
+	  $flag = '';
 	    if($menutype == 'Widgets'){
 	     $flag = 1;
-		} 
+		}
 		 if($menutype == 'Shortcuts'){
          $flag = 2;
-        }		 
+        }
 	  $successmessage['result']= '';
 
 	  $settingsmodel = new Default_Model_Settings();
@@ -1016,21 +1016,21 @@ class Default_DashboardController extends Zend_Controller_Action{
 	   if($getdatacount[0]['count']>0){
 		      $where = array('userid=?'=>$userid,
 						           'flag=?'=>$flag,
-						           'isactive=?'=>1 
+						           'isactive=?'=>1
 								);
 
-		      $data = array(		
-                            'menuid'=>$menuidstring, 
+		      $data = array(
+                            'menuid'=>$menuidstring,
                     		'modified'=>$date->get('yyyy-MM-dd HH:mm:ss')
     					 );
           $id = $settingsmodel->addOrUpdateMenus($data, $where);
 		  $successmessage['result'] = 'update';
 
        }else{
-		   $data = array(		
+		   $data = array(
     							'userid'=>$userid,
-                                'menuid'=>$menuidstring, 
-                                'flag'=>$flag, 
+                                'menuid'=>$menuidstring,
+                                'flag'=>$flag,
        							'isactive'=> 1,
     							'created'=>$date->get('yyyy-MM-dd HH:mm:ss'),
     							'modified'=>$date->get('yyyy-MM-dd HH:mm:ss')
@@ -1041,56 +1041,56 @@ class Default_DashboardController extends Zend_Controller_Action{
 
        }
 	  $this->_helper->json($successmessage);
-   
+
 	}
 
 	public function getmenunameAction(){
        $menuid = $this->_request->getParam('menuid');
 	   $menuurl = $this->_request->getParam('menuurl');
-       $successmessage['result']= ''; 
+       $successmessage['result']= '';
 
    	   $settingsmodel = new Default_Model_Settings();
 	   $getmenuname = $settingsmodel->getMenuName($menuid);
-	  
+
        if(!empty($getmenuname))
            $successmessage['result']= 'success';
        else
 		   $successmessage['result']= 'error';
 	   $data = array('menuname'=>$getmenuname[0]['menuName'],
                       'message'=>$successmessage['result'],
-                      
+
         );
 	   $this->_helper->json($data);
 	}
-	
+
 	public function fetchmenunameAction(){
 		$auth = Zend_Auth::getInstance();
 		$role_id = 1;
             if($auth->hasIdentity())
-            {                                
+            {
                 $role_id = $auth->getStorage()->read()->emprole;
             }
-            
+
 	   $menuid = $this->_request->getParam('menuid');
 	   $tabFlag = $this->_request->getParam('tabFlag');
-	   $successmessage['result']= ''; 
+	   $successmessage['result']= '';
 	   $idCsv = 0;
-	   
+
 	   $privilege_model = new Default_Model_Privileges();
 	     $settingsmodel = new Default_Model_Settings();
 	   if(is_numeric($menuid))
 	   {
-	   $privilegesofObj = $privilege_model->getObjPrivileges($menuid,"",$role_id,$idCsv);	
-	   $getmenuname = $settingsmodel->fetchMenuName($menuid);	
+	   $privilegesofObj = $privilege_model->getObjPrivileges($menuid,"",$role_id,$idCsv);
+	   $getmenuname = $settingsmodel->fetchMenuName($menuid);
 	   if($privilegesofObj['isactive'] == 1)
 	   {
 	       if(!empty($getmenuname)){
 	            $data = array('menuname'=>$getmenuname[0]['menuName'],
-		                 'menuicon'=>$getmenuname[0]['iconPath'], 
-						  'menuurl'=>$getmenuname[0]['url'], 
+		                 'menuicon'=>$getmenuname[0]['iconPath'],
+						  'menuurl'=>$getmenuname[0]['url'],
 	                      'message'=>'success'
 	                      );
-			}	
+			}
 	       else{
 			   $data = array(
 	                      'message'=>'error'
@@ -1100,13 +1100,13 @@ class Default_DashboardController extends Zend_Controller_Action{
 	   {
 	    $data = array(
 	                      'message'=>'error'
-	            );	
-	   }         
+	            );
+	   }
 		/**
 			*	Added By	:	Sapplica.
 			*	Date of Modification	:	30/08/2013
 			*	Purpose	:	Some of the menus should not be draggable for widgets
-			*	Modified By	:	MAINAK.		
+			*	Modified By	:	MAINAK.
 		**/
 		//	Only for Widgets, Organisation Info,Organisation structure,Organisation hierarchy, Site Preferences,leave request,My details,Identity codes and some menus should not be draggable ....
 		//Removed: Manager status
@@ -1116,12 +1116,12 @@ class Default_DashboardController extends Zend_Controller_Action{
 			if(in_array($menuid,$menusNotdraggable))
 				$data = array('message'=>'error');
 		}
-		
+
 	   }else
 	   {
 	   	     $data = array('message'=>'error');
-	   }	
-	   
+	   }
+
 
 	   $this->_helper->json($data);
 
@@ -1138,7 +1138,7 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$parentMenuIdsArr = array();
 		for($m=0;$m < sizeof($result); $m++)
 		{
-			$menuIdsArr[$result[$m]['menuId']] = $result[$m]['parent'];			
+			$menuIdsArr[$result[$m]['menuId']] = $result[$m]['parent'];
 		}
 		for($i = 0; $i < sizeof($result); $i++)
 		{
@@ -1157,31 +1157,31 @@ class Default_DashboardController extends Zend_Controller_Action{
 					$navIdsArr[$result[$i]['menuId']] = ",".$menuIdsArr[$menuIdsArr[$result[$i]['menuId']]].",".$result[$i]['parent'].",".$result[$i]['menuId'].",";
 			}
 		}
-		
-		
+
+
 		for($p = 0;$p < sizeof($result);$p++)
 		{
 			if(isset($navIdsArr[$result[$p]['menuId']]))
 			{
-				
-				
-				
+
+
+
 				$settingsmodel->insertnavid($result[$p]['menuId'],$navIdsArr[$result[$p]['menuId']]);
 			}
 		}
 
 		exit();
 	}
-	
+
 	public function getopeningpositondateAction()
 	{
 	   $settingsmodel = new Default_Model_Settings();
 	   $openingpositiondate = $settingsmodel->getOpeningPositinDate();
-	    $successmessage['result']= ''; 
+	    $successmessage['result']= '';
 	   if(sizeof($openingpositiondate) > 1){
-	        $successmessage['result']= 'success'; 
+	        $successmessage['result']= 'success';
 	   }else{
-	         $successmessage['result']= 'error'; 
+	         $successmessage['result']= 'error';
 	   }
 	    $this->_helper->json($successmessage['result']);
 	}
@@ -1190,28 +1190,28 @@ class Default_DashboardController extends Zend_Controller_Action{
 		$this->_helper->layout->disableLayout();
 		$this->view->message = 'Menu work is in progress';
 	}
-	
+
 	 public function employeeimageupdateAction()
-    {	
-	
-       $userid = $this->_request->getParam('user_id');             
+    {
+
+       $userid = $this->_request->getParam('user_id');
         $profileimagepath = $this->_request->getParam('profile_image');
         if($profileimagepath !='')
         {
            if(file_exists(USER_PREVIEW_UPLOAD_PATH.'//'.$profileimagepath))
            {
                 copy(USER_PREVIEW_UPLOAD_PATH.'//'.$profileimagepath, USER_UPLOAD_PATH.'//'.$profileimagepath);
-               unlink(USER_PREVIEW_UPLOAD_PATH.'//'.$profileimagepath);                
-           }    			
-        }              				
-        $usermodel = new Default_Model_Users();                   					
+               unlink(USER_PREVIEW_UPLOAD_PATH.'//'.$profileimagepath);
+           }
+        }
+        $usermodel = new Default_Model_Users();
         $data = array('profileimg'=>$profileimagepath,
-                      
-					  );							  				               
-        $where = array("id=?" => $userid);                                    
-        $status = $usermodel->addOrUpdateProfileImage($data,$where); 
-        
-        
+
+					  );
+        $where = array("id=?" => $userid);
+        $status = $usermodel->addOrUpdateProfileImage($data,$where);
+
+
         if($status == 'update')
         {
         	$update_query = "update main_employees_summary set profileimg = '".$profileimagepath."',
@@ -1221,11 +1221,11 @@ class Default_DashboardController extends Zend_Controller_Action{
         	$db = Zend_Db_Table::getDefaultAdapter();
         	$result = $db->query($update_query);
         	$db->query($update_requesthistory_query);
-        	
+
         }
-         
+
         $this->_helper->json($status);
-        
+
 	}
 
 }

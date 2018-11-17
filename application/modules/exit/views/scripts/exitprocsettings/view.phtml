@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@
  *  Sentrifugo Support <support@sentrifugo.com>
  ********************************************************************************/
  ?>
-<?php 
+<?php
 
 if($this->ermsg != '')
 {
@@ -28,7 +28,7 @@ if($this->ermsg != '')
     <div class="style-1-icon info"></div>
        Datos no encontrados.
 </div>
-<?php 
+<?php
 }
 else
 {
@@ -38,25 +38,25 @@ else
 		{
 		?>
 		<div class="new-form-ui-submit "  style="margin-top: 0px; float: right; width: auto; margin-left: 0px; ">
-		   
-				<?php             	
+
+				<?php
 					$msgtitle = $this->controllername.'_delete';
-					sapp_Helper::editdeleteForView(EXIT_PROC_SETTINGS,$this->controllername,$this->id,$msgtitle); 
-				 ?>		
-			
+					sapp_Helper::editdeleteForView(EXIT_PROC_SETTINGS,$this->controllername,$this->id,$msgtitle);
+				 ?>
+
 		</div>
-		<?php 
+		<?php
 		}
 		?>
 
 <?php sapp_Helper::viewHeader();
-sapp_Helper::viewBody('alt','Business Unit',(!empty( $this->data['unitname']))?  $this->data['unitname']:"...",'Department',(!empty($this->data['deptname']))?$this->data['deptname']:"...");
+sapp_Helper::viewBody('alt','Unidad de Negocios',(!empty( $this->data['unitname']))?  $this->data['unitname']:"...",'Departamento',(!empty($this->data['deptname']))?$this->data['deptname']:"...");
 
-sapp_Helper::viewBody('nor','L2 Manager',(!empty($this->data['l2manager_userfullname']))? $this->data['l2manager_userfullname']:"...",'Hr Manager',(!empty($this->data['hrmanager_userfullname']))?$this->data['hrmanager_userfullname']:"...");
+sapp_Helper::viewBody('nor','Gerente L2',(!empty($this->data['l2manager_userfullname']))? $this->data['l2manager_userfullname']:"...",'Gerente RH',(!empty($this->data['hrmanager_userfullname']))?$this->data['hrmanager_userfullname']:"...");
 
-sapp_Helper::viewBody('alt','System Admin',(!empty($this->data['sysadmin_userfullname']))? $this->data['sysadmin_userfullname']:"...",'General Admin',(!empty($this->data['generaladmin_userfullname']))?$this->data['generaladmin_userfullname']:"...");
+sapp_Helper::viewBody('alt','Administrador de Sistema',(!empty($this->data['sysadmin_userfullname']))? $this->data['sysadmin_userfullname']:"...",'Admin General',(!empty($this->data['generaladmin_userfullname']))?$this->data['generaladmin_userfullname']:"...");
 
-sapp_Helper::viewBody('nor','Finance Manager',(!empty($this->data['finacemanager_userfullname']))? $this->data['finacemanager_userfullname']:"...",'Notice Period',(!empty($this->data['notice_period']))?$this->data['notice_period']:"...");
+sapp_Helper::viewBody('nor','Gerente de Finanzas',(!empty($this->data['finacemanager_userfullname']))? $this->data['finacemanager_userfullname']:"...",'Plazo de Aviso',(!empty($this->data['notice_period']))?$this->data['notice_period']:"...");
 
 
 sapp_Helper::viewFooter();

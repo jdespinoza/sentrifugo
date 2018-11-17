@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -21,7 +21,7 @@
 ?>
 
 <div id="error_message" style="display:none;"></div>
-<?php 
+<?php
 if(!isset($this->msgarray["msg"])){
 if($this->nodata != '')
 {
@@ -30,9 +30,9 @@ if($this->nodata != '')
     <div class="style-1-icon info"></div>
        Datos no encontrados.
 </div>
-<?php 
+<?php
 }
-else 
+else
 {
 sapp_Global::generateClientValidations($this->form);
 
@@ -50,14 +50,14 @@ sapp_Global::generateClientValidations($this->form);
 			  <label class="required">Employee </label>
 			<div class="division loca_state_div"><?php echo $this->form->employee_code; ?></div>
 			  <span class="errors" id="errors-employee_code"></span>
-			
+
 			</div>
 			<?php if(sapp_Global::_isactivemodule(BGCHECKS)){ ?>
 			<div class="new-form-ui clearb">
-			  <label class="required">Background Agency </label>
+			  <label class="required">Agencia de fondo</label>
 			<div class="division"><?php echo $this->form->bg_code; ?></div>
 				<span class="errors" id="errors-bg_code" ></span>
-			
+
 			</div>
 			<?php } ?>
             <div class="new-form-ui clearb">
@@ -74,7 +74,7 @@ sapp_Global::generateClientValidations($this->form);
 			<?php } ?>
 		<div class="new-form-ui-submit">
 		<?php echo $this->form->submit; ?>
-		
+
                 <button type="button" onclick="closeiframepopup('identitycodes','cancel');" id="Cancel" name="Cancel">Cancel</button>
 		</div>
 </div>
@@ -93,20 +93,20 @@ sapp_Global::generateClientValidations($this->form);
 	else	$("#errors-vendor_code").text("");
 	if(staffingError != "")	$("#errors-staffing_code").text(staffingError);
 	else	$("#errors-staffing_code").text("");
-	
+
 </script>
 <?php	}	}
 }?>
 
 <script type="text/javascript" language="javascript">
 
-$(document).ready(function(){         
+$(document).ready(function(){
     <?php if(isset($this->msgarray["msg"]) && $this->msgarray["msg"] != ""){ ?>
-        successmessage('<?php echo $this->msgarray["msg"]; ?>');  
+        successmessage('<?php echo $this->msgarray["msg"]; ?>');
         setTimeout(function(){
-        closeiframeAddPopup_identity("<?php echo $this->identity_data ;?>",'identitycodes','employeeId','<?php echo $this->prev_cntrl;?>');	
+        closeiframeAddPopup_identity("<?php echo $this->identity_data ;?>",'identitycodes','employeeId','<?php echo $this->prev_cntrl;?>');
         },2000);
-    <?php } ?>    
+    <?php } ?>
 });
 
 </script>

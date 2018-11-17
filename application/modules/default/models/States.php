@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -24,32 +24,32 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 {
     protected $_name = 'main_states';
     protected $_primary = 'id';
-	
+
 	public function getStatesData($sort, $by, $pageNo, $perPage,$searchQuery)
 	{
 		$where = "s.isactive = 1 AND c.is_active=1";
-		
+
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
-		$db = Zend_Db_Table::getDefaultAdapter();		
-		
+		$db = Zend_Db_Table::getDefaultAdapter();
+
 		$statesData = $this->select()
-    					   ->setIntegrityCheck(false)	
+    					   ->setIntegrityCheck(false)
 						   ->from(array('s'=>'main_states'),array('s.*'))
-                           ->joinLeft(array('c'=>'tbl_countries'), 's.countryid=c.id',array('country_name'=>'c.country_name'))						   
+                           ->joinLeft(array('c'=>'tbl_countries'), 's.countryid=c.id',array('country_name'=>'c.country_name'))
 						   ->where($where)
-    					   ->order("$by $sort") 
+    					   ->order("$by $sort")
     					   ->limitPage($pageNo, $perPage);
-		
-		return $statesData;       		
+
+		return $statesData;
 	}
-	
+
 	public function getGrid($sort,$by,$perPage,$pageNo,$searchData,$call,$dashboardcall,$a='',$b='',$c='',$d='')
-	{		
+	{
         $searchQuery = '';
         $searchArray = array();
         $data = array();
-		
+
 		if($searchData != '' && $searchData!='undefined')
 			{
 				$searchValues = json_decode($searchData);
@@ -58,19 +58,19 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 					$searchQuery .= " ".$key." like '%".$val."%' AND ";
 					$searchArray[$key] = $val;
 				}
-				$searchQuery = rtrim($searchQuery," AND");					
+				$searchQuery = rtrim($searchQuery," AND");
 			}
 		$objName = 'states';
-		
-		$tableFields = array('action'=>'Action','country_name' => 'Country','state' => 'State');
-		
-		$tablecontent = $this->getStatesData($sort, $by, $pageNo, $perPage,$searchQuery);     
-		
+
+		$tableFields = array('action'=>'Acción','country_name' => 'País','state' => 'Estado');
+
+		$tablecontent = $this->getStatesData($sort, $by, $pageNo, $perPage,$searchQuery);
+
 	    $dataTmp = array(
 			'sort' => $sort,
 			'by' => $by,
 			'pageNo' => $pageNo,
-			'perPage' => $perPage,				
+			'perPage' => $perPage,
 			'tablecontent' => $tablecontent,
 			'objectname' => $objName,
 			'extra' => array(),
@@ -80,10 +80,10 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 			'searchArray' => $searchArray,
 			'call'=>$call,
 			'dashboardcall'=>$dashboardcall
-		);	
+		);
 		return $dataTmp;
 	}
-	
+
 	public function getsingleStatesData($id,$tbl='')
 	{
 		if($tbl == 'main'){
@@ -96,7 +96,7 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 		}
 		return $row->toArray();
 	}
-	
+
 	public function getStatesDataByID($id)
 	{
 	    $select = $this->select()
@@ -104,42 +104,42 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 						->from(array('s'=>'main_states'),array('s.*'))
 					    ->where('s.isactive = 1 AND s.id='.$id.' ');
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function getDuplicateStateName($otherstatename,$countryid)
 	{
 	   $db = Zend_Db_Table::getDefaultAdapter();
-		
+
 		$rows = $db->query("select count(*) as count from tbl_states where lower(state_name) = lower('".$otherstatename."') and country_id = ".$countryid." ");
-		
+
 		return $rows->fetchAll();
-	
+
 	}
-	
+
 	public function SaveorUpdateStatesData($countryid, $statename,$stateid,$loginUserId)
 	{
 	    $date= gmdate("Y-m-d H:i:s");
-	   
+
 	    $db = Zend_Db_Table::getDefaultAdapter();
-	 	$rows = $db->query("INSERT INTO `main_states` (countryid,state,statecode,state_id_org,createdby,modifiedby,createddate,modifieddate,isactive) VALUES (".$countryid.",'".$statename."','',".$stateid.",".$loginUserId.",".$loginUserId.",'".$date."','".$date."',1) ON DUPLICATE KEY UPDATE state='".$statename."',modifiedby=".$loginUserId.",modifieddate='".$date."',isactive=1 ");		
-		
+	 	$rows = $db->query("INSERT INTO `main_states` (countryid,state,statecode,state_id_org,createdby,modifiedby,createddate,modifieddate,isactive) VALUES (".$countryid.",'".$statename."','',".$stateid.",".$loginUserId.",".$loginUserId.",'".$date."','".$date."',1) ON DUPLICATE KEY UPDATE state='".$statename."',modifiedby=".$loginUserId.",modifieddate='".$date."',isactive=1 ");
+
 		$id=$this->getAdapter()->lastInsertId('main_states');
 		return $id;
-		
-	
+
+
 	}
-	
+
 	public function SaveMainStateData($countryid,$otherstatename)
 	{
 	    $date= gmdate("Y-m-d H:i:s");
 	    $db = Zend_Db_Table::getDefaultAdapter();
-	 	$rows = $db->query("INSERT INTO `tbl_states` (country_id,state_name,state_code,map_point_x,map_point_y,isactive,created,modified) VALUES (".$countryid.",'".$otherstatename."','',null,null,1,'".$date."','".$date."') ");		
-		
+	 	$rows = $db->query("INSERT INTO `tbl_states` (country_id,state_name,state_code,map_point_x,map_point_y,isactive,created,modified) VALUES (".$countryid.",'".$otherstatename."','',null,null,1,'".$date."','".$date."') ");
+
 		$id=$this->getAdapter()->lastInsertId('tbl_states');
 		return $id;
 	}
-	
+
 	public function deleteStateData($data,$where)
 	{
 	    if($where != ''){
@@ -150,21 +150,21 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 			$id=$this->getAdapter()->lastInsertId('main_states');
 			return $id;
 		}
-	
+
 	}
-	
+
 	public function getTotalStatesList()
 	{
 	    $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('s'=>'tbl_states'),array('s.id','s.state_name'))
 						->order('s.state_name');
-					
+
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
-	
+
+
 	public function getStatesList($countryid,$condition = '')
 	{
 		if($condition == 'addstate')
@@ -184,7 +184,7 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 						->where('s.country_id='.$countryid.' AND s.isactive=1 ')
 						->order('s.state_name');
 		}
-		
+
 		return $this->fetchAll($select)->toArray();
     }
 
@@ -196,24 +196,24 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 		  $where = "and s.id NOT IN(".$stateids.") ";
 		}
 	    $db = Zend_Db_Table::getDefaultAdapter();
-        
+
         $query = "select s.* from tbl_states s where s.isactive = 1 and s.country_id=".$country_id." $where ORDER BY s.state_name";
         $result = $db->query($query)->fetchAll();
 	    return $result;
-		
-	}	
+
+	}
 	public function getStateName($stateid)
 	{
 	     $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('s'=>'tbl_states'),array('statename'=>'s.state_name','s.id'))
 						->where('s.id='.$stateid.' AND s.isactive=1 ');
-						
-		
+
+
 		return $this->fetchAll($select)->toArray();
-	
+
 	}
-	
+
 	public function getBasicStatesList($countryid)
 	{
 	    $select = $this->select()
@@ -221,21 +221,21 @@ class Default_Model_States extends Zend_Db_Table_Abstract
                             ->from(array('s'=>'main_states'),array('s.*'))
                             ->where('s.countryid='.$countryid.' AND s.isactive=1 ')
                             ->order('s.state');
-		
+
 		return $this->fetchAll($select)->toArray();
-    } 
-	
+    }
+
 	public function getStateNameData($state_id_org)
 	{
 	    $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('s'=>'main_states'),array('s.id','s.state_id_org','s.state'))
 						->where('s.state_id_org='.$state_id_org.' AND s.isactive=1 ');
-						
-		
+
+
 		return $this->fetchAll($select)->toArray();
-    } 
-	
+    }
+
 	public function getStateNamesByIds($stateIdArray)
 	{
 		$resultstring = implode(',', $stateIdArray);
@@ -245,7 +245,7 @@ class Default_Model_States extends Zend_Db_Table_Abstract
 			try
 			{
 				$qry = "select s.state_id_org, s.state from main_states s
-                                        where s.state_id_org IN (".$resultstring.")";		 
+                                        where s.state_id_org IN (".$resultstring.")";
 				$db = Zend_Db_Table::getDefaultAdapter();
 				$sqlRes = $db->query($qry);
 				$stateRes = $sqlRes->fetchAll();

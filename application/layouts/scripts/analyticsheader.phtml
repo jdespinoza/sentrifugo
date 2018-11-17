@@ -794,28 +794,28 @@ $(document).ready(function(){
                 </a>
                 <div class="logoutdiv" id="logoutid" style="display:none">
                 <div class="arrow-div"></div>
-                <a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">View Profile</a>
-                <a href="<?php echo BASE_URL; ?>viewsettings/1">Settings</a>
-                <a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Change Password</a>
+                <a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">Ver Perfil</a>
+                <a href="<?php echo BASE_URL; ?>viewsettings/1">Ajustes</a>
+                <a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Cambiar Contraseña</a>
 <?php
 if($loginuserRole == SUPERADMINROLE)
 {
 ?>
-        <a href="<?php echo BASE_URL; ?>dashboard/emailsettings">Mail Settings</a>
+        <a href="<?php echo BASE_URL; ?>dashboard/emailsettings">Configuración del Correo</a>
 <?php
 }
 if($controllerName != "reports")
 {
 ?>
-    <span id="tourLink">Take Tour</span>
+    <span id="tourLink">Tutorial</span>
 <?php
 }
 if($loginuserRole == SUPERADMINROLE)
 {
 ?>
-	<a href="<?php echo $baseUrl; ?>/dashboard/upgradeapplication">Upgrade Application</a>
+	<a href="<?php echo $baseUrl; ?>/dashboard/upgradeapplication">Actualizar Aplicación</a>
 <?php }?>
-    <a href="<?php echo $baseUrl; ?>/index/logout">Logout</a>
+    <a href="<?php echo $baseUrl; ?>/index/logout">Cerrar Sesión</a>
         </div>
     </div>
             <?php if($loginuserRole == SUPERADMINROLE || $loginuserGroup == MANAGEMENT_GROUP)

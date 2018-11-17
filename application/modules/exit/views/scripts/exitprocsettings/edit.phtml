@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@
 if($this->ermsg == 'noprivileges')
 {
 ?>
-     <div class="ml-alert-1-info"><div class="style-1-icon info"></div>You are not authorized to access this page</div>
+     <div class="ml-alert-1-info"><div class="style-1-icon info"></div>No tiene permisos para acceder a esta página.</div>
 
 <?php
 }
@@ -37,7 +37,7 @@ else if($this->ermsg == 'nodata')
 else if($this->ermsg == 'invalidURL')
 {
 ?>
-     <div class="ml-alert-1-info"><div class="style-1-icon info"></div>Invalid URL</div>
+     <div class="ml-alert-1-info"><div class="style-1-icon info"></div>URL Invalido</div>
 
 <?php
 }
@@ -46,7 +46,7 @@ else
 	if($this->ermsg == 'noedit')
 	{
 	?>
-		 <div class="ml-alert-1-info"><div class="style-1-icon info"></div>Exit procedure settings cannot be edited as exit process has been initialized.</div>
+		 <div class="ml-alert-1-info"><div class="style-1-icon info"></div>Los ajustes del procedimiento de salida no se pueden editar porque el proceso de salida se ha inicializado.</div>
 
 	<?php
 	}
@@ -57,26 +57,26 @@ sapp_Global::generateClientValidations($this->form);
 <form name="<?php echo $this->form->getName();?>" id="<?php echo $this->form->getId(); ?>" action="<?php echo $this->form->getAction();?>" method="<?php echo $this->form->getMethod();?>">
         <div class="total-form-controller">
 		<div class="new-form-ui clearb">
-			<label class="required">Business unit</label>
+			<label class="required">Unidad de Negocios</label>
 			<div class="division"><?php echo $this->form->businessunit_id; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->businessunit_id->getId(); ?>">
 			<?php if(isset($this->msgarray['businessunit_id'])){?>
 			<?php echo $this->msgarray['businessunit_id'];?>
 			<?php }?>
 			</span>
-		</div>	
+		</div>
 		<div class="new-form-ui clearb">
-			<label class="required">Department</label>
+			<label class="required">Departamento</label>
 			<div class="division"><?php echo $this->form->department_id; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->department_id->getId(); ?>">
 			<?php if(isset($this->msgarray['department_id'])){?>
 			<?php echo $this->msgarray['department_id'];?>
 			<?php }?>
 			</span>
-		</div>	
-	
+		</div>
+
 		<div class="new-form-ui clearb">
-			<label class="required">HR Manager</label>
+			<label class="required">Gerente RH</label>
 			<div class="division"><?php echo $this->form->hr_manager; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->hr_manager->getId(); ?>">
 			<?php if(isset($this->msgarray['hr_manager'])){?>
@@ -86,51 +86,51 @@ sapp_Global::generateClientValidations($this->form);
 		</div>
 		<!--<div class="clear fullwidth"></div>-->
 		<div class="new-form-ui clearb">
-			<label class="required">L2 Manager</label>
+			<label class="required">Gerente L2</label>
 			<div class="division"><?php echo $this->form->l2_manager; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->l2_manager->getId(); ?>">
 			<?php if(isset($this->msgarray['l2_manager'])){?>
 			<?php echo $this->msgarray['l2_manager'];?>
 			<?php } ?>
 			</span>
-		</div>			
-		
+		</div>
+
 		<div class="new-form-ui clearb">
-			<label>System Admin</label>
+			<label>Administrador de Sistema</label>
 			<div class="division"><?php echo $this->form->sys_admin; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->sys_admin->getId(); ?>">
 			<?php if(isset($this->msgarray['sys_admin'])){?>
 			<?php echo $this->msgarray['sys_admin'];?>
 			<?php }?>
 			</span>
-		</div>	
+		</div>
 		<div class="new-form-ui clearb">
-			<label>General Admin</label>
+			<label>Admin General</label>
 			<div class="division"><?php echo $this->form->general_admin; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->general_admin->getId(); ?>">
 			<?php if(isset($this->msgarray['general_admin'])){?>
 			<?php echo $this->msgarray['general_admin'];?>
 			<?php }?>
 			</span>
-		</div>	
+		</div>
 		<div class="new-form-ui clearb">
-			<label>Finance Manager</label>
+			<label>Gerente de Finanzas</label>
 			<div class="division"><?php echo $this->form->finance_manager; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->finance_manager->getId(); ?>">
 			<?php if(isset($this->msgarray['finance_manager'])){?>
 			<?php echo $this->msgarray['finance_manager'];?>
 			<?php }?>
 			</span>
-		</div>	
+		</div>
 		<div class="new-form-ui clearb">
-			<label class="required">Notice Period<img class="tooltip" title="Number of days including holidays and weekends" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+			<label class="required">Plazo de Aviso<img class="tooltip" title="Number of days including holidays and weekends" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
 			<div class="division"><?php echo $this->form->notice_period; ?></div>
 			<span class="errors" id="errors-<?php echo $this->form->notice_period->getId(); ?>">
 			<?php if(isset($this->msgarray['notice_period'])){?>
 			<?php echo $this->msgarray['notice_period'];?>
 			<?php }?>
 			</span>
-		</div>	
+		</div>
 	</div>
 	<div class="new-form-ui-submit">
 		<?php echo $this->form->submit; ?>
@@ -140,7 +140,7 @@ sapp_Global::generateClientValidations($this->form);
 			<?php } ?>
 	</div>
 </form>
-<?php 
+<?php
 }//end of else
 ?>
 <script>

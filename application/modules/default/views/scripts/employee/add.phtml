@@ -43,7 +43,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 	{
 ?>	 <div class="ml-alert-1-info">
 		<div class="style-1-icon info"></div>
-			The employee configurations are not yet set.Please configure them to add an employee.
+			Las configuraciones de los empleados aún no están establecidas. Por favor, configúrelas para agregar un empleado.
 	</div>
 <?php	}
 
@@ -236,7 +236,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 
 
                             <div class="new-form-ui" id="iddivrequi" style="display:none;">
-                                <label>Requisition code</label>
+                                <label>Código de Requisión</label>
                                 <div class="division"><?php echo $this->form->disp_requi; ?></div>
                             </div>
                             <div class="new-form-ui">
@@ -253,7 +253,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
                             </div>
 			<?php echo $this->form->user_id; ?>
 				<div class="new-form-ui">
-				  <label>Business Unit</label>
+				  <label>Unidad de Negocios</label>
 				<div class="division"><?php echo $this->form->businessunit_id; ?></div>
 				<?php if(isset($this->msgarray['businessunit_id'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->businessunit_id->getId(); ?>"><?php echo $this->msgarray['businessunit_id'];?></span>
@@ -261,7 +261,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label id = "lbl_rm" class="required">Department <img class="tooltip" title="Select business unit to populate departments" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+				  <label id = "lbl_rm" class="required">Departamento <img class="tooltip" title="Select business unit to populate departments" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
 				<div class="division"><?php echo $this->form->department_id; ?></div>
 
 				<?php if(isset($this->msgarray['department_id'])){?>
@@ -272,10 +272,10 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label class="required">Reporting Manager</label>
+				  <label class="required">Gerente de Informes</label>
 				<div class="division">
 					<select name="reporting_manager" id="reporting_manager">
-                                    <option value="">Select Reporting Manager</option>
+                                    <option value="">Seleccione Gerente de Informes</option>
 <?php
                                 if(count($report_opt)>0)
                                 {
@@ -299,7 +299,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label>Job Title</label>
+				  <label>Título Profesional</label>
 				<div class="division"><?php echo $this->form->jobtitle_id; ?>
 					<?php if(isset($this->msgarray['jobtitle_id'])){?>
 					   <span class="errors" id="errors-<?php echo $this->form->jobtitle_id->getId(); ?>"><?php echo $this->msgarray['jobtitle_id'];?></span>
@@ -311,7 +311,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label>Position <img class="tooltip" title="Select job title to populate positions" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+				  <label>Posición <img class="tooltip" title="Select job title to populate positions" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
 					<div class="division"><?php echo $this->form->position_id; ?>
 
 						<?php if(isset($this->msgarray['position_id'])){?>
@@ -327,7 +327,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label class="required">Employment Status</label>
+				  <label class="required">Estado de Empleo</label>
 
 				<div class="division"><?php echo $this->form->emp_status_id; ?>
 					<?php if(isset($this->msgarray['emp_status_id'])){?>
@@ -343,7 +343,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label class="required">Date of Joining  <img class="tooltip" title="<?php echo DATE_DESCRIPTION;?>" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+				  <label class="required">Fecha de Ingreso  <img class="tooltip" title="<?php echo DATE_DESCRIPTION;?>" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
 				<div class="division"><?php echo $this->form->date_of_joining; ?></div>
 				<?php if(isset($this->msgarray['date_of_joining'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->date_of_joining->getId(); ?>"><?php echo $this->msgarray['date_of_joining'];?></span>
@@ -351,7 +351,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label>Date of Leaving  <img class="tooltip" title="Select left/resigned/suspended as the employment status to activate this field" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
+				  <label>Fecha de Partida  <img class="tooltip" title="Select left/resigned/suspended as the employment status to activate this field" src="<?php echo $this->baseUrl().'/public/media/';?>images/help.png"></label>
 				<div class="division"><?php echo $this->form->date_of_leaving; ?></div>
 				<?php if(isset($this->msgarray['date_of_leaving'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->date_of_leaving->getId(); ?>"><?php echo $this->msgarray['date_of_leaving'];?></span>
@@ -359,7 +359,7 @@ if(!empty($this->msgarray) && isset($this->msgarray))
 				</div>
 
 				<div class="new-form-ui">
-				  <label>Years of Experience</label>
+				  <label>Años de Experiencia</label>
 				<div class="division"><?php echo $this->form->years_exp; ?></div>
 				<?php if(isset($this->msgarray['years_exp'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->years_exp->getId(); ?>"><?php echo $this->msgarray['years_exp'];?></span>

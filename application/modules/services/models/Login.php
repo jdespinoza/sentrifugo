@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 	 */
 	public function login($postarray)
     {
-	  
+
 	  if(isset($postarray['employeeid']) && $postarray['employeeid'] != '' && isset($postarray['password']) && $postarray['password'] != '')
 	  {
 	     $result = array();
@@ -47,7 +47,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 	     $check = $this->isActiveUser($employeeid,$password);
               if(!empty($check) && $check[0]['count'] == 1)
 			  {
-			    $result =  $this->getUserObject($employeeid,$password);                            
+			    $result =  $this->getUserObject($employeeid,$password);
 				//$uploadpath = array('imagepath' => USER_UPLOAD_PATH.'/'.$result[0]['profileimg']);
 				$uploadpath = array('imagepath' => sapp_Global::_getHostBaseURL()."public/uploads/profile/".$result[0]['profileimg']);
 				$resultarray = array_merge($result[0], $uploadpath);
@@ -65,7 +65,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 					if($userStatus == 0)
 						$data = array('status'=>'0','message'=>'Login failed. Employee has been inactivated from the organization.','result' => '');
 					else if($userStatus == 2)
-						$data = array('status'=>'0','message'=>'Login failed. Employee has resigned from the organization.','result' => '');	
+						$data = array('status'=>'0','message'=>'Login failed. Employee has resigned from the organization.','result' => '');
 					else if($userStatus == 3)
 						$data = array('status'=>'0','message'=>'Login failed. Employee has left the organization.','result' => '');
 					else if($userStatus == 4)
@@ -76,14 +76,14 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 						$data = array('status'=>'0','message'=>'Login failed. Employee has been locked.','result' => '');
 				 }else
 				 {
-				    $data = array('status'=>'0','message'=>'Invalid credentials given','result' => ''); 
+				    $data = array('status'=>'0','message'=>'Invalid credentials given','result' => '');
 				 }
-			     
+
 			  }
-	     
+
 	  }else if($postarray['employeeid'] == '')
 	  {
-	     $data = array('status'=>'0','message'=>'Employee Id cannot be empty.','result' => $result);
+	     $data = array('status'=>'0','message'=>'Id Empleado no puede ser vacio','result' => $result);
 	  }else if($postarray['password'] == '')
 	  {
 	     $data = array('status'=>'0','message'=>'Password cannot be empty.','result' => $result);
@@ -91,7 +91,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 	  //echo "<pre>";print_r($data);exit;
 	  return $data;
     }
-	
+
 	public function changepassword($postarray)
     {
 	  $result = array();
@@ -137,30 +137,30 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 					else if($newpwd != $confpwd)
 					  {
 						$data = array('status'=>'0','message'=>'New password and confirm password did not match.','result' => '');
-					  } 
+					  }
 					else if($newpasswordlength < 6)
 					  {
 						$data = array('status'=>'0','message'=>'New password should be atleast 6 characters long.','result' => '');
-					  }	
+					  }
 					else if($newpasswordlength > 15)
 					  {
 						$data = array('status'=>'0','message'=>'New password cannot be more than 15 characters long.','result' => '');
 					  }
-					
+
 				}else
 				{
 				   $data = array('status'=>'0','message'=>'Wrong password. Please enter correct password.','result' => '');
 				}
-				
+
 			  }
 			  else
 			  {
-				    $data = array('status'=>'0','message'=>'User does not exist.','result' => ''); 
+				    $data = array('status'=>'0','message'=>'User does not exist.','result' => '');
 			  }
-	     
+
 	  }else if($postarray['userid'] == '')
 	  {
-	     $data = array('status'=>'0','message'=>'Employee Id cannot be empty.','result' => $result);
+	     $data = array('status'=>'0','message'=>'Id Empleado no puede estar vacio','result' => $result);
 	  }else if($postarray['currentpassword'] == '')
 	  {
 	     $data = array('status'=>'0','message'=>'Current Password cannot be empty.','result' => $result);
@@ -183,12 +183,12 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 	    if ($employeeid !='' && $password !='')
 		{
 			$db = Zend_Db_Table::getDefaultAdapter();
-			$query = "SELECT count(*) AS `count` FROM (SELECT `a`.`id` AS `aid`, if(r.group_id in (1,5) and a.userstatus = 'new','old',a.userstatus) 
-					AS `def_status` FROM `main_users` AS `a` 
-					INNER JOIN `main_roles` AS `r` ON r.id=a.emprole 
-					WHERE (a.isactive = 1 AND r.isactive = 1 AND a.emptemplock = 0 AND a.employeeId = '".$employeeid."' AND a.emppassword = '".$password."')) 
+			$query = "SELECT count(*) AS `count` FROM (SELECT `a`.`id` AS `aid`, if(r.group_id in (1,5) and a.userstatus = 'new','old',a.userstatus)
+					AS `def_status` FROM `main_users` AS `a`
+					INNER JOIN `main_roles` AS `r` ON r.id=a.emprole
+					WHERE (a.isactive = 1 AND r.isactive = 1 AND a.emptemplock = 0 AND a.employeeId = '".$employeeid."' AND a.emppassword = '".$password."'))
 					AS `ac` WHERE (ac.def_status = 'old')";
-					   
+
 			$result = $db->query($query)->fetchAll();
 		}
 		return $result;
@@ -208,12 +208,12 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 			->where("u.employeeId = '".$employeeid."' and u.emppassword = '".$password."' and u.isactive = 1");
 
 			$result = $this->fetchAll($query)->toArray();
-			
+
 		}
 		return $result;
 
-	}	
-	
+	}
+
 	public function getActiveStatus($employeeid,$password)
 	{
 	    $result= array();
@@ -224,7 +224,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 			->where("u.employeeId = '".$employeeid."' and u.emppassword = '".$password."' ");
 			 $result = $this->fetchAll($userData)->toArray();
 		}
-		
+
 		return $result;
 	}
 
@@ -238,7 +238,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 			->where("u.id = '".$userid."' AND u.isactive = 1 AND u.emptemplock = 0 ");
 			 $result = $this->fetchAll($userData)->toArray();
 		}
-		
+
 		return $result;
 	}
 
@@ -255,16 +255,16 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 				    if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', $newpassword) )
 					{
 					   $resultarray['newpassword'] = "Please enter only alphanumeric characters.";
-					  
+
 					}else
 					{
 					  $resultarray['newpassword'] = "true";
 					}
-					
+
 					if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', $confirmpassword) )
 					{
 					   $resultarray['confirmpassword'] = "Please enter only alphanumeric characters.";
-					  
+
 					}else
 					{
 					  $resultarray['confirmpassword'] = "true";
@@ -275,16 +275,16 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 				    if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[.\-#$@&\_*])([a-zA-Z0-9.\-#$@&\_*]+)$/', $newpassword) )
 					{
 					   $resultarray['newpassword'] = "Please enter only characters,numbers and special characters.";
-					  
+
 					}else
 					{
 					  $resultarray['newpassword'] = "true";
 					}
-					
+
 					if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[.\-#$@&\_*])([a-zA-Z0-9.\-#$@&\_*]+)$/', $confirmpassword) )
 					{
 					   $resultarray['confirmpassword'] = "Please enter only characters,numbers and special characters.";
-					  
+
 					}else
 					{
 					  $resultarray['confirmpassword'] = "true";
@@ -295,16 +295,16 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 				    if ( !preg_match('/^[0-9]+$/', $newpassword) )
 					{
 					   $resultarray['newpassword'] = "Please enter numbers only.";
-					  
+
 					}else
 					{
 					  $resultarray['newpassword'] = "true";
 					}
-					
+
 					if ( !preg_match('/^[0-9]+$/', $confirmpassword) )
 					{
 					   $resultarray['confirmpassword'] = "Please enter numbers only.";
-					  
+
 					}else
 					{
 					  $resultarray['confirmpassword'] = "true";
@@ -315,45 +315,45 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 				    if ( !preg_match('/^(?=.*[0-9])(?=.*[.\-#$@&\_*])([0-9.\-#$@&\_*]+)$/', $newpassword) )
 					{
 					   $resultarray['newpassword'] = "Please enter only numbers and special characters.";
-					  
+
 					}else
 					{
 					  $resultarray['newpassword'] = "true";
 					}
-					
+
 					if ( !preg_match('/^(?=.*[0-9])(?=.*[.\-#$@&\_*])([0-9.\-#$@&\_*]+)$/', $confirmpassword) )
 					{
 					   $resultarray['confirmpassword'] = "Please enter only numbers and special characters.";
-					  
+
 					}else
 					{
 					  $resultarray['confirmpassword'] = "true";
 					}
 				}
-			  
+
 			}else
 			{
 				if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', $newpassword) )
 				{
 				   $resultarray['newpassword'] = "Please enter only alphanumeric characters.";
-				  
+
 				}else
 				{
 				  $resultarray['newpassword'] = "true";
 				}
-					
+
 				if ( !preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/', $confirmpassword) )
 				{
 				   $resultarray['confirmpassword'] = "Please enter only alphanumeric characters.";
-				  
+
 				}else
 				{
 				  $resultarray['confirmpassword'] = "true";
 				}
 			}
-		return $resultarray;	
+		return $resultarray;
 	}
-	
+
 	public function SitePreferanceData()
 	{
 		$select = $this->select()
@@ -362,7 +362,7 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 					    ->where('s.isactive = 1');
 		return $this->fetchAll($select)->toArray();
 	}
-	
+
 	public function updateuserpassword($userid,$newpassword)
 	{
 	   $db = Zend_Db_Table::getDefaultAdapter();
@@ -370,8 +370,8 @@ class Services_Model_Login extends Zend_Db_Table_Abstract
 		{
 			$db->query("update main_users  set emppassword = '".$newpassword."' where id='".$userid."' ");
 		}
-		
+
 	}
-	
+
 
 }

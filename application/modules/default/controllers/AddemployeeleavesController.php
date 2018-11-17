@@ -1,8 +1,8 @@
 <?php
-/********************************************************************************* 
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2015 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 		//$ajaxContext = $this->_helper->getHelper('AjaxContext');
 		//$ajaxContext->addActionContext('makeactiveinactive', 'json')->initContext();
 	}
-	
+
 	public function indexAction()
 	{
 		$auth = Zend_Auth::getInstance();
@@ -81,7 +81,7 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 		$this->view->call = $call;
 		$this->view->messages = $this->_helper->flashMessenger->getMessages();
 	}
-	
+
 	public function addAction() {
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
@@ -106,19 +106,19 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
         }
         else
         {
-        	$msgarray['businessunit_id'] = 'Business Units are not added yet.';
+        	$msgarray['businessunit_id'] = 'Las unidades de negocio no se han agregado todavía.';
         }
 		$addEmpLeavesForm->alloted_year->setValue(date('Y'));
 		$addEmpLeavesForm->setAttrib('action',BASE_URL.'addemployeeleaves/add');
-		$this->view->form = $addEmpLeavesForm; 
-		$this->view->msgarray = $msgarray; 
+		$this->view->form = $addEmpLeavesForm;
+		$this->view->msgarray = $msgarray;
 		$this->view->ermsg = '';
 		if($this->getRequest()->getPost()){
 			 $result = $this->saveEmployeeLeaves($addEmpLeavesForm,$loginUserId);
-			 $this->view->msgarray = $result; 
+			 $this->view->msgarray = $result;
 		}
 	}
-	
+
 	public function saveEmployeeLeaves($addEmpLeavesForm,$loginUserId) {
 		$addemployeeleavesModel = new Default_Model_Addemployeeleaves();
 		$employeeleavesModel = new Default_Model_Employeeleaves();
@@ -154,22 +154,22 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 							}
 							$currentyeardata = $employeeleavesModel->getsingleEmployeeleaveData($userId);
 							if(empty($currentyeardata)) {
-								$empLeaveLimit = ($emp_leave_limit + $leavetransfercount);	
+								$empLeaveLimit = ($emp_leave_limit + $leavetransfercount);
 							}else{
 								$empLeaveLimit = ($emp_leave_limit + $currentyeardata[0]['emp_leave_limit']);
-							} 
+							}
 							/* Save employee leaves in allotted leaves log */
 							$logID = $employeeleavesModel->saveallotedleaves($postedArr,$emp_leave_limit,$userId,$loginUserId);
-							
+
 							$Id = $employeeleavesModel->SaveorUpdateEmployeeLeaves($userId, $empLeaveLimit,$isleavetrasnferset,$loginUserId);
 							$menuID = EMPLOYEE;
 							$result = sapp_Global::logManager($menuID,$actionflag,$loginUserId,$userId);
 							$empLeaveLimit = '';
-					} 
+					}
 				}
 					$this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Employee Leave details added successfully."));
 					$this->_redirect('addemployeeleaves');
-					
+
 			}
 	        catch(Exception $e)
 	      	{
@@ -209,11 +209,11 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
                     }
                 }
 			}
-			return $msgarray;	
+			return $msgarray;
 		}
-		
+
 	}
-	
+
 	public function editAction() {
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
@@ -222,45 +222,45 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 			$loginuserGroup = $auth->getStorage()->read()->group_id;
 			$loginuserbusinessunit_id = $auth->getStorage()->read()->businessunit_id;
 		}
-		
+
 		$id = $this->getRequest()->getParam('id');
 		$msgarray = array();
 		$callval = $this->getRequest()->getParam('call');
 		if($callval == 'ajaxcall')
 			$this->_helper->layout->disableLayout();
-		try 
-		{	
+		try
+		{
 			if($id && is_numeric($id) && $id>0)
-			{		
+			{
 				$addemployeeleavesModel = new Default_Model_Addemployeeleaves();
-				$employeeleavesModal = new Default_Model_Employeeleaves();	
+				$employeeleavesModal = new Default_Model_Employeeleaves();
 				$addEmpLeavesForm = new Default_Form_addemployeeleaves();
 				$empModel = new Default_Model_Employee();
-				$currentYearData = $employeeleavesModal->getsingleEmployeeleaveData($id); 
-				
+				$currentYearData = $employeeleavesModal->getsingleEmployeeleaveData($id);
+
 					$empDetails = $empModel->getEmp_from_summary($id);
 					if(!empty($empDetails)) {
 						$addEmpLeavesForm->businessunit_id->setValue($empDetails['businessunit_id']);
 						$addEmpLeavesForm->department_id->setValue($empDetails['department_id']);
 						$addEmpLeavesForm->user_id->setValue($empDetails['user_id']);
-						if(!empty($currentYearData)) 
+						if(!empty($currentYearData))
 							$addEmpLeavesForm->leave_limit->setValue($currentYearData[0]['emp_leave_limit']);
 						$addEmpLeavesForm->alloted_year->setValue(date('Y'));
 						$addEmpLeavesForm->setAttrib('action',BASE_URL.'addemployeeleaves/edit/id/'.$id);
 						$this->view->form = $addEmpLeavesForm;
-						$this->view->empdetails = $empDetails; 
-						$this->view->msgarray = $msgarray; 
+						$this->view->empdetails = $empDetails;
+						$this->view->msgarray = $msgarray;
 						$this->view->ermsg = '';
 						if($this->getRequest()->getPost()){
 							 $result = $this->update($addEmpLeavesForm,$currentYearData,$loginUserId,$empDetails['department_id']);
-							 $this->view->msgarray = $result; 
+							 $this->view->msgarray = $result;
 						}
 					}
 					else
 					{
 					   $this->view->ermsg = "norows";
-					}	
-				
+					}
+
 			}
 			else
 			{
@@ -270,17 +270,17 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 		catch(Exception $e)
 	 	{
 	 		$this->view->ermsg = "norows";
-	 	}		
+	 	}
 	}
-	
+
 	public function update($addEmpLeavesForm,$currentYearData,$loginUserId,$userDepartment) {
-		
+
 		if($addEmpLeavesForm->isValid($this->_request->getPost()))
 		{
 			$userId = $this->getRequest()->getParam('user_id');
 			$emp_leave_limit = $this->_request->getParam('leave_limit');
 			$alloted_year = $this->_request->getParam('alloted_year');
-			
+
 			$addemployeeleavesModel = new Default_Model_Addemployeeleaves();
 			$employeeleavesModel = new Default_Model_Employeeleaves();
 			$leavemanagementModel = new Default_Model_Leavemanagement();
@@ -288,8 +288,8 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 			$leavetransfercount = 0;
 			if(!empty($userDepartment))
 				$leavetransferArr = $leavemanagementModel->getWeekendDetails($userDepartment);
-				
-			$prevyeardata = $employeeleavesModel->getPreviousYearEmployeeleaveData($userId);	
+
+			$prevyeardata = $employeeleavesModel->getPreviousYearEmployeeleaveData($userId);
 			if(!empty($leavetransferArr) && $leavetransferArr[0]['is_leavetransfer'] == 1 && !empty($prevyeardata)) {
 					$leavetransfercount = $prevyeardata[0]['remainingleaves'];
 					$isleavetrasnferset = 1;
@@ -298,14 +298,14 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 				$emp_leave_limit = ($emp_leave_limit+$leavetransfercount);
 				$postedArr = array('leave_limit'=>$emp_leave_limit,'alloted_year'=>$alloted_year);
 				$logID = $employeeleavesModel->saveallotedleaves($postedArr,$emp_leave_limit,$userId,$loginUserId);
-			}	
-			else	
+			}
+			else
 				$emp_leave_limit = ($emp_leave_limit+$currentYearData[0]['emp_leave_limit']);
-				
+
 			$Id = $employeeleavesModel->SaveorUpdateEmployeeLeaves($userId, $emp_leave_limit,$isleavetrasnferset,$loginUserId);
 			$this->_helper->getHelper("FlashMessenger")->addMessage(array("success"=>"Employee Leave details updated successfully."));
 			$this->_redirect('addemployeeleaves');
-					
+
 		}else {
 			$messages = $addEmpLeavesForm->getMessages();
 			foreach ($messages as $key => $val)
@@ -318,10 +318,10 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 			}
 			$addEmpLeavesForm->alloted_year->setValue(date('Y'));
 			return $msgarray;
-		}	
-		
+		}
+
 	}
-	
+
 	public function viewAction() {
 		$auth = Zend_Auth::getInstance();
      	if($auth->hasIdentity()){
@@ -336,15 +336,15 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 		$callval = $this->getRequest()->getParam('call');
 		if($callval == 'ajaxcall')
 			$this->_helper->layout->disableLayout();
-		try 
-		{	
+		try
+		{
 			if($id && is_numeric($id) && $id>0)
-			{		
-				$addemployeeleavesModel = new Default_Model_Addemployeeleaves();	
+			{
+				$addemployeeleavesModel = new Default_Model_Addemployeeleaves();
 				$addEmpLeavesForm = new Default_Form_addemployeeleaves();
 				$employeeleavesModel = new Default_Model_Employeeleaves();
 				$empModel = new Default_Model_Employee();
-				$currentYearData = $employeeleavesModel->getsingleEmployeeleaveData($id); 
+				$currentYearData = $employeeleavesModel->getsingleEmployeeleaveData($id);
 				$permission = sapp_Global::_checkprivileges(176,$loginuserGroup,$loginuserRole,'edit');
 				$this->view->editpermission = $permission;
 					$empDetails = $empModel->getEmp_from_summary($id);
@@ -353,21 +353,21 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 						$addEmpLeavesForm->department_id->setValue($empDetails['department_id']);
 						$addEmpLeavesForm->user_id->setValue($empDetails['user_id']);
 						$addEmpLeavesForm->leave_limit->setAttrib("disabled", "disabled");
-						if(!empty($currentYearData)) 
+						if(!empty($currentYearData))
 						$addEmpLeavesForm->leave_limit->setValue($currentYearData[0]['emp_leave_limit']);
 						$addEmpLeavesForm->alloted_year->setValue(date('Y'));
 						$this->view->form = $addEmpLeavesForm;
-						$this->view->empdetails = $empDetails; 
-						$this->view->msgarray = $msgarray; 
+						$this->view->empdetails = $empDetails;
+						$this->view->msgarray = $msgarray;
 						$this->view->ermsg = '';
 						$this->view->controllername = $objName;
 						$this->view->id = $id;
-						
+
 					}
 					else
 					{
 					   $this->view->ermsg = "norows";
-					}	
+					}
 			}
 			else
 			{
@@ -377,7 +377,7 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 		catch(Exception $e)
 	 	{
 	 		$this->view->ermsg = "norows";
-	 	}		
+	 	}
 	}
-        
+
 }//end of class

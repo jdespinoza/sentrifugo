@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -21,40 +21,40 @@
 
 ?>
 
-<?php if(empty($this->empdata)){	
+<?php if(empty($this->empdata)){
 	?>
    <div class="ml-alert-1-info">
 				<div class="style-1-icon info"></div>
 				<?php if($this->rowexist == 'norows'){?>
 						Datos no encontrados.
 				<?php }else{?>
-						Employee deleted
+						Empleado Eliminado.
 				<?php }?>
 	</div>
-	
+
 <?php	}	else	{
-	
+
  		$baseUrl = $this->serverUrl().$this->baseUrl();
-?>	 
+?>
 <div class="ml-alert-1-info">
 				<div class="style-1-icon info"></div>
 				<?php if($this->performanceflag == 'false') {?>
-				Employee official details cannot be edited as employee appraisal process is active.
+				Los detalles oficiales de los empleados no pueden editarse porque el proceso de evaluación de los empleados está activo.
 				<?php } else if($this->ff_flag == 'false'){ ?>
-				Employee official details cannot be edited as employee feedforward process is active.
-				<?php } ?>	
-				
+				Los detalles oficiales de los empleados no pueden editarse porque el proceso de reenvío de empleados está activo.
+				<?php } ?>
+
 	</div>
 
 
-<?php	
+<?php
  if(!empty($this->empdata))
  {
-       	echo $this->employeedetails($this->empdata,'edit',$this->id); 
- } 
+       	echo $this->employeedetails($this->empdata,'edit',$this->id);
+ }
 ?>
 <input type="hidden" id="userid" value="<?php echo $this->id;?>"/>
-<div class="right-block-data right-over-border"> 
+<div class="right-block-data right-over-border">
 	<div id="error_message" style="display:none;"></div>
 	<form name="<?php echo $this->form->getName(); ?>" id="<?php echo $this->form->getId(); ?>" action="<?php echo $this->form->getAction();?>" method="<?php echo $this->form->getMethod(); ?>">
 		<input type="hidden" name="tmp_emp_name" id="tmp_emp_name" />
@@ -67,16 +67,16 @@
 					<span id="errors-<?php echo $this->form->employeeId->getId(); ?>" class="errors"><?php echo isset($this->msgarray['employeeId'])?$this->msgarray['employeeId']:"";?></span>
 				</div>
             </div>
-			
+
 			<div class="new-form-ui">
 			<label><?php echo $this->form->prefix_id->getLabel(); ?></label>
 			<div class="division"><?php echo $this->form->prefix_id; ?></div>
 			<?php if(isset($this->msgarray['prefix_id'])){?>
 			 <span id="errors-<?php echo $this->form->prefix_id->getId(); ?>" class="errors"><?php echo $this->msgarray['prefix_id'];?></span>
-			<?php }?> 
-			</div> 
-			
-			<div id="iddiv_fullname" style="display:none;">     
+			<?php }?>
+			</div>
+
+			<div id="iddiv_fullname" style="display:none;">
                             <div class="new-form-ui" >
                                 <label><?php echo $this->form->firstname->getLabel(); ?></label>
                                 <div class="division">
@@ -84,17 +84,17 @@
 								</div>
                                 <span id="errors-<?php echo $this->form->firstname->getId(); ?>" class="errors"><?php echo isset($this->msgarray['firstname'])?$this->msgarray['firstname']:"";?></span>
 	                            </div>
-                            
-                            
+
+
 	                            <div class="new-form-ui" >
 	                                <label><?php echo $this->form->lastname->getLabel(); ?></label>
                                 <div class="division">
 									<?php echo $this->form->lastname; ?>
 								</div>
                                 <span id="errors-<?php echo $this->form->lastname->getId(); ?>" class="errors"><?php echo isset($this->msgarray['lastname'])?$this->msgarray['lastname']:"";?></span>
-                            </div>  
-            </div>                
-			
+                            </div>
+            </div>
+
 			<div class="new-form-ui" id="iddiv_referredby" style="display:none;">
 				<label><?php echo $this->form->candidatereferredby->getLabel(); ?></label>
 				<div class="division">
@@ -104,17 +104,17 @@
 				</div>
 				<span id="errors-<?php echo $this->form->candidatereferredby->getId(); ?>" class="errors"><?php echo isset($this->msgarray['candidatereferredby'])?$this->msgarray['candidatereferredby']:"";?></span>
 			</div>
-			
+
 			<div class="new-form-ui" id="iddiv_canditatename">
 				<label><?php echo $this->form->rccandidatename->getLabel(); ?></label>
 				<div class="division">
 					<select disabled>
 						<option><?php echo $this->form->rccandidatename->getValue(); ?></option>
 					</select>
-				  <span id="errors-<?php echo $this->form->rccandidatename->getId(); ?>" class="errors"><?php echo isset($this->msgarray['rccandidatename'])?$this->msgarray['rccandidatename']:"";?></span>                    
+				  <span id="errors-<?php echo $this->form->rccandidatename->getId(); ?>" class="errors"><?php echo isset($this->msgarray['rccandidatename'])?$this->msgarray['rccandidatename']:"";?></span>
 				</div>
 			</div>
-							
+
 			<div class="new-form-ui">
 				<label><?php echo $this->form->modeofentry->getLabel(); ?></label>
 				<div class="division">
@@ -125,7 +125,7 @@
 				 <span id="errors-<?php echo $this->form->modeofentry->getId(); ?>" class="errors"><?php echo isset($this->msgarray['modeofentry'])?$this->msgarray['modeofentry']:"";?></span>
 				</div>
 			</div>
-			
+
 			<div class="new-form-ui" id="iddiv_otherentry" style="display:none">
 				<label><?php echo $this->form->other_modeofentry->getLabel(); ?></label>
 				<div class="division">
@@ -133,11 +133,11 @@
 				  <span id="errors-<?php echo $this->form->other_modeofentry->getId(); ?>" class="errors"><?php echo isset($this->msgarray['other_modeofentry'])?$this->msgarray['other_modeofentry']:"";?></span>
 				</div>
 			</div>
-							
-			
+
+
 			<div class="new-form-ui" id="iddivrequi" style="display:none;">
-				<label>Requisition code</label>
-				<div class="division"><?php 
+				<label>Código de Requisición</label>
+				<div class="division"><?php
 				if(isset($data['requisition_code']))
 					$this->form->disp_requi->setValue($data['requisition_code']);
 				echo $this->form->disp_requi; ?></div>
@@ -148,75 +148,75 @@
 				<span id="errors-<?php echo $this->form->emprole->getId(); ?>" class="errors"><?php echo isset($this->msgarray['emprole'])?$this->msgarray['emprole']:"";?></span>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="new-form-ui">
 				<label><?php echo $this->form->emailaddress->getLabel(); ?></label>
 				<div class="division"><?php echo $this->form->emailaddress; ?></div>
 				<span class="errors" id="errors-<?php echo $this->form->emailaddress->getId(); ?>"><?php echo isset($this->msgarray['emailaddress'])?$this->msgarray['emailaddress']:"";?></span>
 			</div>
-		<?php	
+		<?php
 			if($this->empdata['is_orghead'] == 0)
 			{
-		?>					
+		?>
 				<div class="new-form-ui">
-				  <label>Business Unit</label>
+				  <label>Unidad de Negocios</label>
 				<div class="division"><?php echo $this->form->businessunit_id; ?></div>
 				<?php if(isset($this->msgarray['businessunit_id'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->businessunit_id->getId(); ?>"><?php echo $this->msgarray['businessunit_id'];?></span>
 				<?php }?>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label>Department<!-- <img class="tooltip" title="Select business unit to populate departments" src="<?php //echo $this->baseUrl().'/public/media/';?>images/help.png">--></label>
+				  <label>Departamento<!-- <img class="tooltip" title="Select business unit to populate departments" src="<?php //echo $this->baseUrl().'/public/media/';?>images/help.png">--></label>
 				<div class="division"><?php echo $this->form->department_id; ?></div>
 				<!--<div id="helptext" class="helptext">Select business unit to populate departments</div>-->
-				
+
 				<?php if(isset($this->msgarray['department_id'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->department_id->getId(); ?>"><?php echo $this->msgarray['department_id'];?></span>
 				<?php } else {?>
 				   <span class="errors" id="errors-<?php echo $this->form->department_id->getId(); ?>" style="display:none;"></span>
 				<?php }?>
 				</div>
-				
+
 				<div class="new-form-ui">
-				  <label id="lbl_rm">Reporting Manager</label>
+				  <label id="lbl_rm">Gerente de Informes</label>
 				<div class="division"><?php echo $this->form->reporting_manager; ?></div>
-				
+
 				<?php if(isset($this->msgarray['reporting_manager'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->reporting_manager->getId(); ?>"><?php echo $this->msgarray['reporting_manager'];?></span>
 				<?php } else {?>
 				   <span class="errors" id="errors-<?php echo $this->form->reporting_manager->getId(); ?>" style="display:none;"></span>
-				<?php } ?>   
+				<?php } ?>
 				</div>
-		<?php 
+		<?php
 			}
 		?>
 			<div class="new-form-ui">
-			  <label>Job Title</label>
+			  <label>Título Profesional</label>
 			<div class="division"><?php echo $this->form->jobtitle_id; ?></div>
 			<?php if(isset($this->msgarray['jobtitle_id'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->jobtitle_id->getId(); ?>"><?php echo $this->msgarray['jobtitle_id'];?></span>
 			<?php }?>
 			</div>
-			
+
 			<div class="new-form-ui">
-			  <label>Position </label>
+			  <label>Posición </label>
 			<div class="division"><?php echo $this->form->position_id; ?></div>
-				
+
 			<?php if(isset($this->msgarray['position_id'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->position_id->getId(); ?>"><?php echo $this->msgarray['position_id'];?></span>
 			<?php } else {?>
 			   <span class="errors" id="errors-<?php echo $this->form->position_id->getId(); ?>" style="display:none;"></span>
 			<?php } ?>
 			</div>
-		<?php	
+		<?php
 			if($this->empdata['is_orghead'] == 0)
 			{
-		?>			
-		
+		?>
+
 			<div class="new-form-ui">
-			  <label>Employment Status</label>
+			  <label>Estado del Empleo</label>
 			<div class="division"><?php echo $this->form->emp_status_id; ?></div>
 			<?php if(isset($this->msgarray['emp_status_id'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->emp_status_id->getId(); ?>"><?php echo $this->msgarray['emp_status_id'];?></span>
@@ -224,20 +224,20 @@
 			</div>
 		<?php
 			}
-		?>	
+		?>
 			<div class="new-form-ui">
-			  <label>Date of Joining</label>
+			  <label>Fecha de Ingreso</label>
 			<div class="division"><?php echo $this->form->date_of_joining; ?></div>
 			<?php if(isset($this->msgarray['date_of_joining'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->date_of_joining->getId(); ?>"><?php echo $this->msgarray['date_of_joining'];?></span>
 			<?php }?>
 			</div>
-		<?php 
+		<?php
 		   if($this->empdata['is_orghead'] == 0)
 		   {
-		?>	
+		?>
 				<div class="new-form-ui">
-				  <label>Date of Leaving </label>
+				  <label>Fecha de partida </label>
 				<div class="division"><?php echo $this->form->date_of_leaving; ?></div>
 				<span class="errors" id="errors-date_of_leaving" style="display:none;"></span>
 				<?php if(isset($this->msgarray['date_of_leaving'])){?>
@@ -248,12 +248,12 @@
 			}
 		?>
 
-			
+
 			<div class="new-form-ui">
-			  <label>Years of Experience</label>
+			  <label>Años de Experiencia</label>
 			<div class="division"><?php echo $this->form->years_exp; ?></div>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label ><?php echo $this->form->office_number->getLabel(); ?></label>
 			<div class="division"><?php echo $this->form->office_number; ?></div>
@@ -261,7 +261,7 @@
 			   <span class="errors" id="errors-<?php echo $this->form->office_number->getId(); ?>"><?php echo $this->msgarray['office_number'];?></span>
 			<?php }?>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label ><?php echo $this->form->extension_number->getLabel(); ?></label>
 			<div class="division"><?php echo $this->form->extension_number; ?></div>
@@ -269,7 +269,7 @@
 			   <span class="errors" id="errors-<?php echo $this->form->extension_number->getId(); ?>"><?php echo $this->msgarray['extension_number'];?></span>
 			<?php }?>
 			</div>
-			
+
 			<div class="new-form-ui">
 			  <label ><?php echo $this->form->office_faxnumber->getLabel(); ?></label>
 			<div class="division"><?php echo $this->form->office_faxnumber; ?></div>
@@ -279,18 +279,18 @@
 			</div>
 			<div class="new-form-ui-submit">
 				<?php echo $this->form->submit; ?>
-				
-		</div>  
+
+		</div>
 	</div>
      </form>
-</div>	
+</div>
 </div>
 
 <script type='text/javascript'>
 $(document).ready(function(){
-					
+
 var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."'"; ?>;
-   
+
 	/*	For management role reporting manager is not manditory	*/
     $("#emprole").change(function()
 	{
@@ -308,7 +308,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
 						/*	Remove reporting managers drop down options and set the values to super admin id	*/
 						$("#reporting_manager  option").remove();
 						$("#reporting_manager").html("<option value = '<?php echo SUPERADMIN;?>'>Super Admin</option>");
-						$('#s2id_reporting_manager').find('a.select2-choice').find('span').html('Super Admin');      
+						$('#s2id_reporting_manager').find('a.select2-choice').find('span').html('Super Admin');
 						if($('#department_id').val() != "")
 							$("#department_id").trigger('change');
 						$("#reporting_manager").val('<?php echo SUPERADMIN;?>');
@@ -326,10 +326,10 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
 			$('#dispmsgemp').fadeOut('slow');
 		},3000);
 
-<?php } ?>    
+<?php } ?>
     $("#empdetails").addClass('active');
     $("#empdetails").removeAttr("onclick");
-    
+
         function val_userfullname()
     {
        $('#errors-userfullname').remove();
@@ -341,7 +341,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
        {
            $('#errors-userfullname').remove();
            $('#userfullname').trigger('keyup');
-       } 
+       }
     }
 
         function val_firstname()
@@ -356,7 +356,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
            {
                $('#errors-firstname').remove();
                $('#firstname').trigger('keyup');
-           } 
+           }
         }
 
         function val_lastname()
@@ -371,8 +371,8 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
            {
                $('#errors-lastname').remove();
                $('#lastname').trigger('keyup');
-           } 
-        }    
+           }
+        }
     function val_other_modeofentry()
     {
        $('#errors-other_modeofentry').remove();
@@ -396,11 +396,11 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         else
         {
             $('#errors-rccandidatename').remove();
-        } 
+        }
     }
 	/*	For Management - Reporting Manager is not manditory	*/
 	function val_reportingmanager()
-    {	
+    {
         $('#errors-reporting_manager').remove();
         if($.trim($('#reporting_manager').val()) == '')
         {
@@ -409,7 +409,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         else
         {
             $('#errors-reporting_manager').remove();
-        } 
+        }
     }
     function val_referredby()
     {
@@ -421,23 +421,23 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         else
         {
             $('#errors-candidatereferredby').remove();
-        } 
+        }
     }
     function modeofentry_helper(val)
     {
         if(val == 'Direct')
         {
             $('#iddiv_fullname').show();
-            
+
             $('#iddiv_canditatename').hide();
             $('#s2id_rccandidatename').off('blur',val_candidatename);
             $('#candidatereferredby').val('');
-            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');            
+            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');
             $('#s2id_candidatereferredby').off('blur',val_referredby);
             $('#iddiv_referredby').hide();
-            $('#iddiv_otherentry').hide();            
+            $('#iddiv_otherentry').hide();
             $('#rccandidatename').val('');
-            $('#s2id_rccandidatename').find('a.select2-choice').find('span').html('Select Candidate');            
+            $('#s2id_rccandidatename').find('a.select2-choice').find('span').html('Select Candidate');
             $('#rccandidatename').parent().parent().find('label').removeClass('required');
             //$('#userfullname').on('blur',val_userfullname);
             $('#firstname').on('blur',val_firstname);
@@ -449,14 +449,14 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         }
         else if(val == 'Reference')
         {
-            $('#iddiv_referredby').show();            
-            
+            $('#iddiv_referredby').show();
+
             $('#iddiv_fullname').hide();
             $('#iddiv_otherentry').hide();
             //$('#userfullname').val('');
             $('#firstname').val('');
             $('#lastname').val('');
-            $('#iddiv_canditatename').show();  
+            $('#iddiv_canditatename').show();
             $('#s2id_rccandidatename').on('blur',val_candidatename);
             $('#rccandidatename').parent().parent().find('label').addClass('required');
             //$('#userfullname').off('blur',val_userfullname);
@@ -469,9 +469,9 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         {
             $('#iddiv_canditatename').show();
             $('#s2id_rccandidatename').on('blur',val_candidatename);
-            $('#iddiv_otherentry').show();    
+            $('#iddiv_otherentry').show();
             $('#candidatereferredby').val('');
-            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');  
+            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');
             $('#s2id_candidatereferredby').off('blur',val_referredby);
             //$('#userfullname').val('');
             $('#firstname').val('');
@@ -484,13 +484,13 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
             $('#lastname').off('blur',val_lastname);
             $('#other_modeofentry').on('blur',val_other_modeofentry);
         }
-        else 
-        {   
+        else
+        {
             $('#iddiv_otherentry').hide();
             $('#iddiv_canditatename').show();
             $('#s2id_rccandidatename').on('blur',val_candidatename);
             $('#candidatereferredby').val('');
-            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');  
+            $('#s2id_candidatereferredby').find('a.select2-choice').find('span').html('Select Referred By');
             $('#s2id_candidatereferredby').off('blur',val_referredby);
             //$('#userfullname').val('');
             $('#firstname').val('');
@@ -519,16 +519,16 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         if(other_val != '')
             $('#errors-other_modeofentry').remove();
         modeofentry_helper(val);
-            
+
     });//end of mode of entry
         $('#rccandidatename').change(function(){
         var emp_name = $('#rccandidatename option:selected').text();
         $('#tmp_emp_name').val(emp_name);
     });
-<?php 
+<?php
     if($this->form->id->getValue() != '')
     {
-?>     
+?>
         //$('#userfullname').on('blur',val_userfullname);
         $('#firstname').on('blur',val_firstname);
         $('#lastname').on('blur',val_lastname);
@@ -542,7 +542,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         {
             $('#iddiv_fullname').show();
             $('#rccandidatename').val('');
-            $('#iddiv_canditatename').hide();            
+            $('#iddiv_canditatename').hide();
         }
         else if(val == 'Reference')
         {
@@ -551,20 +551,20 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
             //$('#userfullname').val('');
             $('#firstname').val('');
             $('#lastname').val('');
-            $('#iddiv_canditatename').show();        
+            $('#iddiv_canditatename').show();
         }
         else if(val == 'Other')
         {
-            $('#iddiv_canditatename').show();            
-            $('#iddiv_otherentry').show();    
-            $('#candidatereferredby').val('');                        
+            $('#iddiv_canditatename').show();
+            $('#iddiv_otherentry').show();
+            $('#candidatereferredby').val('');
             //$('#userfullname').val('');
             $('#firstname').val('');
             $('#lastname').val('');
             $('#iddiv_referredby').hide();
-            $('#iddiv_fullname').hide();            
+            $('#iddiv_fullname').hide();
         }
-        else 
+        else
         {
             $('#iddiv_canditatename').show();
             $('#candidatereferredby').val('');
@@ -572,10 +572,10 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
             $('#firstname').val('');
             $('#lastname').val('');
             $('#iddiv_referredby').hide();
-            $('#iddiv_fullname').hide();           
+            $('#iddiv_fullname').hide();
         }
-        
-<?php         
+
+<?php
     }
 ?>
     $('#act_inact').click(function(){
@@ -584,19 +584,19 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
         {
             $('#hidact_inact').val('1');
         }
-        else 
+        else
         {
             $('#hidact_inact').val('0');
         }
     });
     $('#emp_status_id').change(function(){
         var val = parseFloat($(this).val());
-        
+
         if(val == 8 || val == 9 || val == 10)
         {
             $('#date_of_leaving').datepicker({
                 showOn:'both',
-                maxDate: new Date, 
+                maxDate: new Date,
                 yearRange: yearrange,
                 dateFormat: '<?php echo DATEFORMAT_JS;?>',
                 buttonImage: "<?php echo $this->baseUrl("public/media/images/cal.jpg");?>",
@@ -608,7 +608,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
                 onClose:function(){
                     $('#date_of_leaving').trigger('blur');
                 }
-				
+
             });
         }
         else
@@ -616,7 +616,7 @@ var yearrange = <?php echo "'".date("Y", strtotime("-30 years")).':'.date('Y')."
             $('#date_of_leaving').datepicker( "destroy" );
             $('#date_of_leaving').val('');
         }
-                
+
     });
     $('#emp_status_id').trigger('change');
 });//end of ready function

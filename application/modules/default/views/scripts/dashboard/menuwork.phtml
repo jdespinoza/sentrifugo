@@ -1,8 +1,8 @@
-<?php 
-/********************************************************************************* 
+<?php
+/*********************************************************************************
  *  This file is part of Sentrifugo.
  *  Copyright (C) 2014 Sapplica
- *   
+ *
  *  Sentrifugo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -76,9 +76,9 @@ $(function(){
 	if($.browser.msie){
     	$("div.formButtons").addClass("ie");
     }
-	
+
 	$('div.defaultFormRowDiv').has('textarea').addClass("textareaheight");
-	$('div.formRowDiv').has('textarea').addClass("textareaheight");	
+	$('div.formRowDiv').has('textarea').addClass("textareaheight");
 });
 
 </script>
@@ -93,11 +93,11 @@ function addfunctionality()
 {
 	$('#ui-id-1').html('Attachments');
 	$('#ui-dialog-title-AttachmentContainer').html('Attachments');
-	
+
 	$(".ui-pg-selbox").chosen({
 	disable_search_threshold: 10
-	});		
-	
+	});
+
 	$('button.ui-dialog-titlebar-close').addClass('button-reset');
 }
 
@@ -105,8 +105,8 @@ function addfunctionality()
 var projectPath =  '/Sentrifugo/';
 
 $(document).ready(function(){
-	$('.logoutdiv').hide(); 
-	
+	$('.logoutdiv').hide();
+
 	/* Added By sapplica, for logout dropdown */
 	$(document).click(function(e)  {
 		if(e.target.id == "logoutbutton" || e.target.id == "prof_image" || e.target.id == "prof_name" || e.target.id == 'b_id')
@@ -121,34 +121,34 @@ $(document).ready(function(){
 		}
 	});
   /* End of logout dropdown */
-  
+
   /* Making window responsive*/
   	var window_width = $(document).width();
 	var content_inners_width = window_width*(99/100);
 	$('.content_inners').css("width", content_inners_width);
 	$('.wrapperdivleft').css("width", "270");
-	$('.wrapperdivright').css("width", (content_inners_width-270));	
-		
+	$('.wrapperdivright').css("width", (content_inners_width-270));
+
 	function checkWidth() {
         var window_width = $(window).width();
 		var content_inners_width = window_width*(99/100);
 		$('.content_inners').css("width", content_inners_width);
 		$('.wrapperdivleft').css("width", "270");
-		$('.wrapperdivright').css("width", (content_inners_width-270));		
+		$('.wrapperdivright').css("width", (content_inners_width-270));
     }
 	$(window).resize(function() {
 		checkWidth();
 	});
   /* End of Making window responsive */
-  
+
   /* Apply chosen dropdown */
 	$(".ui-pg-selbox").chosen({
 	disable_search_threshold: 10
-	}); 	
+	});
 	$("select").chosen({
 	disable_search_threshold: 6
-	}); 
-	
+	});
+
 	// Making forms containing tabs - responsive
 	$(function(){
 		$('#tabContainer > ul').attr('id','tabContainerDiv');
@@ -157,63 +157,63 @@ $(document).ready(function(){
 	$('#tabContainer').css("width", maincontentdiv_width);
 	$('#tabContainer > ul').css("width", "201");
 	$('div[id^="tabContainer-frag-"]').css("width", (maincontentdiv_width-244));
-	
+
 	$(window).resize(function() {
 		var maincontentdiv_width = $('#maincontentdiv').width();
 		$('#tabContainer').css("width", maincontentdiv_width);
 		$('#tabContainer > ul').css("width", "201");
-		$('div[id^="tabContainer-frag-"]').css("width", (maincontentdiv_width-244));	
-	});	
+		$('div[id^="tabContainer-frag-"]').css("width", (maincontentdiv_width-244));
+	});
 });
 
 
 
 $(document).ready(function(){
 
-    $(".wrapperdivleft a").not("#moreLinkDiv a,#lessLinkDiv a,.dragableBox li a,.parentmenu").click(function(){ //.not(".no_loader,.search-choice-close").not(".chzn-single")	
+    $(".wrapperdivleft a").not("#moreLinkDiv a,#lessLinkDiv a,.dragableBox li a,.parentmenu").click(function(){ //.not(".no_loader,.search-choice-close").not(".chzn-single")
 			    	$.blockUI({ width:'50px',message: $("#spinner").html() });
-	});  	
+	});
 
-	$(".profile-tabs-left a").click(function(){ 
+	$(".profile-tabs-left a").click(function(){
 			    	$.blockUI({ width:'50px',message: $("#spinner").html() });
 			    });
-				
-	 
-	 $(".settings").click(function(){ 
+
+
+	 $(".settings").click(function(){
 			    	$.blockUI({ width:'50px',message: $("#spinner").html() });
 			    });
-	
-     $("#logoutid a").click(function(){ 		    	
-			    		$.blockUI({ width:'50px',message: $("#spinner").html() });					
-	});	
-	
-	$('.logo').click(function() { 
-			$.blockUI({ width:'50px',message: $("#spinner").html() });
-        });
-		
-	$('.firstbreadcrumb').click(function() { 
+
+     $("#logoutid a").click(function(){
+			    		$.blockUI({ width:'50px',message: $("#spinner").html() });
+	});
+
+	$('.logo').click(function() {
 			$.blockUI({ width:'50px',message: $("#spinner").html() });
         });
 
-    $('#Save').click(function() { 
-			$('.wrapperdivright').block({width:'50px',message: $("#spinner").html() }); 
-        });	
+	$('.firstbreadcrumb').click(function() {
+			$.blockUI({ width:'50px',message: $("#spinner").html() });
+        });
 
-    $('#Cancel').click(function() { 
-			$('.wrapperdivright').block({message: $("#spinner").html() }); 
-        });		
-		
-	$('#Edit').click(function() { 
-			$('.wrapperdivright').block({message: $("#spinner").html() }); 
-        });		
+    $('#Save').click(function() {
+			$('.wrapperdivright').block({width:'50px',message: $("#spinner").html() });
+        });
 
-				
+    $('#Cancel').click(function() {
+			$('.wrapperdivright').block({message: $("#spinner").html() });
+        });
+
+	$('#Edit').click(function() {
+			$('.wrapperdivright').block({message: $("#spinner").html() });
+        });
+
+
 		$(document).ajaxSuccess(function(event, request, settings){
 					var response = request.responseText;
 					if(response == '{"login":"failed"}'){
 						window.location.href = '<?php echo $this->serverUrl().$this->baseUrl();?>';
 					}
-			   });			
+			   });
 	});
 
 
@@ -225,12 +225,12 @@ $(".dragableBox li a").draggable({
 		containment: 'window',
 		scroll: false,
 		revert: true,
-		start: function(){	
+		start: function(){
    					$('#dragid').val(this.id);
 					if(tabFlag == 'widgets')
 						$("#settingstab").show();
 					else if(tabFlag == 'shortcuts')
-						$("#shortcuticontab").show();					
+						$("#shortcuticontab").show();
 				},
 		drag: function() {
 					if(tabFlag == 'widgets')
@@ -242,7 +242,7 @@ $(".dragableBox li a").draggable({
 		stop: function() {
 					$('.dragableBox').css('z-index',99);
 				}
-		
+
 		});
 $("#settingstab").droppable({
 	tolerance: 'touch',
@@ -255,11 +255,11 @@ $("#settingstab").droppable({
 			$("#settingstab").removeClass("newtr");
 	},
 	drop: function() {
-		   
+
 			var itemID = $('#dragid').val();
-			makeDroppableAjaxCall(itemID); 
+			makeDroppableAjaxCall(itemID);
 			$("#settingstab").css('cursor','');
-			
+
 	}
     });
 $("#shortcuticontab").droppable({
@@ -273,11 +273,11 @@ $("#shortcuticontab").droppable({
 			$("#shortcuticontab").removeClass("newtr");
 	},
 	drop: function() {
-		   
+
 			var itemID = $('#dragid').val();
-			makeDroppableAjaxCall(itemID); 
+			makeDroppableAjaxCall(itemID);
 			$("#shortcuticontab").css('cursor','');
-			
+
 	}
     });
 
@@ -288,7 +288,7 @@ $(document).ready(function(){
 
     var browser;
 	var version = $.browser.version;
-	
+
     if($.browser.mozilla)
 	{
 	  if(version<5)
@@ -297,7 +297,7 @@ $(document).ready(function(){
 	}
     else if($.browser.msie)
 	{
-     if(version<8)      
+     if(version<8)
 		window.location.href = "<?php echo $baseUrl."/index/browserfailure";?>";
 	}
     else if($.browser.chrome)
@@ -314,7 +314,7 @@ $(document).ready(function(){
 	{
        if(version<12)
 		window.location.href = "<?php echo $baseUrl."/index/browserfailure";?>";
-	}    
+	}
   });
 
 <?php } ?>
@@ -329,7 +329,7 @@ $(document).ready(function(){
 							tabinit:"1",
 							fadespeed:"fast"
 							});
-	
+
 });
 -->
 </script>
@@ -338,13 +338,13 @@ $(document).ready(function(){
 </head>
 <?php $auth = Zend_Auth::getInstance();
 	//reference layout_attachments.phtml ?>
-<?php  
+<?php
 $loginUserName = ""; $loginUserId = '';
               if($auth->hasIdentity()){
 					$loginUserId = $auth->getStorage()->read()->id;
-					$loginProfileImg = $auth->getStorage()->read()->profileimg;					
-					$loginUserName =$auth->getStorage()->read()->employeeId;	
-					$loginuserRole = $auth->getStorage()->read()->emprole;	
+					$loginProfileImg = $auth->getStorage()->read()->profileimg;
+					$loginUserName =$auth->getStorage()->read()->employeeId;
+					$loginuserRole = $auth->getStorage()->read()->emprole;
 					}
 		$storage = new Zend_Auth_Storage_Session();
        	$data = $storage->read();
@@ -353,23 +353,23 @@ $loginUserName = ""; $loginUserId = '';
 <input type= "hidden" value= "<?php echo $baseUrl;?>" id = "baseurl" />
 <input type= "hidden" value= "" id = "dragid" />
 
-<script type="text/javascript" language="javascript"> 
+<script type="text/javascript" language="javascript">
      base_url = $('#baseurl').val();
 </script>
-  <?php 
-			 if($actionName !='browserfailure'){ ?> 
+  <?php
+			 if($actionName !='browserfailure'){ ?>
 	<div id='mainDiv' align="center">
 		<div id="main-div">
-			<div id="page-container" style="width: 100%;">        
+			<div id="page-container" style="width: 100%;">
 				<!-- Header Part Starts-->
-				<div id="header">					
+				<div id="header">
 					<?php  if($auth->hasIdentity()){ ?>
 					<a href="<?php echo BASE_URL;?>" style="text-decoration:none;" class="logo"></a> <!-- added by sapplica -->
-					
+
 					<div class="links">
 	                    <label class="site-link">Configure Site</label><small>|</small>
-						<!--<label>Logged in as</label>		-->				
-						<a class="userprofilepic" id="logoutbutton"> 
+						<!--<label>Logged in as</label>		-->
+						<a class="userprofilepic" id="logoutbutton">
 						<?php if($loginProfileImg !=''){?>
 							<i id="profimg">
 							 <img id="prof_image" width="28" height="28" border="0" src="<?php echo $baseUrl; ?>/public/uploads/profile/<?php echo $loginProfileImg;?>" onerror="this.src='<?php echo MEDIA_PATH; ?>images/profile_pic.png'">
@@ -377,34 +377,34 @@ $loginUserName = ""; $loginUserId = '';
 						<?php }else{?>
                             <i id="profimg">
 							 <img id="prof_image" width="28" height="28" border="0" src="<?php echo MEDIA_PATH;?>images/profile_pic.png" >
-							</i> 
-                        <?php } ?> 						
+							</i>
+                        <?php } ?>
 							<span id="prof_name"> <?php echo $loginUserName; ?> </span>
-							<b id="b_id" ></b>							
+							<b id="b_id" ></b>
 						</a>
 						<div class="logoutdiv" id="logoutid" style="display:none">
                         	<div class="arrow-div"></div>
-							<a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">View Profile</a>
-							<a href="<?php echo BASE_URL; ?>viewsettings/1">Settings</a>
-							<a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Change Password</a>
-							<a href="<?php echo $baseUrl; ?>/index/logout">Logout</a>
+							<a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">Ver Perfil</a>
+							<a href="<?php echo BASE_URL; ?>viewsettings/1">Ajustes</a>
+							<a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Cambiar Contraseña</a>
+							<a href="<?php echo $baseUrl; ?>/index/logout">Cerrar Sesión</a>
 						</div>
 					</div>
 					<?php } //endif; ?>
 				</div>
-				<!-- Header End here-->		
-           
+				<!-- Header End here-->
+
                <div id="content">
 
 					<div class="content_inners">
 					<div id="container">
 							<div id="spinner" class="ajax-loader" style="display:none;" >
 								<img id="img-spinner"
-									src="<?php echo MEDIA_PATH;?>images/loader2.gif" alt="Loading" />				
+									src="<?php echo MEDIA_PATH;?>images/loader2.gif" alt="Loading" />
 							</div>
 							<div id="wrapper"> <!-- added by sapplica -->
-								<div class="wrapperdiv">	
-                                 							
+								<div class="wrapperdiv">
+
 									<div class="full-page" >
     <!-- Tabs -->
     <div id="tabsholder">
@@ -437,9 +437,9 @@ Maecenas mattis semper dapibus. In non elit vel diam aliquet sodales. Nam euismo
 										<div id="breadcrumdiv">
 										</div>
 										<?php echo $this->message;?>
-										<div id="maincontentdiv">	
+										<div id="maincontentdiv">
 											<?php } ?>
-                                           <?php if($actionName !='browserfailure'){ ?> 			            
+                                           <?php if($actionName !='browserfailure'){ ?>
 										</div>
                    </div>
 		         <div style="clear: both;"></div>
@@ -449,12 +449,12 @@ Maecenas mattis semper dapibus. In non elit vel diam aliquet sodales. Nam euismo
 	</div>
 </div>
 	<div style="height: 20px;">&nbsp;</div>
-</div>	
-			
+</div>
+
 			<div id="footer">
 				<div id="quickview" style="display:none"></div>
 				<div id="dialog" title="Confirmation Required" style="display: none;">
-				    <div id="dialogText"></div> 
+				    <div id="dialogText"></div>
                  </div>
 				<div class="footerdivbg"> <!-- added by sapplica -->
 					<?php if($auth->hasIdentity()) {?>
@@ -462,7 +462,7 @@ Maecenas mattis semper dapibus. In non elit vel diam aliquet sodales. Nam euismo
 						<img width="18" height="19" border="0" src="<?php echo MEDIA_PATH; ?>images/settings_icon.png">
 					</a>
 					<!-- Added by sapplica
-					Here we are displaying the recently clicked tabs by the user -->					
+					Here we are displaying the recently clicked tabs by the user -->
 				</div>
 		</div>
 		<?php } ?>
@@ -471,7 +471,7 @@ Maecenas mattis semper dapibus. In non elit vel diam aliquet sodales. Nam euismo
 		</div>
 
 	</div>
-	
+
 	<script type="text/javascript" src="<?php echo MEDIA_PATH; ?>jquery/js/jquery.form.js"></script>
 <script type="text/javascript" src="<?php echo MEDIA_PATH; ?>jquery/js/jquery.blockUI.js"></script>
 <script  language="JavaScript" type="text/javascript" src="<?php echo MEDIA_PATH;?>jquery/js/customSelect.js" ></script>
@@ -480,7 +480,7 @@ Maecenas mattis semper dapibus. In non elit vel diam aliquet sodales. Nam euismo
 <link rel="stylesheet" type="text/css" href="<?php echo MEDIA_PATH; ?>css/loginstyle.css" />
 <footer>
 	<div class="footer-text">&copy; Sentrifugo, All Rights Reserved.</div>
-</footer> 
+</footer>
 <?php } ?>
 
 </body>

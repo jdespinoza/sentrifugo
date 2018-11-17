@@ -545,22 +545,22 @@ $(document).ready(function(){
                 </a>
                 <div class="logoutdiv" id="logoutid" style="display:none">
                 <div class="arrow-div"></div>
-                <a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">View Profile</a>
-                <a href="<?php echo $baseUrl; ?>/viewsettings/1">Settings</a>
-                <a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Change Password</a>
+                <a href="<?php echo $baseUrl; ?>/dashboard/viewprofile" class="first">Ver Perfil</a>
+                <a href="<?php echo $baseUrl; ?>/viewsettings/1">Ajustes</a>
+                <a href="<?php echo $baseUrl; ?>/dashboard/changepassword">Cambiar Contraseña</a>
 <?php
 if($loginuserRole == SUPERADMINROLE)
 {
 ?>
-        <a href="<?php echo $baseUrl; ?>/dashboard/emailsettings">Mail Settings</a>
+        <a href="<?php echo $baseUrl; ?>/dashboard/emailsettings">Configuración del Correo</a>
 <?php
 }
 if($loginuserRole == SUPERADMINROLE)
 {
 ?>
-	<a href="<?php echo $baseUrl; ?>/dashboard/upgradeapplication">Upgrade Application</a>
+	<a href="<?php echo $baseUrl; ?>/dashboard/upgradeapplication">Actualizar Aplicación</a>
 <?php }?>
-    <a href="<?php echo $baseUrl; ?>/index/logout">Logout</a>
+    <a href="<?php echo $baseUrl; ?>/index/logout">Cerrar Sesión</a>
         </div>
     </div>
             <?php if($loginuserRole == SUPERADMINROLE)
@@ -609,7 +609,7 @@ if($loginuserRole == SUPERADMINROLE)
 		        </div>
   			</div>
   			<div class="back-page-div-report" style = "right: 26px;top: 9px;">
-			<a href="<?php echo $baseUrl; ?>/welcome" class="sprite reports-back-btn " style="float:left;">Back to Dashboard</a>
+			<a href="<?php echo $baseUrl; ?>/welcome" class="sprite reports-back-btn " style="float:left;">Regresar a Inicio</a>
 			<a target="_blank" href="<?php echo DOMAIN; ?>public/downloads/time.pdf" class="importformatlink flt_left" style="margin-top:-4px;">Help</a>
 			</div>
 			<div class="notification_icon" style = "right: 200px;top: 9px;">
